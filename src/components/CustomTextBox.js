@@ -5,8 +5,8 @@ export default class CustomTextBox extends Component {
     render() {
         return(
             <Input
-                style={{textAlign: 'center'}}
-                rounded
+                style={this.props.style}
+                type={this.props.type}
                 placeholder={this.props.placeholder}
                 secureTextEntry={this.props.secureTextEntry}
             />
