@@ -1,31 +1,57 @@
 import React, {Component} from 'react';
-import {Container, Button, Text, Icon} from 'native-base';
-import {StyleSheet} from "react-native";
+import {Container, Button, Text, Icon, Spinner} from 'native-base';
+import {LayoutAnimation, StyleSheet, UIManager} from "react-native";
 
 class CustomButton extends Component {
+
+    componentWillUpdate() {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+        LayoutAnimation.spring();
+    }
+
     render() {
-        const {text, icon, onPress} = this.props;
         return (
             <Container>
-                <Button onPress={onPress} block success style={style.button}>
-                    <Icon type={"MaterialCommunityIcons"} name={icon}/>
-                    <Text style={style.text}>{text}</Text>
+                <Button onPress={this.props.onPress} block success
+                        style={this.props.mode ? style.loading : style.normal}>
+                    {this.renderButton()}
                 </Button>
             </Container>
         );
     }
+
+    renderButton() {
+        const {text, icon, mode} = this.props;
+        if (mode) {
+            return (
+                <Spinner color='green'/>
+            )
+        } else {
+            return (
+                <Text style={style.text}>{text}</Text>
+                // <Icon type={"MaterialCommunityIcons"} name={icon}/>
+            )
+        }
+    }
 }
 
 const style = StyleSheet.create({
-    button: {
+    normal: {
         alignSelf: 'center',
-        marginRight: 30, marginLeft: 30,
+        marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 300, height: 50,
-        backgroundColor: "#008464",
+        backgroundColor: "#252384",
+        borderRadius: 10
+    },
+    loading: {
+        alignSelf: 'center',
+        marginRight: 30, marginLeft: 30, marginTop: 15,
+        width: 50, height: 50,
+        backgroundColor: "#252384",
         borderRadius: 10
     },
     text: {
-        fontFamily: 'IRANSansWeb',
+        fontFamily: 'IRANSansWeb'
     }
 });
 
