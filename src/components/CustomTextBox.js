@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import { Input, StyleSheet } from 'native-base';
+import React, {Component} from 'react';
+import {Input} from 'native-base';
 
 export default class CustomTextBox extends Component {
     render() {
-        return(
+        const {style, type, placeholder, secureTextEntry} = this.props;
+        return (
             <Input
-                style={this.props.style}
-                type={this.props.type}
-                placeholder={this.props.placeholder}
-                secureTextEntry={this.props.secureTextEntry}
+                style={style}
+                type={type}
+                placeholder={placeholder}
+                secureTextEntry={secureTextEntry}
                 fontFamily={'IRANSansWeb'}
             />
         );
-    }       
+    }
 }

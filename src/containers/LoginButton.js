@@ -23,9 +23,6 @@ const styles = StyleSheet.create({
         width: 300, height: 50,
         backgroundColor: "#ff1a1e",
         borderRadius: 10
-    },
-    text: {
-        fontFamily: 'IRANSansWeb',
     }
 });
 
@@ -33,7 +30,6 @@ const mapStateToProps = (state) => ({
     style: chooseStyle(state),
     disabled: state.disabled,
     loading: state.mode === "LOADING",
-
 });
 
 function chooseStyle(state) {
@@ -47,8 +43,7 @@ function chooseStyle(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    onPress: () => dispatch({type:''})
+    onPress: () => dispatch({type: ''})
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpinnerButton);
