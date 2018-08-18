@@ -3,7 +3,6 @@ import {Button, Text, Icon, Spinner} from 'native-base';
 import {View} from "react-native";
 
 class SpinnerButton extends Component {
-
     render() {
         const {disabled, onPress, style} = this.props;
         return (
