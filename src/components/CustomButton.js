@@ -5,7 +5,7 @@ import {LayoutAnimation, StyleSheet, UIManager} from "react-native";
 class CustomButton extends Component {
 
     componentWillUpdate() {
-        UIManager.setLayoutAnimationEnabledExperimental(true);
+        // UIManager.setLayoutAnimationEnabledExperimental(true);
         LayoutAnimation.spring();
     }
 

@@ -13,3 +13,14 @@ export default class CustomTextBox extends Component {
         );
     }       
 }
+
+const style = StyleSheet.create({
+    normal: {
+        marginRight: 30, marginLeft: 30,
+        width: 300, height: 50,
+        backgroundColor: "white"
+    },
+    text: {
+        fontFamily: 'IRANSansWeb'
+    }
+});
