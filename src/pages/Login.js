@@ -1,8 +1,9 @@
 import React, {Component,} from 'react';
 import CustomTextBox from '../components/CustomTextBox';
 import {Container, Item, Text} from 'native-base';
-import {TouchableHighlight} from 'react-native'
+import {TouchableHighlight, View} from 'react-native'
 import LoginButton from '../containers/LoginButton';
+import { SocialIcon } from 'react-native-elements'
 
 export default class Login extends Component {
     render() {
@@ -28,8 +29,23 @@ export default class Login extends Component {
                           fontFamily={'IRANSansWeb'}>{'آیا رمز عبود خود را فراموش کرده‌اید؟'}</Text>
                 </TouchableHighlight>
 
+                <View style = {{flex:1, flexDirection: 'row', marginTop: 92, alignSelf: 'center'}}>
+                    <SocialIcon 
+                        light
+                        type='facebook'
+                    />
+                    <SocialIcon 
+                        light
+                        type='google'
+                    />
+                    <SocialIcon
+                        light
+                        type='twitter'
+                    />
+                </View>
+
                 <TouchableHighlight>
-                    <Text style={{marginTop: 157, alignSelf: 'center', color: 'white', fontSize: 12}}
+                    <Text style={{marginBottom: 45, alignSelf: 'center', color: 'white', fontSize: 12}}
                           fontFamily={'IRANSansWeb'}>{'ثبت‌نام'}</Text>
                 </TouchableHighlight>
 
