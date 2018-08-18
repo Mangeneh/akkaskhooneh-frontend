@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     loadingStyle: {
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
-        width: 50, height: 50,
+        width: 300, height: 50,
         backgroundColor: "#00541a",
         borderRadius: 10
     },
