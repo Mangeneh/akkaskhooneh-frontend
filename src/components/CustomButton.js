@@ -5,18 +5,16 @@ import {LayoutAnimation, StyleSheet, UIManager} from "react-native";
 class CustomButton extends Component {
 
     componentWillUpdate() {
-        UIManager.setLayoutAnimationEnabledExperimental(true);
-        LayoutAnimation.spring();
+        // UIManager.setLayoutAnimationEnabledExperimental(true);
+        // LayoutAnimation.spring();
     }
 
     render() {
         return (
-            <Container>
-                <Button onPress={this.props.onPress} block success
-                        style={this.props.mode ? style.loading : style.normal}>
-                    {this.renderButton()}
-                </Button>
-            </Container>
+            <Button onPress={this.props.onPress} block success
+                    style={this.props.mode ? style.loading : style.normal}>
+                {this.renderButton()}
+            </Button>
         );
     }
 
@@ -40,14 +38,14 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 300, height: 50,
-        backgroundColor: "#252384",
+        backgroundColor: "#00541a",
         borderRadius: 10
     },
     loading: {
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 50, height: 50,
-        backgroundColor: "#252384",
+        backgroundColor: "#00541a",
         borderRadius: 10
     },
     text: {
