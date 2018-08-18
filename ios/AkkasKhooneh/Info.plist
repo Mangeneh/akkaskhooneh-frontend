@@ -67,6 +67,14 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>IRANSansWeb_Bold.ttf</string>
+		<string>IRANSansWeb_Light.ttf</string>
+		<string>IRANSansWeb_Medium.ttf</string>
+		<string>IRANSansWeb_UltraLight.ttf</string>
+		<string>IRANSansWeb.ttf</string>
+		<string>Roboto_medium.ttf</string>
+		<string>Roboto.ttf</string>
+		<string>rubicon-icon-font.ttf</string>
 	</array>
 </dict>
 </plist>
