@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import {Input} from 'native-base';
+import {Textarea} from 'native-base';
 
-export default class CustomTextBox extends Component {
+export default class CustomLongTextBox extends Component {
     render() {
         const {style, type, placeholder, secureTextEntry, disabled} = this.props;
         return (
-            <Input
+            <Textarea
+                rowSpan={5}
                 style={style}
-                type={type}
                 placeholder={placeholder}
                 disabled={disabled}
-                secureTextEntry={secureTextEntry}
                 fontFamily={'IRANSansWeb'}
             />
         );
