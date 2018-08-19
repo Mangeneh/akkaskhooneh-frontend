@@ -1,11 +1,12 @@
 import React, {Component,} from 'react';
 import CustomTextBox from '../components/CustomTextBox';
-import {Container, Item, Text} from 'native-base';
-import {TouchableOpacity, View} from 'react-native'
+import {Container, Item, Text, Icon} from 'native-base';
+import {TouchableOpacity, View, StyleSheet} from 'react-native'
 import LoginButton from '../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
 import {Strings} from '../config/Strings';
 import RoundAvatar from "../components/RoundAvatar";
+import {Colors} from "../config/Colors";
 
 export default class SignUp extends Component {
     render() {
@@ -13,33 +14,48 @@ export default class SignUp extends Component {
         return (
             <Container style={{backgroundColor: '#5c5c5c', flex: 1}}>
 
-                <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                <View style={styles.partition}>
                     <RoundAvatar style={{alignSelf: 'center', marginBottom: 15}}/>
                     <Text style={{fontSize: 12, color: 'white', textAlign: 'center'}}
                           fontFamily={'IRANSansWeb'}>{APP_NAME}</Text>
                 </View>
 
-                <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                <View style={styles.partition}>
 
-                    <Item style={{marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
+                    <Item style={{marginLeft: 30, marginRight: 30, backgroundColor: 'white', borderRadius: 10}} rounded>
+                        <Icon style={{color: Colors.ICON}} name='mail'/>
                         <CustomTextBox type='email' placeholder={EMAIL_ADDRESS} secureTextEntry={false}
-                                       style={{textAlign: 'center', fontSize: 10}}/>
+                                       style={{textAlign: 'center', fontSize: 12}}/>
                     </Item>
 
-                    <Item style={{marginTop: 15, marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
+                    <Item style={{
+                        marginTop: 15,
+                        marginLeft: 30,
+                        marginRight: 30,
+                        backgroundColor: 'white',
+                        borderRadius: 10
+                    }} rounded>
+                        <Icon style={{color: Colors.ICON}} name='key'/>
                         <CustomTextBox placeholder={PASSWORD} secureTextEntry={true}
-                                       style={{textAlign: 'center', fontSize: 10}}/>
+                                       style={{textAlign: 'center', fontSize: 12}}/>
                     </Item>
 
-                    <Item style={{marginTop: 15, marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
+                    <Item style={{
+                        marginTop: 15,
+                        marginLeft: 30,
+                        marginRight: 30,
+                        backgroundColor: 'white',
+                        borderRadius: 10
+                    }} rounded>
+                        <Icon style={{color: Colors.ICON}} name='key'/>
                         <CustomTextBox placeholder={REPEAT_PASSWORD} secureTextEntry={true}
-                                       style={{textAlign: 'center', fontSize: 10}}/>
+                                       style={{textAlign: 'center', fontSize: 12}}/>
                     </Item>
 
                     <LoginButton icon={'login'} text={SIGN_UP}/>
                 </View>
 
-                <View style={{flex: 1, justifyContent: 'center'}}>
+                <View style={styles.partition}>
                     <View style={{
                         flexDirection: 'row',
                         alignSelf: 'center',
@@ -78,3 +94,7 @@ export default class SignUp extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    partition: {alignSelf: 'center', flex: 1, justifyContent: 'center'}
+});
