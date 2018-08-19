@@ -21,7 +21,7 @@ export default class Login extends Component {
                 </View>
 
                 <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                    <Item style={{ marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
+                    <Item style={{marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
                         <CustomTextBox type='email' placeholder={EMAIL_ADDRESS} secureTextEntry={false}
                                        style={{textAlign: 'center', fontSize: 10}}/>
                     </Item>

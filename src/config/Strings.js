@@ -7,5 +7,4 @@ export const Strings = {
     FORGOT_PASSWORD: 'آیا رمز عبور خود را فراموش کرده‌اید؟',
     SIGN_UP: 'ثبت‌نام',
     ENTER_LOGIN_PAGE: 'ورود به برنامه',
-
 };
