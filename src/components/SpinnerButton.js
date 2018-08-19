@@ -8,9 +8,8 @@ class SpinnerButton extends Component {
         return (
             <Button onPress={onPress}
                     block
-                    success
-                    disabled={disabled}
-                    style={style}>
+                    style={style}
+                    disabled={disabled}>
                 {this.renderButtonContent()}
             </Button>
         );
