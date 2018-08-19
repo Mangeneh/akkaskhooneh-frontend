@@ -3,7 +3,7 @@ import {Input} from 'native-base';
 
 export default class CustomTextBox extends Component {
     render() {
-        const {style, type, placeholder, secureTextEntry} = this.props;
+        const {style, type, placeholder, secureTextEntry, onChangeText} = this.props;
         return (
             <Input
                 style={style}
@@ -11,6 +11,7 @@ export default class CustomTextBox extends Component {
                 placeholder={placeholder}
                 secureTextEntry={secureTextEntry}
                 fontFamily={'IRANSansWeb'}
+                onChangeText={onChangeText}
             />
         );
     }
