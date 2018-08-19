@@ -6,12 +6,13 @@ import LoginButton from '../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
 import {Strings} from '../config/Strings';
 import RoundAvatar from "../components/RoundAvatar";
+import {Colors} from "../config/Colors";
 
 export default class Login extends Component {
     render() {
         const {APP_NAME, EMAIL_ADDRESS, PASSWORD, ENTER, FORGOT_PASSWORD, SIGN_UP} = Strings;
         return (
-            <Container style={{backgroundColor: '#5c5c5c', flex: 1}}>
+            <Container style={{backgroundColor: Colors.GRAY_COLOR, flex: 1}}>
 
                 <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                     <RoundAvatar style={{marginBottom: 10}}
@@ -21,7 +22,7 @@ export default class Login extends Component {
                 </View>
 
                 <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                    <Item style={{ marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
+                    <Item style={{marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
                         <CustomTextBox type='email' placeholder={EMAIL_ADDRESS} secureTextEntry={false}
                                        style={{textAlign: 'center', fontSize: 10}}/>
                     </Item>

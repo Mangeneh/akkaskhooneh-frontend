@@ -1,20 +1,21 @@
 import {connect} from 'react-redux';
 import SpinnerButton from "../components/SpinnerButton";
 import {StyleSheet} from "react-native";
+import {Colors} from "../config/Colors";
 
 const styles = StyleSheet.create({
     normalStyle: {
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 300, height: 50,
-        backgroundColor: "#00541a",
+        backgroundColor: Colors.ACCENT_COLOR,
         borderRadius: 10
     },
     loadingStyle: {
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 300, height: 50,
-        backgroundColor: "#00541a",
+        backgroundColor: Colors.ACCENT_COLOR,
         borderRadius: 10
     },
     errorStyle: {
