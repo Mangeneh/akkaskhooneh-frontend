@@ -25,7 +25,7 @@ export default class SignUp extends Component {
 
                 <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
 
-                    <Item style={{marginTop: 42, marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
+                    <Item style={{marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
                         <CustomTextBox type='email' placeholder={EMAIL_ADDRESS} secureTextEntry={false}
                                        style={{textAlign: 'center', fontSize: 10}}/>
                     </Item>
@@ -40,10 +40,10 @@ export default class SignUp extends Component {
                                        style={{textAlign: 'center', fontSize: 10}}/>
                     </Item>
 
-                    <LoginButton text={SIGN_UP}/>
+                    <LoginButton text={SIGN_UP} icon="login"/>
                 </View>
 
-                <View style={{flex: 1, marginBottom: 35, justifyContent: 'center'}}>
+                <View style={{flex: 1, justifyContent: 'center'}}>
                         <View style={{
                             flexDirection: 'row',
                             alignSelf: 'center',
