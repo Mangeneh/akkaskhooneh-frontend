@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     style: chooseStyle(state),
-    disabled: state.disabled,
     loading: state.mode === "LOADING",
+    disabled: state.emailVerification
 });
 
 function chooseStyle(state) {
