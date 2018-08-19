@@ -5,7 +5,7 @@ export const Strings = {
     REPEAT_PASSWORD: 'تکرار رمز عبور',
     ENTER: 'ورود',
     FORGOT_PASSWORD: 'آیا رمز عبور خود را فراموش کرده‌اید؟',
-    SIGNUP: 'ثبت‌نام',
+    SIGN_UP: 'ثبت‌نام',
     ENTER_LOGIN_PAGE: 'ورود به برنامه',
 
 };
