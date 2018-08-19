@@ -5,6 +5,7 @@ import {TouchableOpacity, View} from 'react-native'
 import LoginButton from '../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
 import {Strings} from '../config/Strings';
+import RoundAvatar from "../components/RoundAvatar";
 
 export default class Login extends Component {
     render() {
@@ -13,6 +14,9 @@ export default class Login extends Component {
             <Container style={{backgroundColor: '#5c5c5c', flex: 1}}>
 
                 <View style={{alignSelf: 'center', justifyContent: 'center', flex: 4}}>
+
+                    <RoundAvatar style={{alignSelf: 'center', marginBottom: 15 }}/>
+
                     <Text style={{fontSize: 12, color: 'white', textAlign: 'center'}}
                           fontFamily={'IRANSansWeb'}>{APP_NAME}</Text>
 
