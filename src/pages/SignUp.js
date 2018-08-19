@@ -6,7 +6,7 @@ import LoginButton from '../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
 import {Strings} from '../config/Strings';
 
-export default class Signup extends Component {
+export default class SignUp extends Component {
     render() {
         const {APP_NAME,EMAIL_ADDRESS,PASSWORD, REPEAT_PASSWORD, SIGNUP, ENTER_LOGIN_PAGE} = Strings;
         return (

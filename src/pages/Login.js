@@ -13,14 +13,15 @@ export default class Login extends Component {
         return (
             <Container style={{backgroundColor: '#5c5c5c', flex: 1}}>
 
-                <View style={{alignSelf: 'center', justifyContent: 'center', flex: 4}}>
-
-                    <RoundAvatar style={{alignSelf: 'center', marginBottom: 15 }}/>
-
+                <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                    <RoundAvatar style={{marginBottom: 10}}
+                                 uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                     <Text style={{fontSize: 12, color: 'white', textAlign: 'center'}}
                           fontFamily={'IRANSansWeb'}>{APP_NAME}</Text>
+                </View>
 
-                    <Item style={{marginTop: 42, marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
+                <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                    <Item style={{ marginLeft: 30, marginRight: 30, backgroundColor: 'white'}} rounded>
                         <CustomTextBox type='email' placeholder={EMAIL_ADDRESS} secureTextEntry={false}
                                        style={{textAlign: 'center', fontSize: 10}}/>
                     </Item>
@@ -33,16 +34,15 @@ export default class Login extends Component {
                     <LoginButton text={ENTER} icon={"login"}/>
 
                     <TouchableOpacity>
-                        <Text style={{marginTop: 15, alignSelf: 'center', color: 'white', fontSize: 10}}
+                        <Text style={{marginTop: 20, alignSelf: 'center', color: 'white', fontSize: 10}}
                               fontFamily={'IRANSansWeb'}>{FORGOT_PASSWORD}</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={{flex: 1, marginBottom: 35}}>
+                <View style={{flex: 1, justifyContent: 'center',}}>
                     <View style={{
                         flexDirection: 'row',
                         alignSelf: 'center',
-                        justifyContent: 'flex-end',
                         marginBottom: 15
                     }}>
                         <TouchableOpacity>
@@ -66,10 +66,9 @@ export default class Login extends Component {
                     </View>
 
                     <TouchableOpacity
-                        style={{alignSelf: 'center', justifyContent: 'flex-end'}}>
+                        style={{alignSelf: 'center'}}>
                         <Text style={{color: 'white', fontSize: 12}} fontFamily={'IRANSansWeb'}>{SIGN_UP}</Text>
                     </TouchableOpacity>
-
                 </View>
 
             </Container>
