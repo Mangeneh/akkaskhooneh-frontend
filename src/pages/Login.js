@@ -27,7 +27,7 @@ export default class Login extends Component {
 
                     <TouchableHighlight>
                         <Text style={{marginTop: 10, alignSelf: 'center', color: 'white', fontSize: 10}}
-                            fontFamily={'IRANSansWeb'}>{'آیا رمز عبود خود را فراموش کرده‌اید؟'}</Text>
+                            fontFamily={'IRANSansWeb'}>{'آیا رمز عبور خود را فراموش کرده‌اید؟'}</Text>
                     </TouchableHighlight>
                 </View>
 
