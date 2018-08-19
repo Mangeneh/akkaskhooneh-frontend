@@ -4,5 +4,5 @@ export const Strings = {
     PASSWORD: 'رمز عبور',
     ENTER: 'ورود',
     FORGOT_PASSWORD: 'آیا رمز عبود خود را فراموش کرده‌اید؟',
-
+    SIGN_UP : 'ثبت‌نام'
 };
