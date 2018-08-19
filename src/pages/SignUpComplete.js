@@ -35,7 +35,7 @@ export default class SignUpComplete extends Component {
                     </Item>
 
                     <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15,backgroundColor: 'white'}} rounded>
-                        <CustomLongTextBox disabled={true} placeholder={ABOUT_YOU}
+                        <CustomLongTextBox placeholder={ABOUT_YOU}
                                        style={{textAlign: 'center', fontSize: 10}}/>
                     </Item>
 
