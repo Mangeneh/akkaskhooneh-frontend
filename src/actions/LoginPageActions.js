@@ -6,6 +6,6 @@ export const LoginPageActions = {
     FORGOT_PASSWORD: 'FORGOT_PASSWORD'
 };
 
-const localValidationAction = (email, password) => {
+const localValidationAction = (email, password) => ({
     
-}
+})

@@ -8,7 +8,7 @@ import {Strings} from '../config/Strings';
 
 export default class Login extends Component {
     render() {
-        const {APP_NAME,EMAIL_ADDRESS,PASSWORD,ENTER,FORGOT_PASSWORD} = Strings;
+        const {APP_NAME,EMAIL_ADDRESS,PASSWORD,ENTER,FORGOT_PASSWORD, SIGNUP} = Strings;
         return (
             <Container style={{backgroundColor: '#5c5c5c', flex: 1}}>
                 <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
@@ -50,7 +50,7 @@ export default class Login extends Component {
                     </View>
                     <TouchableHighlight>
                         <Text style={{alignSelf: 'center', color: 'white', fontSize: 12, marginTop: 15}}
-                              fontFamily={'IRANSansWeb'}>{'ثبت‌نام'}</Text>
+                              fontFamily={'IRANSansWeb'}>{SIGNUP}</Text>
                     </TouchableHighlight>
                 </View>
 
