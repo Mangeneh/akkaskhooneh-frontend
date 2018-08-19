@@ -16,16 +16,8 @@ export default class EmailTextBox extends Component {
                 <CustomTextBox type='email' placeholder={EMAIL_ADDRESS}
                                style={{textAlign: 'center', fontSize: TEXT_BOX_FONT_SIZE}}
                                onChangeText={onChangeEmail}/>
-                <Icon name={this.chooseIconName()}/>
+                <Icon name={error ? 'close-circle' : null}/>
             </Item>
         );
-    }
-
-    chooseIconName() {
-        const {error} = this.props;
-        if (error == null) {
-            return;
-        }
-        return error ? 'close-circle' : 'checkmark-circle';
     }
 }

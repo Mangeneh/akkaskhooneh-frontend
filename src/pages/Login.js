@@ -41,7 +41,7 @@ export default class Login extends Component {
     }
 
     onChangeEmail(email) {
-        console.warn("emailsdnasdn")
+        console.warn(email)
     }
 
     onChangePassword(password) {
