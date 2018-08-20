@@ -17,21 +17,20 @@ import {LoginPageModes} from "../config/LoginPageModes";
 class Login extends Component {
     render() {
         const {ENTER, FORGOT_PASSWORD} = Strings;
-        const {NORMAL_FONT} = Constants;
         return (
             <KeyboardAwareScrollView>
                 <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
                     {this.renderLogoSection()}
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 32, marginRight: 32}}>
-                            <EmailTextBox onChangeEmail={(email) => this.onEmailChange(email)}/>
+                            <EmailTextBox error={false} onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox onChangePassword={(password) => this.onPasswordChange(password)}/>
+                            <PasswordTextBox error={false} onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
                         <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
                         <TouchableOpacity style={{marginTop: 24}}>
-                            <Text style={styles.text} fontFamily={NORMAL_FONT}>{FORGOT_PASSWORD}</Text>
+                            <Text style={styles.text}>{FORGOT_PASSWORD}</Text>
                         </TouchableOpacity>
                     </View>
                     {this.renderOtherLoginSection()}
@@ -83,7 +82,7 @@ class Login extends Component {
                 <RoundAvatar style={{marginBottom: 12}}
                              uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                 <Text style={styles.text}
-                      fontFamily={NORMAL_FONT}>{APP_NAME}</Text>
+                >{APP_NAME}</Text>
             </View>
         )
     }
@@ -95,7 +94,7 @@ class Login extends Component {
             <View style={{flex: 1, justifyContent: 'center',}}>
                 {this.renderOtherLoginButtons()}
                 <TouchableOpacity style={{alignSelf: 'center'}}>
-                    <Text style={styles.text} fontFamily={NORMAL_FONT}>{SIGN_UP}</Text>
+                    <Text style={styles.text}>{SIGN_UP}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -128,7 +127,13 @@ class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-    text: {fontSize: Constants.TEXT_NORMAL_SIZE, color: 'white', textAlign: 'center', alignSelf: 'center'}
+    text: {
+        fontFamily: Constants.NORMAL_FONT,
+        fontSize: Constants.TEXT_NORMAL_SIZE,
+        color: 'white',
+        textAlign: 'center',
+        alignSelf: 'center'
+    }
 });
 
 const mapStateToProps = (state) => ({

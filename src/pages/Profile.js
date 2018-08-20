@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Header, Tab, Tabs, TabHeading, Icon, Text, Content} from 'native-base';
+import {Container, Tab, Tabs} from 'native-base';
 import {TouchableOpacity, View} from 'react-native'
 import {Strings} from '../config/Strings';
 import {Colors} from "../config/Colors";
