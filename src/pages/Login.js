@@ -42,19 +42,28 @@ class Login extends Component {
 
     onEmailChange(email) {
         this.props.changeEmail(email);
-        // Validate
+        this.validateEmailLocally(email);
+    }
+
+    onPasswordChange(password) {
+        this.props.changePassword(password);
+        this.validatePasswordLocally(password);
+    }
+
+    validateEmailLocally(email) {
+        const {password} = this.props;
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        if (reg.test(email) === false) {
+        if (password.length < 6 || reg.test(email) === false) {
             this.props.changeMode(DISABLED)
         } else {
             this.props.changeMode(NORMAL)
         }
     }
 
-    onPasswordChange(password) {
-        this.props.changePassword(password);
-        // Validate
-        if (password.length < 6) {
+    validatePasswordLocally(password) {
+        const {email} = this.props;
+        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        if (password.length < 6 || reg.test(email) === false) {
             this.props.changeMode(DISABLED)
         } else {
             this.props.changeMode(NORMAL)

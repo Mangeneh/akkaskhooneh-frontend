@@ -22,8 +22,7 @@
     "redux": "^4.0.0",
     "redux-axios-middleware": "^4.0.0",
     "react-native-keyboard-aware-scroll-view": "latest",
-    "redux-thunk": "latest",
-    
+    "redux-thunk": "latest"
   },
   "devDependencies": {
     "babel-jest": "23.4.2",
