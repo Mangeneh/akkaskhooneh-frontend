@@ -82,7 +82,7 @@ class Login extends Component {
         return (
             <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                 <RoundAvatar style={{marginBottom: 12}}
-                             uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
+                             uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
                 <Text style={styles.text}
                 >{APP_NAME}</Text>
             </View>
