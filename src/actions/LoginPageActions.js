@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const LoginPageActions = {
     EMAIL_CHANGED: 'EMAIL_CHANGED',
     PASSWORD_CHANGED: 'PASSWORD_CHANGED',

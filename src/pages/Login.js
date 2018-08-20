@@ -17,17 +17,18 @@ import {LoginPageModes} from "../config/LoginPageModes";
 class Login extends Component {
     render() {
         const {ENTER, FORGOT_PASSWORD} = Strings;
+        const {error} = this.props;
         return (
             <KeyboardAwareScrollView>
                 <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
                     {this.renderLogoSection()}
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 32, marginRight: 32}}>
-                            <EmailTextBox error={false}
+                            <EmailTextBox error={error}
                                           onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={false}
+                            <PasswordTextBox error={error}
                                              onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
                         <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
@@ -78,7 +79,6 @@ class Login extends Component {
 
     renderLogoSection() {
         const {APP_NAME} = Strings;
-        const {NORMAL_FONT} = Constants;
         return (
             <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                 <RoundAvatar style={{marginBottom: 12}}
@@ -91,7 +91,6 @@ class Login extends Component {
 
     renderOtherLoginSection() {
         const {SIGN_UP} = Strings;
-        const {NORMAL_FONT} = Constants;
         return (
             <View style={{flex: 1, justifyContent: 'center',}}>
                 {this.renderOtherLoginButtons()}
@@ -142,6 +141,7 @@ const mapStateToProps = (state) => ({
     email: state.loginPage.email,
     password: state.loginPage.password,
     mode: state.loginPage.mode,
+    error: state.loginPage.mode === LoginPageModes.ERROR
 });
 
 const mapDispatchToProps = (dispatch) => ({
