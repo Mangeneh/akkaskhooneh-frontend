@@ -12,11 +12,11 @@ export default class ProfileHeader extends Component {
                 <Header androidStatusBarColor={Colors.BASE} style={{backgroundColor: Colors.BASE}}>
                     <Left style={{flex: 1, marginLeft: 15}}>
                         <TouchableOpacity>
-                            <Text style={{color: 'white', fontFamily: Constants.BOLD_FONT}}>{Strings.EDIT}</Text>
+                            <Text style={{color: 'white', fontFamily: Constants.NORMAL_FONT}}>{Strings.EDIT}</Text>
                         </TouchableOpacity>
                     </Left>
                     <Body style={{flex: 3}}>
-                    <Title style={{alignSelf: 'center'}}>{this.props.username}</Title>
+                    <Title style={{alignSelf: 'center', color: 'white'}}>{this.props.username}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 15}}>
                         <TouchableOpacity>
