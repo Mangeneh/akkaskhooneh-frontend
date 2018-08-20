@@ -10,7 +10,7 @@ import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
-    baseURL: '192.168.11.140/us',
+    baseURL: '192.168.11.140:8000/',
     responseType: 'json'
 });
 
@@ -26,7 +26,7 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Login />
+                <Profile />
             </Provider>
         );
     }
