@@ -3,6 +3,7 @@ const Constants = {
     TEXT_BOX_RADIUS: 10,
     TEXT_NORMAL_SIZE: 12,
     NORMAL_FONT: 'IRANSansWeb',
+    BOLD_FONT:'IRANSansWeb_Bold'
 };
 
 export default Constants;

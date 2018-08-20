@@ -13,5 +13,6 @@ export const Strings = {
     COMPLETE_INFO: 'تکمیل اطلاعات',
     PHOTOS: 'عکس‌ها',
     INTERESTS: 'علاقه‌مندی‌ها',
+    EDIT:'ویرایش',
 
 };
