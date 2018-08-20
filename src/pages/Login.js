@@ -23,14 +23,14 @@ class Login extends Component {
                 <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
                     {this.renderLogoSection()}
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                        <View style={{marginLeft: 30, marginRight: 30}}>
+                        <View style={{marginLeft: 32, marginRight: 32}}>
                             <EmailTextBox onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
-                        <View style={{marginTop: 15, marginLeft: 30, marginRight: 30}}>
+                        <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                             <PasswordTextBox onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
                         <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
-                        <TouchableOpacity style={{marginTop: 20}}>
+                        <TouchableOpacity style={{marginTop: 24}}>
                             <Text style={styles.text} fontFamily={NORMAL_FONT}>{FORGOT_PASSWORD}</Text>
                         </TouchableOpacity>
                     </View>
@@ -80,7 +80,7 @@ class Login extends Component {
         const {NORMAL_FONT} = Constants;
         return (
             <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                <RoundAvatar style={{marginBottom: 10}}
+                <RoundAvatar style={{marginBottom: 12}}
                              uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                 <Text style={styles.text}
                       fontFamily={NORMAL_FONT}>{APP_NAME}</Text>
@@ -103,7 +103,7 @@ class Login extends Component {
 
     renderOtherLoginButtons() {
         return (
-            <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: 15}}>
+            <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: 16}}>
                 <TouchableOpacity>
                     <SocialIcon
                         light
