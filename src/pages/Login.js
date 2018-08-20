@@ -12,7 +12,7 @@ import EmailTextBox from "../components/EmailTextBox";
 import PasswordTextBox from "../components/PasswordTextBox";
 import Constants from "../config/Constants";
 import {emailChanged, modeChanged, passwordChanged} from "../actions/LoginPageActions";
-import {DISABLED, NORMAL} from "../config/LoginPageModes";
+import {LoginPageModes} from "../config/LoginPageModes";
 
 class Login extends Component {
     render() {
@@ -54,9 +54,9 @@ class Login extends Component {
         const {password} = this.props;
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (password.length < 6 || reg.test(email) === false) {
-            this.props.changeMode(DISABLED)
+            this.props.changeMode(LoginPageModes.DISABLED)
         } else {
-            this.props.changeMode(NORMAL)
+            this.props.changeMode(LoginPageModes.NORMAL)
         }
     }
 
@@ -64,9 +64,9 @@ class Login extends Component {
         const {email} = this.props;
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (password.length < 6 || reg.test(email) === false) {
-            this.props.changeMode(DISABLED)
+            this.props.changeMode(LoginPageModes.DISABLED)
         } else {
-            this.props.changeMode(NORMAL)
+            this.props.changeMode(LoginPageModes.NORMAL)
         }
     }
 

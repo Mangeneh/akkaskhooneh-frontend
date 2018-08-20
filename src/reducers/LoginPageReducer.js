@@ -1,10 +1,10 @@
 import {EMAIL_CHANGED, PASSWORD_CHANGED, MODE_CHANGED,LOGIN_FAIL} from '../actions/LoginPageActions';
-import {DISABLED, LoginPageModes} from "../config/LoginPageModes";
+import { LoginPageModes} from "../config/LoginPageModes";
 
 const INITIAL_STATE = {
     email: '',
     password: '',
-    mode: DISABLED
+    mode: LoginPageModes.DISABLED
 };
 
 export default (state = INITIAL_STATE, action) => {
