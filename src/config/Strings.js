@@ -11,5 +11,7 @@ export const Strings = {
     FIRST_LAST_NAME: 'نام و نام‌خانوادگی',
     ABOUT_YOU: 'درباره خودتون بگید',
     COMPLETE_INFO: 'تکمیل اطلاعات',
+    PHOTOS: 'عکس‌ها',
+    INTERESTS: 'علاقه‌مندی‌ها',
 
 };
