@@ -3,6 +3,7 @@ import { Container, Header, Tab, Tabs, TabHeading, Icon, Text, Content } from 'n
 import {TouchableOpacity, View} from 'react-native'
 import {Strings} from '../config/Strings';
 import {Colors} from "../config/Colors";
+import Constants from "../config/Constants";
 import RoundAvatar from "../components/RoundAvatar";
 
 export default class Profile extends Component {
@@ -16,12 +17,11 @@ export default class Profile extends Component {
                 <RoundAvatar />
             </TouchableOpacity>
         </View>
+
         <View style = {{flex: 7}}>
-            <Tabs>
-              <Tab heading={<TabHeading><Text style={{fontSize: 12}}>{INTERESTS}</Text></TabHeading>} activeTextStyle={{color: Colors.BASE_COLOR}}>
-              </Tab>
-              <Tab heading={<TabHeading><Text style={{fontSize: 12, }}>{PHOTOS}</Text></TabHeading>} activeTextStyle={{color: Colors.BASE_COLOR}}>
-              </Tab>
+        <Tabs tabBarUnderlineStyle={{ backgroundColor: Colors.ACCENT }}>
+              <Tab heading={INTERESTS} activeTextStyle={{ color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}} textStyle={{ color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT }} tabStyle={{ backgroundColor: 'white' }} activeTabStyle={{ backgroundColor: 'white' }} />
+              <Tab heading={PHOTOS} activeTextStyle={{ color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}} textStyle={{ color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT }} tabStyle={{ backgroundColor: 'white' }} activeTabStyle={{ backgroundColor: 'white'}} />
             </Tabs>
         </View>
       </Container>

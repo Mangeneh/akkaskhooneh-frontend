@@ -13,7 +13,7 @@ export default class SignUpComplete extends Component {
         const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
         return (
             <KeyboardAwareScrollView>
-                <Container style={{backgroundColor: '#5c5c5c', flex: 1}}>
+                <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
 
                     <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', flex: 3}}>
                         <RoundAvatar style={{alignSelf: 'center', marginBottom: 15}}/>

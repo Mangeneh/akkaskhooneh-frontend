@@ -12,7 +12,7 @@ export default class SignUp extends Component {
     render() {
         const {APP_NAME, EMAIL_ADDRESS, PASSWORD, REPEAT_PASSWORD, SIGN_UP, ENTER_LOGIN_PAGE} = Strings;
         return (
-            <Container style={{backgroundColor: '#5c5c5c', flex: 1}}>
+            <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
 
                 <View style={styles.partition}>
                     <RoundAvatar style={{alignSelf: 'center', marginBottom: 15}}/>

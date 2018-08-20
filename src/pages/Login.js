@@ -20,7 +20,7 @@ class Login extends Component {
         const {NORMAL_FONT} = Constants;
         return (
             <KeyboardAwareScrollView>
-                <Container style={{backgroundColor: Colors.TEXT, flex: 1}}>
+                <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
                     {this.renderLogoSection()}
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 30, marginRight: 30}}>
