@@ -8,43 +8,49 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 300, height: 50,
-        backgroundColor: Colors.ACCENT_COLOR,
+        backgroundColor: Colors.ACCENT,
         borderRadius: 10
     },
     loadingStyle: {
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 300, height: 50,
-        backgroundColor: Colors.ACCENT_COLOR,
+        backgroundColor: Colors.ACCENT,
         borderRadius: 10
     },
     errorStyle: {
         alignSelf: 'center',
         marginRight: 30, marginLeft: 30, marginTop: 15,
         width: 300, height: 50,
-        backgroundColor: "#ff1a1e",
+        backgroundColor: Colors.ERROR,
+        borderRadius: 10
+    },
+    disabledStyle: {
+        alignSelf: 'center',
+        marginRight: 30, marginLeft: 30, marginTop: 15,
+        width: 300, height: 50,
+        backgroundColor: Colors.DISABLED,
         borderRadius: 10
     }
 });
 
 const mapStateToProps = (state) => ({
-    style: chooseStyle(state),
-    loading: state.mode === "LOADING",
-    disabled: state.emailVerification
+    style: chooseStyle(state.loginPage.mode),
+    loading: state.loginPage.mode === 'LOADING',
+    disabled: state.loginPage.mode === 'DISABLED',
 });
 
-function chooseStyle(state) {
-    if (state.mode === 'LOADING') {
-        return styles.loadingStyle;
-    } else if (state.mode === 'ERROR') {
-        return styles.errorStyle;
-    } else {
-        return styles.normalStyle;
+function chooseStyle(loginMode) {
+    switch (loginMode) {
+        case 'LOADING':
+            return styles.loadingStyle;
+        case 'ERROR':
+            return styles.errorStyle;
+        case 'DISABLED':
+            return styles.disabledStyle;
+        default:
+            return styles.normalStyle;
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    onPress: () => dispatch({type: ''})
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SpinnerButton);
+export default connect(mapStateToProps, null)(SpinnerButton);

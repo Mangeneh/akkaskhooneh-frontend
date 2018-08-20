@@ -37,7 +37,7 @@ export default class SignUpComplete extends Component {
                               rounded>
                             <CustomTextBox disabled={true} placeholder={'email got from last page!!!'}
                                            secureTextEntry={false}
-                                              style={{textAlign: 'center', fontSize: 10}}/>
+                                           style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
                         <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white'}}

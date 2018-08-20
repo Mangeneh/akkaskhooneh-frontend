@@ -1,18 +1,20 @@
 import React, {Component,} from 'react';
-import CustomTextBox from '../components/CustomTextBox';
-import {Container, Icon, Item, Text} from 'native-base';
+import {Container, Text} from 'native-base';
 import {TouchableOpacity, View, StyleSheet} from 'react-native'
-import LoginButton from '../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
-import {Strings} from '../config/Strings';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {connect} from 'react-redux';
 import RoundAvatar from "../components/RoundAvatar";
+import LoginButton from '../containers/LoginButton';
+import {Strings} from '../config/Strings';
 import {Colors} from "../config/Colors";
 import EmailTextBox from "../components/EmailTextBox";
 import PasswordTextBox from "../components/PasswordTextBox";
 import Constants from "../config/Constants";
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {emailChanged, modeChanged, passwordChanged} from "../actions/LoginPageActions";
+import {DISABLED, NORMAL} from "../config/LoginPageModes";
 
-export default class Login extends Component {
+class Login extends Component {
     render() {
         const {ENTER, FORGOT_PASSWORD} = Strings;
         const {NORMAL_FONT} = Constants;
@@ -20,32 +22,48 @@ export default class Login extends Component {
             <KeyboardAwareScrollView>
                 <Container style={{backgroundColor: Colors.TEXT, flex: 1}}>
                     {this.renderLogoSection()}
-
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 30, marginRight: 30}}>
-                            <EmailTextBox onChangeEmail={this.onChangeEmail}/>
+                            <EmailTextBox onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
                         <View style={{marginTop: 15, marginLeft: 30, marginRight: 30}}>
-                            <PasswordTextBox onChangePassword={this.onChangePassword}/>
+                            <PasswordTextBox onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
-                        <LoginButton text={ENTER} icon={"login"}/>
+                        <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
                         <TouchableOpacity style={{marginTop: 20}}>
                             <Text style={styles.text} fontFamily={NORMAL_FONT}>{FORGOT_PASSWORD}</Text>
                         </TouchableOpacity>
                     </View>
-
                     {this.renderOtherLoginSection()}
                 </Container>
             </KeyboardAwareScrollView>
         );
     }
 
-    onChangeEmail(email) {
-        console.warn(email)
+    onEmailChange(email) {
+        this.props.changeEmail(email);
+        // Validate
+        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(email) === false) {
+            this.props.changeMode(DISABLED)
+        } else {
+            this.props.changeMode(NORMAL)
+        }
     }
 
-    onChangePassword(password) {
+    onPasswordChange(password) {
+        this.props.changePassword(password);
+        // Validate
+        if (password.length < 6) {
+            this.props.changeMode(DISABLED)
+        } else {
+            this.props.changeMode(NORMAL)
+        }
+    }
 
+    onLoginPress() {
+        const {email, password} = this.props;
+        console.warn(email)
     }
 
     renderLogoSection() {
@@ -103,3 +121,17 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     text: {fontSize: Constants.TEXT_NORMAL_SIZE, color: 'white', textAlign: 'center', alignSelf: 'center'}
 });
+
+const mapStateToProps = (state) => ({
+    email: state.loginPage.email,
+    password: state.loginPage.password,
+    mode: state.loginPage.mode,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changeEmail: (email) => dispatch(emailChanged(email)),
+    changePassword: (password) => dispatch(passwordChanged(password)),
+    changeMode: (mode) => dispatch(modeChanged(mode)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
