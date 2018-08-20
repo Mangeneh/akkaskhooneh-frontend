@@ -13,13 +13,10 @@ export default class Profile extends Component {
         return (
             <Container style={{flex: 1}}>
                 <ProfileHeader username={"Alireza"}/>
-                <View style={{flex: 2}}>
-                    <TouchableOpacity style={{marginTop: 15, marginLeft: 265}}>
+                <View style={{flex: 2, justifyContent: 'flex-start',alignItems: 'flex-end'}}>
+                    <TouchableOpacity style={{marginTop: 15, marginRight: 15,marginBottom: 38}}>
                         <RoundAvatar/>
                     </TouchableOpacity>
-                </View>
-
-                <View style={{flex: 7}}>
                     <Tabs tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}}>
                         <Tab heading={INTERESTS}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
