@@ -33,13 +33,18 @@ export const modeChanged = (mode) => {
     }
 };
 
-export const loginUser = ({email, password}) => {
-    return (dispatch) => {
-        console.warn("action delivered");
-
-        return axios.get('https://rallycoding.herokuapp.com/api/music_albums')
-            .then(data => {
-                console.warn("action delivered")
-            })
+export const loginUser = (email, password) => {
+    return {
+        type: 'LOGIN',
+        payload: {
+            request: {
+                method: 'POST',
+                url: '/auth/login/',
+                data: {
+                    email: email,
+                    password: password
+                }
+            }
+        }
     };
 };

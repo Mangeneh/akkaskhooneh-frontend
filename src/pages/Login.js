@@ -11,7 +11,7 @@ import {Colors} from "../config/Colors";
 import EmailTextBox from "../components/EmailTextBox";
 import PasswordTextBox from "../components/PasswordTextBox";
 import Constants from "../config/Constants";
-import {emailChanged, modeChanged, passwordChanged} from "../actions/LoginPageActions";
+import {emailChanged, loginUser, modeChanged, passwordChanged} from "../actions/LoginPageActions";
 import {LoginPageModes} from "../config/LoginPageModes";
 
 class Login extends Component {
@@ -73,7 +73,7 @@ class Login extends Component {
 
     onLoginPress() {
         const {email, password} = this.props;
-        console.warn(email)
+        this.props.loginUser(email, password);
     }
 
     renderLogoSection() {
@@ -148,6 +148,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeEmail: (email) => dispatch(emailChanged(email)),
     changePassword: (password) => dispatch(passwordChanged(password)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
+    loginUser: (email, password) => dispatch(loginUser(email, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
