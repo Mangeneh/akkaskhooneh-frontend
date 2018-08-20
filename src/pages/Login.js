@@ -23,10 +23,12 @@ class Login extends Component {
                     {this.renderLogoSection()}
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 32, marginRight: 32}}>
-                            <EmailTextBox error={false} onChangeEmail={(email) => this.onEmailChange(email)}/>
+                            <EmailTextBox error={false}
+                                          onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={false} onChangePassword={(password) => this.onPasswordChange(password)}/>
+                            <PasswordTextBox error={false}
+                                             onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
                         <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
                         <TouchableOpacity style={{marginTop: 24}}>
