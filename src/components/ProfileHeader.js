@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Container, Header, Left, Body, Right, Button, Icon, Title, Text} from 'native-base';
-import {TouchableOpacity} from 'react-native';
+import {Container, Header, Left, Body, Right, Icon, Title, Text} from 'native-base';
+import {TouchableOpacity, View} from 'react-native';
 import {Colors} from "../config/Colors";
 import {Strings} from "../config/Strings";
 import Constants from "../config/Constants";
@@ -8,7 +8,7 @@ import Constants from "../config/Constants";
 export default class ProfileHeader extends Component {
     render() {
         return (
-            <Container>
+            <View>
                 <Header androidStatusBarColor={Colors.BASE} style={{backgroundColor: Colors.BASE}}>
                     <Left style={{flex: 1, marginLeft: 15}}>
                         <TouchableOpacity>
@@ -24,7 +24,7 @@ export default class ProfileHeader extends Component {
                         </TouchableOpacity>
                     </Right>
                 </Header>
-            </Container>
+            </View>
         );
     }
 }
