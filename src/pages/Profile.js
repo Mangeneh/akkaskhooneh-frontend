@@ -25,11 +25,12 @@ export default class Profile extends Component {
     render() {
         const {PHOTOS, INTERESTS} = Strings;
         return (
-            <Container style={{flex: 1}}>
+            <Container>
                 <ProfileHeader username={"Alireza"}/>
-                <View style={{flex: 2, justifyContent: 'flex-start',alignItems: 'flex-end'}}>
-                    <TouchableOpacity style={{marginTop: 15, marginRight: 15,marginBottom: 38}}>
-                        <RoundAvatar/>
+                <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
+                    <TouchableOpacity style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
+                        <RoundAvatar
+                            uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                     </TouchableOpacity>
                     <Tabs tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
                         <Tab heading={INTERESTS}

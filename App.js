@@ -8,6 +8,7 @@ import SignUpComplete from "./src/pages/SignUpComplete";
 import Profile from './src/pages/Profile'
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
+import ProfileHeader from "./src/components/ProfileHeader";
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
     baseURL: '192.168.11.140:8000/',
