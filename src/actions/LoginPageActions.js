@@ -3,6 +3,7 @@ import axios from "axios";
 export const EMAIL_CHANGED = 'EMAIL_CHANGED';
 export const PASSWORD_CHANGED = 'PASSWORD_CHANGED';
 export const MODE_CHANGED = 'MODE_CHANGED';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGIN = 'LOGIN';
 export const ENTER_SIGN_UP = 'ENTER_SIGN_UP';
 export const SIGN_IN_FROM_OTHER_ACCOUNTS = 'SIGN_IN_FROM_OTHER_ACCOUNTS';

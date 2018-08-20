@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
-import {createStore,applyMiddleware} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import ReduxThunk from 'redux-thunk';
 import rootReducer from './src/reducers'
 import Login from "./src/pages/Login";
