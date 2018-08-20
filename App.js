@@ -9,6 +9,7 @@ import Profile from './src/pages/Profile'
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import BottomNavigationTab from "./src/components/BottomNavigationTab";
+import AnotherBottom from "./src/components/AnotherBottom";
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
     baseURL: 'http://192.168.11.140',
@@ -27,7 +28,7 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <BottomNavigationTab/>
+                <AnotherBottom/>
             </Provider>
         );
     }

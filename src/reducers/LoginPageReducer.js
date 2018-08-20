@@ -19,10 +19,8 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN:
             return {...state, mode: 'LOADING'};
         case LOGIN_FAIL:
-            console.warn(action.error);
             return {...state, mode: LoginPageModes.ERROR};
         case LOGIN_SUCCESS:
-            console.warn("Success");
             return {...state, mode: LoginPageModes.NORMAL};
         default:
             return state;
