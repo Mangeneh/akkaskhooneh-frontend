@@ -25,7 +25,7 @@ const items = [
 export default class Profile extends Component {
 
     componentDidMount(){
-        setTimeout(this._tabs.goToPage.bind(this._tabs,1))
+        setTimeout(this._tabs.goToPage.bind(this._tabs, 1))
     }
 
     static navigationOptions = {
@@ -40,6 +40,7 @@ export default class Profile extends Component {
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <TouchableOpacity style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
                         <RoundAvatar
+                            large={true}
                             uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                     </TouchableOpacity>
                     <Tabs ref={component => this._tabs = component} tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
