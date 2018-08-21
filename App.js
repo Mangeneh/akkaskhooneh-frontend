@@ -22,17 +22,16 @@ let store = createStore(
         axiosMiddleware(client, {
             interceptors: {
                 request: [
-                    function ({getState, dispatch, getSourceAction}, req) {
-                        req.headers.authorization = `Bearer ${getState().userInfo.token}`;
-                        console.warn(`${JSON.stringify(req)}   Hi`); //contains information about request object
-                        return req;
+                    function ({getState, dispatch, getSourceAction}, request) {
+                        request.headers.authorization = `Bearer ${getState().userInfo.token}`;
+                        console.warn(`${JSON.stringify(request)}   Hi`); //contains information about request object
+                        return request;
                     }
                 ],
                 response: [
                     {
-                        success: function ({getState, dispatch, getSourceAction}, res) {
-                            console.warn(`success response ${JSON.stringify(res)}`); //contains information about request object
-                            return res;
+                        success: function ({getState, dispatch, getSourceAction}, response) {
+                            return response;
                         },
                         error: function ({getState, dispatch, getSourceAction}, error) {
                             if (error.status === 401) {
@@ -60,7 +59,7 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Login/>
+                <RootStack/>
             </Provider>
         );
     }
