@@ -39,11 +39,7 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-<<<<<<< HEAD
-                <ProfileEdit />
-=======
                 <ProfileEditPage/>
->>>>>>> aa6856ff2d4470c220359ae33ba72819ecae2399
             </Provider>
         );
     }

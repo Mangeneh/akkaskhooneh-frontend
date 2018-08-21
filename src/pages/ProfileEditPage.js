@@ -9,13 +9,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from "../config/Colors";
 import Constants from "../config/Constants";
 import SaveChangesButton from '../containers/SaveChangesButton';
-import {ProfileEditPageModes} from "../config/ProfileEditPageModes";
+import {SaveInfoMode} from "../config/SaveInfoMode";
 import {connect} from 'react-redux';
-<<<<<<< HEAD:src/pages/ProfileEdit.js
 import {modeChanged} from '../actions/ProfileEditPageActions';
-=======
-import {modeChanged} from '../actions/LoginPageActions';
->>>>>>> aa6856ff2d4470c220359ae33ba72819ecae2399:src/pages/ProfileEditPage.js
 
 class ProfileEditPage extends Component {
     render() {
@@ -63,7 +59,7 @@ class ProfileEditPage extends Component {
     }
 
     onSaveChangesPressed() {
-        this.props.changeMode(ProfileEditPageModes.LOADING)
+        this.props.changeMode(SaveInfoMode.LOADING)
     }
 }
 

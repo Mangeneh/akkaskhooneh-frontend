@@ -1,8 +1,8 @@
 import {SignUpCompletePageActions} from '../actions/SignUpCompletePageActions';
-import {SaveModes} from "../config/SaveModes";
+import {SaveInfoMode} from "../config/SaveInfoMode";
 
 const INITIAL_STATE = {
-    mode: SaveModes.NORMAL
+    mode: SaveInfoMode.NORMAL
 };
 
 export default (state = INITIAL_STATE, action) => {

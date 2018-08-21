@@ -10,8 +10,8 @@ import {Colors} from "../config/Colors";
 import Constants from "../config/Constants";
 import SaveChangesButton from '../containers/SaveChangesButton';
 import {connect} from 'react-redux';
-import {SaveModes} from "../config/SaveModes";
-import { modeChanged } from '../actions/SignUpCompletePageActions';
+import {SaveInfoMode} from "../config/SaveInfoMode";
+import {modeChanged} from '../actions/SignUpCompletePageActions';
 
 class SignUpComplete extends Component {
     render() {
@@ -27,26 +27,54 @@ class SignUpComplete extends Component {
 
                     <View style={{justifyContent: 'center', flex: 4}}>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
                             <CustomTextBox placeholder={USER_NAME} secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
                             <CustomTextBox placeholder={FIRST_LAST_NAME} secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
                             <CustomTextBox disabled={true} placeholder={'email got from last page!!!'}
                                            secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
                             <CustomLongTextBox placeholder={ABOUT_YOU}
                                                style={{textAlign: 'center', fontSize: 10}}/>
@@ -55,15 +83,17 @@ class SignUpComplete extends Component {
                     </View>
 
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
-                        <SaveChangesButton text={COMPLETE_INFO} icon="check" onPress={this.onSaveChangesPressed.bind(this)}/>
+                        <SaveChangesButton text={COMPLETE_INFO} icon="check"
+                                           onPress={this.onSaveChangesPressed.bind(this)}/>
                     </View>
 
                 </Container>
             </KeyboardAwareScrollView>
         );
     }
+
     onSaveChangesPressed() {
-        this.props.changeMode(SaveModes.LOADING)
+        this.props.changeMode(SaveInfoMode.LOADING)
     }
 }
 

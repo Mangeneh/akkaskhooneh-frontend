@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import SpinnerButton from "../components/SpinnerButton";
 import {StyleSheet} from "react-native";
 import {Colors} from "../config/Colors";
-import {ProfileEditPageModes} from "../config/ProfileEditPageModes";
+import {SaveInfoMode} from "../config/SaveInfoMode";
 
 const styles = StyleSheet.create({
     normalStyle: {
@@ -23,12 +23,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     style: chooseStyle(state.profileEditPage.mode),
-    loading: state.profileEditPage.mode === ProfileEditPageModes.LOADING,
+    loading: state.profileEditPage.mode === SaveInfoMode.LOADING,
 });
 
 function chooseStyle(mode) {
     switch (mode) {
-        case ProfileEditPageModes.LOADING:
+        case SaveInfoMode.LOADING:
             return styles.loadingStyle;
         default:
             return styles.normalStyle;
