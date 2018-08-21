@@ -14,5 +14,6 @@ export const Strings = {
     PHOTOS: 'عکس‌ها',
     INTERESTS: 'علاقه‌مندی‌ها',
     EDIT:'ویرایش',
+    SAVE_CHANGES: 'ذخیره تغییرات',
 
 };

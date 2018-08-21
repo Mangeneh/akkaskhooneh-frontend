@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
-import {View} from 'react-native';
 import {createStore, applyMiddleware} from 'redux';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
@@ -11,6 +10,7 @@ import SignUp from "./src/pages/SignUp";
 import SignUpComplete from "./src/pages/SignUpComplete";
 import Profile from './src/pages/Profile'
 import BottomNavigation from "./src/components/BottomNavigation";
+import ProfileEdit from './src/pages/ProfileEdit'
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
     baseURL: 'http://192.168.11.140',
@@ -39,7 +39,7 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <BottomNavigation/>
+                <ProfileEdit />
             </Provider>
         );
     }

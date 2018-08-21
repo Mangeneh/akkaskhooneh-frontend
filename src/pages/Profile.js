@@ -7,7 +7,6 @@ import Constants from "../config/Constants";
 import RoundAvatar from "../components/RoundAvatar";
 import ProfileHeader from "../components/ProfileHeader";
 import GridView from 'react-native-super-grid';
-import {SocialIcon} from "react-native-elements";
 
 const items = [
     {name: 'TURQUOISE', code: '#1abc9c'}, {name: 'EMERALD', code: '#2ecc71'},
@@ -24,13 +23,14 @@ const items = [
 
 
 export default class Profile extends Component {
+
+    componentDidMount(){
+        setTimeout(this._tabs.goToPage.bind(this._tabs,1))
+    }
+
     static navigationOptions = {
         header: null,
     };
-
-    componentDidMount() {
-        setTimeout(this._tabs.goToPage.bind(this._tabs, 1))
-    }
 
     render() {
         const {PHOTOS, INTERESTS} = Strings;
@@ -44,6 +44,7 @@ export default class Profile extends Component {
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <TouchableOpacity style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
                         <RoundAvatar
+                            large={true}
                             uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                     </TouchableOpacity>
                     <Tabs ref={component => this._tabs = component}
@@ -73,7 +74,6 @@ export default class Profile extends Component {
                         </Tab>
                     </Tabs>
                 </View>
-
             </Container>
         );
     }

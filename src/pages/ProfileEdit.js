@@ -9,10 +9,13 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from "../config/Colors";
 import Constants from "../config/Constants";
 import SaveChangesButton from '../containers/SaveChangesButton';
+import {SaveModes} from "../config/SaveModes";
+import {connect} from 'react-redux';
+import { modeChanged } from '../actions/LoginPageActions';
 
-export default class SignUpComplete extends Component {
+class ProfileEdit extends Component {
     render() {
-        const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
+        const {SAVE_CHANGES} = Strings;
         const {TEXT_BOX_FONT_SIZE, TEXT_BOX_RADIUS, TEXT_BOX_ELEVATION} = Constants;
         return (
             <KeyboardAwareScrollView>
@@ -26,37 +29,51 @@ export default class SignUpComplete extends Component {
 
                         <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
                               rounded>
-                            <CustomTextBox placeholder={USER_NAME} secureTextEntry={false}
+                            <CustomTextBox disabled={true} placeholder={'username got from db!!'} secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
                         <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
                               rounded>
-                            <CustomTextBox placeholder={FIRST_LAST_NAME} secureTextEntry={false}
+                            <CustomTextBox placeholder={'name got from db!!'} secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
                         <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
                               rounded>
-                            <CustomTextBox disabled={true} placeholder={'email got from last page!!!'}
+                            <CustomTextBox disabled={true} placeholder={'email got from db!!'}
                                            secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
                         <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
                               rounded>
-                            <CustomLongTextBox placeholder={ABOUT_YOU}
+                            <CustomLongTextBox placeholder={'info got from db!!'}
                                                style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
                     </View>
 
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
-                        <SaveChangesButton text={COMPLETE_INFO} icon="check"/>
+                        <SaveChangesButton text={SAVE_CHANGES} icon="check" onPress={this.onSaveChangesPressed.bind(this)}/>
                     </View>
 
                 </Container>
             </KeyboardAwareScrollView>
         );
     }
+
+    onSaveChangesPressed() {
+        this.props.changeMode(SaveModes.LOADING)
+    }
 }
+
+const mapStateToProps = (state) => ({
+    mode: state.profileEditPage.mode
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changeMode: (mode) => dispatch(modeChanged(mode)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)
