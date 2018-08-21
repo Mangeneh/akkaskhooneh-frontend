@@ -12,6 +12,7 @@ import SaveChangesButton from '../containers/SaveChangesButton';
 import {SaveInfoMode} from "../config/SaveInfoMode";
 import {connect} from 'react-redux';
 import {modeChanged} from '../actions/ProfileEditPageActions';
+import {updateToken} from "../actions/UserInfoActions";
 
 class ProfileEditPage extends Component {
     render() {
@@ -59,7 +60,8 @@ class ProfileEditPage extends Component {
     }
 
     onSaveChangesPressed() {
-        this.props.changeMode(SaveInfoMode.LOADING)
+        this.props.changeMode(SaveInfoMode.LOADING);
+        this.props.updateToken();
     }
 }
 
@@ -75,11 +77,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-    mode: state.profileEditPage.mode
+    mode: state.profileEditPage.mode,
+    lastTokenUpdateTime: state.userInfo.lastTokenUpdateTime
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
+    updateToken: () => dispatch(updateToken())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEditPage)

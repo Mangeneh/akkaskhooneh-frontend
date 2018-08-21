@@ -1,7 +1,7 @@
 import {ProfileEditPageActions} from '../actions/ProfileEditPageActions';
 
 const INITIAL_STATE = {
-    mode: ProfileEditPageActions.NORMAL
+    mode: ProfileEditPageActions.NORMAL,
 };
 
 export default (state = INITIAL_STATE, action) => {

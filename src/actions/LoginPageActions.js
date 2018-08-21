@@ -33,7 +33,7 @@ export const modeChanged = (mode) => {
 
 export const loginUser = (email, password) => {
     return {
-        type: 'LOGIN',
+        type: LoginPageActions.LOGIN,
         payload: {
             request: {
                 method: 'POST',
