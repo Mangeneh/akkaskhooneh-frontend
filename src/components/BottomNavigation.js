@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {Icon, Container} from 'native-base';
@@ -27,7 +27,7 @@ const BottomNavigation = createMaterialBottomTabNavigator(
                 return <Icon name={iconName} type={"MaterialCommunityIcons"} size={24} style={{color: Colors.ICON}}/>;
             },
         }),
-        labeled:false,
+        labeled: false,
         initialRouteName: 'Profile',
         activeTintColor: '#252384',
         inactiveTintColor: '#ff1a1e',

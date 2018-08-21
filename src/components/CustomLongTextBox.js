@@ -8,12 +8,12 @@ export default class CustomLongTextBox extends Component {
             <Content>
                 <Form>
                 <Textarea
-                rowSpan={5}
-                style={style}
-                placeholder={placeholder}
-                disabled={disabled}
-                fontFamily={'IRANSansWeb'}
-            />
+                    rowSpan={5}
+                    style={style}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                    fontFamily={'IRANSansWeb'}
+                />
                 </Form>
             </Content>
         );

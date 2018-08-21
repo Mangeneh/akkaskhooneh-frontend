@@ -22,7 +22,8 @@ export default class SignUp extends Component {
                     backgroundColor={Colors.BASE}
                 />
                 <View style={styles.partition}>
-                    <RoundAvatar large={true} style={{alignSelf: 'center', marginBottom: 15}} uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
+                    <RoundAvatar large={true} style={{alignSelf: 'center', marginBottom: 15}}
+                                 uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
                     <Text style={{fontSize: 12, color: 'white', textAlign: 'center'}}
                           fontFamily={'IRANSansWeb'}>{APP_NAME}</Text>
                 </View>

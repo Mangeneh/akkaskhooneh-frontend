@@ -24,13 +24,13 @@ const items = [
 
 export default class Profile extends Component {
 
-    componentDidMount(){
-        setTimeout(this._tabs.goToPage.bind(this._tabs,1))
-    }
-
     static navigationOptions = {
         header: null,
     };
+
+    componentDidMount() {
+        setTimeout(this._tabs.goToPage.bind(this._tabs, 1))
+    }
 
     render() {
         const {PHOTOS, INTERESTS} = Strings;
