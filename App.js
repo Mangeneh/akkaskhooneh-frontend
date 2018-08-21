@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
+import axios from 'axios';
+import axiosMiddleware from 'redux-axios-middleware';
+import {createStackNavigator} from 'react-navigation';
 import rootReducer from './src/reducers'
 import Login from "./src/pages/Login";
 import SignUp from "./src/pages/SignUp";
 import SignUpComplete from "./src/pages/SignUpComplete";
 import Profile from './src/pages/Profile'
-import axios from 'axios';
-import axiosMiddleware from 'redux-axios-middleware';
-import BottomNavigationTab from "./src/components/BottomNavigationTab";
 import AnotherBottom from "./src/components/AnotherBottom";
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
@@ -24,11 +24,20 @@ let store = createStore(
     )
 );
 
+const RootStack = createStackNavigator(
+    {
+        Login: Login,
+        Profile: Profile
+    },
+    {
+        initialRouteName: 'Login'
+    });
+
 export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <AnotherBottom/>
+                <RootStack/>
             </Provider>
         );
     }

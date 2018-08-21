@@ -11,10 +11,14 @@ import {Colors} from "../config/Colors";
 import EmailTextBox from "../components/EmailTextBox";
 import PasswordTextBox from "../components/PasswordTextBox";
 import Constants from "../config/Constants";
-import {emailChanged, loginUser, modeChanged, passwordChanged} from "../actions/LoginPageActions";
+import {emailChanged, LoginPageActions, loginUser, modeChanged, passwordChanged} from "../actions/LoginPageActions";
 import {LoginPageModes} from "../config/LoginPageModes";
 
 class Login extends Component {
+    static navigationOptions = {
+        header: null,
+    };
+
     render() {
         const {ENTER, FORGOT_PASSWORD} = Strings;
         const {error} = this.props;
@@ -74,7 +78,12 @@ class Login extends Component {
 
     onLoginPress() {
         const {email, password} = this.props;
-        this.props.loginUser(email, password);
+        this.props.loginUser(email, password)
+            .then((result) => {
+                if (result.type === LoginPageActions.LOGIN_SUCCESS) {
+                    this.props.navigation.navigate('Profile')
+                }
+            });
     }
 
     renderLogoSection() {
