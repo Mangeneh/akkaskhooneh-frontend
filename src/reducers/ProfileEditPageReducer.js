@@ -1,8 +1,7 @@
 import {ProfileEditPageActions} from '../actions/ProfileEditPageActions';
-import {SaveModes} from "../config/SaveModes";
 
 const INITIAL_STATE = {
-    mode: SaveModes.NORMAL
+    mode: ProfileEditPageActions.NORMAL
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -1,4 +1,4 @@
-export const SaveModes = {
+export const ProfileEditPageModes = {
     NORMAL: 'NORMAL',
     LOADING: 'LOADING',
 };

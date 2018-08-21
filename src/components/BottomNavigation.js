@@ -34,7 +34,7 @@ const BottomNavigation = createMaterialBottomTabNavigator(
         barStyle: {backgroundColor: '#fff', height: 60},
     });
 
-export default () => (
+    export default () => (
     <Container>
         <BottomNavigation />
         <TouchableOpacity style={{position: 'absolute', alignSelf: 'center', bottom: 20}}>
