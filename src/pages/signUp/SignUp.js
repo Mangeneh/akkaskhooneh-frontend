@@ -1,7 +1,6 @@
 import React, {Component,} from 'react';
 import {Container, Text} from 'native-base';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
-import LoginButton from '../../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
 import {Strings} from '../../config/Strings';
 import RoundAvatar from "../../components/RoundAvatar";
@@ -20,6 +19,7 @@ import {
 } from "./actions";
 import {PageModes} from "../../config/PageModes";
 import {connect} from 'react-redux';
+import SignUpButton from '../../containers/SignUpButton';
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -50,7 +50,7 @@ class SignUp extends Component {
                             <PasswordTextBox error={error}
                                              onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
                         </View>
-                        <LoginButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={"login"}/>
+                        <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={"login"}/>
                     </View>
                     {this.renderOtherLoginSection()}
                 </Container>

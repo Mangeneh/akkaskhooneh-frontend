@@ -3,13 +3,13 @@ import SpinnerButton from "../components/SpinnerButton";
 import {ButtonStyle} from "../styles/ButtonStyle";
 
 const mapStateToProps = (state) => ({
-    style: chooseStyle(state.loginPage.mode),
-    loading: state.loginPage.mode === 'LOADING',
-    disabled: state.loginPage.mode === 'DISABLED',
+    style: chooseStyle(state.signUpPage.mode),
+    loading: state.signUpPage.mode === 'LOADING',
+    disabled: state.signUpPage.mode === 'DISABLED',
 });
 
-function chooseStyle(loginMode) {
-    switch (loginMode) {
+function chooseStyle(signUpMode) {
+    switch (signUpMode) {
         case 'LOADING':
             return ButtonStyle.loadingStyle;
         case 'ERROR':
