@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import {SaveInfoMode} from "../config/SaveInfoMode";
 import {modeChanged} from '../actions/SignUpCompletePageActions';
 
-class SignUpComplete extends Component {
+class SignUpCompletePage extends Component {
     render() {
         const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
         const {TEXT_BOX_FONT_SIZE, TEXT_BOX_RADIUS, TEXT_BOX_ELEVATION} = Constants;
@@ -105,4 +105,4 @@ const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpComplete)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpCompletePage)

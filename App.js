@@ -7,7 +7,7 @@ import {createStackNavigator} from 'react-navigation';
 import rootReducer from './src/reducers'
 import Login from "./src/pages/Login";
 import SignUp from "./src/pages/SignUp";
-import SignUpComplete from "./src/pages/SignUpComplete";
+import SignUpCompletePage from "./src/pages/SignUpCompletePage";
 import Profile from './src/pages/Profile'
 import BottomNavigation from "./src/components/BottomNavigation";
 import ProfileEditPage from './src/pages/ProfileEditPage'
