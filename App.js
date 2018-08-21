@@ -10,7 +10,7 @@ import SignUp from "./src/pages/SignUp";
 import SignUpComplete from "./src/pages/SignUpComplete";
 import Profile from './src/pages/Profile'
 import BottomNavigation from "./src/components/BottomNavigation";
-import ProfileEdit from './src/pages/ProfileEdit'
+import ProfileEditPage from './src/pages/ProfileEditPage'
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
     baseURL: 'http://192.168.11.140',

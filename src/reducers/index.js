@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import LoginPageReducer from "./LoginPageReducer";
-import ProfileEditReducer from './ProfileEditReducer';
+import ProfileEditPageReducer from './ProfileEditPageReducer';
 
 export default combineReducers({
     loginPage: LoginPageReducer,
-    profileEditPage: ProfileEditReducer,
+    profileEditPage: ProfileEditPageReducer,
 });

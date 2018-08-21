@@ -9,11 +9,11 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from "../config/Colors";
 import Constants from "../config/Constants";
 import SaveChangesButton from '../containers/SaveChangesButton';
-import {SaveModes} from "../config/SaveModes";
+import {ProfileEditPageActions} from "../config/ProfileEditPageActions";
 import {connect} from 'react-redux';
-import { modeChanged } from '../actions/LoginPageActions';
+import {modeChanged} from '../actions/LoginPageActions';
 
-class ProfileEdit extends Component {
+class ProfileEditPage extends Component {
     render() {
         const {SAVE_CHANGES} = Strings;
         const {TEXT_BOX_FONT_SIZE, TEXT_BOX_RADIUS, TEXT_BOX_ELEVATION} = Constants;
@@ -27,26 +27,55 @@ class ProfileEdit extends Component {
 
                     <View style={{justifyContent: 'center', flex: 4}}>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
-                            <CustomTextBox disabled={true} placeholder={'username got from db!!'} secureTextEntry={false}
+                            <CustomTextBox disabled={true} placeholder={'username got from db!!'}
+                                           secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
                             <CustomTextBox placeholder={'name got from db!!'} secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
                             <CustomTextBox disabled={true} placeholder={'email got from db!!'}
                                            secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
 
-                        <Item style={{marginLeft: 30, marginRight: 30, marginBottom: 15, backgroundColor: 'white', borderRadius: TEXT_BOX_RADIUS, elevation: TEXT_BOX_ELEVATION}}
+                        <Item style={{
+                            marginLeft: 30,
+                            marginRight: 30,
+                            marginBottom: 15,
+                            backgroundColor: 'white',
+                            borderRadius: TEXT_BOX_RADIUS,
+                            elevation: TEXT_BOX_ELEVATION
+                        }}
                               rounded>
                             <CustomLongTextBox placeholder={'info got from db!!'}
                                                style={{textAlign: 'center', fontSize: 10}}/>
@@ -55,7 +84,8 @@ class ProfileEdit extends Component {
                     </View>
 
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
-                        <SaveChangesButton text={SAVE_CHANGES} icon="check" onPress={this.onSaveChangesPressed.bind(this)}/>
+                        <SaveChangesButton text={SAVE_CHANGES} icon="check"
+                                           onPress={this.onSaveChangesPressed.bind(this)}/>
                     </View>
 
                 </Container>
@@ -64,7 +94,7 @@ class ProfileEdit extends Component {
     }
 
     onSaveChangesPressed() {
-        this.props.changeMode(SaveModes.LOADING)
+        this.props.changeMode(ProfileEditPageActions.LOADING)
     }
 }
 
@@ -76,4 +106,4 @@ const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileEditPage)
