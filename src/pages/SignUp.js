@@ -1,7 +1,7 @@
 import React, {Component,} from 'react';
 import CustomTextBox from '../components/CustomTextBox';
 import {Container, Item, Text, Icon} from 'native-base';
-import {TouchableOpacity, View, StyleSheet} from 'react-native'
+import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
 import LoginButton from '../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
 import {Strings} from '../config/Strings';
@@ -9,13 +9,21 @@ import RoundAvatar from "../components/RoundAvatar";
 import {Colors} from "../config/Colors";
 
 export default class SignUp extends Component {
+    static navigationOptions = {
+        header: null,
+    };
+
     render() {
         const {APP_NAME, EMAIL_ADDRESS, PASSWORD, REPEAT_PASSWORD, SIGN_UP, ENTER_LOGIN_PAGE} = Strings;
         return (
             <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
-
+                <StatusBar
+                    barStyle="light-content"
+                    backgroundColor={Colors.BASE}
+                />
                 <View style={styles.partition}>
-                    <RoundAvatar style={{alignSelf: 'center', marginBottom: 15}} uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
+                    <RoundAvatar style={{alignSelf: 'center', marginBottom: 15}}
+                                 uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
                     <Text style={{fontSize: 12, color: 'white', textAlign: 'center'}}
                           fontFamily={'IRANSansWeb'}>{APP_NAME}</Text>
                 </View>
@@ -83,7 +91,8 @@ export default class SignUp extends Component {
                     </View>
 
                     <TouchableOpacity
-                        style={{alignSelf: 'center'}}>
+                        style={{alignSelf: 'center'}}
+                        onPress={() => this.onReturnToLoginPress()}>
                         <Text style={{color: 'white', fontSize: 12}}
                               fontFamily={'IRANSansWeb'}>{ENTER_LOGIN_PAGE}</Text>
                     </TouchableOpacity>
@@ -92,6 +101,10 @@ export default class SignUp extends Component {
 
             </Container>
         );
+    }
+
+    onReturnToLoginPress() {
+        this.props.navigation.navigate('Login');
     }
 }
 

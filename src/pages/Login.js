@@ -1,6 +1,6 @@
 import React, {Component,} from 'react';
 import {Container, Text} from 'native-base';
-import {TouchableOpacity, View, StyleSheet} from 'react-native'
+import {TouchableOpacity, View, StyleSheet, StatusBar, SafeAreaView} from 'react-native'
 import {SocialIcon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
@@ -24,6 +24,10 @@ class Login extends Component {
         const {error} = this.props;
         return (
             <KeyboardAwareScrollView>
+                <StatusBar
+                    barStyle="light-content"
+                    backgroundColor={Colors.BASE}
+                />
                 <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
                     {this.renderLogoSection()}
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
@@ -103,7 +107,7 @@ class Login extends Component {
         return (
             <View style={{flex: 1, justifyContent: 'center',}}>
                 {this.renderOtherLoginButtons()}
-                <TouchableOpacity style={{alignSelf: 'center'}}>
+                <TouchableOpacity style={{alignSelf: 'center'}} onPress={()=>this.onSignUpPress()}>
                     <Text style={styles.text}>{SIGN_UP}</Text>
                 </TouchableOpacity>
             </View>
@@ -133,6 +137,10 @@ class Login extends Component {
                 </TouchableOpacity>
             </View>
         )
+    }
+
+    onSignUpPress() {
+        this.props.navigation.navigate('SignUp')
     }
 }
 

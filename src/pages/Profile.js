@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs, Text} from 'native-base';
-import {TouchableOpacity, View, StyleSheet} from 'react-native'
+import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
 import {Strings} from '../config/Strings';
 import {Colors} from "../config/Colors";
 import Constants from "../config/Constants";
 import RoundAvatar from "../components/RoundAvatar";
 import ProfileHeader from "../components/ProfileHeader";
 import GridView from 'react-native-super-grid';
+import {SocialIcon} from "react-native-elements";
 
 const items = [
     {name: 'TURQUOISE', code: '#1abc9c'}, {name: 'EMERALD', code: '#2ecc71'},
@@ -23,26 +24,30 @@ const items = [
 
 
 export default class Profile extends Component {
-
-    componentDidMount(){
-        setTimeout(this._tabs.goToPage.bind(this._tabs,1))
-    }
-
     static navigationOptions = {
         header: null,
     };
+
+    componentDidMount() {
+        setTimeout(this._tabs.goToPage.bind(this._tabs, 1))
+    }
 
     render() {
         const {PHOTOS, INTERESTS} = Strings;
         return (
             <Container>
+                <StatusBar
+                    barStyle="light-content"
+                    backgroundColor={Colors.BASE}
+                />
                 <ProfileHeader username={"Alireza"}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <TouchableOpacity style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
                         <RoundAvatar
                             uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                     </TouchableOpacity>
-                    <Tabs ref={component => this._tabs = component} tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
+                    <Tabs ref={component => this._tabs = component}
+                          tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
                         <Tab heading={INTERESTS}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
@@ -68,6 +73,7 @@ export default class Profile extends Component {
                         </Tab>
                     </Tabs>
                 </View>
+
             </Container>
         );
     }
