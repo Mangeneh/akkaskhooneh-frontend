@@ -1,4 +1,4 @@
-export const LoginPageModes = {
+export const PageModes = {
     DISABLED: 'DISABLED',
     NORMAL: 'NORMAL',
     ERROR: 'ERROR',

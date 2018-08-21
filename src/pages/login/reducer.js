@@ -1,14 +1,14 @@
-import {LoginPageActions} from '../actions/LoginPageActions';
-import {LoginPageModes} from "../config/LoginPageModes";
+import {Actions} from './actions';
+import {PageModes} from "../../config/PageModes";
 
 const INITIAL_STATE = {
     email: '',
     password: '',
-    mode: LoginPageModes.DISABLED
+    mode: PageModes.DISABLED
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {EMAIL_CHANGED, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS} = LoginPageActions;
+    const {EMAIL_CHANGED, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS} = Actions;
     switch (action.type) {
         case EMAIL_CHANGED:
             return {...state, email: action.payload};
@@ -19,9 +19,9 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN:
             return {...state, mode: 'LOADING'};
         case LOGIN_FAIL:
-            return {...state, mode: LoginPageModes.ERROR};
+            return {...state, mode: PageModes.ERROR};
         case LOGIN_SUCCESS:
-            return {...state, mode: LoginPageModes.NORMAL};
+            return {...state, mode: PageModes.NORMAL};
         default:
             return state;
     }

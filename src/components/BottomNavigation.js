@@ -3,8 +3,8 @@ import {TouchableOpacity} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {Icon, Container} from 'native-base';
-import Profile from "../pages/Profile";
-import Login from "../pages/Login";
+import Profile from "../pages/profile/Profile";
+import Login from "../pages/login/Login";
 import {Colors} from "../config/Colors";
 
 const BottomNavigation = createMaterialBottomTabNavigator(

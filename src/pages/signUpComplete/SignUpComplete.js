@@ -1,19 +1,19 @@
 import React, {Component,} from 'react';
-import CustomTextBox from '../components/CustomTextBox';
-import CustomLongTextBox from '../components/CustomLongTextBox';
+import CustomTextBox from '../../components/CustomTextBox';
+import CustomLongTextBox from '../../components/CustomLongTextBox';
 import {Container, Item} from 'native-base';
 import {View, TouchableOpacity} from 'react-native'
-import {Strings} from '../config/Strings';
-import RoundAvatar from "../components/RoundAvatar";
+import {Strings} from '../../config/Strings';
+import RoundAvatar from "../../components/RoundAvatar";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Colors} from "../config/Colors";
-import Constants from "../config/Constants";
-import SaveChangesButton from '../containers/SaveChangesButton';
+import {Colors} from "../../config/Colors";
+import Constants from "../../config/Constants";
+import SaveChangesButton from '../../containers/SaveChangesButton';
 import {connect} from 'react-redux';
-import {SaveInfoMode} from "../config/SaveInfoMode";
-import {modeChanged} from '../actions/SignUpCompletePageActions';
+import {SaveInfoMode} from "../../config/SaveInfoMode";
+import {modeChanged} from './actions';
 
-class SignUpCompletePage extends Component {
+class SignUpComplete extends Component {
     render() {
         const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
         const {TEXT_BOX_FONT_SIZE, TEXT_BOX_RADIUS, TEXT_BOX_ELEVATION} = Constants;
@@ -105,4 +105,4 @@ const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpCompletePage)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpComplete)

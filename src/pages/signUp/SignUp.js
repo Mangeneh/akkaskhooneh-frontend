@@ -1,18 +1,24 @@
 import React, {Component,} from 'react';
-import CustomTextBox from '../components/CustomTextBox';
-import {Container, Item, Text, Icon} from 'native-base';
+import {Container, Text} from 'native-base';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
-import LoginButton from '../containers/LoginButton';
+import LoginButton from '../../containers/LoginButton';
 import {SocialIcon} from 'react-native-elements';
-import {Strings} from '../config/Strings';
-import RoundAvatar from "../components/RoundAvatar";
-import {Colors} from "../config/Colors";
+import {Strings} from '../../config/Strings';
+import RoundAvatar from "../../components/RoundAvatar";
+import {Colors} from "../../config/Colors";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import Constants from "../config/Constants";
-import EmailTextBox from "../components/EmailTextBox";
-import PasswordTextBox from "../components/PasswordTextBox";
-import {emailChanged, SignUpPageActions, signUpUser, modeChanged, passwordChanged, repeatedPasswordChanged} from "../actions/SignUpPageActions";
-import {LoginPageModes} from "../config/LoginPageModes";
+import Constants from "../../config/Constants";
+import EmailTextBox from "../../components/EmailTextBox";
+import PasswordTextBox from "../../components/PasswordTextBox";
+import {
+    emailChanged,
+    Actions,
+    signUpUser,
+    modeChanged,
+    passwordChanged,
+    repeatedPasswordChanged
+} from "./actions";
+import {PageModes} from "../../config/PageModes";
 import {connect} from 'react-redux';
 
 class SignUp extends Component {
@@ -34,15 +40,15 @@ class SignUp extends Component {
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 32, marginRight: 32}}>
                             <EmailTextBox error={error}
-                                            onChangeEmail={(email) => this.onEmailChange(email)}/>
+                                          onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                             <PasswordTextBox error={error}
-                                                onChangePassword={(password) => this.onPasswordChange(password)}/>
+                                             onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
-                                                <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
+                        <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                             <PasswordTextBox error={error}
-                                                onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
+                                             onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
                         </View>
                         <LoginButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={"login"}/>
                     </View>
@@ -68,38 +74,35 @@ class SignUp extends Component {
     }
 
     validateEmailLocally(email) {
-        const {password} = this.props;
-        const {repeatedPassword} = this.props;
+        const {repeatedPassword, password} = this.props;
 
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (password.length < 6 || reg.test(email) === false || password !== repeatedPassword) {
-            this.props.changeMode(LoginPageModes.DISABLED)
+            this.props.changeMode(PageModes.DISABLED)
         } else {
-            this.props.changeMode(LoginPageModes.NORMAL)
+            this.props.changeMode(PageModes.NORMAL)
         }
     }
 
     validatePasswordLocally(password) {
-        const {email} = this.props;
-        const {repeatedPassword} = this.props;
+        const {repeatedPassword, email} = this.props;
 
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (password.length < 6 || reg.test(email) === false || password !== repeatedPassword) {
-            this.props.changeMode(LoginPageModes.DISABLED)
+            this.props.changeMode(PageModes.DISABLED)
         } else {
-            this.props.changeMode(LoginPageModes.NORMAL)
+            this.props.changeMode(PageModes.NORMAL)
         }
     }
 
     validateRepeatedPasswordLocally(repeatedPassword) {
-        const {email} = this.props;
-        const {password} = this.props;
+        const {password, email} = this.props;
 
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (password.length < 6 || reg.test(email) === false || password !== repeatedPassword) {
-            this.props.changeMode(LoginPageModes.DISABLED)
+            this.props.changeMode(PageModes.DISABLED)
         } else {
-            this.props.changeMode(LoginPageModes.NORMAL)
+            this.props.changeMode(PageModes.NORMAL)
         }
     }
 
@@ -119,7 +122,7 @@ class SignUp extends Component {
         return (
             <View style={{flex: 1, justifyContent: 'center',}}>
                 {this.renderOtherLoginButtons()}
-                <TouchableOpacity style={{alignSelf: 'center'}} onPress={()=>this.onReturnToLoginPress()}>
+                <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => this.onReturnToLoginPress()}>
                     <Text style={styles.text}>{ENTER_LOGIN_PAGE}</Text>
                 </TouchableOpacity>
             </View>
@@ -130,7 +133,7 @@ class SignUp extends Component {
         const {email, password} = this.props;
         this.props.signUpUser(email, password)
             .then((result) => {
-                if (result.type === SignUpPageActions.SIGN_UP_SUCCESS) {
+                if (result.type === Actions.SIGN_UP_SUCCESS) {
                     this.props.navigation.navigate('Profile')
                 }
             });
@@ -169,9 +172,9 @@ class SignUp extends Component {
 const mapStateToProps = (state) => ({
     email: state.signUpPage.email.toLowerCase(),
     password: state.signUpPage.password,
-    repeatedPassword: state.signUpPage.reapetedPassword,
+    repeatedPassword: state.signUpPage.repeatedPassword,
     mode: state.signUpPage.mode,
-    error: state.signUpPage.mode === LoginPageModes.ERROR
+    error: state.signUpPage.mode === PageModes.ERROR
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,18 +1,18 @@
 import React, {Component,} from 'react';
 import {Container, Text} from 'native-base';
-import {TouchableOpacity, View, StyleSheet, StatusBar, SafeAreaView} from 'react-native'
+import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
 import {SocialIcon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
-import RoundAvatar from "../components/RoundAvatar";
-import LoginButton from '../containers/LoginButton';
-import {Strings} from '../config/Strings';
-import {Colors} from "../config/Colors";
-import EmailTextBox from "../components/EmailTextBox";
-import PasswordTextBox from "../components/PasswordTextBox";
-import Constants from "../config/Constants";
-import {emailChanged, LoginPageActions, loginUser, modeChanged, passwordChanged} from "../actions/LoginPageActions";
-import {LoginPageModes} from "../config/LoginPageModes";
+import RoundAvatar from "../../components/RoundAvatar";
+import LoginButton from '../../containers/LoginButton';
+import {Strings} from '../../config/Strings';
+import {Colors} from "../../config/Colors";
+import EmailTextBox from "../../components/EmailTextBox";
+import PasswordTextBox from "../../components/PasswordTextBox";
+import Constants from "../../config/Constants";
+import {emailChanged, Actions, loginUser, modeChanged, passwordChanged} from "./actions";
+import {PageModes} from "../../config/PageModes";
 
 class Login extends Component {
     static navigationOptions = {
@@ -64,9 +64,9 @@ class Login extends Component {
         const {password} = this.props;
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (password.length < 6 || reg.test(email) === false) {
-            this.props.changeMode(LoginPageModes.DISABLED)
+            this.props.changeMode(PageModes.DISABLED)
         } else {
-            this.props.changeMode(LoginPageModes.NORMAL)
+            this.props.changeMode(PageModes.NORMAL)
         }
     }
 
@@ -74,9 +74,9 @@ class Login extends Component {
         const {email} = this.props;
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (password.length < 6 || reg.test(email) === false) {
-            this.props.changeMode(LoginPageModes.DISABLED)
+            this.props.changeMode(PageModes.DISABLED)
         } else {
-            this.props.changeMode(LoginPageModes.NORMAL)
+            this.props.changeMode(PageModes.NORMAL)
         }
     }
 
@@ -84,7 +84,7 @@ class Login extends Component {
         const {email, password} = this.props;
         this.props.loginUser(email, password)
             .then((result) => {
-                if (result.type === LoginPageActions.LOGIN_SUCCESS) {
+                if (result.type === Actions.LOGIN_SUCCESS) {
                     this.props.navigation.navigate('Profile')
                 }
             });
@@ -158,7 +158,7 @@ const mapStateToProps = (state) => ({
     email: state.loginPage.email.toLowerCase(),
     password: state.loginPage.password,
     mode: state.loginPage.mode,
-    error: state.loginPage.mode === LoginPageModes.ERROR
+    error: state.loginPage.mode === PageModes.ERROR
 });
 
 const mapDispatchToProps = (dispatch) => ({

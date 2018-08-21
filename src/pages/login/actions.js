@@ -1,39 +1,39 @@
-export const LoginPageActions = {
-    EMAIL_CHANGED: 'EMAIL_CHANGED',
-    PASSWORD_CHANGED: 'PASSWORD_CHANGED',
-    MODE_CHANGED: 'MODE_CHANGED',
+export const Actions = {
+    EMAIL_CHANGED: 'LOGIN_EMAIL_CHANGED',
+    PASSWORD_CHANGED: 'LOGIN_PASSWORD_CHANGED',
+    MODE_CHANGED: 'LOGIN_MODE_CHANGED',
     LOGIN_FAIL: 'LOGIN_FAIL',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN: 'LOGIN',
     ENTER_SIGN_UP: 'ENTER_SIGN_UP',
-    SIGN_IN_FROM_OTHER_ACCOUNTS: 'SIGN_IN_FROM_OTHER_ACCOUNTS',
+    SIGN_IN_FROM_OTHER_ACCOUNTS: 'LOGIN_SIGN_IN_FROM_OTHER_ACCOUNTS',
     FORGOT_PASSWORD: 'FORGOT_PASSWORD',
 };
 
 export const emailChanged = (email) => {
     return {
-        type: LoginPageActions.EMAIL_CHANGED,
+        type: Actions.EMAIL_CHANGED,
         payload: email
     }
 };
 
 export const passwordChanged = (password) => {
     return {
-        type: LoginPageActions.PASSWORD_CHANGED,
+        type: Actions.PASSWORD_CHANGED,
         payload: password
     }
 };
 
 export const modeChanged = (mode) => {
     return {
-        type: LoginPageActions.MODE_CHANGED,
+        type: Actions.MODE_CHANGED,
         payload: mode
     }
 };
 
 export const loginUser = (email, password) => {
     return {
-        type: LoginPageActions.LOGIN,
+        type: Actions.LOGIN,
         payload: {
             request: {
                 method: 'POST',

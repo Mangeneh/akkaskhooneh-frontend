@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import CustomTextBox from '../components/CustomTextBox';
-import CustomLongTextBox from '../components/CustomLongTextBox';
+import CustomTextBox from '../../components/CustomTextBox';
+import CustomLongTextBox from '../../components/CustomLongTextBox';
 import {Container, Item} from 'native-base';
 import {View, TouchableOpacity, StyleSheet} from 'react-native'
-import {Strings} from '../config/Strings';
-import RoundAvatar from "../components/RoundAvatar";
+import {Strings} from '../../config/Strings';
+import RoundAvatar from "../../components/RoundAvatar";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Colors} from "../config/Colors";
-import Constants from "../config/Constants";
-import SaveChangesButton from '../containers/SaveChangesButton';
-import {SaveInfoMode} from "../config/SaveInfoMode";
+import {Colors} from "../../config/Colors";
+import Constants from "../../config/Constants";
+import SaveChangesButton from '../../containers/SaveChangesButton';
+import {SaveInfoMode} from "../../config/SaveInfoMode";
 import {connect} from 'react-redux';
-import {modeChanged} from '../actions/ProfileEditPageActions';
-import {updateToken} from "../actions/UserInfoActions";
+import {modeChanged} from './actions';
+import {updateToken} from "../../actions/UserInfoActions";
 
-class ProfileEditPage extends Component {
+class ProfileEdit extends Component {
     render() {
         const {SAVE_CHANGES} = Strings;
         return (
@@ -86,4 +86,4 @@ const mapDispatchToProps = (dispatch) => ({
     updateToken: () => dispatch(updateToken())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileEditPage)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)

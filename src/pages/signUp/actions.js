@@ -1,46 +1,46 @@
-export const SignUpPageActions = {
-    EMAIL_CHANGED: 'EMAIL_CHANGED',
-    PASSWORD_CHANGED: 'PASSWORD_CHANGED',
+export const Actions = {
+    EMAIL_CHANGED: 'SIGN_UP_EMAIL_CHANGED',
+    PASSWORD_CHANGED: 'SIGN_UP_PASSWORD_CHANGED',
     REPEATED_PASSWORD_CHANGED: 'REPEATED_PASSWORD_CHANGED',
-    MODE_CHANGED: 'MODE_CHANGED',
+    MODE_CHANGED: 'SIGN_UP_MODE_CHANGED',
     SIGN_UP_FAIL: 'SIGN_UP_FAIL',
     SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
     SIGN_UP: 'SIGN_UP',
     ENTER_LOGIN: 'ENTER_LOGIN',
-    SIGN_IN_FROM_OTHER_ACCOUNTS: 'SIGN_IN_FROM_OTHER_ACCOUNTS',
+    SIGN_IN_FROM_OTHER_ACCOUNTS: 'SIGN_UP_SIGN_IN_FROM_OTHER_ACCOUNTS',
 };
 
 export const emailChanged = (email) => {
     return {
-        type: SignUpPageActions.EMAIL_CHANGED,
+        type: Actions.EMAIL_CHANGED,
         payload: email
     }
 };
 
 export const passwordChanged = (password) => {
     return {
-        type: SignUpPageActions.PASSWORD_CHANGED,
+        type: Actions.PASSWORD_CHANGED,
         payload: password
     }
 };
 
 export const repeatedPasswordChanged = (password) => {
     return {
-        type: SignUpPageActions.REPEATED_PASSWORD_CHANGED,
+        type: Actions.REPEATED_PASSWORD_CHANGED,
         payload: password
     }
 };
 
 export const modeChanged = (mode) => {
     return {
-        type: SignUpPageActions.MODE_CHANGED,
+        type: Actions.MODE_CHANGED,
         payload: mode
     }
 };
 
 export const signUpUser = (email, password) => {
     return {
-        type: 'SIGN_UP',
+        type: Actions.SIGN_UP,
         payload: {
             request: {
                 method: 'POST',

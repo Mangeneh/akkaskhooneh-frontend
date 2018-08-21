@@ -5,12 +5,9 @@ import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator} from 'react-navigation';
 import rootReducer from './src/reducers'
-import Login from "./src/pages/Login";
-import SignUp from "./src/pages/SignUp";
-import SignUpCompletePage from "./src/pages/SignUpCompletePage";
-import Profile from './src/pages/Profile'
-import BottomNavigation from "./src/components/BottomNavigation";
-import ProfileEditPage from './src/pages/ProfileEditPage'
+import Login from "./src/pages/login/Login";
+import SignUp from "./src/pages/signUp/SignUp";
+import Profile from './src/pages/profile/Profile'
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
     baseURL: 'http://192.168.11.140',

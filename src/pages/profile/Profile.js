@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs, Text} from 'native-base';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
-import {Strings} from '../config/Strings';
-import {Colors} from "../config/Colors";
-import Constants from "../config/Constants";
-import RoundAvatar from "../components/RoundAvatar";
-import ProfileHeader from "../components/ProfileHeader";
+import {Strings} from '../../config/Strings';
+import {Colors} from "../../config/Colors";
+import Constants from "../../config/Constants";
+import RoundAvatar from "../../components/RoundAvatar";
+import ProfileHeader from "../../components/ProfileHeader";
 import GridView from 'react-native-super-grid';
 
 const items = [
