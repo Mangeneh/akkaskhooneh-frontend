@@ -11,7 +11,7 @@ import Constants from "../config/Constants";
 import SaveChangesButton from '../containers/SaveChangesButton';
 import {SaveModes} from "../config/SaveModes";
 import {connect} from 'react-redux';
-import { modeChanged } from '../actions/LoginPageActions';
+import {modeChanged} from '../actions/ProfileEditPageActions';
 
 class ProfileEdit extends Component {
     render() {

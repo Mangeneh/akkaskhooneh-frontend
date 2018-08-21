@@ -9,8 +9,11 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from "../config/Colors";
 import Constants from "../config/Constants";
 import SaveChangesButton from '../containers/SaveChangesButton';
+import {connect} from 'react-redux';
+import {SaveModes} from "../config/SaveModes";
+import { modeChanged } from '../actions/SignUpCompletePageActions';
 
-export default class SignUpComplete extends Component {
+class SignUpComplete extends Component {
     render() {
         const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
         const {TEXT_BOX_FONT_SIZE, TEXT_BOX_RADIUS, TEXT_BOX_ELEVATION} = Constants;
@@ -52,11 +55,24 @@ export default class SignUpComplete extends Component {
                     </View>
 
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
-                        <SaveChangesButton text={COMPLETE_INFO} icon="check"/>
+                        <SaveChangesButton text={COMPLETE_INFO} icon="check" onPress={this.onSaveChangesPressed.bind(this)}/>
                     </View>
 
                 </Container>
             </KeyboardAwareScrollView>
         );
     }
+    onSaveChangesPressed() {
+        this.props.changeMode(SaveModes.LOADING)
+    }
 }
+
+const mapStateToProps = (state) => ({
+    mode: state.signUpCompletePage.mode
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changeMode: (mode) => dispatch(modeChanged(mode)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpComplete)

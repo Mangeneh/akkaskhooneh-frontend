@@ -31,17 +31,18 @@ const BottomNavigation = createMaterialBottomTabNavigator(
         initialRouteName: 'Profile',
         activeTintColor: '#252384',
         inactiveTintColor: '#ff1a1e',
-        barStyle: {backgroundColor: '#fff'},
+        barStyle: {backgroundColor: '#fff', height: 60},
     });
 
 export default () => (
     <Container>
-        <BottomNavigation/>
+        <BottomNavigation />
         <TouchableOpacity style={{position: 'absolute', alignSelf: 'center', bottom: 20}}>
             <PlusIcon
                 color={'white'}
                 name={'plus'}
                 raised
+                size={30}
                 containerStyle={{backgroundColor: Colors.ACCENT}}
                 type={"material-community"}
             />
