@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-    email: state.loginPage.email,
+    email: state.loginPage.email.toLowerCase(),
     password: state.loginPage.password,
     mode: state.loginPage.mode,
     error: state.loginPage.mode === LoginPageModes.ERROR

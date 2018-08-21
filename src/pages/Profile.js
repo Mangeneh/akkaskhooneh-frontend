@@ -21,7 +21,17 @@ const items = [
     {name: 'SILVER', code: '#bdc3c7'}, {name: 'ASBESTOS', code: '#7f8c8d'},
 ];
 
+
 export default class Profile extends Component {
+
+    componentDidMount(){
+        setTimeout(this._tabs.goToPage.bind(this._tabs,1))
+    }
+
+    static navigationOptions = {
+        header: null,
+    };
+
     render() {
         const {PHOTOS, INTERESTS} = Strings;
         return (
@@ -32,7 +42,7 @@ export default class Profile extends Component {
                         <RoundAvatar
                             uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
                     </TouchableOpacity>
-                    <Tabs tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
+                    <Tabs ref={component => this._tabs = component} tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
                         <Tab heading={INTERESTS}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
