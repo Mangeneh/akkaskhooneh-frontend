@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {EMAIL_CHANGED, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS} = Actions;
+    const {EMAIL_CHANGED,LOGIN_RESET, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS} = Actions;
     switch (action.type) {
         case EMAIL_CHANGED:
             return {...state, email: action.payload};
@@ -22,6 +22,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, mode: PageModes.ERROR};
         case LOGIN_SUCCESS:
             return {...state, mode: PageModes.NORMAL};
+        case LOGIN_RESET:
+            return INITIAL_STATE;
         default:
             return state;
     }

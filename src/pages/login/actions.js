@@ -8,6 +8,7 @@ export const Actions = {
     ENTER_SIGN_UP: 'ENTER_SIGN_UP',
     SIGN_IN_FROM_OTHER_ACCOUNTS: 'LOGIN_SIGN_IN_FROM_OTHER_ACCOUNTS',
     FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+    LOGIN_RESET : 'LOGIN_RESET'
 };
 
 export const emailChanged = (email) => {
@@ -30,6 +31,8 @@ export const modeChanged = (mode) => {
         payload: mode
     }
 };
+
+export const reset = () => ({type: Actions.LOGIN_RESET});
 
 export const loginUser = (email, password) => {
     return {

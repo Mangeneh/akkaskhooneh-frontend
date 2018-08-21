@@ -11,7 +11,7 @@ import {Colors} from "../../config/Colors";
 import EmailTextBox from "../../components/EmailTextBox";
 import PasswordTextBox from "../../components/PasswordTextBox";
 import Constants from "../../config/Constants";
-import {emailChanged, Actions, loginUser, modeChanged, passwordChanged} from "./actions";
+import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from "./actions";
 import {PageModes} from "../../config/PageModes";
 
 class Login extends Component {
@@ -140,7 +140,8 @@ class Login extends Component {
     }
 
     onSignUpPress() {
-        this.props.navigation.navigate('SignUp')
+        this.props.reset();
+        this.props.navigation.navigate('SignUp');
     }
 }
 
@@ -165,7 +166,8 @@ const mapDispatchToProps = (dispatch) => ({
     changeEmail: (email) => dispatch(emailChanged(email)),
     changePassword: (password) => dispatch(passwordChanged(password)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
-    loginUser: (email, password) => dispatch(loginUser(email, password))
+    loginUser: (email, password) => dispatch(loginUser(email, password)),
+    reset :()=>dispatch(reset())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -15,11 +15,12 @@ import {
     signUpUser,
     modeChanged,
     passwordChanged,
-    repeatedPasswordChanged
+    repeatedPasswordChanged, reset
 } from "./actions";
 import {PageModes} from "../../config/PageModes";
 import {connect} from 'react-redux';
 import SignUpButton from '../../containers/SignUpButton';
+import reducer from "./reducer";
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -165,6 +166,7 @@ class SignUp extends Component {
     }
 
     onReturnToLoginPress() {
+        this.props.reset();
         this.props.navigation.navigate('Login');
     }
 }
@@ -182,7 +184,8 @@ const mapDispatchToProps = (dispatch) => ({
     changePassword: (password) => dispatch(passwordChanged(password)),
     changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
-    signUpUser: (email, password) => dispatch(signUpUser(email, password))
+    signUpUser: (email, password) => dispatch(signUpUser(email, password)),
+    reset: () => dispatch(reset())
 });
 
 const styles = StyleSheet.create({
