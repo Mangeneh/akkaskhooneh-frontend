@@ -67,7 +67,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <Main/>
+                    <ProfileEdit/>
                 </Provider>
             </Root>
         );

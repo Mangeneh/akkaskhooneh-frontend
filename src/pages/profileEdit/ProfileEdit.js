@@ -30,9 +30,9 @@ class ProfileEdit extends Component {
                             barStyle="light-content"
                             backgroundColor={Colors.BASE}
                         />
-                        <View style={{justifyContent: 'center', flex: 1}}>
+                        <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
                             <TouchableOpacity
-                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 40, marginTop: 0}}>
+                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}}>
                                 <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
                             </TouchableOpacity>
 

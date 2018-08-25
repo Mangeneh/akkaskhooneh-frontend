@@ -15,25 +15,24 @@ class SelfProfileInfo extends Component {
         const {bio, name, followers, following} = this.props.user;
         return (
             <View style={{height: 80, flexDirection: 'row', alignItems: 'flex-start'}}>
-                <View style={{alignItems: 'flex-end', marginRight: 16}}>
-                    <Text style={styles.name}>{name}</Text>
-                    <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                <View style={{alignItems: 'flex-end', marginRight: 16,justifyContent: 'space-between'}}>
+                    <Text style={styles.name}>{"aslas"}</Text>
+                    <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start'}}>
                         <TouchableOpacity>
                             <Text style={{
                                 marginRight: 16,
                                 fontFamily: Fonts.NORMAL_FONT,
                                 fontSize: 12
-                            }}>{`${Strings.FOLLOWING} ${following}`}</Text>
+                            }}>{`${following} ${Strings.FOLLOWING}`}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <Text style={{
                                 fontFamily: Fonts.NORMAL_FONT,
                                 fontSize: 12
-                            }}>{`${Strings.FOLLOWER} ${followers}`}</Text>
+                            }}>{`${followers} ${Strings.FOLLOWER}`}</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text style={styles.description}>{bio}</Text>
-                    <Text style={styles.description}>{"sadkabask"}</Text>
+                    <Text style={styles.description}>{"askdjbakjdbakj"}</Text>
                 </View>
                 {this.renderAvatar()}
             </View>
