@@ -1,18 +1,18 @@
 import React, {Component,} from 'react';
-import {Container, Text} from 'native-base';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
+import {Container, Text} from 'native-base';
 import {SocialIcon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import RoundAvatar from "../../components/RoundAvatar";
+import EmailTextBox from "../../components/EmailTextBox";
+import PasswordTextBox from "../../components/PasswordTextBox";
 import LoginButton from '../../containers/LoginButton';
 import {Strings} from '../../config/Strings';
 import {Colors} from "../../config/Colors";
-import EmailTextBox from "../../components/EmailTextBox";
-import PasswordTextBox from "../../components/PasswordTextBox";
 import Constants from "../../config/Constants";
-import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from "./actions";
 import {PageModes} from "../../config/PageModes";
+import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from "./actions";
 
 class Login extends Component {
     static navigationOptions = {
@@ -84,6 +84,7 @@ class Login extends Component {
         const {email, password} = this.props;
         this.props.loginUser(email, password)
             .then((result) => {
+                console.log(result);
                 if (result.type === Actions.LOGIN_SUCCESS) {
                     this.props.navigation.navigate('Profile')
                 }

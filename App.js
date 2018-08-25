@@ -10,7 +10,7 @@ import SignUp from "./src/pages/signUp/SignUp";
 import Profile from './src/pages/profile/Profile'
 import BottomNavigation from './src/components/BottomNavigation';
 
-const client = axios.create({ //all axios can be used, shown in axios documentation
+const client = axios.create({
     baseURL: 'http://192.168.11.140',
     responseType: 'json'
 });
@@ -24,7 +24,6 @@ let store = createStore(
                 request: [
                     function ({getState, dispatch, getSourceAction}, request) {
                         request.headers.authorization = `Bearer ${getState().userInfo.token}`;
-                        console.warn(`${JSON.stringify(request)}   Hi`); //contains information about request object
                         return request;
                     }
                 ],
@@ -41,7 +40,7 @@ let store = createStore(
                         }
                     }]
             }
-        }) //second parameter options can optionally contain onSuccess, onError, onComplete, successSuffix, errorSuffix
+        })
     )
 );
 
