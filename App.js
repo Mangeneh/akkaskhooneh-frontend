@@ -7,7 +7,8 @@ import {createStackNavigator} from 'react-navigation';
 import rootReducer from './src/reducers'
 import Login from "./src/pages/login/Login";
 import SignUp from "./src/pages/signUp/SignUp";
-import Profile from './src/pages/profile/Profile'
+import Profile from './src/pages/profile/Profile';
+import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
 import BottomNavigation from './src/components/BottomNavigation';
 
 const client = axios.create({ //all axios can be used, shown in axios documentation
@@ -24,7 +25,6 @@ let store = createStore(
                 request: [
                     function ({getState, dispatch, getSourceAction}, request) {
                         request.headers.authorization = `Bearer ${getState().userInfo.token}`;
-                        console.warn(`${JSON.stringify(request)}   Hi`); //contains information about request object
                         return request;
                     }
                 ],
@@ -49,17 +49,18 @@ const RootStack = createStackNavigator(
     {
         Login: Login,
         Profile: Profile,
-        SignUp: SignUp
+        SignUp: SignUp,
+        ProfileEdit: ProfileEdit,
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'Profile'
     });
 
 export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <RootStack/>
+                <RootStack />
             </Provider>
         );
     }

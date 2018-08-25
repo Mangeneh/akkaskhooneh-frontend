@@ -15,5 +15,6 @@ export const Strings = {
     INTERESTS: 'علاقه‌مندی‌ها',
     EDIT:'ویرایش',
     SAVE_CHANGES: 'ذخیره تغییرات',
+    EDIR_PROFILE: 'ویرایش پروفایل',
 
 };

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import CustomTextBox from '../../components/CustomTextBox';
 import CustomLongTextBox from '../../components/CustomLongTextBox';
 import {Container, Item} from 'native-base';
-import {View, TouchableOpacity, StyleSheet} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, StatusBar} from 'react-native'
 import {Strings} from '../../config/Strings';
 import RoundAvatar from "../../components/RoundAvatar";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -13,19 +13,28 @@ import {SaveInfoMode} from "../../config/SaveInfoMode";
 import {connect} from 'react-redux';
 import {modeChanged} from './actions';
 import {updateToken} from "../../actions/UserInfoActions";
+import BackHeader from "../../components/BackHeader";
 
 class ProfileEdit extends Component {
+    static navigationOptions = {
+        header: null
+    };
+
     render() {
         const {SAVE_CHANGES} = Strings;
         return (
             <KeyboardAwareScrollView>
-                <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
+                <Container style={{backgroundColor: 'white', flex: 1, justifyContent: 'center', marginTop: 0}}>
+                    <StatusBar
+                        barStyle="light-content"
+                        backgroundColor={Colors.BASE}
+                    />
+                    <BackHeader onBackPress={this.onBackPress.bind(this)} />
+                    <View style={{justifyContent: 'center', flex: 1}} >
+                        <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 40, marginTop: 0}}>
+                            <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
+                        </TouchableOpacity>
 
-                    <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', flex: 3}}>
-                        <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
-                    </TouchableOpacity>
-
-                    <View style={{justifyContent: 'center', flex: 4}}>
                         <Item style={styles.item} rounded>
                             <CustomTextBox disabled={true} placeholder={'username got from db!!'}
                                            secureTextEntry={false}
@@ -47,16 +56,20 @@ class ProfileEdit extends Component {
                             <CustomLongTextBox placeholder={'info got from db!!'}
                                                style={{textAlign: 'center', fontSize: 10}}/>
                         </Item>
-                    </View>
 
-                    <View style={{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
-                        <SaveChangesButton text={SAVE_CHANGES} icon="check"
-                                           onPress={this.onSaveChangesPressed.bind(this)}/>
-                    </View>
+                        <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}>
+                            <SaveChangesButton text={SAVE_CHANGES} icon="check"
+                                            onPress={this.onSaveChangesPressed.bind(this)}/>
+                        </View>
 
+                    </View>
                 </Container>
             </KeyboardAwareScrollView>
         );
+    }
+
+    onBackPress() {
+        this.props.navigation.navigate('Profile');
     }
 
     onSaveChangesPressed() {
