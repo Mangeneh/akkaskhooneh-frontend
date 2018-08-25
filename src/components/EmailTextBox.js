@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {Icon, Item, Input} from "native-base";
-import {Colors, Strings, Constants, Fonts} from "../config";
+import React, {Component} from 'react';
+import {Icon, Item, Input} from 'native-base';
+import {Colors, Strings, Constants, Fonts} from '../config';
 
 export default class EmailTextBox extends Component {
     render() {

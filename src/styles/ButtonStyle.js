@@ -1,5 +1,5 @@
-import {StyleSheet} from "react-native";
-import {Colors} from "../config";
+import {StyleSheet} from 'react-native';
+import {Colors} from '../config';
 
 export const ButtonStyle = StyleSheet.create({
     normalStyle: {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title, Text} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
-import {Colors, Strings, Fonts} from "../config";
+import {Colors, Strings, Fonts} from '../config';
 
 export default class ProfileHeader extends Component {
     render() {
@@ -26,7 +26,7 @@ export default class ProfileHeader extends Component {
                         <TouchableOpacity onPress={() => {
                             this.props.onSettingsPress()
                         }}>
-                            <Icon type={"MaterialCommunityIcons"} name='ship-wheel' style={{color: 'white'}}/>
+                            <Icon type={'MaterialCommunityIcons'} name='ship-wheel' style={{color: 'white'}}/>
                         </TouchableOpacity>
                     </Right>
                 </Header>

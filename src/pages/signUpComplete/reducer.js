@@ -1,5 +1,5 @@
 import {Actions} from './actions';
-import {PageModes} from "../../config";
+import {PageModes} from '../../config';
 
 const INITIAL_STATE = {
     mode: PageModes.NORMAL

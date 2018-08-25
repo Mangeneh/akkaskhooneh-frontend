@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Container, Tab, Tabs, Text} from 'native-base';
 import {View, StyleSheet, StatusBar} from 'react-native';
 import GridView from 'react-native-super-grid';
-import {Colors, Fonts, Strings} from "../../config";
-import {ProfileHeader, SelfProfileInfo} from "../../components";
+import {Colors, Fonts, Strings} from '../../config';
+import {ProfileHeader, SelfProfileInfo} from '../../components';
 
 const items = [
     {name: 'TURQUOISE', code: '#1abc9c'}, {name: 'EMERALD', code: '#2ecc71'},
@@ -33,10 +33,10 @@ export default class Profile extends Component {
         return (
             <Container>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle='light-content'
                     backgroundColor={Colors.BASE}
                 />
-                <ProfileHeader username={"Alireza"} onEditPress={this.onEditPress.bind(this)}
+                <ProfileHeader username={'Alireza'} onEditPress={this.onEditPress.bind(this)}
                                onSettingsPress={this.onSettingsPress.bind(this)}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <View style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>

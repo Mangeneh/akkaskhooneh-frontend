@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
-import {Colors, Fonts} from "../config";
+import {Colors, Fonts} from '../config';
 
 export default class BackHeader extends Component {
     render() {
@@ -12,7 +12,7 @@ export default class BackHeader extends Component {
                         <TouchableOpacity onPress={() => {
                             this.props.onBackPress()
                         }}>
-                            <Icon type={"Ionicons"} name='ios-arrow-back' style={{color: 'white'}}/>
+                            <Icon type={'Ionicons'} name='ios-arrow-back' style={{color: 'white'}}/>
                         </TouchableOpacity>
                     </Left>
                     <Body style={{flex: 3}}>

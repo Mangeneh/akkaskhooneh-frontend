@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Textarea, Form, Content} from 'native-base';
-import {Fonts} from "../config";
+import {Fonts} from '../config';
 
 export default class CustomLongTextBox extends Component {
     render() {

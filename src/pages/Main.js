@@ -3,10 +3,10 @@ import {TouchableOpacity, View} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {Icon, Container} from 'native-base';
-import Profile from "./profile/Profile";
-import Login from "./login/Login";
-import {Colors} from "../config";
-import {SelfProfileInfo} from "../components";
+import Profile from './profile/Profile';
+import Login from './login/Login';
+import {Colors} from '../config';
+import {SelfProfileInfo} from '../components';
 
 const Main = createMaterialBottomTabNavigator(
     {
@@ -36,7 +36,7 @@ const Main = createMaterialBottomTabNavigator(
                 }
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
-                return <Icon name={iconName} type={"MaterialCommunityIcons"} size={24} style={{color: Colors.ICON}}/>;
+                return <Icon name={iconName} type={'MaterialCommunityIcons'} size={24} style={{color: Colors.ICON}}/>;
             },
             /**
              * tabBarOnPress
@@ -70,7 +70,7 @@ export default () => (
                 raised
                 size={30}
                 containerStyle={{backgroundColor: Colors.ACCENT}}
-                type={"material-community"}
+                type={'material-community'}
             />
         </TouchableOpacity>
     </Container>

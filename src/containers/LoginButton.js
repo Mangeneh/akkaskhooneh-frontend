@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {SpinnerButton} from '../components'
-import {ButtonStyle} from "../styles/ButtonStyle";
-import {PageModes} from "../config";
+import {ButtonStyle} from '../styles/ButtonStyle';
+import {PageModes} from '../config';
 
 const mapStateToProps = (state) => ({
     style: chooseStyle(state.loginPage.mode),
