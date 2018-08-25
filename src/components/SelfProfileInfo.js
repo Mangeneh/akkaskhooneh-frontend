@@ -2,21 +2,15 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
-import Fonts from "../config/Fonts";
-import {Strings} from "../config/Strings";
+import Fonts from '../config/Fonts';
+import {Strings} from '../config/Strings';
 
 class SelfProfileInfo extends Component {
-
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-    }
-
     render() {
         const {bio, name, followers, following} = this.props.user;
         return (
             <View style={{height: 80, flexDirection: 'row', alignItems: 'flex-start'}}>
-                <View
-                    style={{alignItems: 'flex-end', marginRight: 16, justifyContent: 'space-between', marginBottom: 4}}>
+                <View style={styles.textArea}>
                     <Text style={styles.name}>{name}</Text>
                     <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start'}}>
                         <TouchableOpacity>
@@ -46,15 +40,30 @@ class SelfProfileInfo extends Component {
                 height={80}
                 width={80}
                 rounded
-                source={{uri: 'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}}
+                source={{uri: this.props.user.avatar}}
             />
         );
     }
 }
 
 const styles = StyleSheet.create({
-    name: {flex: 1, fontFamily: Fonts.NORMAL_FONT, fontSize: 14},
-    bio: {flex: 1, marginBottom: 12, fontFamily: Fonts.NORMAL_FONT, fontSize: 10},
+    name: {
+        flex: 1,
+        fontFamily: Fonts.NORMAL_FONT,
+        fontSize: 14
+    },
+    bio: {
+        flex: 1,
+        fontFamily: Fonts.NORMAL_FONT,
+        fontSize: 10,
+        marginBottom: 12
+    },
+    textArea: {
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        marginRight: 16,
+        marginBottom: 4
+    }
 });
 
 const mapStateToProps = (state) => ({

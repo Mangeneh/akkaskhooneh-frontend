@@ -10,7 +10,6 @@ export default (state = INITIAL_STATE, action) => {
     const {UPDATE_ACCESS_TOKEN_SUCCESS, UPDATE_USER_SUCCESS, SET_ACCESS_TOKEN, SET_REFRESH_TOKEN} = UserInfoActions;
     switch (action.type) {
         case UPDATE_USER_SUCCESS:
-            console.log(action);
             return {...state, user: action.payload.data};
         case UPDATE_ACCESS_TOKEN_SUCCESS:
             return {...state, accessToken: action.payload.data.access};
