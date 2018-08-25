@@ -27,7 +27,7 @@ class SignUp extends Component {
     };
 
     render() {
-        const {APP_NAME, EMAIL_ADDRESS, PASSWORD, REPEAT_PASSWORD, SIGN_UP, ENTER_LOGIN_PAGE} = Strings;
+        const {SIGN_UP} = Strings;
         const {error} = this.props;
         return (
             <KeyboardAwareScrollView>

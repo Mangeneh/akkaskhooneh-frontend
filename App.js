@@ -29,18 +29,21 @@ let store = createStore(
                         return request;
                     }
                 ],
-                response: [
-                    {
-                        success: function ({getState, dispatch, getSourceAction}, response) {
-                            return response;
-                        },
-                        error: function ({getState, dispatch, getSourceAction}, error) {
-                            if (error.status === 401) {
-                                // return getNewToken().then(() => dispatch(getSourceAction()))
-                            }
-                            return error;
-                        }
-                    }]
+                // response: [
+                //     {
+                //         success: function ({getState, dispatch, getSourceAction}, response) {
+                //             console.log(response);
+                //             return response;
+                //         },
+                //         error: function ({getState, dispatch, getSourceAction}, error) {
+                //             console.log(error);
+                //             if (error.status === 401) {
+                //                 // return getNewToken().then(() => dispatch(getSourceAction()))
+                //             }
+                //             return error;
+                //         }
+                //     }
+                // ]
             }
         })
     )
@@ -55,7 +58,7 @@ const RootStack = createStackNavigator(
         ProfileSettings: ProfileSettings,
     },
     {
-        initialRouteName: 'Profile'
+        initialRouteName: 'Login'
     });
 
 export default class App extends Component {
