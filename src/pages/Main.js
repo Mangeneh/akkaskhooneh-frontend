@@ -5,8 +5,8 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import {Icon, Container} from 'native-base';
 import Profile from "./profile/Profile";
 import Login from "./login/Login";
-import {Colors} from "../config/Colors";
-import SelfProfileInfo from "../components/SelfProfileInfo";
+import {Colors} from "../config";
+import {SelfProfileInfo} from "../components";
 
 const Main = createMaterialBottomTabNavigator(
     {

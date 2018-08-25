@@ -1,8 +1,7 @@
 import {connect} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import SpinnerButton from '../components/SpinnerButton';
-import {Colors} from '../config/Colors';
-import {PageModes} from '../config/PageModes';
+import {Colors, PageModes} from '../config';
 
 const styles = StyleSheet.create({
     normalStyle: {

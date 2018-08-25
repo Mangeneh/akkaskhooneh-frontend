@@ -4,12 +4,8 @@ import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Strings} from '../../config/Strings';
-import {Colors} from '../../config/Colors';
-import Constants from '../../config/Constants';
-import {PageModes} from '../../config/PageModes';
-import EmailTextBox from '../../components/EmailTextBox';
-import PasswordTextBox from '../../components/PasswordTextBox';
+import {Strings, Constants, Colors, PageModes} from '../../config';
+import {EmailTextBox, PasswordTextBox} from '../../components';
 import {
     emailChanged,
     Actions,

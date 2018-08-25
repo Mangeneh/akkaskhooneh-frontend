@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {Item, Right, Left, Icon} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, StatusBar, Text} from 'react-native'
-import {Strings} from '../../config/Strings';
-import {Colors} from "../../config/Colors";
-import Constants from "../../config/Constants";
-import BackHeader from "../../components/BackHeader";
-import Fonts from "../../config/Fonts";
+import {Strings, Fonts, Colors, Constants} from '../../config';
+import {BackHeader} from '../../components';
 
 export default class ProfileSettings extends Component {
     static navigationOptions = {
@@ -17,7 +14,7 @@ export default class ProfileSettings extends Component {
         return (
             <View style={{flex: 1}}>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle='light-content'
                     backgroundColor={Colors.BASE}
                 />
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.PROFILE_SETTINGS}/>
@@ -26,7 +23,7 @@ export default class ProfileSettings extends Component {
                         <Item onPress={this.onChangePassPressed.bind(this)}>
                             <Left>
                                 <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
-                                    <Icon type={"Ionicons"} name='ios-arrow-back' style={{color: Colors.ACCENT}}/>
+                                    <Icon type={'Ionicons'} name='ios-arrow-back' style={{color: Colors.ACCENT}}/>
                                 </TouchableOpacity>
                             </Left>
                             <Right>

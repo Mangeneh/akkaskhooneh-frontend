@@ -4,3 +4,5 @@ export const PageModes = {
     ERROR: 'ERROR',
     LOADING: 'LOADING',
 };
+
+export default PageModes;

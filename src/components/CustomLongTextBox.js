@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Textarea, Form, Content} from 'native-base';
+import {Fonts} from "../config";
 
 export default class CustomLongTextBox extends Component {
     render() {
-        const {style, type, placeholder, secureTextEntry, disabled} = this.props;
+        const {style, placeholder, disabled} = this.props;
         return (
             <Content>
                 <Form>
@@ -12,7 +13,7 @@ export default class CustomLongTextBox extends Component {
                     style={style}
                     placeholder={placeholder}
                     disabled={disabled}
-                    fontFamily={'IRANSansWeb'}
+                    fontFamily={Fonts.NORMAL_FONT}
                 />
                 </Form>
             </Content>

@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs, Text} from 'native-base';
 import {View, StyleSheet, StatusBar} from 'react-native';
-import {Strings} from '../../config/Strings';
-import {Colors} from "../../config/Colors";
-import Constants from "../../config/Constants";
-import ProfileHeader from "../../components/ProfileHeader";
 import GridView from 'react-native-super-grid';
-import SelfProfileInfo from "../../components/SelfProfileInfo";
+import {Colors, Fonts, Strings} from "../../config";
+import {ProfileHeader, SelfProfileInfo} from "../../components";
 
 const items = [
     {name: 'TURQUOISE', code: '#1abc9c'}, {name: 'EMERALD', code: '#2ecc71'},
@@ -48,14 +45,14 @@ export default class Profile extends Component {
                     <Tabs ref={component => this._tabs = component}
                           tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
                         <Tab heading={INTERESTS}
-                             activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
-                             textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
+                             activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
+                             textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              tabStyle={{backgroundColor: 'white'}} activeTabStyle={{backgroundColor: 'white'}}>
                         </Tab>
 
                         <Tab heading={PHOTOS}
-                             activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
-                             textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Constants.NORMAL_FONT}}
+                             activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
+                             textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
                             <GridView

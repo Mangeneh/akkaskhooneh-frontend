@@ -6,13 +6,13 @@ import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator} from 'react-navigation';
 import {Root} from 'native-base'
 import rootReducer from './src/reducers'
-import Login from "./src/pages/login/Login";
-import SignUp from "./src/pages/signUp/SignUp";
+import Login from './src/pages/login/Login';
+import SignUp from './src/pages/signUp/SignUp';
 import Profile from './src/pages/profile/Profile';
 import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
 import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
 import Main from './src/pages/Main';
-import SignUpComplete from "./src/pages/signUpComplete/SignUpComplete";
+import SignUpComplete from './src/pages/signUpComplete/SignUpComplete';
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -68,7 +68,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <Login/>
+                    <Main/>
                 </Provider>
             </Root>
         );

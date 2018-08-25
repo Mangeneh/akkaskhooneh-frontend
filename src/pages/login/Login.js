@@ -6,15 +6,11 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import FormData from 'form-data';
 import ImagePicker from 'react-native-image-crop-picker';
-import EmailTextBox from "../../components/EmailTextBox";
-import PasswordTextBox from "../../components/PasswordTextBox";
+import {EmailTextBox,PasswordTextBox} from '../../components';
+import {Strings, Colors, Constants, PageModes} from '../../config';
 import LoginButton from '../../containers/LoginButton';
-import {Strings} from '../../config/Strings';
-import {Colors} from "../../config/Colors";
-import Constants from "../../config/Constants";
-import {PageModes} from "../../config/PageModes";
-import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from "./actions";
-import {userUpdated, accessTokenUpdated, refreshTokenSet, accessTokenSet} from "../../actions/UserInfoActions";
+import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from './actions';
+import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
 
 
 class Login extends Component {
@@ -35,7 +31,7 @@ class Login extends Component {
         return (
             <KeyboardAwareScrollView>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle='light-content'
                     backgroundColor={Colors.BASE}
                 />
                 <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
@@ -51,7 +47,7 @@ class Login extends Component {
                                              onChangePassword={(password) => this.onPasswordChange(password)}
                                              reset={() => this.props.reset()}/>
                         </View>
-                        <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
+                        <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={'login'}/>
                         <TouchableOpacity style={{marginTop: 24}}>
                             <Text style={styles.text}>{FORGOT_PASSWORD}</Text>
                         </TouchableOpacity>
@@ -163,8 +159,8 @@ class Login extends Component {
                     Toast.show({
                         text: 'Wrong Credentials!',
                         textStyle: {textAlign: 'center'},
-                        position: "bottom",
-                        type: "warning"
+                        position: 'bottom',
+                        type: 'warning'
                     });
                 }
             });

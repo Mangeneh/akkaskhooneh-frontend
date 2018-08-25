@@ -1,5 +1,5 @@
 import {Actions} from './actions';
-import {PageModes} from "../../config/PageModes";
+import {PageModes} from '../../config';
 
 const INITIAL_STATE = {
     email: '',
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {EMAIL_CHANGED,LOGIN_RESET, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS} = Actions;
+    const {EMAIL_CHANGED, LOGIN_RESET, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS} = Actions;
     switch (action.type) {
         case EMAIL_CHANGED:
             return {...state, email: action.payload};
@@ -17,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
         case MODE_CHANGED:
             return {...state, mode: action.payload};
         case LOGIN:
-            return {...state, mode: 'LOADING'};
+            return {...state, mode: PageModes.LOADING};
         case LOGIN_FAIL:
             return {...state, mode: PageModes.ERROR};
         case LOGIN_SUCCESS:

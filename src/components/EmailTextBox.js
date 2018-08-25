@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 import {Icon, Item, Input} from "native-base";
-import {Colors} from "../config/Colors";
-import CustomTextBox from "./CustomTextBox";
-import {Strings} from "../config/Strings";
-import Constants from "../config/Constants";
+import {Colors, Strings, Constants, Fonts} from "../config";
 
 export default class EmailTextBox extends Component {
     render() {
@@ -15,7 +12,7 @@ export default class EmailTextBox extends Component {
                   rounded error={error}>
                 <Icon style={{color: Colors.ICON}} name='mail'/>
                 <Input
-                    fontFamily={'IRANSansWeb'}
+                    fontFamily={Fonts.NORMAL_FONT}
                     type='email' placeholder={EMAIL_ADDRESS}
                     value={value}
                     style={{textAlign: 'center', fontSize: TEXT_BOX_FONT_SIZE}}

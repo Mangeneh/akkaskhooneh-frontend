@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import {Avatar} from 'react-native-elements';
-import CustomTextBox from '../../components/CustomTextBox';
-import CustomLongTextBox from '../../components/CustomLongTextBox';
-import {Container, Item} from 'native-base';
+import {Container, Item, Input} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, StatusBar} from 'react-native'
-import {Strings} from '../../config/Strings';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Colors} from "../../config/Colors";
-import Constants from "../../config/Constants";
-import SaveChangesButton from '../../containers/SaveChangesButton';
-import {PageModes} from "../../config/PageModes";
 import {connect} from 'react-redux';
+import {Strings, Colors, Constants, Fonts, PageModes} from '../../config';
+import {CustomLongTextBox, BackHeader} from '../../components';
+import SaveChangesButton from '../../containers/SaveChangesButton';
 import {modeChanged} from './actions';
-import BackHeader from "../../components/BackHeader";
 
 class ProfileEdit extends Component {
     static navigationOptions = {
@@ -37,20 +32,21 @@ class ProfileEdit extends Component {
                             </TouchableOpacity>
 
                             <Item style={styles.item} rounded>
-                                <CustomTextBox disabled={true} placeholder={'username got from db!!'}
-                                               secureTextEntry={false}
-                                               style={{textAlign: 'center', fontSize: 10}}/>
+                                <Input disabled placeholder={'username got from db!!'}
+                                       fontFamily={Fonts.NORMAL_FONT}
+                                       style={{textAlign: 'center', fontSize: 10}}/>
                             </Item>
 
                             <Item style={styles.item} rounded>
-                                <CustomTextBox placeholder={'name got from db!!'} secureTextEntry={false}
-                                               style={{textAlign: 'center', fontSize: 10}}/>
+                                <Input placeholder={'name got from db!!'}
+                                       fontFamily={Fonts.NORMAL_FONT}
+                                       style={{textAlign: 'center', fontSize: 10}}/>
                             </Item>
 
                             <Item style={styles.item} rounded>
-                                <CustomTextBox disabled={true} placeholder={'email got from db!!'}
-                                               secureTextEntry={false}
-                                               style={{textAlign: 'center', fontSize: 10}}/>
+                                <Input disabled placeholder={'email got from db!!'}
+                                       secureTextEntry={false}
+                                       style={{textAlign: 'center', fontSize: 10}}/>
                             </Item>
 
                             <Item style={styles.item} rounded>
