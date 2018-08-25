@@ -7,6 +7,10 @@ import {Strings} from "../config/Strings";
 
 class SelfProfileInfo extends Component {
 
+    componentWillReceiveProps(nextProps){
+        console.log(nextProps);
+    }
+
     render() {
         const {bio, name, followers, following} = this.props.user;
         return (
@@ -29,6 +33,7 @@ class SelfProfileInfo extends Component {
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.description}>{bio}</Text>
+                    <Text style={styles.description}>{"sadkabask"}</Text>
                 </View>
                 {this.renderAvatar()}
             </View>
@@ -52,7 +57,7 @@ const styles = StyleSheet.create({
     bio: {flex: 1, marginBottom: 12, fontFamily: Fonts.NORMAL_FONT, fontSize: 10},
 });
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
     user: state.userInfo.user
 });
 

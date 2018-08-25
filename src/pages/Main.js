@@ -6,10 +6,11 @@ import {Icon, Container} from 'native-base';
 import Profile from "./profile/Profile";
 import Login from "./login/Login";
 import {Colors} from "../config/Colors";
+import SelfProfileInfo from "../components/SelfProfileInfo";
 
 const Main = createMaterialBottomTabNavigator(
     {
-        Profile: {screen: Profile},
+        Profile: {screen: SelfProfileInfo},
         Login: {screen: Login},
         X: {screen: Login},
         Profile2: {screen: Profile},
