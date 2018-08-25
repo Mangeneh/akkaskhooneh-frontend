@@ -11,7 +11,7 @@ import SignUp from "./src/pages/signUp/SignUp";
 import Profile from './src/pages/profile/Profile';
 import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
 import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
-import BottomNavigation from './src/components/BottomNavigation';
+import Main from './src/pages/Main';
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -59,7 +59,7 @@ const RootStack = createStackNavigator(
         ProfileSettings: ProfileSettings,
     },
     {
-        initialRouteName: 'Profile'
+        initialRouteName: 'Login'
     });
 
 export default class App extends Component {
@@ -67,7 +67,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <RootStack/>
+                    <Main/>
                 </Provider>
             </Root>
         );

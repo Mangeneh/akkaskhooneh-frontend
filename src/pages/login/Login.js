@@ -163,10 +163,9 @@ class Login extends Component {
                 } else {
                     Toast.show({
                         text: 'Wrong Credentials!',
-                        buttonText: 'Okay',
+                        textStyle: {textAlign: 'center'},
                         position: "bottom",
-                        type: "warning",
-                        duration: 3000
+                        type: "warning"
                     });
                 }
             });
