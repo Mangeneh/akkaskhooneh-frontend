@@ -22,49 +22,51 @@ class ProfileEdit extends Component {
     render() {
         const {SAVE_CHANGES} = Strings;
         return (
-            <KeyboardAwareScrollView>
-                <Container style={{backgroundColor: 'white', flex: 1, justifyContent: 'center', marginTop: 0}}>
-                    <StatusBar
-                        barStyle="light-content"
-                        backgroundColor={Colors.BASE}
-                    />
-                    <BackHeader onBackPress={this.onBackPress.bind(this)}/>
-                    <View style={{justifyContent: 'center', flex: 1}}>
-                        <TouchableOpacity
-                            style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 40, marginTop: 0}}>
-                            <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
-                        </TouchableOpacity>
+            <View>
+                <BackHeader onBackPress={this.onBackPress.bind(this)}/>
+                <KeyboardAwareScrollView>
+                    <Container style={{backgroundColor: 'white', flex: 1, justifyContent: 'center', marginTop: 0}}>
+                        <StatusBar
+                            barStyle="light-content"
+                            backgroundColor={Colors.BASE}
+                        />
+                        <View style={{justifyContent: 'center', flex: 1}}>
+                            <TouchableOpacity
+                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 40, marginTop: 0}}>
+                                <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
+                            </TouchableOpacity>
 
-                        <Item style={styles.item} rounded>
-                            <CustomTextBox disabled={true} placeholder={'username got from db!!'}
-                                           secureTextEntry={false}
-                                           style={{textAlign: 'center', fontSize: 10}}/>
-                        </Item>
-
-                        <Item style={styles.item} rounded>
-                            <CustomTextBox placeholder={'name got from db!!'} secureTextEntry={false}
-                                           style={{textAlign: 'center', fontSize: 10}}/>
-                        </Item>
-
-                        <Item style={styles.item} rounded>
-                            <CustomTextBox disabled={true} placeholder={'email got from db!!'}
-                                           secureTextEntry={false}
-                                           style={{textAlign: 'center', fontSize: 10}}/>
-                        </Item>
-
-                        <Item style={styles.item} rounded>
-                            <CustomLongTextBox placeholder={'info got from db!!'}
+                            <Item style={styles.item} rounded>
+                                <CustomTextBox disabled={true} placeholder={'username got from db!!'}
+                                               secureTextEntry={false}
                                                style={{textAlign: 'center', fontSize: 10}}/>
-                        </Item>
+                            </Item>
 
-                        <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}>
-                            <SaveChangesButton text={SAVE_CHANGES} icon="check"
-                                               onPress={this.onSaveChangesPressed.bind(this)}/>
+                            <Item style={styles.item} rounded>
+                                <CustomTextBox placeholder={'name got from db!!'} secureTextEntry={false}
+                                               style={{textAlign: 'center', fontSize: 10}}/>
+                            </Item>
+
+                            <Item style={styles.item} rounded>
+                                <CustomTextBox disabled={true} placeholder={'email got from db!!'}
+                                               secureTextEntry={false}
+                                               style={{textAlign: 'center', fontSize: 10}}/>
+                            </Item>
+
+                            <Item style={styles.item} rounded>
+                                <CustomLongTextBox placeholder={'info got from db!!'}
+                                                   style={{textAlign: 'center', fontSize: 10}}/>
+                            </Item>
+
+                            <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}>
+                                <SaveChangesButton text={SAVE_CHANGES} icon="check"
+                                                   onPress={this.onSaveChangesPressed.bind(this)}/>
+                            </View>
+
                         </View>
-
-                    </View>
-                </Container>
-            </KeyboardAwareScrollView>
+                    </Container>
+                </KeyboardAwareScrollView>
+            </View>
         );
     }
 
