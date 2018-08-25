@@ -56,7 +56,7 @@ const RootStack = createStackNavigator(
         ProfileEdit: ProfileEdit,
     },
     {
-        initialRouteName: 'Profile'
+        initialRouteName: 'Login'
     });
 
 export default class App extends Component {
