@@ -40,7 +40,7 @@ export default class Profile extends Component {
                     barStyle="light-content"
                     backgroundColor={Colors.BASE}
                 />
-                <ProfileHeader username={"Alireza"} onEditPress={this.onEditPress.bind(this)} />
+                <ProfileHeader username={"Alireza"} onEditPress={this.onEditPress.bind(this)} onSettingsPress={this.onSettingsPress.bind(this)}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <TouchableOpacity style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
                         <RoundAvatar
@@ -80,6 +80,10 @@ export default class Profile extends Component {
 
     onEditPress() {
         this.props.navigation.navigate('ProfileEdit');
+    }
+
+    onSettingsPress(){
+        this.props.navigation.navigate('ProfileSettings');
     }
 }
 

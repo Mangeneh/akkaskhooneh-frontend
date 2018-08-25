@@ -16,10 +16,10 @@ export default class ProfileHeader extends Component {
                         </TouchableOpacity>
                     </Left>
                     <Body style={{flex: 3}}>
-                    <Title style={{alignSelf: 'center', color: 'white'}}>{this.props.username}</Title>
+                    <Title style={{alignSelf: 'center', color: 'white', fontFamily: Constants.NORMAL_FONT}}>{this.props.username}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 16}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => {this.props.onSettingsPress()}}>
                             <Icon type={"MaterialCommunityIcons"} name='ship-wheel' style={{color: 'white'}}/>
                         </TouchableOpacity>
                     </Right>

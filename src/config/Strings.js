@@ -15,6 +15,8 @@ export const Strings = {
     INTERESTS: 'علاقه‌مندی‌ها',
     EDIT:'ویرایش',
     SAVE_CHANGES: 'ذخیره تغییرات',
-    EDIR_PROFILE: 'ویرایش پروفایل',
-
+    EDIT_PROFILE: 'ویرایش پروفایل',
+    PROFILE_SETTINGS: 'تنظیمات',
+    SIGN_OUT: 'خروج از حساب کاربری',
+    CHANGE_PASS: 'تغییر رمز',
 };

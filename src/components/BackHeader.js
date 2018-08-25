@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title, Text} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {Colors} from "../config/Colors";
-import {Strings} from "../config/Strings";
 import Constants from "../config/Constants";
 
 export default class BackHeader extends Component {
@@ -16,8 +15,13 @@ export default class BackHeader extends Component {
                         </TouchableOpacity>
                     </Left>
                     <Body style={{flex: 3}}>
-                        <Title style={{alignSelf: 'center', color: 'white'}}>{this.props.username}</Title>
+                        <Title style={{alignSelf: 'center', color: 'white', fontFamily: Constants.NORMAL_FONT}}>{this.props.title}</Title>
                     </Body>
+                    <Right style={{flex: 1, marginRight: 16}}>
+                        <TouchableOpacity>
+                            <Icon />
+                        </TouchableOpacity>
+                    </Right>
                 </Header>
             </View>
         );

@@ -29,7 +29,7 @@ class ProfileEdit extends Component {
                         barStyle="light-content"
                         backgroundColor={Colors.BASE}
                     />
-                    <BackHeader onBackPress={this.onBackPress.bind(this)} />
+                    <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.EDIT_PROFILE}/>
                     <View style={{justifyContent: 'center', flex: 1}} >
                         <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 40, marginTop: 0}}>
                             <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
@@ -73,8 +73,7 @@ class ProfileEdit extends Component {
     }
 
     onSaveChangesPressed() {
-        this.props.changeMode(SaveInfoMode.LOADING);
-        this.props.updateToken();
+        
     }
 }
 

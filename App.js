@@ -9,6 +9,7 @@ import Login from "./src/pages/login/Login";
 import SignUp from "./src/pages/signUp/SignUp";
 import Profile from './src/pages/profile/Profile';
 import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
+import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
 import BottomNavigation from './src/components/BottomNavigation';
 
 const client = axios.create({
@@ -51,6 +52,7 @@ const RootStack = createStackNavigator(
         Profile: Profile,
         SignUp: SignUp,
         ProfileEdit: ProfileEdit,
+        ProfileSettings: ProfileSettings,
     },
     {
         initialRouteName: 'Profile'
