@@ -1,8 +1,8 @@
 import {Actions} from './actions';
-import {SaveInfoMode} from "../../config/SaveInfoMode";
+import {PageModes} from "../../config/PageModes";
 
 const INITIAL_STATE = {
-    mode: SaveInfoMode.NORMAL
+    mode: PageModes.NORMAL
 };
 
 export default (state = INITIAL_STATE, action) => {

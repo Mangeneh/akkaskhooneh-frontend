@@ -9,7 +9,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from "../../config/Colors";
 import Constants from "../../config/Constants";
 import SaveChangesButton from '../../containers/SaveChangesButton';
-import {SaveInfoMode} from "../../config/SaveInfoMode";
+import {PageModes} from "../../config/PageModes";
 import {connect} from 'react-redux';
 import {modeChanged} from './actions';
 import BackHeader from "../../components/BackHeader";
@@ -75,7 +75,7 @@ class ProfileEdit extends Component {
     }
 
     onSaveChangesPressed() {
-        this.props.changeMode(SaveInfoMode.LOADING);
+        this.props.changeMode(PageModes.LOADING);
     }
 }
 

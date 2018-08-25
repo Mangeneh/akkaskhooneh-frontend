@@ -12,6 +12,7 @@ import Profile from './src/pages/profile/Profile';
 import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
 import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
 import Main from './src/pages/Main';
+import SignUpComplete from "./src/pages/signUpComplete/SignUpComplete";
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -67,7 +68,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <Main/>
+                    <SignUpComplete/>
                 </Provider>
             </Root>
         );

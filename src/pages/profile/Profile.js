@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs, Text} from 'native-base';
-import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
 import {Strings} from '../../config/Strings';
 import {Colors} from "../../config/Colors";
 import Constants from "../../config/Constants";
@@ -21,7 +21,6 @@ const items = [
     {name: 'SILVER', code: '#bdc3c7'}, {name: 'ASBESTOS', code: '#7f8c8d'},
 ];
 
-
 export default class Profile extends Component {
 
     static navigationOptions = {
@@ -40,7 +39,8 @@ export default class Profile extends Component {
                     barStyle="light-content"
                     backgroundColor={Colors.BASE}
                 />
-                <ProfileHeader username={"Alireza"} onEditPress={this.onEditPress.bind(this)} onSettingsPress={this.onSettingsPress.bind(this)}/>
+                <ProfileHeader username={"Alireza"} onEditPress={this.onEditPress.bind(this)}
+                               onSettingsPress={this.onSettingsPress.bind(this)}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <View style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
                         <SelfProfileInfo/>
@@ -80,7 +80,7 @@ export default class Profile extends Component {
         this.props.navigation.navigate('ProfileEdit');
     }
 
-    onSettingsPress(){
+    onSettingsPress() {
         this.props.navigation.navigate('ProfileSettings');
     }
 }
