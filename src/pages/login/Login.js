@@ -159,14 +159,13 @@ class Login extends Component {
                     this.props.setAccessToken(access);
                     this.props.setRefreshToken(refresh);
                     this.props.updateUser();
-                    this.props.navigation.navigate('Profile');
+                    // this.props.navigation.navigate('Profile');
                 } else {
                     Toast.show({
                         text: 'Wrong Credentials!',
-                        buttonText: 'Okay',
+                        textStyle: {textAlign: 'center'},
                         position: "bottom",
-                        type: "warning",
-                        duration: 3000
+                        type: "warning"
                     });
                 }
             });

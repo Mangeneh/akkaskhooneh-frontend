@@ -4,9 +4,9 @@ import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
 import {Strings} from '../../config/Strings';
 import {Colors} from "../../config/Colors";
 import Constants from "../../config/Constants";
-import RoundAvatar from "../../components/RoundAvatar";
 import ProfileHeader from "../../components/ProfileHeader";
 import GridView from 'react-native-super-grid';
+import SelfProfileInfo from "../../components/SelfProfileInfo";
 
 const items = [
     {name: 'TURQUOISE', code: '#1abc9c'}, {name: 'EMERALD', code: '#2ecc71'},
@@ -43,9 +43,7 @@ export default class Profile extends Component {
                 <ProfileHeader username={"Alireza"} onEditPress={this.onEditPress.bind(this)} onSettingsPress={this.onSettingsPress.bind(this)}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <TouchableOpacity style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
-                        <RoundAvatar
-                            large
-                            uri={'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Chrome-icon.png'}/>
+                        <SelfProfileInfo/>
                     </TouchableOpacity>
                     <Tabs ref={component => this._tabs = component}
                           tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>

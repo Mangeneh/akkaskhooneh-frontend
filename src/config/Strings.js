@@ -19,4 +19,6 @@ export const Strings = {
     PROFILE_SETTINGS: 'تنظیمات',
     SIGN_OUT: 'خروج از حساب کاربری',
     CHANGE_PASS: 'تغییر رمز',
+    FOLLOWING:'دنبال شده',
+    FOLLOWER:'دنبال کننده'
 };
