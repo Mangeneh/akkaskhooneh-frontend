@@ -143,13 +143,13 @@ class Login extends Component {
     }
 
     onLoginPress() {
-        // ImagePicker.openPicker({
-        //     width: 300,
-        //     height: 400,
-        //     cropping: true
-        // }).then(image => {
-        //     console.log(image);
-        // });
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+        });
         const {email, password} = this.props;
         this.props.loginUser(email, password)
             .then((result) => {

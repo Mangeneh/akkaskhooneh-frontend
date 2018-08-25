@@ -42,9 +42,9 @@ export default class Profile extends Component {
                 />
                 <ProfileHeader username={"Alireza"} onEditPress={this.onEditPress.bind(this)} onSettingsPress={this.onSettingsPress.bind(this)}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
-                    <TouchableOpacity style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
+                    <View style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>
                         <SelfProfileInfo/>
-                    </TouchableOpacity>
+                    </View>
                     <Tabs ref={component => this._tabs = component}
                           tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
                         <Tab heading={INTERESTS}
