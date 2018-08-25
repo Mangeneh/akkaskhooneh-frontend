@@ -68,7 +68,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <SignUpComplete/>
+                    <Login/>
                 </Provider>
             </Root>
         );

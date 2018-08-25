@@ -1,12 +1,11 @@
 import React, {Component,} from 'react';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
 import {Container, Text, Toast} from 'native-base';
-import {SocialIcon} from 'react-native-elements';
+import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import FormData from 'form-data';
 import ImagePicker from 'react-native-image-crop-picker';
-import RoundAvatar from "../../components/RoundAvatar";
 import EmailTextBox from "../../components/EmailTextBox";
 import PasswordTextBox from "../../components/PasswordTextBox";
 import LoginButton from '../../containers/LoginButton';
@@ -67,8 +66,8 @@ class Login extends Component {
         const {APP_NAME} = Strings;
         return (
             <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                <RoundAvatar large={true} style={{marginBottom: 12}}
-                             uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
+                <Avatar large rounded containerStyle={{marginBottom: 12}}
+                        source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
                 <Text style={styles.text}
                 >{APP_NAME}</Text>
             </View>

@@ -1,14 +1,15 @@
 import React, {Component,} from 'react';
 import {Container, Text} from 'native-base';
-import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
-import {SocialIcon} from 'react-native-elements';
-import {Strings} from '../../config/Strings';
-import RoundAvatar from "../../components/RoundAvatar";
-import {Colors} from "../../config/Colors";
+import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
+import {SocialIcon, Avatar} from 'react-native-elements';
+import {connect} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import Constants from "../../config/Constants";
-import EmailTextBox from "../../components/EmailTextBox";
-import PasswordTextBox from "../../components/PasswordTextBox";
+import {Strings} from '../../config/Strings';
+import {Colors} from '../../config/Colors';
+import Constants from '../../config/Constants';
+import {PageModes} from '../../config/PageModes';
+import EmailTextBox from '../../components/EmailTextBox';
+import PasswordTextBox from '../../components/PasswordTextBox';
 import {
     emailChanged,
     Actions,
@@ -16,9 +17,7 @@ import {
     modeChanged,
     passwordChanged,
     repeatedPasswordChanged
-} from "./actions";
-import {PageModes} from "../../config/PageModes";
-import {connect} from 'react-redux';
+} from './actions';
 import SignUpButton from '../../containers/SignUpButton';
 
 class SignUp extends Component {
@@ -32,7 +31,7 @@ class SignUp extends Component {
         return (
             <KeyboardAwareScrollView>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle='light-content'
                     backgroundColor={Colors.BASE}
                 />
                 <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
@@ -50,7 +49,7 @@ class SignUp extends Component {
                             <PasswordTextBox error={error}
                                              onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
                         </View>
-                        <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={"login"}/>
+                        <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={'login'}/>
                     </View>
                     {this.renderOtherLoginSection()}
                 </Container>
@@ -75,9 +74,7 @@ class SignUp extends Component {
 
     validateEmailLocally(email) {
         const {repeatedPassword, password} = this.props;
-
-        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        if (password.length < 6 || reg.test(email) === false || password !== repeatedPassword) {
+        if (password.length < 6 || this.checkEmail(email) === false || password !== repeatedPassword) {
             this.props.changeMode(PageModes.DISABLED)
         } else {
             this.props.changeMode(PageModes.NORMAL)
@@ -86,9 +83,7 @@ class SignUp extends Component {
 
     validatePasswordLocally(password) {
         const {repeatedPassword, email} = this.props;
-
-        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        if (password.length < 6 || reg.test(email) === false || password !== repeatedPassword) {
+        if (password.length < 6 || this.checkEmail(email) === false || password !== repeatedPassword) {
             this.props.changeMode(PageModes.DISABLED)
         } else {
             this.props.changeMode(PageModes.NORMAL)
@@ -97,21 +92,24 @@ class SignUp extends Component {
 
     validateRepeatedPasswordLocally(repeatedPassword) {
         const {password, email} = this.props;
-
-        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        if (password.length < 6 || reg.test(email) === false || password !== repeatedPassword) {
+        if (password.length < 6 || this.checkEmail(email) === false || password !== repeatedPassword) {
             this.props.changeMode(PageModes.DISABLED)
         } else {
             this.props.changeMode(PageModes.NORMAL)
         }
     }
 
+    checkEmail(email) {
+        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        return reg.test(email);
+    }
+
     renderLogoSection() {
         const {APP_NAME} = Strings;
         return (
             <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                <RoundAvatar large={true} style={{marginBottom: 12}}
-                             uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
+                <Avatar large containerStyle={{marginBottom: 12}} rounded
+                        source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
                 <Text style={styles.text}>{APP_NAME}</Text>
             </View>
         )

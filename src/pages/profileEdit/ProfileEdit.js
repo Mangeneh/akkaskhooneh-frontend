@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
+import {Avatar} from 'react-native-elements';
 import CustomTextBox from '../../components/CustomTextBox';
 import CustomLongTextBox from '../../components/CustomLongTextBox';
 import {Container, Item} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, StatusBar} from 'react-native'
 import {Strings} from '../../config/Strings';
-import RoundAvatar from "../../components/RoundAvatar";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from "../../config/Colors";
 import Constants from "../../config/Constants";
@@ -33,7 +33,7 @@ class ProfileEdit extends Component {
                         <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
                             <TouchableOpacity
                                 style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}}>
-                                <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
+                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}/>
                             </TouchableOpacity>
 
                             <Item style={styles.item} rounded>
