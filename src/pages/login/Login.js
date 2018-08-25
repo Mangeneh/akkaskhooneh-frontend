@@ -4,6 +4,7 @@ import {Container, Text} from 'native-base';
 import {SocialIcon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
+import ImagePicker from 'react-native-image-crop-picker';
 import RoundAvatar from "../../components/RoundAvatar";
 import EmailTextBox from "../../components/EmailTextBox";
 import PasswordTextBox from "../../components/PasswordTextBox";
@@ -21,7 +22,7 @@ class Login extends Component {
 
     render() {
         const {ENTER, FORGOT_PASSWORD} = Strings;
-        const {error} = this.props;
+        const {error,email,password} = this.props;
         return (
             <KeyboardAwareScrollView>
                 <StatusBar
@@ -32,11 +33,11 @@ class Login extends Component {
                     {this.renderLogoSection()}
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 32, marginRight: 32}}>
-                            <EmailTextBox error={error}
+                            <EmailTextBox error={error} value={email}
                                           onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error}
+                            <PasswordTextBox error={error} value={password}
                                              onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
                         <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
@@ -81,6 +82,13 @@ class Login extends Component {
     }
 
     onLoginPress() {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+        });
         const {email, password} = this.props;
         this.props.loginUser(email, password)
             .then((result) => {
