@@ -7,7 +7,7 @@ import {Strings} from "../config/Strings";
 
 class SelfProfileInfo extends Component {
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         console.log(nextProps);
     }
 
@@ -15,9 +15,9 @@ class SelfProfileInfo extends Component {
         const {bio, name, followers, following} = this.props.user;
         return (
             <View style={{height: 80, flexDirection: 'row', alignItems: 'flex-start'}}>
-                <View style={{flex: 1, alignItems: 'flex-end', marginRight: 16}}>
+                <View style={{alignItems: 'flex-end', marginRight: 16}}>
                     <Text style={styles.name}>{name}</Text>
-                    <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start'}}>
+                    <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
                         <TouchableOpacity>
                             <Text style={{
                                 marginRight: 16,
