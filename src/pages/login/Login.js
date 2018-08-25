@@ -1,9 +1,10 @@
 import React, {Component,} from 'react';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
-import {Container, Text} from 'native-base';
+import {Container, Text, Toast} from 'native-base';
 import {SocialIcon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
+import FormData from 'form-data';
 import ImagePicker from 'react-native-image-crop-picker';
 import RoundAvatar from "../../components/RoundAvatar";
 import EmailTextBox from "../../components/EmailTextBox";
@@ -14,15 +15,24 @@ import {Colors} from "../../config/Colors";
 import Constants from "../../config/Constants";
 import {PageModes} from "../../config/PageModes";
 import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from "./actions";
+import {userUpdated, accessTokenUpdated, refreshTokenSet, accessTokenSet} from "../../actions/UserInfoActions";
+
 
 class Login extends Component {
     static navigationOptions = {
         header: null,
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showToast: true
+        };
+    }
+
     render() {
         const {ENTER, FORGOT_PASSWORD} = Strings;
-        const {error,email,password} = this.props;
+        const {error, email, password} = this.props;
         return (
             <KeyboardAwareScrollView>
                 <StatusBar
@@ -34,11 +44,13 @@ class Login extends Component {
                     <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{marginLeft: 32, marginRight: 32}}>
                             <EmailTextBox error={error} value={email}
-                                          onChangeEmail={(email) => this.onEmailChange(email)}/>
+                                          onChangeEmail={(email) => this.onEmailChange(email)}
+                                          reset={() => this.props.reset()}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                             <PasswordTextBox error={error} value={password}
-                                             onChangePassword={(password) => this.onPasswordChange(password)}/>
+                                             onChangePassword={(password) => this.onPasswordChange(password)}
+                                             reset={() => this.props.reset()}/>
                         </View>
                         <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={"login"}/>
                         <TouchableOpacity style={{marginTop: 24}}>
@@ -49,6 +61,55 @@ class Login extends Component {
                 </Container>
             </KeyboardAwareScrollView>
         );
+    }
+
+    renderLogoSection() {
+        const {APP_NAME} = Strings;
+        return (
+            <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                <RoundAvatar large={true} style={{marginBottom: 12}}
+                             uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
+                <Text style={styles.text}
+                >{APP_NAME}</Text>
+            </View>
+        )
+    }
+
+    renderOtherLoginSection() {
+        const {SIGN_UP} = Strings;
+        return (
+            <View style={{flex: 1, justifyContent: 'center',}}>
+                {this.renderOtherLoginButtons()}
+                <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => this.onSignUpPress()}>
+                    <Text style={styles.text}>{SIGN_UP}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    renderOtherLoginButtons() {
+        return (
+            <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: 16}}>
+                <TouchableOpacity>
+                    <SocialIcon
+                        light
+                        type='facebook'
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <SocialIcon
+                        light
+                        type='google'
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <SocialIcon
+                        light
+                        type='twitter'
+                    />
+                </TouchableOpacity>
+            </View>
+        )
     }
 
     onEmailChange(email) {
@@ -82,75 +143,38 @@ class Login extends Component {
     }
 
     onLoginPress() {
-        ImagePicker.openCamera({
-            width: 300,
-            height: 400,
-            cropping: true
-        }).then(image => {
-            console.log(image);
-        });
+        // ImagePicker.openPicker({
+        //     width: 300,
+        //     height: 400,
+        //     cropping: true
+        // }).then(image => {
+        //     console.log(image);
+        // });
         const {email, password} = this.props;
         this.props.loginUser(email, password)
             .then((result) => {
-                console.log(result);
                 if (result.type === Actions.LOGIN_SUCCESS) {
-                    this.props.navigation.navigate('Profile')
+                    const {access, refresh} = result.payload.data;
+                    console.log(access, refresh);
+                    this.props.setAccessToken(access);
+                    this.props.setRefreshToken(refresh);
+                    this.props.updateUser();
+                    this.props.navigation.navigate('Profile');
+                } else {
+                    Toast.show({
+                        text: 'Wrong Credentials!',
+                        buttonText: 'Okay',
+                        position: "bottom",
+                        type: "warning",
+                        duration: 3000
+                    });
                 }
             });
     }
 
-    renderLogoSection() {
-        const {APP_NAME} = Strings;
-        return (
-            <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                <RoundAvatar large={true} style={{marginBottom: 12}}
-                             uri={'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}/>
-                <Text style={styles.text}
-                >{APP_NAME}</Text>
-            </View>
-        )
-    }
-
-    renderOtherLoginSection() {
-        const {SIGN_UP} = Strings;
-        return (
-            <View style={{flex: 1, justifyContent: 'center',}}>
-                {this.renderOtherLoginButtons()}
-                <TouchableOpacity style={{alignSelf: 'center'}} onPress={()=>this.onSignUpPress()}>
-                    <Text style={styles.text}>{SIGN_UP}</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
-    renderOtherLoginButtons() {
-        return (
-            <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: 16}}>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='facebook'
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='google'
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='twitter'
-                    />
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
     onSignUpPress() {
-        this.props.reset();
         this.props.navigation.navigate('SignUp');
+        this.props.reset();
     }
 }
 
@@ -176,7 +200,10 @@ const mapDispatchToProps = (dispatch) => ({
     changePassword: (password) => dispatch(passwordChanged(password)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
     loginUser: (email, password) => dispatch(loginUser(email, password)),
-    reset :()=>dispatch(reset())
+    setRefreshToken: (refreshToken) => dispatch(refreshTokenSet(refreshToken)),
+    setAccessToken: (accessToken) => dispatch(accessTokenSet(accessToken)),
+    updateUser: () => dispatch(userUpdated()),
+    reset: () => dispatch(reset())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

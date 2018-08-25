@@ -12,7 +12,6 @@ import SaveChangesButton from '../../containers/SaveChangesButton';
 import {SaveInfoMode} from "../../config/SaveInfoMode";
 import {connect} from 'react-redux';
 import {modeChanged} from './actions';
-import {updateToken} from "../../actions/UserInfoActions";
 import BackHeader from "../../components/BackHeader";
 
 class ProfileEdit extends Component {
@@ -29,9 +28,10 @@ class ProfileEdit extends Component {
                         barStyle="light-content"
                         backgroundColor={Colors.BASE}
                     />
-                    <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.EDIT_PROFILE}/>
-                    <View style={{justifyContent: 'center', flex: 1}} >
-                        <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 40, marginTop: 0}}>
+                    <BackHeader onBackPress={this.onBackPress.bind(this)}/>
+                    <View style={{justifyContent: 'center', flex: 1}}>
+                        <TouchableOpacity
+                            style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 40, marginTop: 0}}>
                             <RoundAvatar xlarge={true} style={{alignSelf: 'center'}}/>
                         </TouchableOpacity>
 
@@ -59,7 +59,7 @@ class ProfileEdit extends Component {
 
                         <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}>
                             <SaveChangesButton text={SAVE_CHANGES} icon="check"
-                                            onPress={this.onSaveChangesPressed.bind(this)}/>
+                                               onPress={this.onSaveChangesPressed.bind(this)}/>
                         </View>
 
                     </View>
@@ -73,7 +73,7 @@ class ProfileEdit extends Component {
     }
 
     onSaveChangesPressed() {
-        
+        this.props.changeMode(SaveInfoMode.LOADING);
     }
 }
 
@@ -95,7 +95,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
-    updateToken: () => dispatch(updateToken())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)

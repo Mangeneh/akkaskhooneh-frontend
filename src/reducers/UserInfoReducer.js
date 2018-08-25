@@ -1,18 +1,22 @@
 import {UserInfoActions} from '../actions/UserInfoActions';
 
 const INITIAL_STATE = {
-    email: '',
+    user: {},
+    accessToken: '',
     refreshToken: '',
-    accessToken: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {USER_INFO_CHANGED, UPDATE_TOKEN, UPDATE_TOKEN_SUCCESS} = UserInfoActions;
+    const {UPDATE_ACCESS_TOKEN_SUCCESS, UPDATE_USER_SUCCESS, SET_ACCESS_TOKEN, SET_REFRESH_TOKEN} = UserInfoActions;
     switch (action.type) {
-        case USER_INFO_CHANGED:
-            return {...state, ...action.payload};
-        case UPDATE_TOKEN_SUCCESS:
+        case UPDATE_USER_SUCCESS:
+            return {...state, user: action.payload.data};
+        case UPDATE_ACCESS_TOKEN_SUCCESS:
+            return {...state, accessToken: action.payload.data.access};
+        case SET_ACCESS_TOKEN:
             return {...state, accessToken: action.payload};
+        case SET_REFRESH_TOKEN:
+            return {...state, refreshToken: action.payload};
         default:
             return state;
     }

@@ -7,7 +7,7 @@ import Constants from "../config/Constants";
 
 export default class PasswordTextBox extends Component {
     render() {
-        const {error, onChangePassword, value} = this.props;
+        const {error, onChangePassword, value,reset} = this.props;
         const {PASSWORD} = Strings;
         const {TEXT_BOX_FONT_SIZE, TEXT_BOX_RADIUS} = Constants;
         return (
@@ -16,7 +16,7 @@ export default class PasswordTextBox extends Component {
                 <Input placeholder={PASSWORD} secureTextEntry value={value}
                        style={{textAlign: 'center', fontSize: TEXT_BOX_FONT_SIZE}}
                        onChangeText={onChangePassword}/>
-                <Icon name={error ? 'close-circle' : null}/>
+                <Icon name={error ? 'close-circle' : null} onPress={reset}/>
             </Item>
         );
     }

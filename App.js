@@ -4,6 +4,7 @@ import {createStore, applyMiddleware} from 'redux';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator} from 'react-navigation';
+import {Root} from 'native-base'
 import rootReducer from './src/reducers'
 import Login from "./src/pages/login/Login";
 import SignUp from "./src/pages/signUp/SignUp";
@@ -25,7 +26,7 @@ let store = createStore(
             interceptors: {
                 request: [
                     function ({getState, dispatch, getSourceAction}, request) {
-                        request.headers.authorization = `Bearer ${getState().userInfo.token}`;
+                        request.headers.authorization = `Bearer ${getState().userInfo.accessToken}`;
                         return request;
                     }
                 ],
@@ -64,9 +65,12 @@ const RootStack = createStackNavigator(
 export default class App extends Component {
     render() {
         return (
-            <Provider store={store}>
-                <RootStack />
-            </Provider>
+            <Root>
+                <Provider store={store}>
+                    <RootStack/>
+
+                </Provider>
+            </Root>
         );
     }
 }

@@ -1,26 +1,50 @@
 export const UserInfoActions = {
-    USER_INFO_CHANGED: 'USER_INFO_CHANGED',
-    UPDATE_TOKEN: 'UPDATE_TOKEN',
+    UPDATE_ACCESS_TOKEN: 'UPDATE_ACCESS_TOKEN',
+    UPDATE_ACCESS_TOKEN_SUCCESS: 'UPDATE_ACCESS_TOKEN_SUCCESS',
+    SET_REFRESH_TOKEN: 'SET_REFRESH_TOKEN',
+    SET_ACCESS_TOKEN: 'SET_ACCESS_TOKEN',
+    UPDATE_USER: 'UPDATE_USER',
+    UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS',
+    UPDATE_USER_FAIL: 'UPDATE_USER_FAIL'
 };
 
-export const userInfoChanged = (userInfo) => {
+export const userUpdated = () => {
     return {
-        type: UserInfoActions.USER_INFO_CHANGED,
-        payload: userInfo
+        type: UserInfoActions.UPDATE_USER,
+        payload: {
+            request: {
+                method: 'GET',
+                url: '/social/profile/'
+            }
+        }
     }
 };
 
-export const updateToken = (oldToken) => {
+export const accessTokenUpdated = (refreshToken) => {
     return {
-        type: UserInfoActions.UPDATE_TOKEN,
+        type: UserInfoActions.UPDATE_ACCESS_TOKEN,
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/login/', // todo update url
+                url: '/auth/token/refresh/',
                 data: {
-                    token: oldToken,
+                    refresh: refreshToken,
                 }
             }
         }
+    }
+};
+
+export const refreshTokenSet = (refreshToken) => {
+    return {
+        type: UserInfoActions.SET_REFRESH_TOKEN,
+        payload: refreshToken
+    }
+};
+
+export const accessTokenSet = (accessToken) => {
+    return {
+        type: UserInfoActions.SET_ACCESS_TOKEN,
+        payload: accessToken
     }
 };
