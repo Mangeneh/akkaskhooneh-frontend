@@ -6,8 +6,8 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import FormData from 'form-data';
 import ImagePicker from 'react-native-image-crop-picker';
-import {EmailTextBox,PasswordTextBox} from '../../components';
-import {Strings, Colors, Constants, PageModes} from '../../config';
+import {EmailTextBox, PasswordTextBox} from '../../components';
+import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
@@ -174,8 +174,8 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: Constants.NORMAL_FONT,
-        fontSize: Constants.TEXT_NORMAL_SIZE,
+        fontFamily: Fonts.NORMAL_FONT,
+        fontSize: Fonts.TEXT_NORMAL_SIZE,
         color: 'white',
         textAlign: 'center',
         alignSelf: 'center'

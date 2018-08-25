@@ -4,7 +4,7 @@ import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Strings, Constants, Colors, PageModes} from '../../config';
+import {Strings, Colors, PageModes, Fonts} from '../../config';
 import {EmailTextBox, PasswordTextBox} from '../../components';
 import {
     emailChanged,
@@ -181,8 +181,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: Constants.NORMAL_FONT,
-        fontSize: Constants.TEXT_NORMAL_SIZE,
+        fontFamily: Fonts.NORMAL_FONT,
+        fontSize: Fonts.TEXT_NORMAL_SIZE,
         color: 'white',
         textAlign: 'center',
         alignSelf: 'center'
