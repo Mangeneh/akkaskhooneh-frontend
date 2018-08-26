@@ -4,6 +4,7 @@ import ProfileEditPageReducer from '../pages/profileEdit/reducer';
 import SignUpCompletePageReducer from '../pages/signUpComplete/reducer';
 import UserInfoReducer from './UserInfoReducer';
 import SignUpPageReducer from '../pages/signUp/reducer'
+import ChangePassPageReducer from '../pages/changePass/reducer'
 
 export default combineReducers({
     loginPage: LoginPageReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     profileEditPage: ProfileEditPageReducer,
     signUpPage: SignUpPageReducer,
     signUpCompletePage: SignUpCompletePageReducer,
+    changePassPage: ChangePassPageReducer,
 });

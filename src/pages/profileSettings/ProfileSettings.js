@@ -44,7 +44,7 @@ export default class ProfileSettings extends Component {
     }
 
     onChangePassPressed() {
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.navigate('ChangePass');
     }
 
     onBackPress() {

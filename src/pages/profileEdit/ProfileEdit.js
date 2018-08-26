@@ -16,10 +16,10 @@ class ProfileEdit extends Component {
     };
 
     render() {
-        const {SAVE_CHANGES} = Strings;
+        const {SAVE_CHANGES, EDIT_PROFILE} = Strings;
         return (
             <View>
-                <BackHeader onBackPress={this.onBackPress.bind(this)}/>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
                 <KeyboardAwareScrollView>
                     <Container style={{backgroundColor: 'white', flex: 1, justifyContent: 'center', marginTop: 0}}>
                         <StatusBar

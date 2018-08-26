@@ -42,7 +42,7 @@ class Login extends Component {
                                           reset={() => this.props.reset()}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error} value={password}
+                            <PasswordTextBox error={error} value={password} placeholder={Strings.PASSWORD}
                                              onChangePassword={(password) => this.onPasswordChange(password)}
                                              reset={() => this.props.reset()}/>
                         </View>

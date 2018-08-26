@@ -24,7 +24,7 @@ class SignUp extends Component {
     };
 
     render() {
-        const {SIGN_UP} = Strings;
+        const {SIGN_UP, PASSWORD, REPEAT_PASSWORD} = Strings;
         const {error} = this.props;
         return (
             <KeyboardAwareScrollView>
@@ -40,11 +40,11 @@ class SignUp extends Component {
                                           onChangeEmail={(email) => this.onEmailChange(email)}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error}
+                            <PasswordTextBox error={error} placeholder={PASSWORD}
                                              onChangePassword={(password) => this.onPasswordChange(password)}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error}
+                            <PasswordTextBox error={error} placeholder={REPEAT_PASSWORD}
                                              onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
                         </View>
                         <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={'login'}/>

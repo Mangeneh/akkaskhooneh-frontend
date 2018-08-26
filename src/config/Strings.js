@@ -19,6 +19,10 @@ export const Strings = {
     PROFILE_SETTINGS: 'تنظیمات',
     SIGN_OUT: 'خروج از حساب کاربری',
     CHANGE_PASS: 'تغییر رمز',
-    FOLLOWING:'دنبال شده',
-    FOLLOWER:'دنبال کننده'
+    FOLLOWING: 'دنبال شده',
+    FOLLOWER: 'دنبال کننده',
+    SAVE_NEW_PASSWORD: 'ثبت رمز عبور جدید',
+    NEW_PASSWORD: 'رمز عبور جدید',
+    CURRENT_PASSWORD: 'رمز عبور فعلی',
+    REPEAT_NEW_PASSWORD: 'تکرار رمز عبور جدید',
 };

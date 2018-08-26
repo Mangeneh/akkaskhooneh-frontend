@@ -13,6 +13,7 @@ import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
 import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
 import Main from './src/pages/Main';
 import SignUpComplete from './src/pages/signUpComplete/SignUpComplete';
+import ChangePass from './src/pages/changePass/ChangePass';
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -59,6 +60,7 @@ const RootStack = createStackNavigator(
         SignUpComplete: SignUpComplete,
         ProfileEdit: ProfileEdit,
         ProfileSettings: ProfileSettings,
+        ChangePass: ChangePass,
     },
     {
         initialRouteName: 'Profile'
