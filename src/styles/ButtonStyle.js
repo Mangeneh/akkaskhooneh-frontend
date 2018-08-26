@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from '../config';
+import {Colors, PageModes} from '../config';
 
-export const ButtonStyle = StyleSheet.create({
+const ButtonStyle = StyleSheet.create({
     normalStyle: {
         alignSelf: 'center',
         marginRight: 32, marginLeft: 32, marginTop: 16,
@@ -31,3 +31,17 @@ export const ButtonStyle = StyleSheet.create({
         borderRadius: 10
     }
 });
+
+export function chooseStyle(mode) {
+    const {LOADING, ERROR, DISABLED} = PageModes;
+    switch (mode) {
+        case LOADING:
+            return ButtonStyle.loadingStyle;
+        case ERROR:
+            return ButtonStyle.errorStyle;
+        case DISABLED:
+            return ButtonStyle.disabledStyle;
+        default:
+            return ButtonStyle.normalStyle;
+    }
+}

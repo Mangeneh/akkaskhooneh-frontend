@@ -20,13 +20,10 @@ export default (state = INITIAL_STATE, action) => {
         case FULL_NAME_CHANGED:
             return {...state, fullName: action.payload};
         case SIGN_UP:
-            console.log(action);
             return {...state, mode: PageModes.LOADING};
         case SIGN_UP_SUCCESS:
-            console.log(action);
             return {...state, mode: PageModes.NORMAL};
         case SIGN_UP_FAIL:
-            console.log(action);
             return {...state, mode: PageModes.ERROR};
         case SIGN_UP_COMPLETE_RESET:
             return INITIAL_STATE;

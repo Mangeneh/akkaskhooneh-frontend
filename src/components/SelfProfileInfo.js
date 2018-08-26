@@ -6,11 +6,11 @@ import {Strings, Fonts} from '../config';
 
 class SelfProfileInfo extends Component {
     render() {
-        const {bio, name, followers, following} = this.props.user;
+        const {bio, fullname, followers, following} = this.props.user;
         return (
             <View style={{height: 80, flexDirection: 'row', alignItems: 'flex-start'}}>
                 <View style={styles.textArea}>
-                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.name}>{fullname}</Text>
                     <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start'}}>
                         <TouchableOpacity>
                             <Text style={{
