@@ -5,5 +5,6 @@ export const Colors = {
     DISABLED: '#393939',
     TEXT: '#393939',
     ICON: '#5C5C5C',
-    ERROR: '#f34949'
+    ERROR: '#f34949',
+    SUCCESS: '#5cb85c'
 };

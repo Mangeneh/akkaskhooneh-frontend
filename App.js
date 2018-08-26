@@ -14,6 +14,9 @@ import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
 import Main from './src/pages/Main';
 import SignUpComplete from './src/pages/signUpComplete/SignUpComplete';
 import ChangePass from './src/pages/changePass/ChangePass';
+import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actions";
+import {Actions as SignUpActions} from "./src/pages/signUp/actions";
+
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -28,6 +31,10 @@ let store = createStore(
             interceptors: {
                 request: [
                     function ({getState, dispatch, getSourceAction}, request) {
+                        const type = request.reduxSourceAction.type;
+                        if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL) {
+                            return request;
+                        }
                         request.headers.authorization = `Bearer ${getState().userInfo.accessToken}`;
                         return request;
                     }
@@ -63,7 +70,7 @@ const RootStack = createStackNavigator(
         ChangePass: ChangePass,
     },
     {
-        initialRouteName: 'Profile'
+        initialRouteName: 'Login'
     });
 
 export default class App extends Component {

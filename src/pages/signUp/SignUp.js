@@ -27,7 +27,7 @@ class SignUp extends Component {
         const {SIGN_UP, PASSWORD, REPEAT_PASSWORD} = Strings;
         const {error} = this.props;
         return (
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps='handled' keyboardDismissMode='on-drag'>
                 <StatusBar
                     barStyle='light-content'
                     backgroundColor={Colors.BASE}
@@ -144,14 +144,13 @@ class SignUp extends Component {
 
     onSignUpPress() {
         const {email, password} = this.props;
-        this.props.navigation.navigate('SignUpComplete', {email, password});
-        // this.props.validateEmail(email)
-        //     .then((result) => {
-        //         if (result.type === Actions.VALIDATE_EMAIL_SUCCESS) {
-        //             this.props.navigation.navigate('SignUpComplete');
-        //             this.props.reset();
-        //         }
-        //     });
+        this.props.validateEmail(email)
+            .then((result) => {
+                if (result.type === Actions.VALIDATE_EMAIL_SUCCESS) {
+                    this.props.navigation.navigate('SignUpComplete', {email, password});
+                    this.props.reset();
+                }
+            });
     }
 
     onReturnToLoginPress() {

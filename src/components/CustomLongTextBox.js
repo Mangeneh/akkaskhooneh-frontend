@@ -4,7 +4,7 @@ import {Fonts} from '../config';
 
 export default class CustomLongTextBox extends Component {
     render() {
-        const {style, placeholder, disabled} = this.props;
+        const {style, placeholder, disabled, value, onChangeText} = this.props;
         return (
             <Content>
                 <Form>
@@ -14,6 +14,8 @@ export default class CustomLongTextBox extends Component {
                     placeholder={placeholder}
                     disabled={disabled}
                     fontFamily={Fonts.NORMAL_FONT}
+                    value={value}
+                    onChangeText={onChangeText}
                 />
                 </Form>
             </Content>

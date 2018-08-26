@@ -22,8 +22,10 @@ export default (state = INITIAL_STATE, action) => {
         case VALIDATE_EMAIL:
             return {...state, mode: PageModes.LOADING};
         case VALIDATE_EMAIL_FAIL:
+            console.log(action);
             return {...state, mode: PageModes.ERROR};
         case VALIDATE_EMAIL_SUCCESS:
+            console.log(action);
             return {...state, mode: PageModes.NORMAL};
         case SIGN_UP_RESET:
             return INITIAL_STATE;
