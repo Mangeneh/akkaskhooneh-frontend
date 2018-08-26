@@ -7,8 +7,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {CustomLongTextBox, BackHeader} from '../../components';
 import {Strings, Colors, Constants, PageModes, Fonts} from '../../config';
 import SaveChangesButton from '../../containers/SaveChangesButton';
-import ImagePicker from 'react-native-image-crop-picker';
 import {modeChanged, signUpUser, bioChanged, Actions, fullNameChanged, usernameChanged, reset, imageChanged} from './actions';
+import {accessTokenSet, refreshTokenSet, userUpdated} from "../../actions/UserInfoActions";
+import ImagePicker from 'react-native-image-crop-picker';
 
 class SignUpComplete extends Component {
     static navigationOptions = {
@@ -72,7 +73,16 @@ class SignUpComplete extends Component {
         const email = this.props.navigation.getParam('email');
         const password = this.props.navigation.getParam('password');
         const {username, fullName, bio} = this.props;
-        this.props.signUpUser(email, password, username, fullName, bio);
+        this.props.signUpUser(email, password, username, fullName, bio)
+            .then((response) => {
+                if (response.type === Actions.SIGN_UP_SUCCESS) {
+                    const {access, refresh} = response.payload.data;
+                    this.props.setAccessToken(access);
+                    this.props.setRefreshToken(refresh);
+                    this.props.updateUser();
+                    this.props.navigation.navigate('Profile');
+                }
+            });
     }
 
     onUsernameChange(username) {
@@ -162,6 +172,9 @@ const mapDispatchToProps = (dispatch) => ({
     changeImage: (image) => dispatch(imageChanged(image)),
     changeFullName: (fullname) => dispatch(fullNameChanged(fullname)),
     signUpUser: (email, password, username, fullname, bio) => dispatch(signUpUser(email, password, username, fullname, bio)),
+    setRefreshToken: (refreshToken) => dispatch(refreshTokenSet(refreshToken)),
+    setAccessToken: (accessToken) => dispatch(accessTokenSet(accessToken)),
+    updateUser: () => dispatch(userUpdated()),
     reset: () => dispatch(reset())
 });
 

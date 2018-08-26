@@ -140,7 +140,6 @@ class Login extends Component {
             .then((result) => {
                 if (result.type === Actions.LOGIN_SUCCESS) {
                     const {access, refresh} = result.payload.data;
-                    console.log(access, refresh);
                     this.props.setAccessToken(access);
                     this.props.setRefreshToken(refresh);
                     this.props.updateUser();
