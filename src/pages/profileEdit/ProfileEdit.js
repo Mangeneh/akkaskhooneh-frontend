@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Avatar} from 'react-native-elements';
-import {Container, Item, Input} from 'native-base';
+import {Container, Item, Input, ActionSheet} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, StatusBar} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
@@ -28,7 +28,7 @@ class ProfileEdit extends Component {
                         />
                         <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
                             <TouchableOpacity
-                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}} onPress={this.onChooseImagePress.bind(this)}>
+                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}} onPress={this.onChooseImagePress.bind(this)} >
                                 <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}} icon = {{name: 'camera', type:'Feather'}} source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
                             </TouchableOpacity>
 
@@ -76,7 +76,33 @@ class ProfileEdit extends Component {
     }
 
     onChooseImagePress() {
+        let BUTTONS= [
+            { text: "Take Photo", icon: "analytics", iconColor: "#f42ced"},
+            { text: "Choose Photo", icon: "analytics", iconColor: "#ea943b"},
+            { text: "Cancel", icon: "close", iconColor: "#25de5b" }];
+        let CANCEL_INDEX = 2;
+        ActionSheet.show({
+            options: BUTTONS,
+            cancelButtonIndex: CANCEL_INDEX,
+        }, 
+        buttonIndex => {
+            if(buttonIndex == 0) {this.onOpenCameraPress()};
+            if(buttonIndex == 1) {this.onChooseFromGalleryPress()}
+        })
+    }
+
+    onChooseFromGalleryPress() {
         ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+                this.props.changeImage(image.sourceURL);
+        });
+    }
+
+    onOpenCameraPress() {
+        ImagePicker.openCamera({
             width: 300,
             height: 400,
             cropping: true
