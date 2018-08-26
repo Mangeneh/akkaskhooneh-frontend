@@ -6,7 +6,7 @@ import {Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {CustomLongTextBox, BackHeader} from '../../components';
 import {Strings, Colors, Constants, PageModes, Fonts} from '../../config';
-import SaveChangesButton from '../../containers/SaveChangesButton';
+import SignUpCompleteButton from '../../containers/SignUpCompleteButton';
 import {
     modeChanged,
     signUpUser,
@@ -19,6 +19,7 @@ import {
 } from './actions';
 import {accessTokenSet, refreshTokenSet, userUpdated} from '../../actions/UserInfoActions';
 import ImagePicker from 'react-native-image-crop-picker';
+import {checkUsername} from "../../helpers/Validators";
 
 class SignUpComplete extends Component {
     static navigationOptions = {
@@ -72,8 +73,8 @@ class SignUpComplete extends Component {
                                                    value={bio}
                                                    onChangeText={(bio) => this.onBioChange(bio)}/>
                             </Item>
-                            <SaveChangesButton text={COMPLETE_INFO} icon='check'
-                                               onPress={this.onSaveChangesPress.bind(this)}/>
+                            <SignUpCompleteButton text={COMPLETE_INFO} icon='check'
+                                                  onPress={this.onSaveChangesPress.bind(this)}/>
                         </View>
                     </Container>
                 </KeyboardAwareScrollView>
@@ -100,6 +101,11 @@ class SignUpComplete extends Component {
 
     onUsernameChange(username) {
         this.props.changeUsername(username);
+        if (checkUsername(username)) {
+            this.props.changeMode(PageModes.NORMAL);
+        } else {
+            this.props.changeMode(PageModes.DISABLED);
+        }
     }
 
     onFullNameChange(fullName) {

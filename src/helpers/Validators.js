@@ -7,3 +7,8 @@ export const checkPassword = (password) => {
     let regex = /(?=.*\d)(?=.*[a-zA-Z]).{6,}/;
     return regex.test(password);
 };
+
+export const checkUsername = (username) => {
+    let regex = /^(?=.*\w)\w{4,}$/;
+    return regex.test(username);
+};
