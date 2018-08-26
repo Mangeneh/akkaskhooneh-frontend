@@ -36,7 +36,7 @@ class SignUpComplete extends Component {
                 />
                 <BackHeader onBackPress={() => this.props.navigation.goBack()}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
-                    <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'flex-start'}}>
+                    <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
                         <TouchableOpacity
                             style={styles.avatar} onPress={this.onChooseImagePress.bind(this)}>
                             <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}
@@ -153,7 +153,8 @@ class SignUpComplete extends Component {
 const styles = StyleSheet.create({
     avatar: {
         alignSelf: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        marginTop: 8,
         marginBottom: 32
     },
     item: {

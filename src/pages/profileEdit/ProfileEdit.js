@@ -23,7 +23,7 @@ class ProfileEdit extends Component {
                 <KeyboardAwareScrollView>
                     <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
                         <StatusBar
-                            barStyle="light-content"
+                            barStyle='light-content'
                             backgroundColor={Colors.BASE}
                         />
                         <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
@@ -59,7 +59,7 @@ class ProfileEdit extends Component {
                             </Item>
 
                             <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}>
-                                <SaveChangesButton text={SAVE_CHANGES} icon="check"
+                                <SaveChangesButton text={SAVE_CHANGES} icon='check'
                                                    onPress={this.onSaveChangesPressed.bind(this)}/>
                             </View>
 
@@ -81,9 +81,9 @@ class ProfileEdit extends Component {
 
     onChooseImagePress() {
         let BUTTONS = [
-            {text: "Take Photo", icon: "analytics", iconColor: "#f42ced"},
-            {text: "Choose Photo", icon: "analytics", iconColor: "#ea943b"},
-            {text: "Cancel", icon: "close", iconColor: "#25de5b"}];
+            {text: 'Take Photo', icon: 'analytics', iconColor: '#f42ced'},
+            {text: 'Choose Photo', icon: 'analytics', iconColor: '#ea943b'},
+            {text: 'Cancel', icon: 'close', iconColor: '#25de5b'}];
         let CANCEL_INDEX = 2;
         ActionSheet.show({
                 options: BUTTONS,
@@ -93,7 +93,6 @@ class ProfileEdit extends Component {
                 if (buttonIndex == 0) {
                     this.onOpenCameraPress()
                 }
-                ;
                 if (buttonIndex == 1) {
                     this.onChooseFromGalleryPress()
                 }
