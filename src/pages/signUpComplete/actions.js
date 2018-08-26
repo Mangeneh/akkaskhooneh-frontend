@@ -8,3 +8,22 @@ export const modeChanged = (mode) => {
         payload: mode
     }
 };
+
+export const signUpUser = (email, password, username, fullname, bio) => {
+    return {
+        type: Actions.SIGN_UP,
+        payload: {
+            request: {
+                method: 'POST',
+                url: '/auth/register/',
+                data: {
+                    email: email,
+                    password: password,
+                    username: username,
+                    fullname: fullname,
+                    bio: bio
+                }
+            }
+        }
+    };
+};

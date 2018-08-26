@@ -3,9 +3,9 @@ export const Actions = {
     PASSWORD_CHANGED: 'SIGN_UP_PASSWORD_CHANGED',
     REPEATED_PASSWORD_CHANGED: 'REPEATED_PASSWORD_CHANGED',
     MODE_CHANGED: 'SIGN_UP_MODE_CHANGED',
-    SIGN_UP_FAIL: 'SIGN_UP_FAIL',
-    SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
-    SIGN_UP: 'SIGN_UP',
+    VALIDATE_EMAIL: 'VALIDATE_EMAIL',
+    VALIDATE_EMAIL_SUCCESS: 'VALIDATE_EMAIL_SUCCESS',
+    VALIDATE_EMAIL_FAIL: 'VALIDATE_EMAIL_FAIL',
     ENTER_LOGIN: 'ENTER_LOGIN',
     SIGN_IN_FROM_OTHER_ACCOUNTS: 'SIGN_UP_SIGN_IN_FROM_OTHER_ACCOUNTS',
     SIGN_UP_RESET: 'SIGN_UP_RESET'
@@ -41,16 +41,15 @@ export const modeChanged = (mode) => {
 
 export const reset = () => ({type: Actions.SIGN_UP_RESET});
 
-export const signUpUser = (email, password) => {
+export const validateEmail = (email) => {
     return {
-        type: Actions.SIGN_UP,
+        type: Actions.VALIDATE_EMAIL,
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/signup/',
+                url: '/auth/register/', //todo upate
                 data: {
-                    email: email,
-                    password: password
+                    email: email
                 }
             }
         }

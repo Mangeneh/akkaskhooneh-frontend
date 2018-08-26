@@ -56,6 +56,7 @@ const RootStack = createStackNavigator(
         Login: Login,
         Profile: Profile,
         SignUp: SignUp,
+        SignUpComplete: SignUpComplete,
         ProfileEdit: ProfileEdit,
         ProfileSettings: ProfileSettings,
     },

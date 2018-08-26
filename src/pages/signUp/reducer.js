@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {EMAIL_CHANGED, SIGN_UP_RESET, PASSWORD_CHANGED, REPEATED_PASSWORD_CHANGED, MODE_CHANGED, SIGN_UP_FAIL, SIGN_UP, SIGN_UP_SUCCESS} = Actions;
+    const {EMAIL_CHANGED, SIGN_UP_RESET, PASSWORD_CHANGED, REPEATED_PASSWORD_CHANGED, MODE_CHANGED, VALIDATE_EMAIL, VALIDATE_EMAIL_FAIL, VALIDATE_EMAIL_SUCCESS} = Actions;
     switch (action.type) {
         case EMAIL_CHANGED:
             return {...state, email: action.payload};
@@ -19,11 +19,11 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, repeatedPassword: action.payload};
         case MODE_CHANGED:
             return {...state, mode: action.payload};
-        case SIGN_UP:
+        case VALIDATE_EMAIL:
             return {...state, mode: PageModes.LOADING};
-        case SIGN_UP_FAIL:
+        case VALIDATE_EMAIL_FAIL:
             return {...state, mode: PageModes.ERROR};
-        case SIGN_UP_SUCCESS:
+        case VALIDATE_EMAIL_SUCCESS:
             return {...state, mode: PageModes.NORMAL};
         case SIGN_UP_RESET:
             return INITIAL_STATE;

@@ -6,10 +6,11 @@ import {connect} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Strings, Colors, PageModes, Fonts} from '../../config';
 import {EmailTextBox, PasswordTextBox} from '../../components';
+import {checkEmail, checkPassword} from "../../helpers/Validators";
 import {
     emailChanged,
     Actions,
-    signUpUser,
+    validateEmail,
     modeChanged,
     passwordChanged,
     repeatedPasswordChanged,
@@ -120,44 +121,37 @@ class SignUp extends Component {
 
     validateEmailLocally(email) {
         const {repeatedPassword, password} = this.props;
-        if (password.length < 6 || this.checkEmail(email) === false || password !== repeatedPassword) {
-            this.props.changeMode(PageModes.DISABLED)
-        } else {
-            this.props.changeMode(PageModes.NORMAL)
-        }
+        this.validate(email, password, repeatedPassword);
     }
 
     validatePasswordLocally(password) {
         const {repeatedPassword, email} = this.props;
-        if (password.length < 6 || this.checkEmail(email) === false || password !== repeatedPassword) {
-            this.props.changeMode(PageModes.DISABLED)
-        } else {
-            this.props.changeMode(PageModes.NORMAL)
-        }
+        this.validate(email, password, repeatedPassword);
     }
 
     validateRepeatedPasswordLocally(repeatedPassword) {
         const {password, email} = this.props;
-        if (password.length < 6 || this.checkEmail(email) === false || password !== repeatedPassword) {
-            this.props.changeMode(PageModes.DISABLED)
-        } else {
-            this.props.changeMode(PageModes.NORMAL)
-        }
+        this.validate(email, password, repeatedPassword);
     }
 
-    checkEmail(email) {
-        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        return reg.test(email);
+    validate(email, password, repeatedPassword) {
+        if (checkPassword(password) && checkEmail(email) && password === repeatedPassword) {
+            this.props.changeMode(PageModes.NORMAL)
+        } else {
+            this.props.changeMode(PageModes.DISABLED)
+        }
     }
 
     onSignUpPress() {
         const {email, password} = this.props;
-        this.props.signUpUser(email, password)
-            .then((result) => {
-                if (result.type === Actions.SIGN_UP_SUCCESS) {
-                    this.props.navigation.navigate('Profile')
-                }
-            });
+        this.props.navigation.navigate('SignUpComplete', {email, password});
+        // this.props.validateEmail(email)
+        //     .then((result) => {
+        //         if (result.type === Actions.VALIDATE_EMAIL_SUCCESS) {
+        //             this.props.navigation.navigate('SignUpComplete');
+        //             this.props.reset();
+        //         }
+        //     });
     }
 
     onReturnToLoginPress() {
@@ -179,7 +173,7 @@ const mapDispatchToProps = (dispatch) => ({
     changePassword: (password) => dispatch(passwordChanged(password)),
     changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
-    signUpUser: (email, password) => dispatch(signUpUser(email, password)),
+    validateEmail: (email) => dispatch(validateEmail(email)),
     reset: () => dispatch(reset())
 });
 

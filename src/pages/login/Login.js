@@ -4,6 +4,7 @@ import {Container, Text, Toast} from 'native-base';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
+import {checkEmail, checkPassword} from "../../helpers/Validators";
 import {EmailTextBox, PasswordTextBox} from '../../components';
 import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
@@ -27,7 +28,7 @@ class Login extends Component {
         const {ENTER, FORGOT_PASSWORD} = Strings;
         const {error, email, password} = this.props;
         return (
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
                 <StatusBar
                     barStyle='light-content'
                     backgroundColor={Colors.BASE}
@@ -117,25 +118,20 @@ class Login extends Component {
 
     validateEmailLocally(email) {
         const {password} = this.props;
-        if (password.length < 6 || this.checkEmail(email) === false) {
-            this.props.changeMode(PageModes.DISABLED)
-        } else {
-            this.props.changeMode(PageModes.NORMAL)
-        }
+        this.validate(email, password);
     }
 
     validatePasswordLocally(password) {
         const {email} = this.props;
-        if (password.length < 6 || this.checkEmail(email) === false) {
-            this.props.changeMode(PageModes.DISABLED)
-        } else {
-            this.props.changeMode(PageModes.NORMAL)
-        }
+        this.validate(email, password);
     }
 
-    checkEmail(email) {
-        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        return reg.test(email);
+    validate(email, password) {
+        if (checkPassword(password) && checkEmail(email)) {
+            this.props.changeMode(PageModes.NORMAL)
+        } else {
+            this.props.changeMode(PageModes.DISABLED)
+        }
     }
 
     onLoginPress() {
