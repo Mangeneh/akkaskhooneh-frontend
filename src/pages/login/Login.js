@@ -28,7 +28,7 @@ class Login extends Component {
         const {ENTER, FORGOT_PASSWORD} = Strings;
         const {error, email, password} = this.props;
         return (
-            <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps='handled' keyboardDismissMode='on-drag'>
                 <StatusBar
                     barStyle='light-content'
                     backgroundColor={Colors.BASE}

@@ -47,7 +47,7 @@ export const validateEmail = (email) => {
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/register/', //todo upate
+                url: '/auth/checkemail/',
                 data: {
                     email: email
                 }
