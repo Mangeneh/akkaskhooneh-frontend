@@ -37,42 +37,44 @@ class SignUpComplete extends Component {
                 <BackHeader onBackPress={() => this.props.navigation.goBack()}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
                     <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
-                        <TouchableOpacity
-                            style={styles.avatar} onPress={this.onChooseImagePress.bind(this)}>
-                            <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}
-                                    icon={{name: 'camera', type: 'Feather'}}
-                                    source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
-                        </TouchableOpacity>
-                        <Item style={styles.item} rounded>
-                            <Input placeholder={USER_NAME}
-                                   fontFamily={Fonts.NORMAL_FONT}
-                                   style={styles.input}
-                                   value={username}
-                                   onChangeText={(username) => this.onUsernameChange(username)}
-                            />
-                        </Item>
-                        <Item style={styles.item} rounded>
-                            <Input placeholder={FIRST_LAST_NAME}
-                                   fontFamily={Fonts.NORMAL_FONT}
-                                   style={styles.input}
-                                   value={fullName}
-                                   onChangeText={(fullName) => this.onFullNameChange(fullName)}
-                            />
-                        </Item>
-                        <Item style={styles.item} rounded disabled>
-                            <Icon style={{color: Colors.SUCCESS}} name='mail'/>
-                            <Input disabled placeholder={this.props.navigation.getParam('email')}
-                                   fontFamily={Fonts.NORMAL_FONT}
-                                   style={styles.input}/>
-                        </Item>
-                        <Item style={styles.item} rounded>
-                            <CustomLongTextBox placeholder={ABOUT_YOU}
-                                               style={styles.input}
-                                               value={bio}
-                                               onChangeText={(bio) => this.onBioChange(bio)}/>
-                        </Item>
-                        <SaveChangesButton text={COMPLETE_INFO} icon='check'
-                                           onPress={this.onSaveChangesPress.bind(this)}/>
+                        <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
+                            <TouchableOpacity
+                                style={styles.avatar} onPress={this.onChooseImagePress.bind(this)}>
+                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}
+                                        icon={{name: 'camera', type: 'Feather'}}
+                                        source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
+                            </TouchableOpacity>
+                            <Item style={styles.item} rounded>
+                                <Input placeholder={USER_NAME}
+                                       fontFamily={Fonts.NORMAL_FONT}
+                                       style={styles.input}
+                                       value={username}
+                                       onChangeText={(username) => this.onUsernameChange(username)}
+                                />
+                            </Item>
+                            <Item style={styles.item} rounded>
+                                <Input placeholder={FIRST_LAST_NAME}
+                                       fontFamily={Fonts.NORMAL_FONT}
+                                       style={styles.input}
+                                       value={fullName}
+                                       onChangeText={(fullName) => this.onFullNameChange(fullName)}
+                                />
+                            </Item>
+                            <Item style={styles.item} rounded disabled>
+                                <Icon style={{color: Colors.SUCCESS}} name='mail'/>
+                                <Input disabled placeholder={this.props.navigation.getParam('email')}
+                                       fontFamily={Fonts.NORMAL_FONT}
+                                       style={styles.input}/>
+                            </Item>
+                            <Item style={styles.item} rounded>
+                                <CustomLongTextBox placeholder={ABOUT_YOU}
+                                                   style={styles.input}
+                                                   value={bio}
+                                                   onChangeText={(bio) => this.onBioChange(bio)}/>
+                            </Item>
+                            <SaveChangesButton text={COMPLETE_INFO} icon='check'
+                                               onPress={this.onSaveChangesPress.bind(this)}/>
+                        </View>
                     </Container>
                 </KeyboardAwareScrollView>
             </View>
@@ -154,7 +156,6 @@ const styles = StyleSheet.create({
     avatar: {
         alignSelf: 'center',
         justifyContent: 'flex-start',
-        marginTop: 8,
         marginBottom: 32
     },
     item: {
