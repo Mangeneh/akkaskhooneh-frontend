@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Avatar} from 'react-native-elements';
 import {Container, Item, Input, ActionSheet} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, StatusBar, Platform} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, Constants, Fonts, PageModes} from '../../config';
@@ -75,6 +75,7 @@ class ProfileEdit extends Component {
         this.props.changeMode(PageModes.LOADING);
     }
 
+
     onChooseImagePress() {
         let BUTTONS= [
             { text: "Take Photo", icon: "analytics", iconColor: "#f42ced"},
@@ -97,7 +98,8 @@ class ProfileEdit extends Component {
             height: 400,
             cropping: true
         }).then(image => {
-                this.props.changeImage(image.sourceURL);
+                let imageSource = Platform.OS === 'ios'? image.sourceURL : image.path;
+                this.props.changeImage(imageSource);
         });
     }
 
