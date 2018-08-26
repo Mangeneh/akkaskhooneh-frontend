@@ -25,7 +25,7 @@ class Login extends Component {
     }
 
     render() {
-        const {ENTER, FORGOT_PASSWORD} = Strings;
+        const {ENTER, FORGOT_PASSWORD, PASSWORD} = Strings;
         const {error, email, password} = this.props;
         return (
             <KeyboardAwareScrollView keyboardShouldPersistTaps='handled' keyboardDismissMode='on-drag'>
@@ -42,7 +42,7 @@ class Login extends Component {
                                           reset={() => this.props.reset()}/>
                         </View>
                         <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error} value={password} placeholder={Strings.PASSWORD}
+                            <PasswordTextBox error={error} value={password} placeholder={PASSWORD}
                                              onChangePassword={(password) => this.onPasswordChange(password)}
                                              reset={() => this.props.reset()}/>
                         </View>

@@ -1,8 +1,9 @@
 import React, {Component,} from 'react';
 import {Container, Item, Input, ActionSheet, Icon} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar, Platform} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, StatusBar, Platform, Text} from 'react-native'
 import {connect} from 'react-redux';
 import {Avatar} from 'react-native-elements';
+import Tooltip from 'react-native-walkthrough-tooltip';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {CustomLongTextBox, BackHeader} from '../../components';
 import {Strings, Colors, Constants, PageModes, Fonts} from '../../config';
@@ -26,25 +27,27 @@ class SignUpComplete extends Component {
         header: null,
     };
 
+    state = {toolTipVisible: false};
+
     render() {
         const {username, bio, fullName} = this.props;
         const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
         return (
-            <View>
-                <StatusBar
-                    barStyle='light-content'
-                    backgroundColor={Colors.BASE}
-                />
+            <View style={{flex: 1}}>
                 <BackHeader onBackPress={() => this.props.navigation.goBack()}/>
-                <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
-                    <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
-                        <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
-                            <TouchableOpacity
-                                style={styles.avatar} onPress={this.onChooseImagePress.bind(this)}>
-                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}
-                                        icon={{name: 'camera', type: 'Feather'}}
-                                        source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
-                            </TouchableOpacity>
+
+                <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
+                                         contentContainerStyle={{flexGrow: 1}}>
+                    <StatusBar barStyle='light-content'
+                               backgroundColor={Colors.BASE}/>
+                    <View style={{backgroundColor: Colors.BASE, flex: 1}}>
+                        <TouchableOpacity
+                            style={styles.avatar} onPress={this.onChooseImagePress.bind(this)}>
+                            <Avatar rounded large containerStyle={{alignSelf: 'center'}}
+                                    icon={{name: 'camera', type: 'Feather'}}
+                                    source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
+                        </TouchableOpacity>
+                        <View style={{flex: 1, justifyContent: 'center'}}>
                             <Item style={styles.item} rounded>
                                 <Input placeholder={USER_NAME}
                                        fontFamily={Fonts.NORMAL_FONT}
@@ -67,22 +70,34 @@ class SignUpComplete extends Component {
                                        fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}/>
                             </Item>
-                            <Item style={styles.item} rounded>
-                                <CustomLongTextBox placeholder={ABOUT_YOU}
-                                                   style={styles.input}
-                                                   value={bio}
-                                                   onChangeText={(bio) => this.onBioChange(bio)}/>
-                            </Item>
+                            <Tooltip
+                                animated
+                                isVisible={this.state.toolTipVisible}
+                                content={<Text>Check this out!</Text>}
+                                placement="top"
+                                onClose={() => this.setState({toolTipVisible: false})}
+                            >
+                                <Item style={styles.item} rounded>
+
+                                    <CustomLongTextBox placeholder={ABOUT_YOU}
+                                                       style={styles.input}
+                                                       value={bio}
+                                                       onChangeText={(bio) => this.onBioChange(bio)}/>
+                                </Item>
+                            </Tooltip>
+                        </View>
+                        <View style={{flex: 1, justifyContent: 'center'}}>
                             <SignUpCompleteButton text={COMPLETE_INFO} icon='check'
                                                   onPress={this.onSaveChangesPress.bind(this)}/>
                         </View>
-                    </Container>
+                    </View>
                 </KeyboardAwareScrollView>
             </View>
         );
     }
 
     onSaveChangesPress() {
+        this.setState({toolTipVisible: true}); //todo remove
         this.props.changeMode(PageModes.LOADING);
         const email = this.props.navigation.getParam('email');
         const password = this.props.navigation.getParam('password');
@@ -161,8 +176,8 @@ class SignUpComplete extends Component {
 const styles = StyleSheet.create({
     avatar: {
         alignSelf: 'center',
-        justifyContent: 'flex-start',
-        marginBottom: 32
+        justifyContent: 'center',
+        marginBottom: 32, flex: 1
     },
     item: {
         marginLeft: 32,
