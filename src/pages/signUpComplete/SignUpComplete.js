@@ -17,7 +17,7 @@ class SignUpComplete extends Component {
                 <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
 
                     <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', flex: 3}}>
-                        <Avatar xlarge rounded style={{alignSelf: 'center'}}/>
+                        <Avatar xlarge rounded style={{alignSelf: 'center'}} />
                     </TouchableOpacity>
 
                     <View style={{justifyContent: 'center', flex: 4}}>

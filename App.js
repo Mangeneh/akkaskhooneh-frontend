@@ -60,7 +60,7 @@ const RootStack = createStackNavigator(
         ProfileSettings: ProfileSettings,
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'Profile'
     });
 
 export default class App extends Component {
@@ -68,7 +68,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <Main/>
+                    <RootStack/>
                 </Provider>
             </Root>
         );

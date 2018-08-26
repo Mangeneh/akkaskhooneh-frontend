@@ -7,7 +7,8 @@ import {connect} from 'react-redux';
 import {Strings, Colors, Constants, Fonts, PageModes} from '../../config';
 import {CustomLongTextBox, BackHeader} from '../../components';
 import SaveChangesButton from '../../containers/SaveChangesButton';
-import {modeChanged} from './actions';
+import {modeChanged, imageChanged} from './actions';
+import ImagePicker from 'react-native-image-crop-picker';
 
 class ProfileEdit extends Component {
     static navigationOptions = {
@@ -27,8 +28,8 @@ class ProfileEdit extends Component {
                         />
                         <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
                             <TouchableOpacity
-                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}}>
-                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}/>
+                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}} onPress={this.onChooseImagePress.bind(this)}>
+                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}} icon = {{name: 'camera', type:'Feather'}} source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
                             </TouchableOpacity>
 
                             <Item style={styles.item} rounded>
@@ -73,6 +74,16 @@ class ProfileEdit extends Component {
     onSaveChangesPressed() {
         this.props.changeMode(PageModes.LOADING);
     }
+
+    onChooseImagePress() {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            this.props.changeImage(image.sourceURL);
+        });
+    }
 }
 
 const styles = StyleSheet.create({
@@ -88,11 +99,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     mode: state.profileEditPage.mode,
-    lastTokenUpdateTime: state.userInfo.lastTokenUpdateTime
+    lastTokenUpdateTime: state.userInfo.lastTokenUpdateTime,
+    image: state.profileEditPage.image,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
+    changeImage: (image) => dispatch(imageChanged(image)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)

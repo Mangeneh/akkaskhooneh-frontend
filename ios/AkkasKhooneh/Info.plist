@@ -52,11 +52,11 @@
 		</dict>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>to choose photo</string>
+	<string>To Choose Photo.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>to take photo</string>
+	<string>To Take A New Photo.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>to record voice </string>
+	<string>To Record Voice.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IRANSansWeb_Bold.ttf</string>

@@ -4,8 +4,6 @@ import {Container, Text, Toast} from 'native-base';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
-import FormData from 'form-data';
-import ImagePicker from 'react-native-image-crop-picker';
 import {EmailTextBox, PasswordTextBox} from '../../components';
 import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
@@ -141,13 +139,6 @@ class Login extends Component {
     }
 
     onLoginPress() {
-        ImagePicker.openCamera({
-            width: 300,
-            height: 400,
-            cropping: true
-        }).then(image => {
-            console.log(image);
-        });
         const {email, password} = this.props;
         this.props.loginUser(email, password)
             .then((result) => {
