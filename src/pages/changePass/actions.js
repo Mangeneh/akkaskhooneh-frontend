@@ -33,3 +33,22 @@ export const modeChanged = (mode) => {
         payload: mode
     }
 };
+
+export const changePassword = (password) => {
+    return {
+        type: Actions,
+        payload: {
+            request: {
+                method: 'POST',
+                url: '/auth/register/',
+                data: {
+                    email: email,
+                    password: password,
+                    username: username,
+                    fullname: fullName,
+                    bio: bio
+                }
+            }
+        }
+    };
+};

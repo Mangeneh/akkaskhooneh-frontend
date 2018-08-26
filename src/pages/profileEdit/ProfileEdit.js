@@ -21,15 +21,18 @@ class ProfileEdit extends Component {
             <View>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
                 <KeyboardAwareScrollView>
-                    <Container style={{backgroundColor: 'white', flex: 1, justifyContent: 'center', marginTop: 0}}>
+                    <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
                         <StatusBar
                             barStyle="light-content"
                             backgroundColor={Colors.BASE}
                         />
                         <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
                             <TouchableOpacity
-                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}} onPress={this.onChooseImagePress.bind(this)} >
-                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}} icon = {{name: 'camera', type:'Feather'}} source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
+                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, marginTop: 0}}
+                                onPress={this.onChooseImagePress.bind(this)}>
+                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}
+                                        icon={{name: 'camera', type: 'Feather'}}
+                                        source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
                             </TouchableOpacity>
 
                             <Item style={styles.item} rounded>
@@ -77,19 +80,24 @@ class ProfileEdit extends Component {
 
 
     onChooseImagePress() {
-        let BUTTONS= [
-            { text: "Take Photo", icon: "analytics", iconColor: "#f42ced"},
-            { text: "Choose Photo", icon: "analytics", iconColor: "#ea943b"},
-            { text: "Cancel", icon: "close", iconColor: "#25de5b" }];
+        let BUTTONS = [
+            {text: "Take Photo", icon: "analytics", iconColor: "#f42ced"},
+            {text: "Choose Photo", icon: "analytics", iconColor: "#ea943b"},
+            {text: "Cancel", icon: "close", iconColor: "#25de5b"}];
         let CANCEL_INDEX = 2;
         ActionSheet.show({
-            options: BUTTONS,
-            cancelButtonIndex: CANCEL_INDEX,
-        }, 
-        buttonIndex => {
-            if(buttonIndex == 0) {this.onOpenCameraPress()};
-            if(buttonIndex == 1) {this.onChooseFromGalleryPress()}
-        })
+                options: BUTTONS,
+                cancelButtonIndex: CANCEL_INDEX,
+            },
+            buttonIndex => {
+                if (buttonIndex == 0) {
+                    this.onOpenCameraPress()
+                }
+                ;
+                if (buttonIndex == 1) {
+                    this.onChooseFromGalleryPress()
+                }
+            })
     }
 
     onChooseFromGalleryPress() {
@@ -98,8 +106,8 @@ class ProfileEdit extends Component {
             height: 400,
             cropping: true
         }).then(image => {
-                let imageSource = Platform.OS === 'ios'? image.sourceURL : image.path;
-                this.props.changeImage(imageSource);
+            let imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+            this.props.changeImage(imageSource);
         });
     }
 
@@ -108,7 +116,7 @@ class ProfileEdit extends Component {
             width: 300,
             height: 400,
             cropping: true
-          }).then(image => {
+        }).then(image => {
             this.props.changeImage(image.sourceURL);
         });
     }
