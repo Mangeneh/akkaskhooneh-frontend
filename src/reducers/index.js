@@ -7,8 +7,8 @@ import SignUpPageReducer from '../pages/signUp/reducer'
 
 export default combineReducers({
     loginPage: LoginPageReducer,
-    profileEditPage: ProfileEditPageReducer,
-    signUpCompletePage: SignUpCompletePageReducer,
     userInfo: UserInfoReducer,
+    profileEditPage: ProfileEditPageReducer,
     signUpPage: SignUpPageReducer,
+    signUpCompletePage: SignUpCompletePageReducer,
 });

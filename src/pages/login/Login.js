@@ -119,8 +119,7 @@ class Login extends Component {
 
     validateEmailLocally(email) {
         const {password} = this.props;
-        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        if (password.length < 6 || reg.test(email) === false) {
+        if (password.length < 6 || this.checkEmail(email) === false) {
             this.props.changeMode(PageModes.DISABLED)
         } else {
             this.props.changeMode(PageModes.NORMAL)
@@ -129,12 +128,16 @@ class Login extends Component {
 
     validatePasswordLocally(password) {
         const {email} = this.props;
-        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        if (password.length < 6 || reg.test(email) === false) {
+        if (password.length < 6 || this.checkEmail(email) === false) {
             this.props.changeMode(PageModes.DISABLED)
         } else {
             this.props.changeMode(PageModes.NORMAL)
         }
+    }
+
+    checkEmail(email) {
+        let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        return reg.test(email);
     }
 
     onLoginPress() {

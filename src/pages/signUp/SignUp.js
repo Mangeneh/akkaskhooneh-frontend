@@ -12,7 +12,8 @@ import {
     signUpUser,
     modeChanged,
     passwordChanged,
-    repeatedPasswordChanged
+    repeatedPasswordChanged,
+    reset
 } from './actions';
 import SignUpButton from '../../containers/SignUpButton';
 
@@ -51,6 +52,55 @@ class SignUp extends Component {
                 </Container>
             </KeyboardAwareScrollView>
         );
+    }
+
+
+    renderLogoSection() {
+        const {APP_NAME} = Strings;
+        return (
+            <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                <Avatar large containerStyle={{marginBottom: 12}} rounded
+                        source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
+                <Text style={styles.text}>{APP_NAME}</Text>
+            </View>
+        )
+    }
+
+    renderOtherLoginSection() {
+        const {ENTER_LOGIN_PAGE} = Strings;
+        return (
+            <View style={{flex: 1, justifyContent: 'center',}}>
+                {this.renderOtherLoginButtons()}
+                <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => this.onReturnToLoginPress()}>
+                    <Text style={styles.text}>{ENTER_LOGIN_PAGE}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    renderOtherLoginButtons() {
+        return (
+            <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: 16}}>
+                <TouchableOpacity>
+                    <SocialIcon
+                        light
+                        type='facebook'
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <SocialIcon
+                        light
+                        type='google'
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <SocialIcon
+                        light
+                        type='twitter'
+                    />
+                </TouchableOpacity>
+            </View>
+        )
     }
 
     onEmailChange(email) {
@@ -100,29 +150,6 @@ class SignUp extends Component {
         return reg.test(email);
     }
 
-    renderLogoSection() {
-        const {APP_NAME} = Strings;
-        return (
-            <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                <Avatar large containerStyle={{marginBottom: 12}} rounded
-                        source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
-                <Text style={styles.text}>{APP_NAME}</Text>
-            </View>
-        )
-    }
-
-    renderOtherLoginSection() {
-        const {ENTER_LOGIN_PAGE} = Strings;
-        return (
-            <View style={{flex: 1, justifyContent: 'center',}}>
-                {this.renderOtherLoginButtons()}
-                <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => this.onReturnToLoginPress()}>
-                    <Text style={styles.text}>{ENTER_LOGIN_PAGE}</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
     onSignUpPress() {
         const {email, password} = this.props;
         this.props.signUpUser(email, password)
@@ -133,33 +160,9 @@ class SignUp extends Component {
             });
     }
 
-    renderOtherLoginButtons() {
-        return (
-            <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: 16}}>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='facebook'
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='google'
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='twitter'
-                    />
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
     onReturnToLoginPress() {
         this.props.navigation.navigate('Login');
+        this.props.reset();
     }
 }
 
@@ -176,7 +179,8 @@ const mapDispatchToProps = (dispatch) => ({
     changePassword: (password) => dispatch(passwordChanged(password)),
     changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
-    signUpUser: (email, password) => dispatch(signUpUser(email, password))
+    signUpUser: (email, password) => dispatch(signUpUser(email, password)),
+    reset: () => dispatch(reset())
 });
 
 const styles = StyleSheet.create({
