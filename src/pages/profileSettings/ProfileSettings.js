@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Item, Right, Left, Icon} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar, Text} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, StatusBar, Text, SafeAreaView} from 'react-native'
 import {Strings, Fonts, Colors, Constants} from '../../config';
 import {BackHeader} from '../../components';
 import {reset, Actions} from '../../actions/UserInfoActions';
@@ -14,7 +14,7 @@ class ProfileSettings extends Component {
     render() {
         const {SIGN_OUT, CHANGE_PASS} = Strings;
         return (
-            <View style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1}}>
                 <StatusBar
                     barStyle='light-content'
                     backgroundColor={Colors.BASE}
@@ -41,7 +41,7 @@ class ProfileSettings extends Component {
                 <TouchableOpacity style={{marginBottom: 0}} onPress={this.onSignOutPress.bind(this)}>
                     <Text style={styles.exit}>{SIGN_OUT}</Text>
                 </TouchableOpacity>
-            </View>
+            </SafeAreaView>
         );
     }
 
