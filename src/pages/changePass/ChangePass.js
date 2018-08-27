@@ -60,7 +60,7 @@ class ChangePass extends Component {
                             </View>
                         </View>
 
-                        <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20, flex: 1}}>
+                        <View style={{alignSelf: 'center', justifyContent: 'flex-start', marginBottom: 20, flex: 1}}>
                             <ChangePassButton text={SAVE_NEW_PASSWORD} icon="check"
                                               onPress={this.onSaveChangesPressed.bind(this)}/>
                         </View>
