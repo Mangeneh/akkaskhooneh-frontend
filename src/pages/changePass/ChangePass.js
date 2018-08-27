@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Toast} from 'native-base';
+import {Toast} from 'native-base';
 import {View, StatusBar} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
@@ -27,10 +27,11 @@ class ChangePass extends Component {
         const {SAVE_NEW_PASSWORD, NEW_PASSWORD, CURRENT_PASSWORD, REPEAT_NEW_PASSWORD, CHANGE_PASS} = Strings;
         const {error} = this.props;
         return (
-            <View>
+            <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={CHANGE_PASS}/>
-                <KeyboardAwareScrollView>
-                    <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0, backgroundColor: Colors.BASE,}}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
+                                         contentContainerStyle={{flexGrow: 1}}>
+                    <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
                         <StatusBar
                             barStyle="light-content"
                             backgroundColor={Colors.BASE}
@@ -39,27 +40,27 @@ class ChangePass extends Component {
 
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD}
-                                                onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
-                                                />
+                                                 onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
+                                />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={NEW_PASSWORD}
-                                                onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
-                                                />
+                                                 onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
+                                />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={REPEAT_NEW_PASSWORD}
-                                                onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
-                                                />
+                                                 onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
+                                />
                             </View>
 
                             <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}>
                                 <ChangePassButton text={SAVE_NEW_PASSWORD} icon="check"
-                                                   onPress={this.onSaveChangesPressed.bind(this)}/>
+                                                  onPress={this.onSaveChangesPressed.bind(this)}/>
                             </View>
 
                         </View>
-                    </Container>
+                    </View>
                 </KeyboardAwareScrollView>
             </View>
         );
@@ -92,7 +93,7 @@ class ChangePass extends Component {
                     });
                 }
             });
-        }
+    }
 
     onPreviousPasswordChange(previousPassword) {
         this.props.changePreviousPassword(previousPassword);
@@ -132,7 +133,6 @@ const mapStateToProps = (state) => ({
     previousPassword: state.changePassPage.previousPassword,
     newPassword: state.changePassPage.newPassword,
     repeatedPassword: state.changePassPage.repeatedPassword,
-    lastTokenUpdateTime: state.userInfo.lastTokenUpdateTime,
     error: state.changePassPage.mode === PageModes.ERROR
 });
 

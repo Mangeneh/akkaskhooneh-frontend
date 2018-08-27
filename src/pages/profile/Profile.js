@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Container, Tab, Tabs, Text} from 'native-base';
 import {View, StyleSheet, StatusBar, BackHandler} from 'react-native';
 import GridView from 'react-native-super-grid';
-import {Colors, Fonts, Strings} from '../../config';
+import {connect} from 'react-redux';
+import {Colors, Fonts, PageModes, Strings} from '../../config';
 import {ProfileHeader, SelfProfileInfo} from '../../components';
 
 const items = [
@@ -18,7 +19,7 @@ const items = [
     {name: 'SILVER', code: '#bdc3c7'}, {name: 'ASBESTOS', code: '#7f8c8d'},
 ];
 
-export default class Profile extends Component {
+class Profile extends Component {
     _didFocusSubscription;
     _willBlurSubscription;
 
@@ -128,3 +129,9 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
 });
+
+const mapStateToProps = (state) => ({
+    username: state.userInfo.user.username
+});
+
+export default connect(mapStateToProps, null)(Profile);

@@ -1,5 +1,5 @@
 import React, {Component,} from 'react';
-import {Container, Text} from 'native-base';
+import {Text} from 'native-base';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
@@ -29,7 +29,7 @@ class SignUp extends Component {
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
-                                         contentContainerStyle={{flexGrow: 1}} >
+                                         contentContainerStyle={{flexGrow: 1}}>
                     <StatusBar
                         barStyle='light-content'
                         backgroundColor={Colors.BASE}
