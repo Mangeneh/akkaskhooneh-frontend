@@ -1,14 +1,22 @@
 import React, {Component} from 'react';
-import {Container} from 'native-base';
+import {Container, Toast} from 'native-base';
 import {View, StatusBar} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, PageModes} from '../../config';
 import {BackHeader} from '../../components';
-import {modeChanged, previousPasswordChanged, newPasswordChanged, repeatedPasswordChanged} from './actions';
 import {PasswordTextBox} from '../../components';
 import {checkPassword} from "../../helpers/Validators";
 import ChangePassButton from '../../containers/ChangePassButton';
+import {
+    previousPasswordChanged,
+    newPasswordChanged,
+    repeatedPasswordChanged,
+    changePassword,
+    modeChanged,
+    Actions,
+    reset,
+} from './actions';
 
 class ChangePass extends Component {
     static navigationOptions = {
@@ -22,7 +30,7 @@ class ChangePass extends Component {
             <View>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={CHANGE_PASS}/>
                 <KeyboardAwareScrollView>
-                    <Container style={{backgroundColor: 'white', flex: 1, justifyContent: 'center', marginTop: 0}}>
+                    <Container style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0, backgroundColor: Colors.BASE,}}>
                         <StatusBar
                             barStyle="light-content"
                             backgroundColor={Colors.BASE}
@@ -62,8 +70,29 @@ class ChangePass extends Component {
     }
 
     onSaveChangesPressed() {
+        const {previousPassword, newPassword} = this.props;
         this.props.changeMode(PageModes.LOADING);
-    }
+        this.props.changePassword(previousPassword, newPassword)
+            .then((result) => {
+                if (result.type === Actions.CHANGE_PASS_SUCCESS) {
+                    Toast.show({
+                        text: 'Password Changed Successfully!',
+                        textStyle: {textAlign: 'center'},
+                        position: 'bottom',
+                        type: 'success'
+                    });
+                    this.props.navigation.navigate('Profile');
+                    this.props.reset();
+                } else {
+                    Toast.show({
+                        text: 'Change Passcode Failed!',
+                        textStyle: {textAlign: 'center'},
+                        position: 'bottom',
+                        type: 'warning'
+                    });
+                }
+            });
+        }
 
     onPreviousPasswordChange(previousPassword) {
         this.props.changePreviousPassword(previousPassword);
@@ -111,7 +140,9 @@ const mapDispatchToProps = (dispatch) => ({
     changePreviousPassword: (previousPassword) => dispatch(previousPasswordChanged(previousPassword)),
     changeNewPassword: (newPassword) => dispatch(newPasswordChanged(newPassword)),
     changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
+    changePassword: (previousPassword, newPassword) => dispatch(changePassword(previousPassword, newPassword)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
+    reset: () => dispatch(reset())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePass)

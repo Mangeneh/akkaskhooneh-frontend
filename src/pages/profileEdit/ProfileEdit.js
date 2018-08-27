@@ -28,7 +28,7 @@ class ProfileEdit extends Component {
         const {SAVE_CHANGES, EDIT_PROFILE, ABOUT_YOU, FIRST_LAST_NAME} = Strings;
         const {emailFromDB, usernameFromDB} = this.props;
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
@@ -41,7 +41,7 @@ class ProfileEdit extends Component {
                             <TouchableOpacity
                                 style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, flex: 1}}
                                 onPress={this.onChooseImagePress.bind(this)}>
-                                <Avatar rounded xlarge containerStyle={{alignSelf: 'center'}}
+                                <Avatar rounded large containerStyle={{alignSelf: 'center'}}
                                         icon={{name: 'camera', type: 'Feather'}}
                                         source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
                             </TouchableOpacity>
