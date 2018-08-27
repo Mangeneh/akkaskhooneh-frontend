@@ -22,7 +22,8 @@ class ProfileEdit extends Component {
         fullName: this.props.fullNameFromDB,
         bio: this.props.bioFromDB,
         imageFile: null,
-        imageSource: this.props.imageSourceFromDB
+        imageSource: this.props.imageSourceFromDB,
+        showToast: false
     };
 
     componentWillMount() {
@@ -122,9 +123,10 @@ class ProfileEdit extends Component {
             text: Strings.EDIT_PROFILE_SUCCESS,
             textStyle: {textAlign: 'center'},
             position: 'bottom',
-            type: 'success'
+            type: 'success',
+            duration: 500,
+            onClose: () => this.props.navigation.goBack()
         });
-        this.props.navigation.goBack();
     }
 
     onFail() {
@@ -182,19 +184,21 @@ class ProfileEdit extends Component {
         const {imageFile} = this.state;
         const imageSource = Platform.OS === 'ios' ? imageFile.sourceURL : imageFile.path;
         const formData = new FormData();
+        console.log(this.state);
         formData.append('profile_picture', {
             uri: imageSource, // your file path string
             name: 'my_photo.jpg',
             type: imageFile.mime
         });
-        return this.props.changeProfilePic(formData)
+        this.props.changeProfilePic(formData)
             .then((response) => {
+                console.log(response);
                 if (response.type === Actions.CHANGE_PROFILE_PIC_SUCCESS) {
                     this.onSuccess();
                 } else {
                     this.onFail();
                 }
-            })
+            });
     }
 }
 

@@ -27,31 +27,34 @@ class SignUp extends Component {
         const {SIGN_UP, PASSWORD, REPEAT_PASSWORD} = Strings;
         const {error} = this.props;
         return (
-            <KeyboardAwareScrollView keyboardShouldPersistTaps='handled' keyboardDismissMode='on-drag'>
-                <StatusBar
-                    barStyle='light-content'
-                    backgroundColor={Colors.BASE}
-                />
-                <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
-                    {this.renderLogoSection()}
-                    <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                        <View style={{marginLeft: 32, marginRight: 32}}>
-                            <EmailTextBox error={error}
-                                          onChangeEmail={(email) => this.onEmailChange(email)}/>
+            <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
+                                         contentContainerStyle={{flexGrow: 1}} >
+                    <StatusBar
+                        barStyle='light-content'
+                        backgroundColor={Colors.BASE}
+                    />
+                    <View style={{backgroundColor: Colors.BASE, flex: 1}}>
+                        {this.renderLogoSection()}
+                        <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                            <View style={{marginLeft: 32, marginRight: 32}}>
+                                <EmailTextBox error={error}
+                                              onChangeEmail={(email) => this.onEmailChange(email)}/>
+                            </View>
+                            <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
+                                <PasswordTextBox error={error} placeholder={PASSWORD}
+                                                 onChangePassword={(password) => this.onPasswordChange(password)}/>
+                            </View>
+                            <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
+                                <PasswordTextBox error={error} placeholder={REPEAT_PASSWORD}
+                                                 onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
+                            </View>
+                            <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={'login'}/>
                         </View>
-                        <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error} placeholder={PASSWORD}
-                                             onChangePassword={(password) => this.onPasswordChange(password)}/>
-                        </View>
-                        <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error} placeholder={REPEAT_PASSWORD}
-                                             onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
-                        </View>
-                        <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={'login'}/>
+                        {this.renderOtherLoginSection()}
                     </View>
-                    {this.renderOtherLoginSection()}
-                </Container>
-            </KeyboardAwareScrollView>
+                </KeyboardAwareScrollView>
+            </View>
         );
     }
 
