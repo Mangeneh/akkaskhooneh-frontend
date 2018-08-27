@@ -4,19 +4,15 @@ export const Actions = {
     EDIT_PROFILE: 'EDIT_PROFILE',
     EDIT_PROFILE_SUCCESS: 'EDIT_PROFILE_SUCCESS',
     EDIT_PROFILE_FAIL: 'EDIT_PROFILE_FAIL',
+    CHANGE_PROFILE_PIC: 'CHANGE_PROFILE_PIC',
+    CHANGE_PROFILE_PIC_SUCCESS: 'CHANGE_PROFILE_PIC_SUCCESS',
+    CHANGE_PROFILE_PIC_FAIL: 'CHANGE_PROFILE_PIC_FAIL',
 };
 
 export const modeChanged = (mode) => {
     return {
         type: Actions.MODE_CHANGED,
         payload: mode
-    }
-};
-
-export const imageChanged = (image) => {
-    return {
-        type: Actions.IMAGE_CHANGED,
-        payload: image
     }
 };
 
@@ -31,6 +27,19 @@ export const editProfile = (fullName, bio) => {
                     fullname: fullName,
                     bio: bio
                 }
+            }
+        }
+    };
+};
+
+export const changeProfilePic = (formData) => {
+    return {
+        type: Actions.CHANGE_PROFILE_PIC,
+        payload: {
+            request: {
+                method: 'POST',
+                url: '/social/change-pic/',
+                data: formData
             }
         }
     };

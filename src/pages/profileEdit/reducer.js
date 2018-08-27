@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {MODE_CHANGED, IMAGE_CHANGED, EDIT_PROFILE, EDIT_PROFILE_FAIL, EDIT_PROFILE_SUCCESS} = Actions;
+    const {MODE_CHANGED, IMAGE_CHANGED, EDIT_PROFILE, EDIT_PROFILE_FAIL, EDIT_PROFILE_SUCCESS, CHANGE_PROFILE_PIC, CHANGE_PROFILE_PIC_FAIL, CHANGE_PROFILE_PIC_SUCCESS} = Actions;
     switch (action.type) {
         case MODE_CHANGED:
             return {...state, mode: action.payload};
@@ -19,6 +19,12 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, mode: PageModes.SUCCESS};
         case EDIT_PROFILE_FAIL:
             return {...state, mode: PageModes.ERROR};
+        case CHANGE_PROFILE_PIC_SUCCESS:
+            console.log(action);
+            return state;
+        case CHANGE_PROFILE_PIC_FAIL:
+            console.log(action);
+            return state;
         default:
             return state;
     }

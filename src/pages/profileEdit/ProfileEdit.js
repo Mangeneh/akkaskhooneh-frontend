@@ -5,21 +5,22 @@ import {View, TouchableOpacity, StyleSheet, StatusBar, Platform} from 'react-nat
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
+import FormData from 'form-data';
 import {Strings, Colors, Constants, Fonts} from '../../config';
 import {CustomLongTextBox, BackHeader} from '../../components';
 import SaveChangesButton from '../../containers/SaveChangesButton';
-import {modeChanged, imageChanged, editProfile, Actions} from './actions';
-import {userUpdated} from "../../actions/UserInfoActions";
-import {PageModes} from "../../config";
+import {modeChanged, editProfile, Actions, changeProfilePic} from './actions';
+import {userUpdated} from '../../actions/UserInfoActions';
+import {PageModes} from '../../config';
 
 class ProfileEdit extends Component {
     static navigationOptions = {
         header: null
     };
 
-    state = {fullName: this.props.fullNameFromDB, bio: this.props.bioFromDB};
+    state = {fullName: this.props.fullNameFromDB, bio: this.props.bioFromDB, imageSource: this.props.imageSourceFromDB};
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.changeMode(PageModes.NORMAL);
     }
 
@@ -119,8 +120,8 @@ class ProfileEdit extends Component {
 
     onChooseImagePress() {
         let BUTTONS = [
-            {text: 'Take Photo', icon: 'analytics', iconColor: '#f42ced'},
-            {text: 'Choose Photo', icon: 'analytics', iconColor: '#ea943b'},
+            {text: 'Take Photo', icon: 'camera', iconColor: '#f42ced'},
+            {text: 'Choose Photo', icon: 'gallery', iconColor: '#ea943b'},
             {text: 'Cancel', icon: 'close', iconColor: '#25de5b'}];
         let CANCEL_INDEX = 2;
         ActionSheet.show({
@@ -140,22 +141,50 @@ class ProfileEdit extends Component {
     onChooseFromGalleryPress() {
         ImagePicker.openPicker({
             width: 300,
-            height: 400,
+            height: 300,
             cropping: true
         }).then(image => {
-            let imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
-            this.props.changeImage(imageSource);
+            this.changeImage(image);
         });
     }
 
     onOpenCameraPress() {
         ImagePicker.openCamera({
             width: 300,
-            height: 400,
+            height: 300,
             cropping: true
         }).then(image => {
-            this.props.changeImage(image.sourceURL);
+            this.changeImage(image);
         });
+    }
+
+    changeImage(image) {
+        let imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+        const formData = new FormData();
+        formData.append('profile_picture', {
+            uri: imageSource, // your file path string
+            name: 'my_photo.jpg',
+            type: image.mime
+        });
+        this.props.changeProfilePic(formData)
+            .then((response) => {
+                if (response.type === Actions.CHANGE_PROFILE_PIC_SUCCESS) {
+                    this.setState(imageSource);
+                    Toast.show({
+                        text: Strings.CHANGE_PROFILE_PIC_SUCCESS,
+                        textStyle: {textAlign: 'center'},
+                        position: 'bottom',
+                        type: 'success'
+                    });
+                } else {
+                    Toast.show({
+                        text: Strings.CHANGE_PROFILE_PIC_FAIL,
+                        textStyle: {textAlign: 'center'},
+                        position: 'bottom',
+                        type: 'success'
+                    });
+                }
+            })
     }
 }
 
@@ -176,14 +205,15 @@ const mapStateToProps = (state) => ({
     emailFromDB: state.userInfo.user.email,
     fullNameFromDB: state.userInfo.user.fullname,
     bioFromDB: state.userInfo.user.bio,
+    imageSourceFromDB: state.userInfo.user.profilePicture,
     image: state.profileEditPage.image,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
-    changeImage: (image) => dispatch(imageChanged(image)),
     updateUser: () => dispatch(userUpdated()),
-    editProfile: (fullName, bio) => dispatch(editProfile(fullName, bio))
+    editProfile: (fullName, bio) => dispatch(editProfile(fullName, bio)),
+    changeProfilePic: (formData) => dispatch(changeProfilePic(formData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)

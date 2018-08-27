@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs, Text} from 'native-base';
-import {View, StyleSheet, StatusBar} from 'react-native';
+import {View, StyleSheet, StatusBar, BackHandler} from 'react-native';
 import GridView from 'react-native-super-grid';
 import {Colors, Fonts, Strings} from '../../config';
 import {ProfileHeader, SelfProfileInfo} from '../../components';
@@ -19,6 +19,30 @@ const items = [
 ];
 
 export default class Profile extends Component {
+    _didFocusSubscription;
+    _willBlurSubscription;
+
+    constructor(props) {
+        super(props);
+        this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+            BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+        );
+    }
+
+    componentDidMount() {
+        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+        );
+    }
+
+    onBackButtonPressAndroid = () => {
+        return true;
+    };
+
+    componentWillUnmount() {
+        this._didFocusSubscription && this._didFocusSubscription.remove();
+        this._willBlurSubscription && this._willBlurSubscription.remove();
+    }
 
     static navigationOptions = {
         header: null,
