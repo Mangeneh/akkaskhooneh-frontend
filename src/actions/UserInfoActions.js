@@ -5,7 +5,8 @@ export const UserInfoActions = {
     SET_ACCESS_TOKEN: 'SET_ACCESS_TOKEN',
     UPDATE_USER: 'UPDATE_USER',
     UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS',
-    UPDATE_USER_FAIL: 'UPDATE_USER_FAIL'
+    UPDATE_USER_FAIL: 'UPDATE_USER_FAIL',
+    SIGN_OUT : 'SIGN_OUT',
 };
 
 export const userUpdated = () => {
@@ -48,3 +49,5 @@ export const accessTokenSet = (accessToken) => {
         payload: accessToken
     }
 };
+
+export const reset = () => ({type: UserInfoActions.SIGN_OUT});

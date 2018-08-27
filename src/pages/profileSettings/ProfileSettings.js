@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Item, Right, Left, Icon} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar, Text} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, StatusBar, Text, SafeAreaView} from 'react-native'
 import {Strings, Fonts, Colors, Constants} from '../../config';
 import {BackHeader} from '../../components';
+import {reset, Actions} from '../../actions/UserInfoActions';
+import {connect} from 'react-redux';
 
-export default class ProfileSettings extends Component {
+class ProfileSettings extends Component {
     static navigationOptions = {
         header: null
     };
@@ -12,7 +14,7 @@ export default class ProfileSettings extends Component {
     render() {
         const {SIGN_OUT, CHANGE_PASS} = Strings;
         return (
-            <View style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1}}>
                 <StatusBar
                     barStyle='light-content'
                     backgroundColor={Colors.BASE}
@@ -36,10 +38,10 @@ export default class ProfileSettings extends Component {
                         </Item>
                     </View>
                 </View>
-                <TouchableOpacity style={{marginBottom: 0}}>
+                <TouchableOpacity style={{marginBottom: 0}} onPress={this.onSignOutPress.bind(this)}>
                     <Text style={styles.exit}>{SIGN_OUT}</Text>
                 </TouchableOpacity>
-            </View>
+            </SafeAreaView>
         );
     }
 
@@ -49,6 +51,11 @@ export default class ProfileSettings extends Component {
 
     onBackPress() {
         this.props.navigation.navigate('Profile');
+    }
+
+    onSignOutPress() {
+        this.props.navigation.navigate('Login');
+        this.props.reset();
     }
 }
 
@@ -73,3 +80,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
 });
+
+const mapDispatchToProps = (dispatch) => ({
+    reset: () => dispatch(reset())
+});
+
+export default connect(null, mapDispatchToProps)(ProfileSettings)
