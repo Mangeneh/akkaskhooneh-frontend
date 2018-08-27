@@ -39,7 +39,7 @@ class ChangePass extends Component {
                         <View style={{flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
                             <Icon name='key' style={{color: 'white'}}/>
                         </View>
-                        <View style={{flex: 1, justifyContent: 'center'}}>
+                        <View style={{flex: 1, justifyContent: 'flex-start'}}>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD} value={previousPassword}
                                                 onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
