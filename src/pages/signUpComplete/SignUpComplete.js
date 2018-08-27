@@ -33,7 +33,7 @@ class SignUpComplete extends Component {
         const {username, bio, fullName} = this.props;
         const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1,backgroundColor: Colors.BASE,}}>
                 <BackHeader onBackPress={() => this.props.navigation.goBack()}/>
 
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'

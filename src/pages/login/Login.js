@@ -12,7 +12,6 @@ import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} f
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
 import BackHeader from "../../components/BackHeader";
 
-
 class Login extends Component {
     static navigationOptions = {
         header: null,

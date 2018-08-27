@@ -3,6 +3,10 @@ export const Actions = {
     NEW_PASSWORD_CHANGED: 'CHANGE_PASS_NEW_PASSWORD_CHANGED',
     REPEATED_PASSWORD_CHANGED: 'CHANGE_PASS_REPEATED_PASSWORD_CHANGED',
     MODE_CHANGED: 'CHANGE_PASS_MODE_CHANGED',
+    CHANGE_PASS_FAIL: 'CHANGE_PASS_FAIL',
+    CHANGE_PASS_SUCCESS: 'CHANGE_PASS_SUCCESS',
+    CHANGE_PASS: 'CHANGE_PASS',
+    CHANGE_PASS_RESET : 'CHANGE_PASS_RESET',
 };
 
 
@@ -34,19 +38,18 @@ export const modeChanged = (mode) => {
     }
 };
 
-export const changePassword = (password) => {
+export const reset = () => ({type: Actions.CHANGE_PASS_RESET});
+
+export const changePassword = (oldPassword, newPassword) => {
     return {
-        type: Actions,
+        type: Actions.CHANGE_PASS,
         payload: {
             request: {
-                method: 'POST',
-                url: '/auth/register/',
+                method: 'PUT',
+                url: '/auth/changepassword/',
                 data: {
-                    email: email,
-                    password: password,
-                    username: username,
-                    fullname: fullName,
-                    bio: bio
+                    old_password: oldPassword,
+                    new_password: newPassword,
                 }
             }
         }
