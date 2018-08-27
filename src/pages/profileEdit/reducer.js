@@ -20,10 +20,8 @@ export default (state = INITIAL_STATE, action) => {
         case EDIT_PROFILE_FAIL:
             return {...state, mode: PageModes.ERROR};
         case CHANGE_PROFILE_PIC_SUCCESS:
-            console.log(action);
             return state;
         case CHANGE_PROFILE_PIC_FAIL:
-            console.log(action);
             return state;
         default:
             return state;

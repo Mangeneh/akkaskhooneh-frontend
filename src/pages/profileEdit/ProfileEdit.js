@@ -18,7 +18,12 @@ class ProfileEdit extends Component {
         header: null
     };
 
-    state = {fullName: this.props.fullNameFromDB, bio: this.props.bioFromDB, imageSource: this.props.imageSourceFromDB};
+    state = {
+        fullName: this.props.fullNameFromDB,
+        bio: this.props.bioFromDB,
+        imageFile: null,
+        imageSource: this.props.imageSourceFromDB
+    };
 
     componentWillMount() {
         this.props.changeMode(PageModes.NORMAL);
@@ -43,7 +48,7 @@ class ProfileEdit extends Component {
                                 onPress={this.onChooseImagePress.bind(this)}>
                                 <Avatar rounded large containerStyle={{alignSelf: 'center'}}
                                         icon={{name: 'camera', type: 'Feather'}}
-                                        source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
+                                        source={{uri: this.state.imageSource}}/>
                             </TouchableOpacity>
 
                             <View style={{flex: 1}}>
@@ -98,30 +103,43 @@ class ProfileEdit extends Component {
     onSaveChangesPressed() {
         this.props.editProfile(this.state.fullName, this.state.bio)
             .then((response) => {
+                console.log(response);
                 if (response.type === Actions.EDIT_PROFILE_SUCCESS) {
-                    this.props.updateUser();
-                    this.props.navigation.goBack();
-                    Toast.show({
-                        text: Strings.EDIT_PROFILE_SUCCESS,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'success'
-                    });
+                    if (this.state.imageFile !== null) {
+                        this.changeImage();
+                    } else {
+                        this.onSuccess();
+                    }
                 } else {
-                    Toast.show({
-                        text: Strings.EDIT_PROFILE_FAIL,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'danger'
-                    });
+                    this.onFail();
                 }
             })
+    }
+
+    onSuccess() {
+        this.props.updateUser();
+        Toast.show({
+            text: Strings.EDIT_PROFILE_SUCCESS,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'success'
+        });
+        this.props.navigation.goBack();
+    }
+
+    onFail() {
+        Toast.show({
+            text: Strings.EDIT_PROFILE_FAIL,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'danger'
+        });
     }
 
     onChooseImagePress() {
         let BUTTONS = [
             {text: 'Take Photo', icon: 'camera', iconColor: '#f42ced'},
-            {text: 'Choose Photo', icon: 'gallery', iconColor: '#ea943b'},
+            {text: 'Choose Photo', icon: 'flower', iconColor: '#ea943b'},
             {text: 'Cancel', icon: 'close', iconColor: '#25de5b'}];
         let CANCEL_INDEX = 2;
         ActionSheet.show({
@@ -144,7 +162,8 @@ class ProfileEdit extends Component {
             height: 300,
             cropping: true
         }).then(image => {
-            this.changeImage(image);
+            const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+            this.setState({imageFile: image, imageSource});
         });
     }
 
@@ -154,35 +173,26 @@ class ProfileEdit extends Component {
             height: 300,
             cropping: true
         }).then(image => {
-            this.changeImage(image);
+            const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+            this.setState({imageFile: image, imageSource});
         });
     }
 
-    changeImage(image) {
-        let imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+    changeImage() {
+        const {imageFile} = this.state;
+        const imageSource = Platform.OS === 'ios' ? imageFile.sourceURL : imageFile.path;
         const formData = new FormData();
         formData.append('profile_picture', {
             uri: imageSource, // your file path string
             name: 'my_photo.jpg',
-            type: image.mime
+            type: imageFile.mime
         });
-        this.props.changeProfilePic(formData)
+        return this.props.changeProfilePic(formData)
             .then((response) => {
                 if (response.type === Actions.CHANGE_PROFILE_PIC_SUCCESS) {
-                    this.setState(imageSource);
-                    Toast.show({
-                        text: Strings.CHANGE_PROFILE_PIC_SUCCESS,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'success'
-                    });
+                    this.onSuccess();
                 } else {
-                    Toast.show({
-                        text: Strings.CHANGE_PROFILE_PIC_FAIL,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'success'
-                    });
+                    this.onFail();
                 }
             })
     }
