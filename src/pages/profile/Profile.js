@@ -61,7 +61,7 @@ class Profile extends Component {
                     barStyle='light-content'
                     backgroundColor={Colors.BASE}
                 />
-                <ProfileHeader username={'Alireza'} onEditPress={this.onEditPress.bind(this)}
+                <ProfileHeader username={this.props.username} onEditPress={this.onEditPress.bind(this)}
                                onSettingsPress={this.onSettingsPress.bind(this)}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
                     <View style={{marginTop: 16, marginRight: 16, marginBottom: 40}}>

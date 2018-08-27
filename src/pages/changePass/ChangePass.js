@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Toast} from 'native-base';
+import {Toast, Icon} from 'native-base';
 import {View, StatusBar} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
@@ -36,8 +36,10 @@ class ChangePass extends Component {
                             barStyle="light-content"
                             backgroundColor={Colors.BASE}
                         />
-                        <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
-
+                        <View style={{flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
+                            <Icon name='key' style={{color: 'white'}}/>
+                        </View>
+                        <View style={{flex: 1, justifyContent: 'center'}}>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD}
                                                  onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
@@ -53,12 +55,11 @@ class ChangePass extends Component {
                                                  onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
                                 />
                             </View>
+                        </View>
 
-                            <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}>
-                                <ChangePassButton text={SAVE_NEW_PASSWORD} icon="check"
-                                                  onPress={this.onSaveChangesPressed.bind(this)}/>
-                            </View>
-
+                        <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20, flex: 1}}>
+                            <ChangePassButton text={SAVE_NEW_PASSWORD} icon="check"
+                                              onPress={this.onSaveChangesPressed.bind(this)}/>
                         </View>
                     </View>
                 </KeyboardAwareScrollView>
@@ -77,19 +78,18 @@ class ChangePass extends Component {
             .then((result) => {
                 if (result.type === Actions.CHANGE_PASS_SUCCESS) {
                     Toast.show({
-                        text: 'Password Changed Successfully!',
+                        text: Strings.CHANGE_PASS_SUCCESS,
                         textStyle: {textAlign: 'center'},
                         position: 'bottom',
-                        type: 'success'
+                        type: 'success',
+                        onClose: () => this.props.reset()
                     });
-                    this.props.navigation.navigate('Profile');
-                    this.props.reset();
                 } else {
                     Toast.show({
-                        text: 'Change Passcode Failed!',
+                        text: Strings.CHANGE_PASS_FAIL,
                         textStyle: {textAlign: 'center'},
                         position: 'bottom',
-                        type: 'warning'
+                        type: 'danger'
                     });
                 }
             });
