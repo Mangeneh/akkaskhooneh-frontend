@@ -3,6 +3,7 @@ export const PageModes = {
     NORMAL: 'NORMAL',
     ERROR: 'ERROR',
     LOADING: 'LOADING',
+    SUCCESS: 'SUCCESS'
 };
 
 export default PageModes;

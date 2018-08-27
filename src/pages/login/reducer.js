@@ -21,7 +21,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_FAIL:
             return {...state, mode: PageModes.ERROR};
         case LOGIN_SUCCESS:
-            return {...state, mode: PageModes.NORMAL};
+            return {...state, mode: PageModes.SUCCESS};
         case LOGIN_RESET:
             return INITIAL_STATE;
         default:

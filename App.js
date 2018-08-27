@@ -70,7 +70,7 @@ const RootStack = createStackNavigator(
         ChangePass: ChangePass,
     },
     {
-        initialRouteName: 'SignUpComplete'
+        initialRouteName: 'Login'
     });
 
 export default class App extends Component {
@@ -78,7 +78,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <ProfileEdit />
+                    <RootStack />
                 </Provider>
             </Root>
         );

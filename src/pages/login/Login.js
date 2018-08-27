@@ -147,6 +147,7 @@ class Login extends Component {
                     this.props.setRefreshToken(refresh);
                     this.props.updateUser();
                     this.props.navigation.navigate('Profile');
+                    this.props.reset();
                 } else {
                     Toast.show({
                         text: 'Wrong Credentials!',
