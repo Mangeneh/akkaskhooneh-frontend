@@ -1,5 +1,5 @@
 import React, {Component,} from 'react';
-import {Container, Item, Input, ActionSheet, Icon} from 'native-base';
+import {Item, Input, ActionSheet, Icon} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, StatusBar, Platform, Text} from 'react-native'
 import {connect} from 'react-redux';
 import {Avatar} from 'react-native-elements';

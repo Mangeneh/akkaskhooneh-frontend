@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     user: {},
     accessToken: '',
     refreshToken: '',
+    lastRefreshTime: 0
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,9 +13,9 @@ export default (state = INITIAL_STATE, action) => {
         case UPDATE_USER_SUCCESS:
             return {...state, user: action.payload.data};
         case UPDATE_ACCESS_TOKEN_SUCCESS:
-            return {...state, accessToken: action.payload.data.access};
+            return {...state, accessToken: action.payload.data.access, lastRefreshTime: Date.now()};
         case SET_ACCESS_TOKEN:
-            return {...state, accessToken: action.payload};
+            return {...state, accessToken: action.payload, lastRefreshTime: Date.now()};
         case SET_REFRESH_TOKEN:
             return {...state, refreshToken: action.payload};
         case SIGN_OUT:

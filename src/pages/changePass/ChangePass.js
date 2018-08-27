@@ -39,7 +39,7 @@ class ChangePass extends Component {
                         <View style={{flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
                             <Icon name='key' style={{color: 'white'}}/>
                         </View>
-                        <View style={{flex: 1, justifyContent: 'center'}}>
+                        <View style={{flex: 1, justifyContent: 'flex-start'}}>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD} value={previousPassword}
                                                 onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
@@ -60,7 +60,7 @@ class ChangePass extends Component {
                             </View>
                         </View>
 
-                        <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20, flex: 1}}>
+                        <View style={{alignSelf: 'center', justifyContent: 'flex-start', marginBottom: 20, flex: 1}}>
                             <ChangePassButton text={SAVE_NEW_PASSWORD} icon="check"
                                               onPress={this.onSaveChangesPressed.bind(this)}/>
                         </View>
