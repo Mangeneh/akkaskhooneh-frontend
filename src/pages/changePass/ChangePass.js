@@ -25,7 +25,7 @@ class ChangePass extends Component {
 
     render() {
         const {SAVE_NEW_PASSWORD, NEW_PASSWORD, CURRENT_PASSWORD, REPEAT_NEW_PASSWORD, CHANGE_PASS} = Strings;
-        const {error} = this.props;
+        const {error, previousPassword, newPassword, repeatedPassword} = this.props;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={CHANGE_PASS}/>
@@ -41,18 +41,21 @@ class ChangePass extends Component {
                         </View>
                         <View style={{flex: 1, justifyContent: 'center'}}>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD}
-                                                 onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
+                                <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD} value={previousPassword}
+                                                onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
+                                                reset={() => this.props.reset()}
                                 />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={NEW_PASSWORD}
-                                                 onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
+                                <PasswordTextBox error={error} placeholder={NEW_PASSWORD} value={newPassword}
+                                                onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
+                                                reset={() => this.props.reset()}
                                 />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={REPEAT_NEW_PASSWORD}
-                                                 onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
+                                <PasswordTextBox error={error} placeholder={REPEAT_NEW_PASSWORD} value={repeatedPassword}
+                                                onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
+                                                reset={() => this.props.reset()}
                                 />
                             </View>
                         </View>
