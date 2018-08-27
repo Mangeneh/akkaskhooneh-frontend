@@ -1,23 +1,31 @@
 import React, {Component} from 'react';
 import {Avatar} from 'react-native-elements';
-import {Item, Input, ActionSheet} from 'native-base';
+import {Item, Input, ActionSheet, Toast} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, StatusBar, Platform} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
-import {Strings, Colors, Constants, Fonts, PageModes} from '../../config';
+import {Strings, Colors, Constants, Fonts} from '../../config';
 import {CustomLongTextBox, BackHeader} from '../../components';
 import SaveChangesButton from '../../containers/SaveChangesButton';
-import {modeChanged, imageChanged} from './actions';
+import {modeChanged, imageChanged, editProfile, Actions} from './actions';
+import {userUpdated} from "../../actions/UserInfoActions";
+import {PageModes} from "../../config";
 
 class ProfileEdit extends Component {
     static navigationOptions = {
         header: null
     };
 
+    state = {fullName: this.props.fullNameFromDB, bio: this.props.bioFromDB};
+
+    componentWillMount(){
+        this.props.changeMode(PageModes.NORMAL);
+    }
+
     render() {
-        const {SAVE_CHANGES, EDIT_PROFILE} = Strings;
-        const {email, username} = this.props;
+        const {SAVE_CHANGES, EDIT_PROFILE, ABOUT_YOU, FIRST_LAST_NAME} = Strings;
+        const {emailFromDB, usernameFromDB} = this.props;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
@@ -39,26 +47,34 @@ class ProfileEdit extends Component {
 
                             <View style={{flex: 1}}>
                                 <Item style={styles.item} rounded>
-                                    <Input disabled placeholder={'username got from db!!'}
+                                    <Input disabled placeholder={usernameFromDB}
                                            fontFamily={Fonts.NORMAL_FONT}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                                 </Item>
 
                                 <Item style={styles.item} rounded>
-                                    <Input placeholder={'name got from db!!'}
+                                    <Input value={this.state.fullName}
+                                           placeholder={FIRST_LAST_NAME}
                                            fontFamily={Fonts.NORMAL_FONT}
-                                           style={{textAlign: 'center', fontSize: 10}}/>
+                                           style={{textAlign: 'center', fontSize: 10}}
+                                           onChangeText={(fullName) => {
+                                               this.setState({fullName})
+                                           }}/>
                                 </Item>
 
                                 <Item style={styles.item} rounded>
-                                    <Input disabled placeholder={'email got from db!!'}
+                                    <Input disabled placeholder={emailFromDB}
                                            secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                                 </Item>
 
                                 <Item style={styles.item} rounded>
-                                    <CustomLongTextBox placeholder={'info got from db!!'}
-                                                       style={{textAlign: 'center', fontSize: 10}}/>
+                                    <CustomLongTextBox placeholder={ABOUT_YOU}
+                                                       style={{textAlign: 'center', fontSize: 10}}
+                                                       value={this.state.bio}
+                                                       onChangeText={(bio) => {
+                                                           this.setState({bio})
+                                                       }}/>
                                 </Item>
                             </View>
 
@@ -79,9 +95,27 @@ class ProfileEdit extends Component {
     }
 
     onSaveChangesPressed() {
-        this.props.changeMode(PageModes.LOADING);
+        this.props.editProfile(this.state.fullName, this.state.bio)
+            .then((response) => {
+                if (response.type === Actions.EDIT_PROFILE_SUCCESS) {
+                    this.props.updateUser();
+                    this.props.navigation.goBack();
+                    Toast.show({
+                        text: Strings.EDIT_PROFILE_SUCCESS,
+                        textStyle: {textAlign: 'center'},
+                        position: 'bottom',
+                        type: 'success'
+                    });
+                } else {
+                    Toast.show({
+                        text: Strings.EDIT_PROFILE_FAIL,
+                        textStyle: {textAlign: 'center'},
+                        position: 'bottom',
+                        type: 'danger'
+                    });
+                }
+            })
     }
-
 
     onChooseImagePress() {
         let BUTTONS = [
@@ -138,14 +172,18 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     mode: state.profileEditPage.mode,
-    username: state.userInfo.username,
-    email: state.userInfo.email,
+    usernameFromDB: state.userInfo.user.username,
+    emailFromDB: state.userInfo.user.email,
+    fullNameFromDB: state.userInfo.user.fullname,
+    bioFromDB: state.userInfo.user.bio,
     image: state.profileEditPage.image,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
     changeImage: (image) => dispatch(imageChanged(image)),
+    updateUser: () => dispatch(userUpdated()),
+    editProfile: (fullName, bio) => dispatch(editProfile(fullName, bio))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)

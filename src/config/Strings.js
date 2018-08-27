@@ -25,4 +25,6 @@ export const Strings = {
     NEW_PASSWORD: 'رمز عبور جدید',
     CURRENT_PASSWORD: 'رمز عبور فعلی',
     REPEAT_NEW_PASSWORD: 'تکرار رمز عبور جدید',
+    EDIT_PROFILE_SUCCESS:'پروفایل با موفقیت ویرایش یافت',
+    EDIT_PROFILE_FAIL:'ویرایش پروفایل با خطا مواجه شد',
 };
