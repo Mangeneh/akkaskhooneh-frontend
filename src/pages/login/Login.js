@@ -10,6 +10,7 @@ import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
+import BackHeader from "../../components/BackHeader";
 
 
 class Login extends Component {
@@ -28,32 +29,34 @@ class Login extends Component {
         const {ENTER, FORGOT_PASSWORD, PASSWORD} = Strings;
         const {error, email, password} = this.props;
         return (
-            <KeyboardAwareScrollView keyboardShouldPersistTaps='handled' keyboardDismissMode='on-drag'>
-                <StatusBar
-                    barStyle='light-content'
-                    backgroundColor={Colors.BASE}
-                />
-                <Container style={{backgroundColor: Colors.BASE, flex: 1}}>
-                    {this.renderLogoSection()}
-                    <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                        <View style={{marginLeft: 32, marginRight: 32}}>
-                            <EmailTextBox error={error} value={email}
-                                          onChangeEmail={(email) => this.onEmailChange(email)}
-                                          reset={() => this.props.reset()}/>
+            <View style={{flex: 1}}>
+
+                <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
+                                         contentContainerStyle={{flexGrow: 1}}>
+                    <StatusBar barStyle='light-content'
+                               backgroundColor={Colors.BASE}/>
+                    <View style={{backgroundColor: Colors.BASE, flex: 1}}>
+                        {this.renderLogoSection()}
+                        <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+                            <View style={{marginLeft: 32, marginRight: 32}}>
+                                <EmailTextBox error={error} value={email}
+                                              onChangeEmail={(email) => this.onEmailChange(email)}
+                                              reset={() => this.props.reset()}/>
+                            </View>
+                            <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
+                                <PasswordTextBox error={error} value={password} placeholder={PASSWORD}
+                                                 onChangePassword={(password) => this.onPasswordChange(password)}
+                                                 reset={() => this.props.reset()}/>
+                            </View>
+                            <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={'login'}/>
+                            <TouchableOpacity style={{marginTop: 24}}>
+                                <Text style={styles.text}>{FORGOT_PASSWORD}</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                            <PasswordTextBox error={error} value={password} placeholder={PASSWORD}
-                                             onChangePassword={(password) => this.onPasswordChange(password)}
-                                             reset={() => this.props.reset()}/>
-                        </View>
-                        <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={'login'}/>
-                        <TouchableOpacity style={{marginTop: 24}}>
-                            <Text style={styles.text}>{FORGOT_PASSWORD}</Text>
-                        </TouchableOpacity>
+                        {this.renderOtherLoginSection()}
                     </View>
-                    {this.renderOtherLoginSection()}
-                </Container>
-            </KeyboardAwareScrollView>
+                </KeyboardAwareScrollView>
+            </View>
         );
     }
 
