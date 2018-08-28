@@ -36,7 +36,6 @@ export default class NewPost extends Component {
                             ratioOverlayColor: '#00000077' // optional
                         }}
                         onReadQRCode={(event) => console.log(event.nativeEvent.qrcodeStringValue)} // optional
-                        
                         />
                 </View>
 

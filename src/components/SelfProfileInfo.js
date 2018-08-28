@@ -39,7 +39,7 @@ class SelfProfileInfo extends Component {
                 height={80}
                 width={80}
                 rounded
-                source={{uri: this.props.user.avatar}}
+                source={{uri: this.props.user.profile_picture}}
             />
         );
     }

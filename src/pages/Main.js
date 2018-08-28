@@ -6,10 +6,31 @@ import {Icon, Container} from 'native-base';
 import Home from './home/Home';
 import {Colors} from '../config';
 import Profile from "./profile/Profile";
+import {createStackNavigator} from "react-navigation";
+import Login from "./login/Login";
+import SignUp from "./signUp/SignUp";
+import SignUpComplete from "./signUpComplete/SignUpComplete";
+import ProfileEdit from "./profileEdit/ProfileEdit";
+import ProfileSettings from "./profileSettings/ProfileSettings";
+import ChangePass from "./changePass/ChangePass";
+import NewPost from "./newPost/NewPost";
+
+const ProfileStack = createStackNavigator(
+    {
+        Profile: Profile,
+        ProfileEdit: ProfileEdit,
+        ProfileSettings: ProfileSettings,
+        ChangePass: ChangePass,
+        NewPost: NewPost,
+    },
+    {
+        initialRouteName: 'Profile'
+    }
+);
 
 const Bottom = createMaterialBottomTabNavigator(
     {
-        Profile: {screen: Profile},
+        ProfileStack: {screen: ProfileStack},
         X: {screen: Home},
         Nothing: {screen: Home},
         Z: {screen: Home},
@@ -49,7 +70,7 @@ const Bottom = createMaterialBottomTabNavigator(
             }
         }),
         labeled: false,
-        initialRouteName: 'Profile',
+        initialRouteName: 'ProfileStack',
         activeTintColor: '#252384',
         inactiveTintColor: '#ff1a1e',
         barStyle: {backgroundColor: '#fff', height: 60},

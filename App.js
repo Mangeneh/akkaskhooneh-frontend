@@ -63,14 +63,9 @@ let store = createStore(
 const RootStack = createStackNavigator(
     {
         Login: Login,
-        Main:Main,
-        Profile: Profile,
         SignUp: SignUp,
         SignUpComplete: SignUpComplete,
-        ProfileEdit: ProfileEdit,
-        ProfileSettings: ProfileSettings,
-        ChangePass: ChangePass,
-        NewPost: NewPost,
+        Main:Main,
     },
     {
         initialRouteName: 'Login'

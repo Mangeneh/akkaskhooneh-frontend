@@ -191,7 +191,6 @@ class ProfileEdit extends Component {
         });
         this.props.changeProfilePic(formData)
             .then((response) => {
-                console.warn(response);
                 if (response.type === Actions.CHANGE_PROFILE_PIC_SUCCESS) {
                     this.onSuccess();
                 } else {
@@ -218,7 +217,7 @@ const mapStateToProps = (state) => ({
     emailFromDB: state.userInfo.user.email,
     fullNameFromDB: state.userInfo.user.fullname,
     bioFromDB: state.userInfo.user.bio,
-    imageSourceFromDB: state.userInfo.user.profilePicture,
+    imageSourceFromDB: state.userInfo.user.profile_picture,
     image: state.profileEditPage.image,
 });
 
