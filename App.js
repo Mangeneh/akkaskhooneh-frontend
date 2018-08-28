@@ -3,21 +3,14 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
-import {createStackNavigator} from 'react-navigation';
-import {Root} from 'native-base'
+import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
+import {Root} from 'native-base';
 import rootReducer from './src/reducers'
-import Login from './src/pages/login/Login';
-import SignUp from './src/pages/signUp/SignUp';
-import Profile from './src/pages/profile/Profile';
-import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
-import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
-import NewPost from './src/pages/newPost/NewPost';
-import Main from './src/pages/Main';
-import SignUpComplete from './src/pages/signUpComplete/SignUpComplete';
-import ChangePass from './src/pages/changePass/ChangePass';
+import {Login, SignUp, SignUpComplete, ProfileEdit, ProfileSettings, ChangePass, NewPost, Main} from './src/pages';
 import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actions";
 import {Actions as SignUpActions} from "./src/pages/signUp/actions";
 import NavigationService from './src/NavigationService';
+import {accessTokenUpdated} from "./src/actions/UserInfoActions";
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -46,10 +39,8 @@ let store = createStore(
                             return response;
                         },
                         error: function ({getState, dispatch, getSourceAction}, error) {
-                            console.log(error);
                             if (error.status === 401) {
-                                // todo
-                                return dispatch(refreshToken()) // action to refresh token
+                                return dispatch(accessTokenUpdated(getState.userInfo.refreshToken))
                                     .then(() => {
                                         error.headers.authorization = `Bearer ${getState().userInfo.accessToken}`;
                                         return axios(error.config);
@@ -64,20 +55,24 @@ let store = createStore(
     )
 );
 
-const RootStack = createStackNavigator(
-    {
-        Login: Login,
-        SignUp: SignUp,
-        SignUpComplete: SignUpComplete,
-        Main: Main,
-        ProfileEdit: ProfileEdit,
-        ProfileSettings: ProfileSettings,
-        ChangePass: ChangePass,
-        NewPost: NewPost,
-    },
-    {
-        initialRouteName: 'Login'
-    });
+const AuthStack = createStackNavigator({
+    Login: Login,
+    SignUp: SignUp,
+    SignUpComplete: SignUpComplete,
+    Main: Main
+}, {
+    initialRouteName: 'Login'
+});
+
+const RootStack = createSwitchNavigator({
+    AuthStack: AuthStack,
+    ProfileEdit: ProfileEdit,
+    ProfileSettings: ProfileSettings,
+    ChangePass: ChangePass,
+    NewPost: NewPost
+}, {
+    initialRouteName: 'AuthStack'
+});
 
 export default class App extends Component {
     render() {

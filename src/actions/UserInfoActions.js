@@ -9,6 +9,22 @@ export const UserInfoActions = {
     SIGN_OUT : 'SIGN_OUT',
 };
 
+export const refreshTokenSet = (refreshToken) => {
+    return {
+        type: UserInfoActions.SET_REFRESH_TOKEN,
+        payload: refreshToken
+    }
+};
+
+export const accessTokenSet = (accessToken) => {
+    return {
+        type: UserInfoActions.SET_ACCESS_TOKEN,
+        payload: accessToken
+    }
+};
+
+export const reset = () => ({type: UserInfoActions.SIGN_OUT});
+
 export const userUpdated = () => {
     return {
         type: UserInfoActions.UPDATE_USER,
@@ -35,19 +51,3 @@ export const accessTokenUpdated = (refreshToken) => {
         }
     }
 };
-
-export const refreshTokenSet = (refreshToken) => {
-    return {
-        type: UserInfoActions.SET_REFRESH_TOKEN,
-        payload: refreshToken
-    }
-};
-
-export const accessTokenSet = (accessToken) => {
-    return {
-        type: UserInfoActions.SET_ACCESS_TOKEN,
-        payload: accessToken
-    }
-};
-
-export const reset = () => ({type: UserInfoActions.SIGN_OUT});
