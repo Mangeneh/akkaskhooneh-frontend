@@ -20,6 +20,9 @@ const WIDTH = Dimensions.get('window').width;
 class Profile extends Component {
     _didFocusSubscription;
     _willBlurSubscription;
+    static navigationOptions = {
+        header: null,
+    };
 
     constructor(props) {
         super(props);
@@ -30,6 +33,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
+        setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
         this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
             BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
         );
@@ -43,14 +47,6 @@ class Profile extends Component {
     componentWillUnmount() {
         this._didFocusSubscription && this._didFocusSubscription.remove();
         this._willBlurSubscription && this._willBlurSubscription.remove();
-    }
-
-    static navigationOptions = {
-        header: null,
-    };
-
-    componentDidMount() {
-        setTimeout(this._tabs.goToPage.bind(this._tabs, 1))
     }
 
     render() {
@@ -72,7 +68,8 @@ class Profile extends Component {
                         <Tab heading={INTERESTS}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
-                             tabStyle={{backgroundColor: 'white'}} activeTabStyle={{backgroundColor: 'white', fontFamily: Fonts.NORMAL_FONT}}>
+                             tabStyle={{backgroundColor: 'white'}}
+                             activeTabStyle={{backgroundColor: 'white', fontFamily: Fonts.NORMAL_FONT}}>
                         </Tab>
 
                         <Tab heading={PHOTOS}
@@ -83,7 +80,7 @@ class Profile extends Component {
                             <View>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
-                                        onEndReached = {() => this.props.getPhotosNextPage(this.props.photosNext) }
+                                        onEndReached={() => this.props.getPhotosNextPage(this.props.photosNext)}
                                         style={{width: '100%'}}
                                         numColumns={2}
                                         keyExtractor={(item, index) => item.id}

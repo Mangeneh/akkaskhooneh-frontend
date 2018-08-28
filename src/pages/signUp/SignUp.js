@@ -14,9 +14,10 @@ import {
     modeChanged,
     passwordChanged,
     repeatedPasswordChanged,
-    reset
+    reset, resetEmail
 } from './actions';
 import SignUpButton from '../../containers/SignUpButton';
+import {resetPassword} from "../login/actions";
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -38,15 +39,16 @@ class SignUp extends Component {
                         {this.renderLogoSection()}
                         <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                             <View style={{marginLeft: 32, marginRight: 32}}>
-                                <EmailTextBox error={error}
+                                <EmailTextBox error={error} reset={() => this.props.resetEmail()}
+                                              value={this.props.email}
                                               onChangeEmail={(email) => this.onEmailChange(email)}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={PASSWORD}
+                                <PasswordTextBox placeholder={PASSWORD} value={this.props.password}
                                                  onChangePassword={(password) => this.onPasswordChange(password)}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={REPEAT_PASSWORD}
+                                <PasswordTextBox placeholder={REPEAT_PASSWORD} value={this.props.repeatedPassword}
                                                  onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
                             </View>
                             <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={'login'}/>
@@ -183,6 +185,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
     changeMode: (mode) => dispatch(modeChanged(mode)),
     validateEmail: (email) => dispatch(validateEmail(email)),
+    resetEmail: () => dispatch(resetEmail()),
     reset: () => dispatch(reset())
 });
 

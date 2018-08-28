@@ -82,7 +82,7 @@ const RootStack = createSwitchNavigator({
     ChangePass: ChangePass,
     NewPost: NewPost
 }, {
-    initialRouteName: 'Profile'
+    initialRouteName: 'AuthStack'
 });
 
 export default class App extends Component {

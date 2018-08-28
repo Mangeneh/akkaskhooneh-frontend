@@ -8,6 +8,7 @@ export const Actions = {
     VALIDATE_EMAIL_FAIL: 'VALIDATE_EMAIL_FAIL',
     ENTER_LOGIN: 'ENTER_LOGIN',
     SIGN_IN_FROM_OTHER_ACCOUNTS: 'SIGN_UP_SIGN_IN_FROM_OTHER_ACCOUNTS',
+    EMAIL_RESET: 'SIGN_UP_EMAIL_RESET',
     SIGN_UP_RESET: 'SIGN_UP_RESET'
 };
 
@@ -40,6 +41,7 @@ export const modeChanged = (mode) => {
 };
 
 export const reset = () => ({type: Actions.SIGN_UP_RESET});
+export const resetEmail = () => ({type: Actions.EMAIL_RESET});
 
 export const validateEmail = (email) => {
     return {
