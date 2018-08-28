@@ -11,12 +11,13 @@ import SignUp from './src/pages/signUp/SignUp';
 import Profile from './src/pages/profile/Profile';
 import ProfileEdit from './src/pages/profileEdit/ProfileEdit';
 import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
+import NewPost from './src/pages/newPost/NewPost';
 import Main from './src/pages/Main';
 import SignUpComplete from './src/pages/signUpComplete/SignUpComplete';
 import ChangePass from './src/pages/changePass/ChangePass';
-import NewPost from './src/pages/newPost/NewPost';
 import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actions";
 import {Actions as SignUpActions} from "./src/pages/signUp/actions";
+
 
 
 const client = axios.create({

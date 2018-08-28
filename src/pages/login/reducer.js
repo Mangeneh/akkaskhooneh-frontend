@@ -2,9 +2,9 @@ import {Actions} from './actions';
 import {PageModes} from '../../config';
 
 const INITIAL_STATE = {
-    email: '',
-    password: '',
-    mode: PageModes.DISABLED
+    email: 'test@test.com',
+    password: 'test1234',
+    mode: PageModes.NORMAL
 };
 
 export default (state = INITIAL_STATE, action) => {

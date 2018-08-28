@@ -3,8 +3,11 @@ package com.akkaskhooneh;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+<<<<<<< HEAD
 import com.wix.RNCameraKit.RNCameraKitPackage;
 import org.reactnative.camera.RNCameraPackage;
+=======
+>>>>>>> f8d1b8b5afdca9c9f75f3d4a50ae2729d1834c72
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -27,8 +30,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+<<<<<<< HEAD
             new RNCameraKitPackage(),
             new RNCameraPackage(),
+=======
+>>>>>>> f8d1b8b5afdca9c9f75f3d4a50ae2729d1834c72
             new PickerPackage(),
             new VectorIconsPackage()
       );

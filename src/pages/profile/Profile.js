@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
-import {Container, Tab, Tabs, Text} from 'native-base';
-import {View, StyleSheet, StatusBar, BackHandler} from 'react-native';
+import {Container, Tab, Tabs} from 'native-base';
+import {Icon as PlusIcon, Icon} from 'react-native-elements';
+import {
+    View,
+    StyleSheet,
+    StatusBar,
+    BackHandler,
+    Image,
+    TouchableOpacity,
+    FlatList,
+    ActivityIndicator,
+    Platform,
+    Dimensions
+} from 'react-native';
 import GridView from 'react-native-super-grid';
 import {connect} from 'react-redux';
-import {Colors, Fonts, PageModes, Strings} from '../../config';
+import {Colors, Fonts, Strings} from '../../config';
 import {ProfileHeader, SelfProfileInfo} from '../../components';
+import {getPhotosNextPage} from './actions';
 
-const items = [
-    {name: 'TURQUOISE', code: '#1abc9c'}, {name: 'EMERALD', code: '#2ecc71'},
-    {name: 'PETER RIVER', code: '#3498db'}, {name: 'AMETHYST', code: '#9b59b6'},
-    {name: 'WET ASPHALT', code: '#34495e'}, {name: 'GREEN SEA', code: '#16a085'},
-    {name: 'NEPHRITIS', code: '#27ae60'}, {name: 'BELIZE HOLE', code: '#2980b9'},
-    {name: 'WISTERIA', code: '#8e44ad'}, {name: 'MIDNIGHT BLUE', code: '#2c3e50'},
-    {name: 'SUN FLOWER', code: '#f1c40f'}, {name: 'CARROT', code: '#e67e22'},
-    {name: 'ALIZARIN', code: '#e74c3c'}, {name: 'CLOUDS', code: '#ecf0f1'},
-    {name: 'CONCRETE', code: '#95a5a6'}, {name: 'ORANGE', code: '#f39c12'},
-    {name: 'PUMPKIN', code: '#d35400'}, {name: 'POMEGRANATE', code: '#c0392b'},
-    {name: 'SILVER', code: '#bdc3c7'}, {name: 'ASBESTOS', code: '#7f8c8d'},
-];
+const WIDTH = Dimensions.get('window').width;
 
 class Profile extends Component {
     _didFocusSubscription;
@@ -28,12 +30,14 @@ class Profile extends Component {
         this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
             BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
         );
+        this.props.getPhotosNextPage(this.props.photosNext);
     }
 
     componentDidMount() {
         this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
             BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
         );
+        this.props.getPhotosNextPage(this.props.photosNext);
     }
 
     onBackButtonPressAndroid = () => {
@@ -80,23 +84,58 @@ class Profile extends Component {
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
-                            <GridView
-                                itemDimension={130}
-                                items={items}
-                                style={styles.gridView}
-                                renderItem={item => (
-                                    <View style={[styles.itemContainer, {backgroundColor: item.code}]}>
-                                        <Text style={styles.itemName}>{item.name}</Text>
-                                        <Text style={styles.itemCode}>{item.code}</Text>
-                                    </View>
-                                )}
-                            />
+                            <View style={styles.MainContainer}>
+                                {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
+                                    <FlatList
+                                        style={{width: '100%'}}
+                                        numColumns={2}
+                                        keyExtractor={(item, index) => item.id}
+                                        data={this.props.photos}
+                                        renderItem={({item, index}) => (
+                                            <View style={{
+                                                justifyContent: 'center',
+                                                flex: 1,
+                                                alignItems: 'center',
+                                                margin: 4,
+                                                borderRadius: 4
+                                            }}>
+                                                <Image source={{uri: item.picture}} resizeMode={'stretch'}
+                                                       style={{width: WIDTH / 2, height: WIDTH / 2, borderRadius: 4}}/>
+                                            </View>
+                                        )}
+
+                                        ListFooterComponent={this.renderFooter}
+                                    />
+                                )
+                                }
+                            </View>
                         </Tab>
                     </Tabs>
                 </View>
             </Container>
         );
     }
+
+    renderFooter = () => {
+        return (
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={{alignSelf: 'center'}}
+                onPress={() => {
+                    this.props.getPhotosNextPage(this.props.photosNext)
+                }}>
+                <Icon
+                    color={'white'}
+                    name={'plus'}
+                    raised
+                    size={30}
+                    containerStyle={{backgroundColor: Colors.ACCENT}}
+                    type={'material-community'}
+                />
+                {(this.props.fetchStatus) ? <ActivityIndicator color="#fff" style={{marginLeft: 6}}/> : null}
+            </TouchableOpacity>
+        )
+    };
 
     onEditPress() {
         this.props.navigation.navigate('ProfileEdit');
@@ -107,31 +146,15 @@ class Profile extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    gridView: {
-        paddingTop: 25,
-        flex: 1,
-    },
-    itemContainer: {
-        justifyContent: 'flex-end',
-        borderRadius: 5,
-        padding: 10,
-        height: 150,
-    },
-    itemName: {
-        fontSize: 16,
-        color: '#fff',
-        fontWeight: '600',
-    },
-    itemCode: {
-        fontWeight: '600',
-        fontSize: 12,
-        color: '#fff',
-    },
-});
-
 const mapStateToProps = (state) => ({
-    username: state.userInfo.user.username
+    username: state.userInfo.user.username,
+    photos: state.profilePage.photos,
+    photosNext: state.profilePage.photosNext,
+    isLoading: state.profilePage.isLoading
 });
 
-export default connect(mapStateToProps, null)(Profile);
+const mapDispatchToProps = (dispatch) => ({
+    getPhotosNextPage: (photosNext) => dispatch(getPhotosNextPage(photosNext))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
