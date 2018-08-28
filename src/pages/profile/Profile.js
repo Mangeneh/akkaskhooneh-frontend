@@ -87,6 +87,7 @@ class Profile extends Component {
                             <View style={styles.MainContainer}>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
+                                        onEndReached = {() => this.props.getPhotosNextPage(this.props.photosNext) }
                                         style={{width: '100%'}}
                                         numColumns={2}
                                         keyExtractor={(item, index) => item.id}
@@ -103,8 +104,6 @@ class Profile extends Component {
                                                        style={{width: WIDTH / 2, height: WIDTH / 2, borderRadius: 4}}/>
                                             </View>
                                         )}
-
-                                        ListFooterComponent={this.renderFooter}
                                     />
                                 )
                                 }
@@ -115,27 +114,6 @@ class Profile extends Component {
             </Container>
         );
     }
-
-    renderFooter = () => {
-        return (
-            <TouchableOpacity
-                activeOpacity={0.7}
-                style={{alignSelf: 'center'}}
-                onPress={() => {
-                    this.props.getPhotosNextPage(this.props.photosNext)
-                }}>
-                <Icon
-                    color={'white'}
-                    name={'plus'}
-                    raised
-                    size={30}
-                    containerStyle={{backgroundColor: Colors.ACCENT}}
-                    type={'material-community'}
-                />
-                {(this.props.fetchStatus) ? <ActivityIndicator color="#fff" style={{marginLeft: 6}}/> : null}
-            </TouchableOpacity>
-        )
-    };
 
     onEditPress() {
         this.props.navigation.navigate('ProfileEdit');

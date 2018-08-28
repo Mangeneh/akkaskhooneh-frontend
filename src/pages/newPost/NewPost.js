@@ -7,8 +7,8 @@ import {BackHeader} from '../../components';
 import {PasswordTextBox} from '../../components';
 import {checkPassword} from "../../helpers/Validators";
 import ChangePassButton from '../../containers/ChangePassButton';
-import {AppRegistry, StyleSheet, Text, View} from 'react-native';
-import {CameraKitGalleryView} from 'react-native-camera-kit';
+import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
+import {CameraKitGalleryView, CameraKitCamera} from 'react-native-camera-kit';
 
 
 export default class NewPost extends Component {
@@ -22,7 +22,22 @@ export default class NewPost extends Component {
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
                 <View style = {{flex: 1, backgroundColor: Colors.ACCENT}}>
-
+                    <CameraKitCamera
+                        ref={cam => this.camera = cam}
+                        style={{
+                            flex: 1,
+                            backgroundColor: 'white'
+                        }}
+                        cameraOptions={{
+                            flashMode: 'auto',             // on/off/auto(default)
+                            focusMode: 'on',               // off/on(default)
+                            zoomMode: 'on',                // off/on(default)
+                            ratioOverlay:'1:1',            // optional, ratio overlay on the camera and crop the image seamlessly
+                            ratioOverlayColor: '#00000077' // optional
+                        }}
+                        onReadQRCode={(event) => console.log(event.nativeEvent.qrcodeStringValue)} // optional
+                        
+                        />
                 </View>
 
                 <View style = {{flex: 1, backgroundColor: 'white'}}>
