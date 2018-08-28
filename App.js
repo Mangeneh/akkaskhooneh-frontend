@@ -14,6 +14,7 @@ import ProfileSettings from './src/pages/profileSettings/ProfileSettings';
 import Main from './src/pages/Main';
 import SignUpComplete from './src/pages/signUpComplete/SignUpComplete';
 import ChangePass from './src/pages/changePass/ChangePass';
+import NewPost from './src/pages/newPost/NewPost';
 import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actions";
 import {Actions as SignUpActions} from "./src/pages/signUp/actions";
 
@@ -68,6 +69,7 @@ const RootStack = createStackNavigator(
         ProfileEdit: ProfileEdit,
         ProfileSettings: ProfileSettings,
         ChangePass: ChangePass,
+        NewPost: NewPost,
     },
     {
         initialRouteName: 'Login'

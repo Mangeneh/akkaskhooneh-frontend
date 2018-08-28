@@ -14,31 +14,34 @@ class ProfileSettings extends Component {
     render() {
         const {SIGN_OUT, CHANGE_PASS} = Strings;
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
                 <StatusBar
                     barStyle='light-content'
                     backgroundColor={Colors.BASE}
                 />
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.PROFILE_SETTINGS}/>
                 <View style={{backgroundColor: 'white', flex: 1}}>
-                    <View>
-                        <Item onPress={this.onChangePassPressed.bind(this)}>
-                            <Left>
-                                <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
-                                    <Icon type={'Ionicons'} name='ios-arrow-back' style={{color: Colors.ACCENT}}/>
-                                </TouchableOpacity>
-                            </Left>
-                            <Right>
-                                <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
-                                    <Text style={styles.text}>
-                                        {CHANGE_PASS}
-                                    </Text>
-                                </TouchableOpacity>
-                            </Right>
-                        </Item>
+                    <View style = {{flex: 1}}/>
+                    <View style={{backgroundColor: 'white', flex: 10}}>
+                        <View>
+                            <Item onPress={this.onChangePassPressed.bind(this)}>
+                                <Left>
+                                    <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
+                                        <Icon type={'Ionicons'} name='ios-arrow-back' style={{color: Colors.ACCENT}}/>
+                                    </TouchableOpacity>
+                                </Left>
+                                <Right>
+                                    <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
+                                        <Text style={styles.text}>
+                                            {CHANGE_PASS}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </Right>
+                            </Item>
+                        </View>
                     </View>
                 </View>
-                <TouchableOpacity style={{marginBottom: 0}} onPress={this.onSignOutPress.bind(this)}>
+                <TouchableOpacity style={{marginBottom: 0, backgroundColor: 'white'}} onPress={this.onSignOutPress.bind(this)}>
                     <Text style={styles.exit}>{SIGN_OUT}</Text>
                 </TouchableOpacity>
             </SafeAreaView>
@@ -70,7 +73,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: Fonts.NORMAL_FONT,
-        fontSize: 20,
+        fontSize: 16,
         color: Colors.TEXT,
     },
     exit: {

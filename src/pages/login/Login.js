@@ -25,7 +25,7 @@ class Login extends Component {
     }
 
     render() {
-        const {ENTER, FORGOT_PASSWORD, PASSWORD} = Strings;
+        const {ENTER, FORGOT_PASSWORD, PASSWORD, WRONG_CREDENTIALS} = Strings;
         const {error, email, password} = this.props;
         return (
             <View style={{flex: 1}}>
@@ -149,10 +149,10 @@ class Login extends Component {
                     this.props.reset();
                 } else {
                     Toast.show({
-                        text: 'Wrong Credentials!',
+                        text: Strings.WRONG_CREDENTIALS,
                         textStyle: {textAlign: 'center'},
                         position: 'bottom',
-                        type: 'warning'
+                        type: 'danger'
                     });
                 }
             });
