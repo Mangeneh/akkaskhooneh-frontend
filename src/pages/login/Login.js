@@ -1,6 +1,6 @@
 import React, {Component,} from 'react';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
-import {Container, Text, Toast} from 'native-base';
+import {Text, Toast} from 'native-base';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
@@ -10,7 +10,6 @@ import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
-import BackHeader from "../../components/BackHeader";
 
 class Login extends Component {
     static navigationOptions = {
@@ -25,7 +24,7 @@ class Login extends Component {
     }
 
     render() {
-        const {ENTER, FORGOT_PASSWORD, PASSWORD, WRONG_CREDENTIALS} = Strings;
+        const {ENTER, FORGOT_PASSWORD, PASSWORD} = Strings;
         const {error, email, password} = this.props;
         return (
             <View style={{flex: 1}}>

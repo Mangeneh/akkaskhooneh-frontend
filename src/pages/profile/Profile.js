@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import GridView from 'react-native-super-grid';
 import {connect} from 'react-redux';
+import NavigationService from '../../NavigationService';
 import {Colors, Fonts, Strings} from '../../config';
 import {ProfileHeader, SelfProfileInfo} from '../../components';
 import {getPhotosNextPage} from './actions';
@@ -116,7 +117,8 @@ class Profile extends Component {
     }
 
     onEditPress() {
-        this.props.navigation.navigate('ProfileEdit');
+        NavigationService.navigate('ProfileEdit');
+        // this.props.navigation.navigate('ProfileEdit');
     }
 
     onSettingsPress() {

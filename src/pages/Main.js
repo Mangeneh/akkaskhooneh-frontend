@@ -15,22 +15,10 @@ import ProfileSettings from "./profileSettings/ProfileSettings";
 import ChangePass from "./changePass/ChangePass";
 import NewPost from "./newPost/NewPost";
 
-const ProfileStack = createStackNavigator(
-    {
-        Profile: Profile,
-        ProfileEdit: ProfileEdit,
-        ProfileSettings: ProfileSettings,
-        ChangePass: ChangePass,
-        NewPost: NewPost,
-    },
-    {
-        initialRouteName: 'Profile'
-    }
-);
 
 const Bottom = createMaterialBottomTabNavigator(
     {
-        ProfileStack: {screen: ProfileStack},
+        ProfileStack: {screen: Profile},
         X: {screen: Home},
         Nothing: {screen: Home},
         Z: {screen: Home},
@@ -48,7 +36,7 @@ const Bottom = createMaterialBottomTabNavigator(
                 } else if (routeName === 'Nothing') {
                     return;
                 } else {
-                    iconName = `magnify${focused ? '' : '-outline'}`;
+                    iconName = `bell${focused ? '' : '-outline'}`;
                 }
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
@@ -64,10 +52,11 @@ const Bottom = createMaterialBottomTabNavigator(
             tabBarOnPress: (argument) => {
                 const {routeName} = navigation.state;
                 if (routeName === 'Profile') {
-                    argument.defaultHandler();
+
                 } else {
+                    argument.defaultHandler();
                 }
-            }
+            },
         }),
         labeled: false,
         initialRouteName: 'ProfileStack',
@@ -83,7 +72,7 @@ export default class Main extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container style={{zIndex: 10}}>
                 <Bottom/>
                 <TouchableOpacity style={{position: 'absolute', alignSelf: 'center', bottom: 20}}>
                     <PlusIcon

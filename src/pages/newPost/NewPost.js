@@ -35,7 +35,7 @@ export default class NewPost extends Component {
                             ratioOverlay:'1:1',            // optional, ratio overlay on the camera and crop the image seamlessly
                             ratioOverlayColor: '#00000077' // optional
                         }}
-                        onReadQRCode={(event) => console.log(event.nativeEvent.qrcodeStringValue)} // optional
+                        onReadQRCode={(event) => console.log(event.nativeEvent.qrcodeStringValue)} // optionalx
                         />
                 </View>
 

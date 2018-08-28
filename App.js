@@ -17,7 +17,7 @@ import SignUpComplete from './src/pages/signUpComplete/SignUpComplete';
 import ChangePass from './src/pages/changePass/ChangePass';
 import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actions";
 import {Actions as SignUpActions} from "./src/pages/signUp/actions";
-
+import NavigationService from './src/NavigationService';
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -40,21 +40,25 @@ let store = createStore(
                         return request;
                     }
                 ],
-                // response: [
-                //     {
-                //         success: function ({getState, dispatch, getSourceAction}, response) {
-                //             console.log(response);
-                //             return response;
-                //         },
-                //         error: function ({getState, dispatch, getSourceAction}, error) {
-                //             console.log(error);
-                //             if (error.status === 401) {
-                //                 // return getNewToken().then(() => dispatch(getSourceAction()))
-                //             }
-                //             return error;
-                //         }
-                //     }
-                // ]
+                response: [
+                    {
+                        success: function ({getState, dispatch, getSourceAction}, response) {
+                            return response;
+                        },
+                        error: function ({getState, dispatch, getSourceAction}, error) {
+                            console.log(error);
+                            if (error.status === 401) {
+                                // todo
+                                return dispatch(refreshToken()) // action to refresh token
+                                    .then(() => {
+                                        error.headers.authorization = `Bearer ${getState().userInfo.accessToken}`;
+                                        return axios(error.config);
+                                    })
+                            }
+                            throw error;
+                        }
+                    }
+                ]
             }
         })
     )
@@ -65,7 +69,11 @@ const RootStack = createStackNavigator(
         Login: Login,
         SignUp: SignUp,
         SignUpComplete: SignUpComplete,
-        Main:Main,
+        Main: Main,
+        ProfileEdit: ProfileEdit,
+        ProfileSettings: ProfileSettings,
+        ChangePass: ChangePass,
+        NewPost: NewPost,
     },
     {
         initialRouteName: 'Login'
@@ -76,7 +84,11 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <RootStack />
+                    <RootStack
+                        ref={navigatorRef => {
+                            NavigationService.setTopLevelNavigator(navigatorRef);
+                        }}
+                    />
                 </Provider>
             </Root>
         );

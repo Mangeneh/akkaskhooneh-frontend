@@ -15,7 +15,8 @@ import {PageModes} from '../../config';
 
 class ProfileEdit extends Component {
     static navigationOptions = {
-        header: null
+        header: null,
+        tabBarVisible: false,
     };
 
     state = {
@@ -34,7 +35,16 @@ class ProfileEdit extends Component {
         const {SAVE_CHANGES, EDIT_PROFILE, ABOUT_YOU, FIRST_LAST_NAME} = Strings;
         const {emailFromDB, usernameFromDB} = this.props;
         return (
-            <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
+            <View style={{
+                flex: 1,
+                backgroundColor: Colors.BASE,
+                zIndex: 1000000,
+                position: 'absolute',
+                right: 0,
+                left: 0,
+                bottom: 0,
+                top: 0
+            }}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
