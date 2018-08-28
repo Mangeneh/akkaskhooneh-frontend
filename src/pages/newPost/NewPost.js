@@ -1,65 +1,56 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import { RNCamera } from 'react-native-camera';
+import React, {Component} from 'react';
+import {Toast, Icon} from 'native-base';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {connect} from 'react-redux';
+import {Strings, Colors, PageModes} from '../../config';
+import {BackHeader} from '../../components';
+import {PasswordTextBox} from '../../components';
+import {checkPassword} from "../../helpers/Validators";
+import ChangePassButton from '../../containers/ChangePassButton';
+import {AppRegistry, StyleSheet, Text, View} from 'react-native';
+import {CameraKitGalleryView} from 'react-native-camera-kit';
 
-export default class BadInstagramCloneApp extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <RNCamera
-            ref={ref => {
-              this.camera = ref;
-            }}
-            style = {styles.preview}
-            type={RNCamera.Constants.Type.back}
-            flashMode={RNCamera.Constants.FlashMode.on}
-            permissionDialogTitle={'Permission to use camera'}
-            permissionDialogMessage={'We need your permission to use your camera phone'}
-        />
-        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
-        <TouchableOpacity
-            onPress={this.takePicture.bind(this)}
-            style = {styles.capture}
-        >
-            <Text style={{fontSize: 14}}> SNAP </Text>
-        </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
 
-  takePicture = async function() {
-    if (this.camera) {
-      const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options)
-      console.log(data.uri);
+export default class NewPost extends Component {
+    static navigationOptions = {
+        header: null
+    };
+
+    render() {
+        const {PHOTO_GALLERY} = Strings;
+        return (
+            <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
+                <View style = {{flex: 1, backgroundColor: Colors.ACCENT}}>
+
+                </View>
+
+                <View style = {{flex: 1, backgroundColor: 'white'}}>
+                    <CameraKitGalleryView
+                        ref={gallery => this.gallery = gallery}
+                        style={{flex: 1, marginTop: 20}}
+                        minimumInteritemSpacing={10}
+                        minimumLineSpacing={10}
+                        // albumName={<ALBUM_NAME>}
+                        columnCount={3}
+                        onTapImage={event => {
+                            // event.nativeEvent.selected - ALL selected images ids
+                        }}
+                        // selectedImages={<MAINTAIN_SELECETED_IMAGES>}
+                        // selectedImageIcon={require('<IMAGE_FILE_PATH>')}
+                        // unSelectedImageIcon={require('<IMAGE_FILE_PATH>')}
+                    />
+                </View>
+
+            </View>
+        );
     }
-  };
+
+    onBackPress() {
+        this.props.navigation.navigate('Profile');
+    }
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black'
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20
-  }
-});
+
+

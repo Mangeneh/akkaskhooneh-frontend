@@ -192,7 +192,7 @@ class ProfileEdit extends Component {
         });
         this.props.changeProfilePic(formData)
             .then((response) => {
-                console.log(response);
+                console.warn(response);
                 if (response.type === Actions.CHANGE_PROFILE_PIC_SUCCESS) {
                     this.onSuccess();
                 } else {

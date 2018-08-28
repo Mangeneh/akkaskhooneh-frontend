@@ -13,7 +13,7 @@
     "native-base": "^2.7.2",
     "react": "16.4.1",
     "react-native": "^0.55.4",
-    "react-native-camera": "^1.2.0",
+    "react-native-camera-kit": "^6.2.6",
     "react-native-elements": "^0.19.1",
     "react-native-image-crop-picker": "^0.21.1",
     "react-native-keyboard-aware-scroll-view": "latest",

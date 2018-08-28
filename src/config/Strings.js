@@ -32,4 +32,5 @@ export const Strings = {
     CHANGE_PROFILE_PIC_FAIL: 'ویرایش عکس پروفایل با خطا مواجه شد.',
     CHANGE_PASS_SUCCESS: 'رمز عبور با موفقیت تغییر یافت.',
     CHANGE_PASS_FAIL: 'تغییر رمز عبور با خطا مواجه شد.',
+    PHOTO_GALLERY: 'گالری تصاویر',
 };

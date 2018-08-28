@@ -72,7 +72,7 @@ const RootStack = createStackNavigator(
         NewPost: NewPost,
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'NewPost'
     });
 
 export default class App extends Component {
