@@ -8,7 +8,7 @@ import {checkEmail, checkPassword} from "../../helpers/Validators";
 import {EmailTextBox, PasswordTextBox} from '../../components';
 import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
-import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset} from './actions';
+import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset, resetPassword,resetEmail} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
 
 class Login extends Component {
@@ -39,12 +39,12 @@ class Login extends Component {
                             <View style={{marginLeft: 32, marginRight: 32}}>
                                 <EmailTextBox error={error} value={email}
                                               onChangeEmail={(email) => this.onEmailChange(email)}
-                                              reset={() => this.props.reset()}/>
+                                              reset={() => this.props.resetEmail()}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} value={password} placeholder={PASSWORD}
                                                  onChangePassword={(password) => this.onPasswordChange(password)}
-                                                 reset={() => this.props.reset()}/>
+                                                 reset={() => this.props.resetPassword()}/>
                             </View>
                             <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={'login'}/>
                             <TouchableOpacity style={{marginTop: 24}}>
@@ -188,6 +188,8 @@ const mapDispatchToProps = (dispatch) => ({
     setRefreshToken: (refreshToken) => dispatch(refreshTokenSet(refreshToken)),
     setAccessToken: (accessToken) => dispatch(accessTokenSet(accessToken)),
     updateUser: () => dispatch(userUpdated()),
+    resetEmail: () => dispatch(resetEmail()),
+    resetPassword: () => dispatch(resetPassword()),
     reset: () => dispatch(reset())
 });
 

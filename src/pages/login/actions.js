@@ -8,6 +8,8 @@ export const Actions = {
     ENTER_SIGN_UP: 'ENTER_SIGN_UP',
     SIGN_IN_FROM_OTHER_ACCOUNTS: 'LOGIN_SIGN_IN_FROM_OTHER_ACCOUNTS',
     FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+    EMAIL_RESET:'LOGIN_EMAIL_RESET',
+    PASSWORD_RESET:'LOGIN_PASSWORD_RESET',
     LOGIN_RESET : 'LOGIN_RESET'
 };
 
@@ -33,6 +35,8 @@ export const modeChanged = (mode) => {
 };
 
 export const reset = () => ({type: Actions.LOGIN_RESET});
+export const resetEmail = () => ({type: Actions.EMAIL_RESET});
+export const resetPassword = () => ({type: Actions.PASSWORD_RESET});
 
 export const loginUser = (email, password) => {
     return {

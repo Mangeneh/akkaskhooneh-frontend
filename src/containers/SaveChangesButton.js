@@ -6,6 +6,7 @@ import {chooseStyle} from "../styles/ButtonStyle";
 const mapStateToProps = (state) => ({
     style: chooseStyle(state.profileEditPage.mode),
     loading: state.profileEditPage.mode === PageModes.LOADING,
+    disabled: state.profileEditPage.mode === PageModes.LOADING,
 });
 
 export default connect(mapStateToProps, null)(SpinnerButton);

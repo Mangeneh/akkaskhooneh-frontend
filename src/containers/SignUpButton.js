@@ -6,7 +6,7 @@ import {PageModes} from '../config';
 const mapStateToProps = (state) => ({
     style: chooseStyle(state.signUpPage.mode),
     loading: state.signUpPage.mode === PageModes.LOADING,
-    disabled: state.signUpPage.mode === PageModes.DISABLED,
+    disabled: state.signUpPage.mode === PageModes.DISABLED || state.signUpPage.mode === PageModes.LOADING,
 });
 
 export default connect(mapStateToProps, null)(SpinnerButton);
