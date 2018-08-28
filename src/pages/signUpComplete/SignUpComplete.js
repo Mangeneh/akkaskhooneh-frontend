@@ -1,9 +1,8 @@
 import React, {Component,} from 'react';
-import {Item, Input, ActionSheet, Icon} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar, Platform, Text} from 'react-native'
+import {Item, Input, ActionSheet, Icon, Toast} from 'native-base';
+import {View, TouchableOpacity, StyleSheet, StatusBar, Platform} from 'react-native'
 import {connect} from 'react-redux';
 import {Avatar} from 'react-native-elements';
-import Tooltip from 'react-native-walkthrough-tooltip';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {CustomLongTextBox, BackHeader} from '../../components';
 import {Strings, Colors, Constants, PageModes, Fonts} from '../../config';
@@ -26,8 +25,6 @@ class SignUpComplete extends Component {
     static navigationOptions = {
         header: null,
     };
-
-    state = {toolTipVisible: false};
 
     render() {
         const {username, bio, fullName} = this.props;
@@ -70,21 +67,13 @@ class SignUpComplete extends Component {
                                        fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}/>
                             </Item>
-                            <Tooltip
-                                animated
-                                isVisible={this.state.toolTipVisible}
-                                content={<Text>Check this out!</Text>}
-                                placement="top"
-                                onClose={() => this.setState({toolTipVisible: false})}
-                            >
-                                <Item style={styles.item} rounded>
+                            <Item style={styles.item} rounded>
 
-                                    <CustomLongTextBox placeholder={ABOUT_YOU}
-                                                       style={styles.input}
-                                                       value={bio}
-                                                       onChangeText={(bio) => this.onBioChange(bio)}/>
-                                </Item>
-                            </Tooltip>
+                                <CustomLongTextBox placeholder={ABOUT_YOU}
+                                                   style={styles.input}
+                                                   value={bio}
+                                                   onChangeText={(bio) => this.onBioChange(bio)}/>
+                            </Item>
                         </View>
                         <View style={{flex: 1, justifyContent: 'center'}}>
                             <SignUpCompleteButton text={COMPLETE_INFO} icon='check'
@@ -97,7 +86,6 @@ class SignUpComplete extends Component {
     }
 
     onSaveChangesPress() {
-        this.setState({toolTipVisible: true}); //todo remove
         this.props.changeMode(PageModes.LOADING);
         const email = this.props.navigation.getParam('email');
         const password = this.props.navigation.getParam('password');
@@ -105,13 +93,28 @@ class SignUpComplete extends Component {
         this.props.signUpUser(email, password, username, fullName, bio)
             .then((response) => {
                 if (response.type === Actions.SIGN_UP_SUCCESS) {
-                    const {access, refresh} = response.payload.data;
-                    this.props.setAccessToken(access);
-                    this.props.setRefreshToken(refresh);
-                    this.props.updateUser();
-                    this.props.navigation.navigate('Profile');
+                    this.onSuccess(response);
+                } else {
+                    this.onFail();
                 }
             });
+    }
+
+    onSuccess(response) {
+        const {access, refresh} = response.payload.data;
+        this.props.setAccessToken(access);
+        this.props.setRefreshToken(refresh);
+        this.props.updateUser();
+        this.props.navigation.navigate('Profile');
+    }
+
+    onFail(response) {
+        Toast.show({
+            text: Strings.SIGN_UP_FAIL,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'danger'
+        });
     }
 
     onUsernameChange(username) {

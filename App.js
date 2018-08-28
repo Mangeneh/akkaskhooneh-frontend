@@ -6,7 +6,17 @@ import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
 import {Root} from 'native-base';
 import rootReducer from './src/reducers'
-import {Login, SignUp, SignUpComplete, ProfileEdit, ProfileSettings, ChangePass, NewPost, Main} from './src/pages';
+import {
+    Login,
+    SignUp,
+    SignUpComplete,
+    ProfileEdit,
+    ProfileSettings,
+    ChangePass,
+    NewPost,
+    Main,
+    Profile
+} from './src/pages';
 import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actions";
 import {Actions as SignUpActions} from "./src/pages/signUp/actions";
 import NavigationService from './src/NavigationService';
@@ -67,11 +77,12 @@ const AuthStack = createStackNavigator({
 const RootStack = createSwitchNavigator({
     AuthStack: AuthStack,
     ProfileEdit: ProfileEdit,
+    Profile: Profile,
     ProfileSettings: ProfileSettings,
     ChangePass: ChangePass,
     NewPost: NewPost
 }, {
-    initialRouteName: 'AuthStack'
+    initialRouteName: 'Profile'
 });
 
 export default class App extends Component {

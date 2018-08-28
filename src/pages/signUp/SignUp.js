@@ -1,5 +1,5 @@
 import React, {Component,} from 'react';
-import {Text} from 'native-base';
+import {Text, Toast} from 'native-base';
 import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
@@ -152,6 +152,13 @@ class SignUp extends Component {
                 if (result.type === Actions.VALIDATE_EMAIL_SUCCESS) {
                     this.props.navigation.navigate('SignUpComplete', {email, password});
                     this.props.reset();
+                } else {
+                    Toast.show({
+                        text: Strings.EMAIL_ALREADY_EXISTS,
+                        textStyle: {textAlign: 'center'},
+                        position: 'bottom',
+                        type: 'danger'
+                    });
                 }
             });
     }

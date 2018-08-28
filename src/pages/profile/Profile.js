@@ -1,19 +1,14 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
-import {Icon as PlusIcon, Icon} from 'react-native-elements';
 import {
     View,
-    StyleSheet,
     StatusBar,
     BackHandler,
     Image,
-    TouchableOpacity,
     FlatList,
     ActivityIndicator,
-    Platform,
     Dimensions
 } from 'react-native';
-import GridView from 'react-native-super-grid';
 import {connect} from 'react-redux';
 import NavigationService from '../../NavigationService';
 import {Colors, Fonts, Strings} from '../../config';
@@ -77,15 +72,15 @@ class Profile extends Component {
                         <Tab heading={INTERESTS}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
-                             tabStyle={{backgroundColor: 'white'}} activeTabStyle={{backgroundColor: 'white'}}>
+                             tabStyle={{backgroundColor: 'white'}} activeTabStyle={{backgroundColor: 'white', fontFamily: Fonts.NORMAL_FONT}}>
                         </Tab>
 
                         <Tab heading={PHOTOS}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
-                             activeTabStyle={{backgroundColor: 'white'}}
+                             activeTabStyle={{backgroundColor: 'white', fontFamily: Fonts.NORMAL_FONT}}
                              tabStyle={{backgroundColor: 'white'}}>
-                            <View style={styles.MainContainer}>
+                            <View>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
                                         onEndReached = {() => this.props.getPhotosNextPage(this.props.photosNext) }

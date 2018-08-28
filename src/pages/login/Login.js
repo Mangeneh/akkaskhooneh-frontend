@@ -8,20 +8,22 @@ import {checkEmail, checkPassword} from "../../helpers/Validators";
 import {EmailTextBox, PasswordTextBox} from '../../components';
 import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
-import {emailChanged, Actions, loginUser, modeChanged, passwordChanged, reset, resetPassword,resetEmail} from './actions';
+import {
+    emailChanged,
+    Actions,
+    loginUser,
+    modeChanged,
+    passwordChanged,
+    reset,
+    resetPassword,
+    resetEmail
+} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
 
 class Login extends Component {
     static navigationOptions = {
         header: null,
     };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            showToast: true
-        };
-    }
 
     render() {
         const {ENTER, FORGOT_PASSWORD, PASSWORD} = Strings;
@@ -138,23 +140,31 @@ class Login extends Component {
     onLoginPress() {
         const {email, password} = this.props;
         this.props.loginUser(email, password)
-            .then((result) => {
-                if (result.type === Actions.LOGIN_SUCCESS) {
-                    const {access, refresh} = result.payload.data;
-                    this.props.setAccessToken(access);
-                    this.props.setRefreshToken(refresh);
-                    this.props.updateUser();
-                    this.props.navigation.navigate('Main');
-                    this.props.reset();
+            .then((response) => {
+                if (response.type === Actions.LOGIN_SUCCESS) {
+                    this.onSuccess(response);
                 } else {
-                    Toast.show({
-                        text: Strings.WRONG_CREDENTIALS,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'danger'
-                    });
+                    this.onFail(response);
                 }
             });
+    }
+
+    onSuccess(response) {
+        const {access, refresh} = response.payload.data;
+        this.props.setAccessToken(access);
+        this.props.setRefreshToken(refresh);
+        this.props.updateUser();
+        this.props.navigation.navigate('Main');
+        this.props.reset();
+    }
+
+    onFail(response) {
+        Toast.show({
+            text: Strings.WRONG_CREDENTIALS,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'danger'
+        });
     }
 
     onSignUpPress() {
