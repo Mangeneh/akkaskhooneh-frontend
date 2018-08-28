@@ -19,7 +19,6 @@ import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actio
 import {Actions as SignUpActions} from "./src/pages/signUp/actions";
 
 
-
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
     responseType: 'json'
@@ -64,6 +63,7 @@ let store = createStore(
 const RootStack = createStackNavigator(
     {
         Login: Login,
+        Main:Main,
         Profile: Profile,
         SignUp: SignUp,
         SignUpComplete: SignUpComplete,

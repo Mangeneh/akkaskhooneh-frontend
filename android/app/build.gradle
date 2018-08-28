@@ -138,11 +138,8 @@ android {
 }
 
 dependencies {
-<<<<<<< HEAD
+    compile project(":rncamerakit")
     compile project(':react-native-camera-kit')
-    compile project(':react-native-camera')
-=======
->>>>>>> f8d1b8b5afdca9c9f75f3d4a50ae2729d1834c72
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])

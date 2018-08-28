@@ -3,18 +3,17 @@ import {TouchableOpacity, View} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {Icon, Container} from 'native-base';
-import Profile from './profile/Profile';
-import Login from './login/Login';
+import Home from './home/Home';
 import {Colors} from '../config';
-import {SelfProfileInfo} from '../components';
+import Profile from "./profile/Profile";
 
-const Main = createMaterialBottomTabNavigator(
+const Bottom = createMaterialBottomTabNavigator(
     {
-        Profile: {screen: SelfProfileInfo},
-        Login: {screen: Login},
-        X: {screen: Login},
-        Profile2: {screen: Profile},
-        Login2: {screen: Login},
+        Profile: {screen: Profile},
+        X: {screen: Home},
+        Nothing: {screen: Home},
+        Z: {screen: Home},
+        W: {screen: Home},
     },
     {
         navigationOptions: ({navigation}) => ({
@@ -23,16 +22,12 @@ const Main = createMaterialBottomTabNavigator(
                 let iconName;
                 if (routeName === 'Profile') {
                     iconName = `account${focused ? '' : '-outline'}`;
-                } else if (routeName === 'Login') {
+                } else if (routeName === 'NotificationCenter') {
                     iconName = `bell${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Nothing') {
+                    return;
                 } else {
-                    iconName = `bell${focused ? '' : '-outline'}`;
-                }
-                if (routeName === 'X') {
-                    return (
-                        <View onPress={() => {
-                        }}/>
-                    );
+                    iconName = `magnify${focused ? '' : '-outline'}`;
                 }
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
@@ -47,9 +42,9 @@ const Main = createMaterialBottomTabNavigator(
              */
             tabBarOnPress: (argument) => {
                 const {routeName} = navigation.state;
-                if (routeName === 'X') {
-                } else {
+                if (routeName === 'Profile') {
                     argument.defaultHandler();
+                } else {
                 }
             }
         }),
@@ -60,18 +55,26 @@ const Main = createMaterialBottomTabNavigator(
         barStyle: {backgroundColor: '#fff', height: 60},
     });
 
-export default () => (
-    <Container>
-        <Main/>
-        <TouchableOpacity style={{position: 'absolute', alignSelf: 'center', bottom: 20}}>
-            <PlusIcon
-                color={'white'}
-                name={'plus'}
-                raised
-                size={30}
-                containerStyle={{backgroundColor: Colors.ACCENT}}
-                type={'material-community'}
-            />
-        </TouchableOpacity>
-    </Container>
-);
+export default class Main extends React.Component {
+    static navigationOptions = {
+        header: null,
+    };
+
+    render() {
+        return (
+            <Container>
+                <Bottom/>
+                <TouchableOpacity style={{position: 'absolute', alignSelf: 'center', bottom: 20}}>
+                    <PlusIcon
+                        color={'white'}
+                        name={'plus'}
+                        raised
+                        size={30}
+                        containerStyle={{backgroundColor: Colors.ACCENT}}
+                        type={'material-community'}
+                    />
+                </TouchableOpacity>
+            </Container>
+        );
+    }
+}
