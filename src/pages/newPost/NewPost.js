@@ -12,6 +12,7 @@ import {
 } from './actions';
 import ChoosePhotoButton from '../../containers/ChoosePhotoButton';
 import SlidingUpPanel from 'rn-sliding-up-panel';
+import {AndroidBackHandler} from "react-navigation-backhandler";
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -20,31 +21,40 @@ class NewPost extends Component {
         header: null
     };
 
+    onBackButtonPressAndroid = () => {
+        this.props.navigation.navigate('Main');
+        return true;
+    };
+
     render() {
         const {PHOTO_GALLERY} = Strings;
         return (
-        <View style={{flex: 1}}>
-            <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+            <AndroidBackHandler onBackPress={this.onBackButtonPressAndroid}>
                 <CustomStatusBar/>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
-                <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
-                    {this.renderCameraSection()}
-                </View>
-            </View>
-            <SlidingUpPanel visible={true} style={{height: 100}} draggableRange={{bottom: HEIGHT*0.4, top: HEIGHT*0.9}} startCollapsed>
-                <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
-                    <Icon type='MaterialIcons' name='drag-handle' style={{backgroundColor: Colors.LIGHT_GRAY}}/>
-                    <CameraRollPicker selectSingleItem = {true}
-                        callback={this.getSelectedImages}
-                        backgroundColor={Colors.LIGHT_GRAY}
-                    />
+                <View style={{flex: 1}}>
+                    <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+                        <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
+                            {this.renderCameraSection()}
+                        </View>
+                    </View>
+                    <SlidingUpPanel visible={true} style={{height: 100}}
+                                    draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}} startCollapsed>
+                        <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
+                            <Icon type='MaterialIcons' name='drag-handle' style={{backgroundColor: Colors.LIGHT_GRAY}}/>
+                            <CameraRollPicker selectSingleItem={true}
+                                              callback={this.getSelectedImages}
+                                              backgroundColor={Colors.LIGHT_GRAY}
+                            />
 
+                        </View>
+                    </SlidingUpPanel>
+                    <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
+                        <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL}
+                                           onPress={this.onNextPress.bind(this)}/>
+                    </View>
                 </View>
-            </SlidingUpPanel>
-            <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
-                <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL} onPress={this.onNextPress.bind(this)}/>
-            </View>
-        </View>
+            </AndroidBackHandler>
         );
     }
 
@@ -75,7 +85,7 @@ class NewPost extends Component {
     onNextPress() {
         const {selectedPics} = this.props;
         this.props.selectPic(selectedPics),
-        this.props.navigation.navigate('AddPostInfo');
+            this.props.navigation.navigate('AddPostInfo');
     }
 }
 
@@ -90,11 +100,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const styles = {
     container: {
-      flex: 1,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      justifyContent: 'center'
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
-  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
