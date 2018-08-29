@@ -26,7 +26,7 @@ export const Strings = {
     CURRENT_PASSWORD: 'رمز عبور فعلی',
     WRONG_CREDENTIALS: 'اطلاعات وارد شده اشتباه است.',
     EMAIL_ALREADY_EXISTS:'ایمیل مورد نظر تکراری می باشد.',
-    REPEAT_NEW_PASSWORD: 'تکرار رمز عبور جدید.',
+    REPEAT_NEW_PASSWORD: 'تکرار رمز عبور جدید',
     SIGN_UP_SUCCESS: 'ثبت نام با موفقیت صورت گرفت.',
     SIGN_UP_FAIL: 'ثبت نام با خطا مواجه شد.',
     EDIT_PROFILE_SUCCESS: 'پروفایل با موفقیت ویرایش یافت.',

@@ -1,5 +1,5 @@
 import React, {Component,} from 'react';
-import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native'
+import {TouchableOpacity, View, StyleSheet, StatusBar, CameraRoll} from 'react-native'
 import {Text, Toast} from 'native-base';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -150,6 +150,10 @@ class Login extends Component {
     }
 
     onSuccess(response) {
+        CameraRoll.getPhotos({
+            first: 5,
+            assetType: 'All'
+        }).then(r => console.log(r));
         const {access, refresh} = response.payload.data;
         this.props.setAccessToken(access);
         this.props.setRefreshToken(refresh);

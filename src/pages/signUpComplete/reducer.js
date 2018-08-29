@@ -2,7 +2,7 @@ import {Actions} from './actions';
 import {PageModes} from '../../config';
 
 const INITIAL_STATE = {
-    mode: PageModes.DISABLED,
+    mode: PageModes.NORMAL,
     image: null,
     bio: '',
     username: '',

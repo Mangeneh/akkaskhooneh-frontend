@@ -105,7 +105,7 @@ class SignUpComplete extends Component {
         this.props.setAccessToken(access);
         this.props.setRefreshToken(refresh);
         this.props.updateUser();
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.navigate('Main');
     }
 
     onFail(response) {
