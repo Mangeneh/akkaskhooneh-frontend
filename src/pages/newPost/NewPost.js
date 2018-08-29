@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {CameraKitCamera} from 'react-native-camera-kit';
 import {Strings, Colors} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
@@ -11,6 +11,8 @@ import {
 } from './actions';
 import ChoosePhotoButton from '../../containers/ChoosePhotoButton';
 import SlidingUpPanel from 'rn-sliding-up-panel';
+
+const HEIGHT = Dimensions.get('window').height;
 
 class NewPost extends Component {
     static navigationOptions = {
@@ -28,7 +30,7 @@ class NewPost extends Component {
                     {this.renderCameraSection()}
                 </View>
             </View>
-            <SlidingUpPanel visible={true} style={{height: 100}} draggableRange={{bottom: 200, top: 700}} startCollapsed>
+            <SlidingUpPanel visible={true} style={{height: 100}} draggableRange={{bottom: HEIGHT*0.4, top: HEIGHT*0.9}} startCollapsed>
                 <View style={{flex: 1, backgroundColor: 'white'}}>
                     <CameraRollPicker selectSingleItem = {true}
                         callback={this.getSelectedImages}
