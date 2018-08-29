@@ -65,16 +65,19 @@ let store = createStore(
     )
 );
 
-const AuthStack = createStackNavigator({
+const AuthStack = createSwitchNavigator({
     Login: Login,
     SignUp: SignUp,
     SignUpComplete: SignUpComplete,
     Main: Main
 }, {
-    initialRouteName: 'Login'
+    initialRouteName: 'Login',
+    navigationOptions: {
+        header: null,
+    }
 });
 
-const RootStack = createSwitchNavigator({
+const RootStack = createStackNavigator({
     AuthStack: AuthStack,
     ProfileEdit: ProfileEdit,
     Profile: Profile,
@@ -82,7 +85,10 @@ const RootStack = createSwitchNavigator({
     ChangePass: ChangePass,
     NewPost: NewPost
 }, {
-    initialRouteName: 'AuthStack'
+    initialRouteName: 'AuthStack',
+    navigationOptions: {
+        header: null,
+    }
 });
 
 export default class App extends Component {
