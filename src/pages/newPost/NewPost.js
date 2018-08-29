@@ -34,20 +34,7 @@ export default class NewPost extends Component {
                 </View>
 
                 <View style={{flex: 1, backgroundColor: 'white'}}>
-                    <CameraKitGalleryView
-                        ref={gallery => this.gallery = gallery}
-                        style={{flex: 1, marginTop: 20}}
-                        minimumInteritemSpacing={10}
-                        minimumLineSpacing={10}
-                        // albumName={<ALBUM_NAME>}
-                        columnCount={3}
-                        onTapImage={event => {
-                            // event.nativeEvent.selected - ALL selected images ids
-                        }}
-                        // selectedImages={<MAINTAIN_SELECETED_IMAGES>}
-                        // selectedImageIcon={require('<IMAGE_FILE_PATH>')}
-                        // unSelectedImageIcon={require('<IMAGE_FILE_PATH>')}
-                    />
+
                 </View>
 
             </View>

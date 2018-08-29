@@ -12,12 +12,11 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_PHOTOS_NEXT_PAGE:
             console.log(action);
-            return {...state, fetchStatus: true};
+            return {...state, fetchStatus: true, photosNext: state.photosNext + 1};
         case GET_PHOTOS_NEXT_PAGE_SUCCESS:
             console.log(action);
             return {
                 ...state,
-                photosNext: state.photosNext+1,
                 photos: state.photos.concat(action.payload.data.results),
                 isLoading: false,
                 fetchStatus: false
