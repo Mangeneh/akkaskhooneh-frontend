@@ -28,21 +28,21 @@ class NewPost extends Component {
                     </View>
 
                     <View style={{flex: 1, backgroundColor: 'white'}}>
-                        <CameraRollPicker selectSingleItem={true}
+                        <CameraRollPicker selectSingleItem
                                           callback={this.getSelectedImages}
                                           backgroundColor={Colors.LIGHT_GRAY}
                         />
 
                     </View>
                 </View>
-                <View style={{position: 'absolute', bottom: 40}}>
-                    <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL}
-                                       onPress={this.onNextPress.bind(this)}/>
+                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
+                    <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL} onPress={this.onNextPress.bind(this)}/>
                 </View>
             </View>
         );
     }
 
+    
 
     onBackPress() {
         this.props.navigation.navigate('Main');
@@ -69,7 +69,9 @@ class NewPost extends Component {
     }
 
     onNextPress() {
-        this.props.navigation.navigate('Login');
+        const {selectedPics} = this.props;
+        this.props.selectPic(selectedPics),
+        this.props.navigation.navigate('AddPostInfo');
     }
 }
 
@@ -78,8 +80,8 @@ const mapStateToProps = (state) => ({
     mode: state.newPostPage.mode,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
+    selectPic: (selectedPics) => dispatch(picSelected(selectedPics)),
+});
 
-// });
-
-export default connect(mapStateToProps, null)(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
