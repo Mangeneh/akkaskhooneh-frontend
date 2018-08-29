@@ -16,7 +16,6 @@ import {
     Actions,
     reset,
 } from './actions';
-import CustomStatusBar from "../../components/CustomStatusBar";
 
 class ChangePass extends Component {
     static navigationOptions = {
