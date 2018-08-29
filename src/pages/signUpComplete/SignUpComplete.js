@@ -92,6 +92,7 @@ class SignUpComplete extends Component {
         const {username, fullName, bio} = this.props;
         this.props.signUpUser(email, password, username, fullName, bio)
             .then((response) => {
+                console.warn(response)
                 if (response.type === Actions.SIGN_UP_SUCCESS) {
                     this.onSuccess(response);
                 } else {
