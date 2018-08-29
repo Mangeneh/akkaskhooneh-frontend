@@ -1,11 +1,11 @@
 import React, {Component,} from 'react';
 import {Text, Toast} from 'native-base';
-import {TouchableOpacity, View, StyleSheet, StatusBar} from 'react-native';
+import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Strings, Colors, PageModes, Fonts} from '../../config';
-import {EmailTextBox, PasswordTextBox} from '../../components';
+import {EmailTextBox, PasswordTextBox, FullStatusBar} from '../../components';
 import {checkEmail, checkPassword} from "../../helpers/Validators";
 import {
     emailChanged,
@@ -15,11 +15,10 @@ import {
     passwordChanged,
     repeatedPasswordChanged,
     passwordFieldPressed,
-    reset, 
+    reset,
     resetEmail,
 } from './actions';
 import SignUpButton from '../../containers/SignUpButton';
-import Tooltip from 'react-native-walkthrough-tooltip'
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -33,10 +32,7 @@ class SignUp extends Component {
             <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
-                    <StatusBar
-                        barStyle='light-content'
-                        backgroundColor={Colors.BASE}
-                    />
+                    <FullStatusBar/>
                     <View style={{backgroundColor: Colors.BASE, flex: 1}}>
                         {this.renderLogoSection()}
                         <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
@@ -53,8 +49,9 @@ class SignUp extends Component {
                                     placement="top"
                                     onClose={() => this.setState({ toolTipVisible: false })}
                                 > */}
-                                    <PasswordTextBox onPress={this.props.showPasswordTooltip.bind(this)} placeholder={PASSWORD} value={this.props.password}
-                                                    onChangePassword={(password) => this.onPasswordChange(password)}/>
+                                <PasswordTextBox onPress={this.props.showPasswordTooltip.bind(this)}
+                                                 placeholder={PASSWORD} value={this.props.password}
+                                                 onChangePassword={(password) => this.onPasswordChange(password)}/>
                                 {/* </Tooltip> */}
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>

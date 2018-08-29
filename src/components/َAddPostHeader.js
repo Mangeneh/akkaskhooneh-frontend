@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title, Text} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
+import {connect} from 'react-redux';
 import {Colors, Strings, Fonts} from '../config';
 
 class AddPostHeader extends Component {
@@ -34,3 +35,5 @@ class AddPostHeader extends Component {
         );
     }
 }
+
+export default connect(null,null)(AddPostHeader);

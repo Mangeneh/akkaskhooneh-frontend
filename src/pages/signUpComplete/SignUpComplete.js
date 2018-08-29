@@ -1,10 +1,10 @@
 import React, {Component,} from 'react';
 import {Item, Input, ActionSheet, Icon, Toast} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar, Platform} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native'
 import {connect} from 'react-redux';
 import {Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {CustomLongTextBox, BackHeader} from '../../components';
+import {CustomLongTextBox, BackHeader,FullStatusBar} from '../../components';
 import {Strings, Colors, Constants, PageModes, Fonts} from '../../config';
 import SignUpCompleteButton from '../../containers/SignUpCompleteButton';
 import {
@@ -35,8 +35,7 @@ class SignUpComplete extends Component {
 
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
-                    <StatusBar barStyle='light-content'
-                               backgroundColor={Colors.BASE}/>
+                    <FullStatusBar/>
                     <View style={{backgroundColor: Colors.BASE, flex: 1}}>
                         <TouchableOpacity
                             style={styles.avatar} onPress={this.onChooseImagePress.bind(this)}>

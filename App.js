@@ -15,7 +15,7 @@ import {
     ChangePass,
     NewPost,
     Main,
-    Profile, 
+    Profile,
     AddPostInfo
 } from './src/pages';
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
@@ -77,11 +77,11 @@ const AuthStack = createStackNavigator({
     }
 });
 
-const RootStack = createStackNavigator({
+const RootStack = createSwitchNavigator({
     AuthStack: AuthStack,
     Main: Main,
-    ProfileEdit: ProfileEdit,
     Profile: Profile,
+    ProfileEdit: ProfileEdit,
     ProfileSettings: ProfileSettings,
     ChangePass: ChangePass,
     NewPost: NewPost,

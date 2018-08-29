@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
-import {View, StatusBar, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
+import {View, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import NavigationService from '../../NavigationService';
 import {Colors, Fonts, Strings} from '../../config';
-import {ProfileHeader, SelfProfileInfo} from '../../components';
+import {ProfileHeader, SelfProfileInfo, CustomStatusBar} from '../../components';
 import {getPhotosNextPage} from './actions';
 
 const WIDTH = Dimensions.get('window').width;
@@ -23,10 +23,7 @@ class Profile extends Component {
         const {PHOTOS, INTERESTS} = Strings;
         return (
             <Container>
-                <StatusBar
-                    barStyle='light-content'
-                    backgroundColor={Colors.BASE}
-                />
+                <CustomStatusBar/>
                 <ProfileHeader username={this.props.username} onEditPress={this.onEditPress.bind(this)}
                                onSettingsPress={this.onSettingsPress.bind(this)}/>
                 <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end'}}>
@@ -47,7 +44,7 @@ class Profile extends Component {
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
-                            <View style={{backgroundColor:Colors.WHITE_BACK,flex:1}}>
+                            <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
                                         onEndReached={() => this.updatePhotos()}

@@ -3,7 +3,7 @@ import {View, Dimensions} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {CameraKitCamera} from 'react-native-camera-kit';
 import {Strings, Colors} from '../../config';
-import {BackHeader} from '../../components';
+import {BackHeader, CustomStatusBar} from '../../components';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import {connect} from 'react-redux';
 import {
@@ -25,6 +25,7 @@ class NewPost extends Component {
         return (
         <View style={{flex: 1}}>
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+                <CustomStatusBar/>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
                 <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
                     {this.renderCameraSection()}
@@ -34,7 +35,7 @@ class NewPost extends Component {
                 <Icon type='MaterialIcons' name='drag-handle' style={{backgroundColor: Colors.LIGHT_GRAY}}/>
                 <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
                     <CameraRollPicker selectSingleItem = {true}
-                        callback={this.getSelectedImages} 
+                        callback={this.getSelectedImages}
                         backgroundColor={Colors.LIGHT_GRAY}
                     />
 

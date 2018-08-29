@@ -1,11 +1,11 @@
 import React, {Component,} from 'react';
-import {TouchableOpacity, View, StyleSheet, StatusBar, CameraRoll} from 'react-native'
+import {TouchableOpacity, View, StyleSheet, CameraRoll} from 'react-native'
 import {Text, Toast} from 'native-base';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {checkEmail, checkPassword} from "../../helpers/Validators";
-import {EmailTextBox, PasswordTextBox} from '../../components';
+import {EmailTextBox, PasswordTextBox, FullStatusBar} from '../../components';
 import {Strings, Colors, PageModes, Fonts} from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import {
@@ -33,8 +33,7 @@ class Login extends Component {
 
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
-                    <StatusBar barStyle='light-content'
-                               backgroundColor={Colors.BASE}/>
+                    <FullStatusBar/>
                     <View style={{backgroundColor: Colors.BASE, flex: 1}}>
                         {this.renderLogoSection()}
                         <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
