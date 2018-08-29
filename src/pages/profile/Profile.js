@@ -51,7 +51,7 @@ class Profile extends Component {
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
                                         onEndReached={() => this.updatePhotos()}
-                                        style={{width: '100%', marginTop: 4}}
+                                        style={{width: '100%', marginTop: 8}}
                                         numColumns={2}
                                         keyExtractor={(item, index) => item.id}
                                         data={this.props.photos}
