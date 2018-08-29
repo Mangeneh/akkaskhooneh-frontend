@@ -41,8 +41,6 @@ class NewPost extends Component {
         );
     }
 
-    
-
     onBackPress() {
         this.props.navigation.navigate('Main');
     }
@@ -68,6 +66,8 @@ class NewPost extends Component {
     }
 
     onNextPress() {
+        const {selectedPics} = this.props;
+        this.props.selectPic(selectedPics),
         this.props.navigation.navigate('AddPostInfo');
     }
 }
@@ -77,8 +77,8 @@ const mapStateToProps = (state) => ({
     mode: state.newPostPage.mode,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
+    selectPic: (selectedPics) => dispatch(picSelected(selectedPics)),
+});
 
-// });
-
-export default connect(mapStateToProps, null)(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
