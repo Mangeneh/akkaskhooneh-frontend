@@ -10,7 +10,7 @@
     "@expo/vector-icons": "^6.3.1",
     "axios": "^0.18.0",
     "form-data": "latest",
-    "native-base": "^2.7.2",
+    "native-base": "^2.8.0",
     "react": "16.4.1",
     "react-native": "^0.55.4",
     "react-native-camera-kit": "^6.2.6",
@@ -30,7 +30,8 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-axios-middleware": "^4.0.0",
-    "redux-thunk": "latest"
+    "redux-thunk": "latest",
+    "rn-sliding-up-panel": "^1.2.1"
   },
   "devDependencies": {
     "babel-jest": "23.4.2",
