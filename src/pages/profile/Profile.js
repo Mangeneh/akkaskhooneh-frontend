@@ -1,14 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
-import {
-    View,
-    StatusBar,
-    BackHandler,
-    Image,
-    FlatList,
-    ActivityIndicator,
-    Dimensions
-} from 'react-native';
+import {View, StatusBar, Image, FlatList, ActivityIndicator, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import NavigationService from '../../NavigationService';
 import {Colors, Fonts, Strings} from '../../config';
@@ -18,34 +10,13 @@ import {getPhotosNextPage} from './actions';
 const WIDTH = Dimensions.get('window').width;
 
 class Profile extends Component {
-    _didFocusSubscription;
-    _willBlurSubscription;
     static navigationOptions = {
         header: null,
     };
 
-    constructor(props) {
-        super(props);
-        this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
-            BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-        );
-    }
-
     componentDidMount() {
         setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
-        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-        );
         this.props.getPhotosNextPage(this.props.photosNext);
-    }
-
-    onBackButtonPressAndroid = () => {
-        return true;
-    };
-
-    componentWillUnmount() {
-        this._didFocusSubscription && this._didFocusSubscription.remove();
-        this._willBlurSubscription && this._willBlurSubscription.remove();
     }
 
     render() {

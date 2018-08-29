@@ -2,7 +2,8 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
-import {Icon, Container} from 'native-base';
+import { Container} from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Home from './home/Home';
 import {Colors} from '../config';
 import Profile from "./profile/Profile";
@@ -27,13 +28,13 @@ const Bottom = createMaterialBottomTabNavigator(
                 } else if (routeName === 'Nothing') {
                     return;
                 } else if (routeName === 'Search') {
-                    iconName = `magnify`;
+                    iconName = `lighthouse${focused ? '' : '-on'}`;
                 } else if (routeName === 'Home') {
                     iconName = `home${focused ? '' : '-outline'}`;
                 }
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
-                return <Icon name={iconName} type={'MaterialCommunityIcons'} size={24} style={{color: Colors.ICON}}/>;
+                return <Icon name={iconName} size={24} style={{color: Colors.ICON}}/>;
             },
             /**
              * tabBarOnPress
