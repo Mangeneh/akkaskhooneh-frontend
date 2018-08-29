@@ -32,8 +32,8 @@ class NewPost extends Component {
                 </View>
             </View>
             <SlidingUpPanel visible={true} style={{height: 100}} draggableRange={{bottom: HEIGHT*0.4, top: HEIGHT*0.9}} startCollapsed>
-                <Icon type='MaterialIcons' name='drag-handle' style={{backgroundColor: Colors.LIGHT_GRAY}}/>
                 <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
+                    <Icon type='MaterialIcons' name='drag-handle' style={{backgroundColor: Colors.LIGHT_GRAY}}/>
                     <CameraRollPicker selectSingleItem = {true}
                         callback={this.getSelectedImages}
                         backgroundColor={Colors.LIGHT_GRAY}

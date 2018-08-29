@@ -4,7 +4,7 @@ import {View} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, PageModes} from '../../config';
-import {BackHeader, PasswordTextBox,FullStatusBar} from '../../components';
+import {BackHeader, PasswordTextBox, CustomStatusBar} from '../../components';
 import {checkPassword} from "../../helpers/Validators";
 import ChangePassButton from '../../containers/ChangePassButton';
 import {
@@ -16,6 +16,7 @@ import {
     Actions,
     reset,
 } from './actions';
+import CustomStatusBar from "../../components/CustomStatusBar";
 
 class ChangePass extends Component {
     static navigationOptions = {
@@ -31,7 +32,7 @@ class ChangePass extends Component {
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
-                        <FullStatusBar/>
+                        <CustomStatusBar/>
                         <View style={{flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
                             <Icon name='key' style={{color: 'white'}}/>
                         </View>
@@ -68,7 +69,7 @@ class ChangePass extends Component {
     }
 
     onBackPress() {
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.navigate('ProfileSettings');
     }
 
     onSaveChangesPressed() {
