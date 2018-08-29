@@ -15,7 +15,8 @@ import {
     ChangePass,
     NewPost,
     Main,
-    Profile
+    Profile, 
+    AddPostInfo
 } from './src/pages';
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
 import {Actions as SignUpActions} from './src/pages/signUp/actions';
@@ -83,7 +84,8 @@ const RootStack = createStackNavigator({
     Profile: Profile,
     ProfileSettings: ProfileSettings,
     ChangePass: ChangePass,
-    NewPost: NewPost
+    NewPost: NewPost,
+    AddPostInfo: AddPostInfo,
 }, {
     initialRouteName: 'AuthStack',
     navigationOptions: {
