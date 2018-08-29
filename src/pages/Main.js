@@ -1,12 +1,13 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
-import { Container} from 'native-base';
+import {Container} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Home from './home/Home';
 import {Colors} from '../config';
 import Profile from "./profile/Profile";
+import NavigationService from '../NavigationService';
 
 const Bottom = createMaterialBottomTabNavigator(
     {
@@ -28,9 +29,9 @@ const Bottom = createMaterialBottomTabNavigator(
                 } else if (routeName === 'Nothing') {
                     return;
                 } else if (routeName === 'Search') {
-                    iconName = `lighthouse${focused ? '' : '-on'}`;
+                    iconName = `eye${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Home') {
-                    iconName = `home${focused ? '' : '-outline'}`;
+                    iconName = `inbox${focused ? '-multiple' : ''}`;
                 }
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
@@ -68,7 +69,8 @@ export default class Main extends React.Component {
         return (
             <Container style={{zIndex: 10}}>
                 <Bottom/>
-                <TouchableOpacity style={{position: 'absolute', alignSelf: 'center', bottom: 20}}>
+                <TouchableOpacity activeOpacity={0.8} style={{position: 'absolute', alignSelf: 'center', bottom: 20}}
+                                  onPress={() => NavigationService.navigate('NewPost')}>
                     <PlusIcon
                         color={'white'}
                         name={'plus'}

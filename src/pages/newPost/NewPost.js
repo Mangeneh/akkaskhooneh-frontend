@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
-import {Toast, Icon} from 'native-base';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {connect} from 'react-redux';
-import {Strings, Colors, PageModes} from '../../config';
-import {BackHeader} from '../../components';
-import {PasswordTextBox} from '../../components';
-import {checkPassword} from "../../helpers/Validators";
-import ChangePassButton from '../../containers/ChangePassButton';
-import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
+import {View} from 'react-native';
 import {CameraKitGalleryView, CameraKitCamera} from 'react-native-camera-kit';
+import {Strings, Colors} from '../../config';
+import {BackHeader} from '../../components';
 
 
 export default class NewPost extends Component {
@@ -21,7 +15,7 @@ export default class NewPost extends Component {
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
-                <View style = {{flex: 1, backgroundColor: Colors.ACCENT}}>
+                <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
                     <CameraKitCamera
                         ref={cam => this.camera = cam}
                         style={{
@@ -32,14 +26,14 @@ export default class NewPost extends Component {
                             flashMode: 'auto',             // on/off/auto(default)
                             focusMode: 'on',               // off/on(default)
                             zoomMode: 'on',                // off/on(default)
-                            ratioOverlay:'1:1',            // optional, ratio overlay on the camera and crop the image seamlessly
+                            ratioOverlay: '1:1',            // optional, ratio overlay on the camera and crop the image seamlessly
                             ratioOverlayColor: '#00000077' // optional
                         }}
                         onReadQRCode={(event) => console.log(event.nativeEvent.qrcodeStringValue)} // optionalx
-                        />
+                    />
                 </View>
 
-                <View style = {{flex: 1, backgroundColor: 'white'}}>
+                <View style={{flex: 1, backgroundColor: 'white'}}>
                     <CameraKitGalleryView
                         ref={gallery => this.gallery = gallery}
                         style={{flex: 1, marginTop: 20}}
@@ -61,10 +55,6 @@ export default class NewPost extends Component {
     }
 
     onBackPress() {
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.navigate('Main');
     }
-
 }
-
-
-

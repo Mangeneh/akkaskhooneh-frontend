@@ -77,7 +77,7 @@ const AuthStack = createSwitchNavigator({
     }
 });
 
-const RootStack = createStackNavigator({
+const RootStack = createSwitchNavigator({
     AuthStack: AuthStack,
     ProfileEdit: ProfileEdit,
     Profile: Profile,
