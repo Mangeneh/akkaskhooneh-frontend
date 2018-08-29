@@ -1,3 +1,5 @@
+import {Server} from "../../config";
+
 export const Actions = {
     PREVIOUS_PASSWORD_CHANGED: 'CHANGE_PASS_PREVIOUS_PASSWORD_CHANGED',
     NEW_PASSWORD_CHANGED: 'CHANGE_PASS_NEW_PASSWORD_CHANGED',
@@ -6,9 +8,8 @@ export const Actions = {
     CHANGE_PASS_FAIL: 'CHANGE_PASS_FAIL',
     CHANGE_PASS_SUCCESS: 'CHANGE_PASS_SUCCESS',
     CHANGE_PASS: 'CHANGE_PASS',
-    CHANGE_PASS_RESET : 'CHANGE_PASS_RESET',
+    CHANGE_PASS_RESET: 'CHANGE_PASS_RESET',
 };
-
 
 export const previousPasswordChanged = (previousPassword) => {
     return {
@@ -46,7 +47,7 @@ export const changePassword = (oldPassword, newPassword) => {
         payload: {
             request: {
                 method: 'PUT',
-                url: '/auth/changepassword/',
+                url: Server.CHANGE_PASSWORD,
                 data: {
                     old_password: oldPassword,
                     new_password: newPassword,

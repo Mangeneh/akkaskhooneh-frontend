@@ -1,3 +1,5 @@
+import {Server} from "../../config";
+
 export const Actions = {
     EMAIL_CHANGED: 'LOGIN_EMAIL_CHANGED',
     PASSWORD_CHANGED: 'LOGIN_PASSWORD_CHANGED',
@@ -44,7 +46,7 @@ export const loginUser = (email, password) => {
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/login/',
+                url: Server.LOGIN_USER,
                 data: {
                     email: email,
                     password: password

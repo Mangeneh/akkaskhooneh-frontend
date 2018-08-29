@@ -1,3 +1,5 @@
+import {Server} from "../../config";
+
 export const Actions = {
     EMAIL_CHANGED: 'SIGN_UP_EMAIL_CHANGED',
     PASSWORD_CHANGED: 'SIGN_UP_PASSWORD_CHANGED',
@@ -56,7 +58,7 @@ export const validateEmail = (email) => {
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/checkemail/',
+                url: Server.CHECK_EMAIL,
                 data: {
                     email: email
                 }

@@ -1,6 +1,8 @@
+import {Server} from "../../config";
+
 export const Actions = {
     MODE_CHANGED: 'SIGN_UP_COMPLETE_MODE_CHANGED',
-    IMAGE_CHANGED: 'SIGN_UP_COMPLETE_IMAGE_CHANGED',    
+    IMAGE_CHANGED: 'SIGN_UP_COMPLETE_IMAGE_CHANGED',
     FULL_NAME_CHANGED: 'FULL_NAME_CHANGED',
     BIO_CHANGED: 'BIO_CHANGED',
     USER_NAME_CHANGED: 'USER_NAME_CHANGED',
@@ -53,7 +55,7 @@ export const signUpUser = (email, password, username, fullName, bio) => {
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/register/',
+                url: Server.SIGN_UP_USER,
                 data: {
                     email: email,
                     password: password,

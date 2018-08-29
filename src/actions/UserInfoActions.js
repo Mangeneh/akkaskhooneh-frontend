@@ -1,3 +1,5 @@
+import {Server} from '../config';
+
 export const UserInfoActions = {
     UPDATE_ACCESS_TOKEN: 'UPDATE_ACCESS_TOKEN',
     UPDATE_ACCESS_TOKEN_SUCCESS: 'UPDATE_ACCESS_TOKEN_SUCCESS',
@@ -6,7 +8,7 @@ export const UserInfoActions = {
     UPDATE_USER: 'UPDATE_USER',
     UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS',
     UPDATE_USER_FAIL: 'UPDATE_USER_FAIL',
-    SIGN_OUT : 'SIGN_OUT',
+    SIGN_OUT: 'SIGN_OUT',
 };
 
 export const refreshTokenSet = (refreshToken) => {
@@ -31,7 +33,7 @@ export const userUpdated = () => {
         payload: {
             request: {
                 method: 'GET',
-                url: '/social/profile/'
+                url: Server.UPDATE_USER
             }
         }
     }
@@ -43,7 +45,7 @@ export const accessTokenUpdated = (refreshToken) => {
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/token/refresh/',
+                url: Server.UPDATE_ACCESS_TOKEN,
                 data: {
                     refresh: refreshToken,
                 }

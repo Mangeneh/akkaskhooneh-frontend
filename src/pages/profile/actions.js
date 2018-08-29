@@ -1,3 +1,5 @@
+import {Server} from "../../config";
+
 export const Actions = {
     GET_PHOTOS_NEXT_PAGE: 'GET_PHOTOS_NEXT_PAGE',
     GET_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_PHOTOS_NEXT_PAGE_SUCCESS',
@@ -10,7 +12,7 @@ export const getPhotosNextPage = (photosNext) => {
         payload: {
             request: {
                 method: 'GET',
-                url: `/social/pictures/?page=${photosNext}`,
+                url: `${Server.GET_PHOTOS_NEXT_PAGE}${photosNext}`,
             }
         }
     };

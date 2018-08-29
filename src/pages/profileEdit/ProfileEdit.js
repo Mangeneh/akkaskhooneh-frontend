@@ -110,7 +110,6 @@ class ProfileEdit extends Component {
     onSaveChangesPressed() {
         this.props.editProfile(this.state.fullName, this.state.bio)
             .then((response) => {
-                console.warn(response);
                 if (response.type === Actions.EDIT_PROFILE_SUCCESS) {
                     if (this.state.imageFile !== null) {
                         this.changeImage();

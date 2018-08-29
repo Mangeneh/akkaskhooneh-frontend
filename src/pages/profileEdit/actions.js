@@ -1,3 +1,5 @@
+import {Server} from "../../config";
+
 export const Actions = {
     MODE_CHANGED: 'PROFILE_EDIT_MODE_CHANGED',
     IMAGE_CHANGED: 'PROFILE_EDIT_IMAGE_CHANGED',
@@ -22,7 +24,7 @@ export const editProfile = (fullName, bio) => {
         payload: {
             request: {
                 method: 'POST',
-                url: '/auth/editprofile/',
+                url: Server.EDIT_PROFILE,
                 data: {
                     fullname: fullName,
                     bio: bio
@@ -38,7 +40,7 @@ export const changeProfilePic = (formData) => {
         payload: {
             request: {
                 method: 'POST',
-                url: '/social/change-pic/',
+                url: Server.CHANGE_PROFILE_PIC,
                 data: formData
             }
         }
