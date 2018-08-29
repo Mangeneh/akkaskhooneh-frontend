@@ -65,11 +65,10 @@ let store = createStore(
     )
 );
 
-const AuthStack = createSwitchNavigator({
+const AuthStack = createStackNavigator({
     Login: Login,
     SignUp: SignUp,
     SignUpComplete: SignUpComplete,
-    Main: Main
 }, {
     initialRouteName: 'Login',
     navigationOptions: {
@@ -79,6 +78,7 @@ const AuthStack = createSwitchNavigator({
 
 const RootStack = createStackNavigator({
     AuthStack: AuthStack,
+    Main: Main,
     ProfileEdit: ProfileEdit,
     Profile: Profile,
     ProfileSettings: ProfileSettings,

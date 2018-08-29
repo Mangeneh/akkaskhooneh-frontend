@@ -47,11 +47,11 @@ class Profile extends Component {
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
-                            <View>
+                            <View style={{backgroundColor:Colors.LIGHT_GRAY,flex:1}}>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
                                         onEndReached={() => this.updatePhotos()}
-                                        style={{width: '100%', marginTop: 4}}
+                                        style={{width: '100%', marginTop: 8}}
                                         numColumns={2}
                                         keyExtractor={(item, index) => item.id}
                                         data={this.props.photos}
