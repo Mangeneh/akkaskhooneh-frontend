@@ -53,7 +53,7 @@ class ProfileSettings extends Component {
     }
 
     onBackPress() {
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.navigate('Main');
     }
 
     onSignOutPress() {

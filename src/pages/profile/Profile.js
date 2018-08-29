@@ -89,7 +89,7 @@ class Profile extends Component {
     }
 
     onSettingsPress() {
-        this.props.navigation.navigate('ProfileSettings');
+        NavigationService.navigate('ProfileSettings');
     }
 }
 

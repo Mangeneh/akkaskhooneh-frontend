@@ -14,6 +14,7 @@
     "react": "16.4.1",
     "react-native": "^0.55.4",
     "react-native-camera-kit": "^6.2.6",
+    "react-native-camera-roll-picker": "^1.2.3",
     "react-native-elements": "^0.19.1",
     "react-native-image-crop-picker": "^0.21.1",
     "react-native-keyboard-aware-scroll-view": "latest",
@@ -23,13 +24,13 @@
     "react-native-vector-icons": "^5.0.0",
     "react-native-walkthrough-tooltip": "^0.2.0",
     "react-navigation": "^2.12.1",
+    "react-navigation-fluid-transitions": "latest",
     "react-navigation-material-bottom-tabs": "^0.3.0",
     "react-photo-gallery": "^6.2.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-axios-middleware": "^4.0.0",
-    "redux-thunk": "latest",
-    "react-navigation-fluid-transitions": "latest"
+    "redux-thunk": "latest"
   },
   "devDependencies": {
     "babel-jest": "23.4.2",

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {CameraKitGalleryView, CameraKitCamera} from 'react-native-camera-kit';
+import {CameraKitCamera} from 'react-native-camera-kit';
 import {Strings, Colors} from '../../config';
 import {BackHeader} from '../../components';
-
+import CameraRollPicker from 'react-native-camera-roll-picker';
 
 export default class NewPost extends Component {
     static navigationOptions = {
@@ -34,7 +34,8 @@ export default class NewPost extends Component {
                 </View>
 
                 <View style={{flex: 1, backgroundColor: 'white'}}>
-
+                    <CameraRollPicker selectSingleItem = {true}
+                        callback={this.getSelectedImages}/>
                 </View>
 
             </View>
