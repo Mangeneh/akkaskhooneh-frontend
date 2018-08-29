@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Container, Tab, Tabs} from 'native-base';
-import {View, StatusBar, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
+import {View, Image, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import NavigationService from '../../NavigationService';
-import {Colors, Fonts, Strings} from '../../config';
-import {ProfileHeader} from '../../components';
+import {Strings} from '../../config';
+import {CustomStatusBar} from '../../components';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -21,6 +20,7 @@ class Profile extends Component {
     render() {
         const {} = Strings;
         return (
+            <CustomStatusBar/>
 
         );
     }

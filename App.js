@@ -76,13 +76,22 @@ const AuthStack = createStackNavigator({
     }
 });
 
-const RootStack = createStackNavigator({
+const ProfileStack = createStackNavigator({
+    Profile: Profile,
+    ProfileEdit: ProfileEdit,
+    ChangePass: ChangePass,
+    ProfileSettings: ProfileSettings,
+}, {
+    initialRouteName: 'Profile',
+    navigationOptions: {
+        header: null,
+    }
+});
+
+const RootStack = createSwitchNavigator({
     AuthStack: AuthStack,
     Main: Main,
-    ProfileEdit: ProfileEdit,
-    Profile: Profile,
-    ProfileSettings: ProfileSettings,
-    ChangePass: ChangePass,
+    ProfileStack: ProfileStack,
     NewPost: NewPost
 }, {
     initialRouteName: 'AuthStack',

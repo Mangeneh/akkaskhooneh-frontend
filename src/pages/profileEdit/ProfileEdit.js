@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Avatar} from 'react-native-elements';
 import {Item, Input, ActionSheet, Toast} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar, Platform} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import FormData from 'form-data';
 import {Strings, Colors, Constants, Fonts} from '../../config';
-import {CustomLongTextBox, BackHeader} from '../../components';
+import {CustomLongTextBox, BackHeader, CustomStatusBar} from '../../components';
 import SaveChangesButton from '../../containers/SaveChangesButton';
 import {modeChanged, editProfile, Actions, changeProfilePic} from './actions';
 import {userUpdated} from '../../actions/UserInfoActions';
@@ -38,10 +38,7 @@ class ProfileEdit extends Component {
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
-                        <StatusBar
-                            barStyle='light-content'
-                            backgroundColor={Colors.BASE}
-                        />
+                        <CustomStatusBar/>
                         <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
                             <TouchableOpacity
                                 style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, flex: 1}}

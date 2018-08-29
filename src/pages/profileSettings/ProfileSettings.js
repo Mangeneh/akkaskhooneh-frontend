@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Item, Right, Left, Icon} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, StatusBar, Text, SafeAreaView} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, Text, SafeAreaView} from 'react-native'
 import {Strings, Fonts, Colors, Constants} from '../../config';
-import {BackHeader} from '../../components';
+import {BackHeader, CustomStatusBar} from '../../components';
 import {reset, Actions} from '../../actions/UserInfoActions';
 import {connect} from 'react-redux';
 
@@ -15,13 +15,10 @@ class ProfileSettings extends Component {
         const {SIGN_OUT, CHANGE_PASS} = Strings;
         return (
             <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                <StatusBar
-                    barStyle='light-content'
-                    backgroundColor={Colors.BASE}
-                />
+                <CustomStatusBar/>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.PROFILE_SETTINGS}/>
                 <View style={{backgroundColor: 'white', flex: 1}}>
-                    <View style = {{flex: 1}}/>
+                    <View style={{flex: 1}}/>
                     <View style={{backgroundColor: 'white', flex: 10}}>
                         <View>
                             <Item onPress={this.onChangePassPressed.bind(this)}>
@@ -41,7 +38,8 @@ class ProfileSettings extends Component {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={{marginBottom: 0, backgroundColor: 'white'}} onPress={this.onSignOutPress.bind(this)}>
+                <TouchableOpacity style={{marginBottom: 0, backgroundColor: 'white'}}
+                                  onPress={this.onSignOutPress.bind(this)}>
                     <Text style={styles.exit}>{SIGN_OUT}</Text>
                 </TouchableOpacity>
             </SafeAreaView>

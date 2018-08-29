@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Toast, Icon} from 'native-base';
-import {View, StatusBar} from 'react-native'
+import {View} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, PageModes} from '../../config';
-import {BackHeader, PasswordTextBox} from '../../components';
+import {BackHeader, PasswordTextBox,FullStatusBar} from '../../components';
 import {checkPassword} from "../../helpers/Validators";
 import ChangePassButton from '../../containers/ChangePassButton';
 import {
@@ -31,10 +31,7 @@ class ChangePass extends Component {
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
-                        <StatusBar
-                            barStyle="light-content"
-                            backgroundColor={Colors.BASE}
-                        />
+                        <FullStatusBar/>
                         <View style={{flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
                             <Icon name='key' style={{color: 'white'}}/>
                         </View>

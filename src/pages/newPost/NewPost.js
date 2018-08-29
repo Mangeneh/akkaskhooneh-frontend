@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 import {CameraKitCamera} from 'react-native-camera-kit';
 import {Strings, Colors} from '../../config';
-import {BackHeader} from '../../components';
+import {BackHeader, CustomStatusBar} from '../../components';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import {connect} from 'react-redux';
 import {
@@ -21,27 +21,28 @@ class NewPost extends Component {
         return (
             <View style={{flex: 1}}>
                 <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+                    <CustomStatusBar/>
                     <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
                     <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
                         {this.renderCameraSection()}
                     </View>
 
                     <View style={{flex: 1, backgroundColor: 'white'}}>
-                        <CameraRollPicker selectSingleItem = {true}
-                            callback={this.getSelectedImages} 
-                            backgroundColor={Colors.LIGHT_GRAY}
-                            />
+                        <CameraRollPicker selectSingleItem={true}
+                                          callback={this.getSelectedImages}
+                                          backgroundColor={Colors.LIGHT_GRAY}
+                        />
 
                     </View>
                 </View>
                 <View style={{position: 'absolute', bottom: 40}}>
-                    <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL} onPress={this.onNextPress.bind(this)}/>
+                    <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL}
+                                       onPress={this.onNextPress.bind(this)}/>
                 </View>
             </View>
         );
     }
 
-    
 
     onBackPress() {
         this.props.navigation.navigate('Main');
