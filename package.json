@@ -24,6 +24,7 @@
     "react-native-vector-icons": "^5.0.0",
     "react-native-walkthrough-tooltip": "^0.2.0",
     "react-navigation": "^2.12.1",
+    "react-navigation-backhandler": "^1.1.1",
     "react-navigation-fluid-transitions": "latest",
     "react-navigation-material-bottom-tabs": "^0.3.0",
     "react-photo-gallery": "^6.2.0",

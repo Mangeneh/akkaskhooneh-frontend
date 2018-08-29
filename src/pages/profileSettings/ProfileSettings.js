@@ -1,48 +1,57 @@
 import React, {Component} from 'react';
 import {Item, Right, Left, Icon} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, Text, SafeAreaView} from 'react-native'
+import {connect} from 'react-redux';
+import {AndroidBackHandler} from "react-navigation-backhandler";
 import {Strings, Fonts, Colors, Constants} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 import {reset, Actions} from '../../actions/UserInfoActions';
-import {connect} from 'react-redux';
 
 class ProfileSettings extends Component {
     static navigationOptions = {
         header: null
     };
 
+    onBackButtonPressAndroid = () => {
+        this.props.navigation.navigate('Main');
+        return true;
+    };
+
     render() {
         const {SIGN_OUT, CHANGE_PASS} = Strings;
         return (
-            <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                <CustomStatusBar/>
-                <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.PROFILE_SETTINGS}/>
-                <View style={{backgroundColor: 'white', flex: 1}}>
-                    <View style={{flex: 1}}/>
-                    <View style={{backgroundColor: 'white', flex: 10}}>
-                        <View>
-                            <Item onPress={this.onChangePassPressed.bind(this)}>
-                                <Left>
-                                    <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
-                                        <Icon type={'Ionicons'} name='ios-arrow-back' style={{color: Colors.ACCENT}}/>
-                                    </TouchableOpacity>
-                                </Left>
-                                <Right>
-                                    <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
-                                        <Text style={styles.text}>
-                                            {CHANGE_PASS}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </Right>
-                            </Item>
+            <AndroidBackHandler onBackPress={this.onBackButtonPressAndroid}>
+                <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+                    <CustomStatusBar/>
+                    <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.PROFILE_SETTINGS}/>
+                    <View style={{backgroundColor: 'white', flex: 1}}>
+                        <View style={{flex: 1}}/>
+                        <View style={{backgroundColor: 'white', flex: 10}}>
+                            <View>
+                                <Item onPress={this.onChangePassPressed.bind(this)}>
+                                    <Left>
+                                        <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
+                                            <Icon type={'Ionicons'} name='ios-arrow-back'
+                                                  style={{color: Colors.ACCENT}}/>
+                                        </TouchableOpacity>
+                                    </Left>
+                                    <Right>
+                                        <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
+                                            <Text style={styles.text}>
+                                                {CHANGE_PASS}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </Right>
+                                </Item>
+                            </View>
                         </View>
                     </View>
-                </View>
-                <TouchableOpacity style={{marginBottom: 0, backgroundColor: 'white'}}
-                                  onPress={this.onSignOutPress.bind(this)}>
-                    <Text style={styles.exit}>{SIGN_OUT}</Text>
-                </TouchableOpacity>
-            </SafeAreaView>
+                    <TouchableOpacity style={{marginBottom: 0, backgroundColor: 'white'}}
+                                      onPress={this.onSignOutPress.bind(this)}>
+                        <Text style={styles.exit}>{SIGN_OUT}</Text>
+                    </TouchableOpacity>
+                </SafeAreaView>
+            </AndroidBackHandler>
         );
     }
 
