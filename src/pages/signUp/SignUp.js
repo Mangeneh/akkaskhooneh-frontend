@@ -17,7 +17,6 @@ import {
     reset, resetEmail
 } from './actions';
 import SignUpButton from '../../containers/SignUpButton';
-import {resetPassword} from "../login/actions";
 
 class SignUp extends Component {
     static navigationOptions = {

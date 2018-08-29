@@ -69,13 +69,13 @@ class Profile extends Component {
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              tabStyle={{backgroundColor: 'white'}}
-                             activeTabStyle={{backgroundColor: 'white', fontFamily: Fonts.NORMAL_FONT}}>
+                             activeTabStyle={{backgroundColor: 'white'}}>
                         </Tab>
 
                         <Tab heading={PHOTOS}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
-                             activeTabStyle={{backgroundColor: 'white', fontFamily: Fonts.NORMAL_FONT}}
+                             activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
                             <View>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
@@ -110,7 +110,6 @@ class Profile extends Component {
 
     onEditPress() {
         NavigationService.navigate('ProfileEdit');
-        // this.props.navigation.navigate('ProfileEdit');
     }
 
     onSettingsPress() {

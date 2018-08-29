@@ -12,11 +12,11 @@ import SaveChangesButton from '../../containers/SaveChangesButton';
 import {modeChanged, editProfile, Actions, changeProfilePic} from './actions';
 import {userUpdated} from '../../actions/UserInfoActions';
 import {PageModes} from '../../config';
+import NavigationService from '../../NavigationService';
 
 class ProfileEdit extends Component {
     static navigationOptions = {
         header: null,
-        tabBarVisible: false,
     };
 
     state = {
@@ -24,7 +24,6 @@ class ProfileEdit extends Component {
         bio: this.props.bioFromDB,
         imageFile: null,
         imageSource: this.props.imageSourceFromDB,
-        showToast: false
     };
 
     componentWillMount() {
@@ -35,16 +34,7 @@ class ProfileEdit extends Component {
         const {SAVE_CHANGES, EDIT_PROFILE, ABOUT_YOU, FIRST_LAST_NAME} = Strings;
         const {emailFromDB, usernameFromDB} = this.props;
         return (
-            <View style={{
-                flex: 1,
-                backgroundColor: Colors.BASE,
-                zIndex: 1000000,
-                position: 'absolute',
-                right: 0,
-                left: 0,
-                bottom: 0,
-                top: 0
-            }}>
+            <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
@@ -108,7 +98,7 @@ class ProfileEdit extends Component {
     }
 
     onBackPress() {
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.navigate('Main');
     }
 
     onSaveChangesPressed() {
@@ -135,7 +125,7 @@ class ProfileEdit extends Component {
             position: 'bottom',
             type: 'success',
             duration: 500,
-            onClose: () => this.props.navigation.goBack()
+            onClose: () => this.props.navigation.navigate('Main')
         });
     }
 

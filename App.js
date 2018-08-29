@@ -5,7 +5,7 @@ import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
 import {Root} from 'native-base';
-import rootReducer from './src/reducers'
+import rootReducer from './src/reducers';
 import {
     Login,
     SignUp,
@@ -17,10 +17,10 @@ import {
     Main,
     Profile
 } from './src/pages';
-import {Actions as SignUpCompleteActions} from "./src/pages/signUpComplete/actions";
-import {Actions as SignUpActions} from "./src/pages/signUp/actions";
+import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
+import {Actions as SignUpActions} from './src/pages/signUp/actions';
 import NavigationService from './src/NavigationService';
-import {accessTokenUpdated} from "./src/actions/UserInfoActions";
+import {accessTokenUpdated} from './src/actions/UserInfoActions';
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',

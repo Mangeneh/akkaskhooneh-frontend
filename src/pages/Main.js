@@ -6,23 +6,14 @@ import {Icon, Container} from 'native-base';
 import Home from './home/Home';
 import {Colors} from '../config';
 import Profile from "./profile/Profile";
-import {createStackNavigator} from "react-navigation";
-import Login from "./login/Login";
-import SignUp from "./signUp/SignUp";
-import SignUpComplete from "./signUpComplete/SignUpComplete";
-import ProfileEdit from "./profileEdit/ProfileEdit";
-import ProfileSettings from "./profileSettings/ProfileSettings";
-import ChangePass from "./changePass/ChangePass";
-import NewPost from "./newPost/NewPost";
-
 
 const Bottom = createMaterialBottomTabNavigator(
     {
-        ProfileStack: {screen: Profile},
-        X: {screen: Home},
+        Profile: {screen: Profile},
+        NotificationCenter: {screen: Home},
         Nothing: {screen: Home},
-        Z: {screen: Home},
-        W: {screen: Home},
+        Search: {screen: Home},
+        Home: {screen: Home},
     },
     {
         navigationOptions: ({navigation}) => ({
@@ -35,8 +26,10 @@ const Bottom = createMaterialBottomTabNavigator(
                     iconName = `bell${focused ? '' : '-outline'}`;
                 } else if (routeName === 'Nothing') {
                     return;
-                } else {
-                    iconName = `bell${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Search') {
+                    iconName = `magnify`;
+                } else if (routeName === 'Home') {
+                    iconName = `home${focused ? '' : '-outline'}`;
                 }
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
@@ -51,7 +44,7 @@ const Bottom = createMaterialBottomTabNavigator(
              */
             tabBarOnPress: (argument) => {
                 const {routeName} = navigation.state;
-                if (routeName === 'Profile') {
+                if (routeName === 'Nothing') {
 
                 } else {
                     argument.defaultHandler();
@@ -59,7 +52,7 @@ const Bottom = createMaterialBottomTabNavigator(
             },
         }),
         labeled: false,
-        initialRouteName: 'ProfileStack',
+        initialRouteName: 'Profile',
         activeTintColor: '#252384',
         inactiveTintColor: '#ff1a1e',
         barStyle: {backgroundColor: '#fff', height: 60},
