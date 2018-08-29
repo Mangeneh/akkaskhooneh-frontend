@@ -16,7 +16,7 @@ class Profile extends Component {
 
     componentDidMount() {
         setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
-        this.props.getPhotosNextPage(this.props.photosNext);
+        this.updatePhotos();
     }
 
     render() {
@@ -50,7 +50,7 @@ class Profile extends Component {
                             <View>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
-                                        onEndReached={() => this.props.getPhotosNextPage(this.props.photosNext)}
+                                        onEndReached={() => this.updatePhotos()}
                                         style={{width: '100%'}}
                                         numColumns={2}
                                         keyExtractor={(item, index) => item.id}
@@ -78,6 +78,12 @@ class Profile extends Component {
         );
     }
 
+    updatePhotos() {
+        if (!this.props.fetchStatus) {
+            this.props.getPhotosNextPage(this.props.photosNext);
+        }
+    }
+
     onEditPress() {
         NavigationService.navigate('ProfileEdit');
     }
@@ -91,7 +97,8 @@ const mapStateToProps = (state) => ({
     username: state.userInfo.user.username,
     photos: state.profilePage.photos,
     photosNext: state.profilePage.photosNext,
-    isLoading: state.profilePage.isLoading
+    isLoading: state.profilePage.isLoading,
+    fetchStatus: state.profilePage.fetchStatus
 });
 
 const mapDispatchToProps = (dispatch) => ({
