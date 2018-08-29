@@ -10,6 +10,7 @@ import {
     Actions,
 } from './actions';
 import ChoosePhotoButton from '../../containers/ChoosePhotoButton';
+import SlidingUpPanel from 'rn-sliding-up-panel';
 
 class NewPost extends Component {
     static navigationOptions = {
@@ -19,25 +20,26 @@ class NewPost extends Component {
     render() {
         const {PHOTO_GALLERY} = Strings;
         return (
-            <View style={{flex: 1}}>
-                <View style={{flex: 1, backgroundColor: Colors.BASE}}>
-                    <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
-                    <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
-                        {this.renderCameraSection()}
-                    </View>
-
-                    <View style={{flex: 1, backgroundColor: 'white'}}>
-                        <CameraRollPicker selectSingleItem = {true}
-                            callback={this.getSelectedImages} 
-                            backgroundColor={Colors.LIGHT_GRAY}
-                            />
-
-                    </View>
-                </View>
-                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
-                    <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL} onPress={this.onNextPress.bind(this)}/>
+        <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
+                <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
+                    {this.renderCameraSection()}
                 </View>
             </View>
+            <SlidingUpPanel visible={true} style={{height: 100}} draggableRange={{bottom: 200, top: 700}} startCollapsed>
+                <View style={{flex: 1, backgroundColor: 'white'}}>
+                    <CameraRollPicker selectSingleItem = {true}
+                        callback={this.getSelectedImages} 
+                        backgroundColor={Colors.LIGHT_GRAY}
+                    />
+
+                </View>
+            </SlidingUpPanel>
+            <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
+                <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL} onPress={this.onNextPress.bind(this)}/>
+            </View>
+        </View>
         );
     }
 
@@ -80,5 +82,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     selectPic: (selectedPics) => dispatch(picSelected(selectedPics)),
 });
+
+const styles = {
+    container: {
+      flex: 1,
+      backgroundColor: 'white',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
