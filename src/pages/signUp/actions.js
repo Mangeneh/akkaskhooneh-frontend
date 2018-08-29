@@ -9,8 +9,15 @@ export const Actions = {
     ENTER_LOGIN: 'ENTER_LOGIN',
     SIGN_IN_FROM_OTHER_ACCOUNTS: 'SIGN_UP_SIGN_IN_FROM_OTHER_ACCOUNTS',
     EMAIL_RESET: 'SIGN_UP_EMAIL_RESET',
-    SIGN_UP_RESET: 'SIGN_UP_RESET'
+    SIGN_UP_RESET: 'SIGN_UP_RESET',
+    // PASSWORD_FIELD_PRESSED: 'SIGN_UP_PASSWORD_FIELD_PRESSED',
 };
+
+export const passwordFieldPressed = () => {
+    return {
+        type: PASSWORD_FIELD_PRESSED,
+    }
+}
 
 export const emailChanged = (email) => {
     return {

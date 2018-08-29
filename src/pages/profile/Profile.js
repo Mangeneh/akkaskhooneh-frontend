@@ -29,7 +29,6 @@ class Profile extends Component {
         this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
             BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
         );
-        this.props.getPhotosNextPage(this.props.photosNext);
     }
 
     componentDidMount() {

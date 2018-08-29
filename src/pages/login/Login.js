@@ -64,7 +64,7 @@ class Login extends Component {
         const {APP_NAME} = Strings;
         return (
             <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                <Avatar xlarge rounded containerStyle={{marginBottom: 12}}
+                <Avatar large rounded containerStyle={{marginBottom: 12}}
                         source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
                 <Text style={styles.text}
                 >{APP_NAME}</Text>

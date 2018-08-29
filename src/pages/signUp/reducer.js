@@ -5,16 +5,19 @@ const INITIAL_STATE = {
     email: '',
     password: '',
     repeatedPassword: '',
-    mode: PageModes.DISABLED
+    mode: PageModes.DISABLED,
+    toolTipVisible: false, 
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {EMAIL_CHANGED, SIGN_UP_RESET, PASSWORD_CHANGED, REPEATED_PASSWORD_CHANGED, MODE_CHANGED, VALIDATE_EMAIL, VALIDATE_EMAIL_FAIL, VALIDATE_EMAIL_SUCCESS, EMAIL_RESET} = Actions;
+    const {EMAIL_CHANGED, PASSWORD_FIELD_PRESSED, SIGN_UP_RESET, PASSWORD_CHANGED, REPEATED_PASSWORD_CHANGED, MODE_CHANGED, VALIDATE_EMAIL, VALIDATE_EMAIL_FAIL, VALIDATE_EMAIL_SUCCESS, EMAIL_RESET} = Actions;
     switch (action.type) {
         case EMAIL_CHANGED:
             return {...state, email: action.payload};
+        // case PASSWORD_FIELD_PRESSED:
+        //     return {...state, toolTipVisible: true}
         case PASSWORD_CHANGED:
-            return {...state, password: action.payload};
+            return {...state, password: action.payload, toolTipVisible: action.payload === '' ? true : false};
         case REPEATED_PASSWORD_CHANGED:
             return {...state, repeatedPassword: action.payload};
         case MODE_CHANGED:
