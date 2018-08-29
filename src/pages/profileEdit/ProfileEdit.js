@@ -12,7 +12,6 @@ import SaveChangesButton from '../../containers/SaveChangesButton';
 import {modeChanged, editProfile, Actions, changeProfilePic} from './actions';
 import {userUpdated} from '../../actions/UserInfoActions';
 import {PageModes} from '../../config';
-import NavigationService from '../../NavigationService';
 
 class ProfileEdit extends Component {
     static navigationOptions = {

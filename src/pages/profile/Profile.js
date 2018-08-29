@@ -47,7 +47,7 @@ class Profile extends Component {
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
-                            <View>
+                            <View style={{backgroundColor:Colors.WHITE_BACK,flex:1}}>
                                 {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
                                     <FlatList
                                         onEndReached={() => this.updatePhotos()}

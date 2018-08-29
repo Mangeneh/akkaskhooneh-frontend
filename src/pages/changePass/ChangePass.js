@@ -4,8 +4,7 @@ import {View, StatusBar} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, PageModes} from '../../config';
-import {BackHeader} from '../../components';
-import {PasswordTextBox} from '../../components';
+import {BackHeader, PasswordTextBox} from '../../components';
 import {checkPassword} from "../../helpers/Validators";
 import ChangePassButton from '../../containers/ChangePassButton';
 import {
@@ -42,20 +41,21 @@ class ChangePass extends Component {
                         <View style={{flex: 1, justifyContent: 'flex-start'}}>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD} value={previousPassword}
-                                                onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
-                                                reset={() => this.props.reset()}
+                                                 onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
+                                                 reset={() => this.props.reset()}
                                 />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={NEW_PASSWORD} value={newPassword}
-                                                onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
-                                                reset={() => this.props.reset()}
+                                                 onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
+                                                 reset={() => this.props.reset()}
                                 />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={REPEAT_NEW_PASSWORD} value={repeatedPassword}
-                                                onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
-                                                reset={() => this.props.reset()}
+                                <PasswordTextBox error={error} placeholder={REPEAT_NEW_PASSWORD}
+                                                 value={repeatedPassword}
+                                                 onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
+                                                 reset={() => this.props.reset()}
                                 />
                             </View>
                         </View>
@@ -80,22 +80,34 @@ class ChangePass extends Component {
         this.props.changePassword(previousPassword, newPassword)
             .then((result) => {
                 if (result.type === Actions.CHANGE_PASS_SUCCESS) {
-                    Toast.show({
-                        text: Strings.CHANGE_PASS_SUCCESS,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'success',
-                        onClose: () => this.props.reset()
-                    });
+                    this.onSuccess();
                 } else {
-                    Toast.show({
-                        text: Strings.CHANGE_PASS_FAIL,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'danger'
-                    });
+                    this.onFail();
                 }
             });
+    }
+
+    onSuccess() {
+        Toast.show({
+            text: Strings.CHANGE_PASS_SUCCESS,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'success',
+            duration: 500,
+            onClose: () => {
+                this.props.navigation.navigate('Main');
+                this.props.reset()
+            }
+        });
+    }
+
+    onFail() {
+        Toast.show({
+            text: Strings.CHANGE_PASS_FAIL,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'danger'
+        });
     }
 
     onPreviousPasswordChange(previousPassword) {
