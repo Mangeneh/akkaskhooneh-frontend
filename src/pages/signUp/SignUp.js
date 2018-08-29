@@ -14,9 +14,12 @@ import {
     modeChanged,
     passwordChanged,
     repeatedPasswordChanged,
-    reset, resetEmail
+    passwordFieldPressed,
+    reset, 
+    resetEmail,
 } from './actions';
 import SignUpButton from '../../containers/SignUpButton';
+import Tooltip from 'react-native-walkthrough-tooltip'
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -43,8 +46,16 @@ class SignUp extends Component {
                                               onChangeEmail={(email) => this.onEmailChange(email)}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox placeholder={PASSWORD} value={this.props.password}
-                                                 onChangePassword={(password) => this.onPasswordChange(password)}/>
+                                {/* <Tooltip
+                                    animated
+                                    isVisible={this.props.toolTipVisible}
+                                    content={<Text style={{fontSize: 8}}>Password must contain at least 6 characters, 1 number and 1 letter.</Text>}
+                                    placement="top"
+                                    onClose={() => this.setState({ toolTipVisible: false })}
+                                > */}
+                                    <PasswordTextBox onPress={this.props.showPasswordTooltip.bind(this)} placeholder={PASSWORD} value={this.props.password}
+                                                    onChangePassword={(password) => this.onPasswordChange(password)}/>
+                                {/* </Tooltip> */}
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox placeholder={REPEAT_PASSWORD} value={this.props.repeatedPassword}
@@ -64,7 +75,7 @@ class SignUp extends Component {
         const {APP_NAME} = Strings;
         return (
             <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                <Avatar xlarge containerStyle={{marginBottom: 12}} rounded
+                <Avatar large containerStyle={{marginBottom: 12}} rounded
                         source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
                 <Text style={styles.text}>{APP_NAME}</Text>
             </View>
@@ -175,7 +186,8 @@ const mapStateToProps = (state) => ({
     password: state.signUpPage.password,
     repeatedPassword: state.signUpPage.repeatedPassword,
     mode: state.signUpPage.mode,
-    error: state.signUpPage.mode === PageModes.ERROR
+    error: state.signUpPage.mode === PageModes.ERROR,
+    toolTipVisible: state.signUpPage.toolTipVisible
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -185,6 +197,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeMode: (mode) => dispatch(modeChanged(mode)),
     validateEmail: (email) => dispatch(validateEmail(email)),
     resetEmail: () => dispatch(resetEmail()),
+    showPasswordTooltip: () => dispatch(passwordFieldPressed()),
     reset: () => dispatch(reset())
 });
 
