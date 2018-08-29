@@ -34,7 +34,7 @@ class NewPost extends Component {
 
                     </View>
                 </View>
-                <View style={{position: 'absolute', bottom: 40, alignContent: 'center'}}>
+                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
                     <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL} onPress={this.onNextPress.bind(this)}/>
                 </View>
             </View>
