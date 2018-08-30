@@ -2,15 +2,15 @@ import {Actions} from './actions';
 import {PageModes} from "../../config";
 
 const INITIAL_STATE = {
-    mode: Actions.NORMAL,
+    mode: PageModes.NORMAL,
     image: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {MODE_CHANGED, IMAGE_CHANGED, EDIT_PROFILE, EDIT_PROFILE_FAIL, EDIT_PROFILE_SUCCESS, CHANGE_PROFILE_PIC, CHANGE_PROFILE_PIC_FAIL, CHANGE_PROFILE_PIC_SUCCESS} = Actions;
+    const {IMAGE_CHANGED, EDIT_PROFILE, EDIT_PROFILE_FAIL, EDIT_PROFILE_SUCCESS, NORMALIZE, CHANGE_PROFILE_PIC_FAIL, CHANGE_PROFILE_PIC_SUCCESS} = Actions;
     switch (action.type) {
-        case MODE_CHANGED:
-            return {...state, mode: action.payload};
+        case NORMALIZE:
+            return {...state,mode:PageModes.NORMAL};
         case IMAGE_CHANGED:
             return {...state, image: action.payload};
         case EDIT_PROFILE:

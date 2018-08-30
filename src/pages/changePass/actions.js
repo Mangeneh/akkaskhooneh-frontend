@@ -4,7 +4,6 @@ export const Actions = {
     PREVIOUS_PASSWORD_CHANGED: 'CHANGE_PASS_PREVIOUS_PASSWORD_CHANGED',
     NEW_PASSWORD_CHANGED: 'CHANGE_PASS_NEW_PASSWORD_CHANGED',
     REPEATED_PASSWORD_CHANGED: 'CHANGE_PASS_REPEATED_PASSWORD_CHANGED',
-    MODE_CHANGED: 'CHANGE_PASS_MODE_CHANGED',
     CHANGE_PASS_FAIL: 'CHANGE_PASS_FAIL',
     CHANGE_PASS_SUCCESS: 'CHANGE_PASS_SUCCESS',
     CHANGE_PASS: 'CHANGE_PASS',
@@ -29,13 +28,6 @@ export const repeatedPasswordChanged = (repeatedPassword) => {
     return {
         type: Actions.REPEATED_PASSWORD_CHANGED,
         payload: repeatedPassword
-    }
-};
-
-export const modeChanged = (mode) => {
-    return {
-        type: Actions.MODE_CHANGED,
-        payload: mode
     }
 };
 

@@ -6,19 +6,13 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import FormData from 'form-data';
-import {AndroidBackHandler} from 'react-navigation-backhandler';
 import {Strings, Colors, Constants, Fonts} from '../../config';
 import {CustomLongTextBox, BackHeader, CustomStatusBar} from '../../components';
 import SaveChangesButton from '../../containers/SaveChangesButton';
-import {modeChanged, editProfile, Actions, changeProfilePic} from './actions';
+import {editProfile, Actions, changeProfilePic, normalize} from './actions';
 import {userUpdated} from '../../actions/UserInfoActions';
-import {PageModes} from '../../config';
 
 class ProfileEdit extends Component {
-    static navigationOptions = {
-        header: null,
-    };
-
     state = {
         fullName: this.props.fullNameFromDB,
         bio: this.props.bioFromDB,
@@ -26,85 +20,77 @@ class ProfileEdit extends Component {
         imageSource: this.props.imageSourceFromDB,
     };
 
-    onBackButtonPressAndroid = () => {
-        this.props.navigation.navigate('Profile');
-        return true;
-    };
-
-
     componentWillMount() {
-        this.props.changeMode(PageModes.NORMAL);
+        this.props.normalize();
     }
 
     render() {
         const {SAVE_CHANGES, EDIT_PROFILE, ABOUT_YOU, FIRST_LAST_NAME} = Strings;
         const {emailFromDB, usernameFromDB} = this.props;
         return (
-            <AndroidBackHandler onBackPress={this.onBackButtonPressAndroid}>
-                <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
-                    <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
-                    <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
-                                             contentContainerStyle={{flexGrow: 1}}>
-                        <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
-                            <CustomStatusBar/>
-                            <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
-                                <TouchableOpacity
-                                    style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, flex: 1}}
-                                    onPress={this.onChooseImagePress.bind(this)}>
-                                    <Avatar rounded large containerStyle={{alignSelf: 'center'}}
-                                            icon={{name: 'camera', type: 'Feather'}}
-                                            source={{uri: this.state.imageSource}}/>
-                                </TouchableOpacity>
+            <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
+                                         contentContainerStyle={{flexGrow: 1}}>
+                    <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
+                        <CustomStatusBar/>
+                        <View style={{justifyContent: 'flex-start', marginTop: 32, flex: 1}}>
+                            <TouchableOpacity
+                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 32, flex: 1}}
+                                onPress={this.onChooseImagePress.bind(this)}>
+                                <Avatar rounded large containerStyle={{alignSelf: 'center'}}
+                                        icon={{name: 'camera', type: 'Feather'}}
+                                        source={{uri: this.state.imageSource}}/>
+                            </TouchableOpacity>
 
-                                <View style={{flex: 1}}>
-                                    <Item style={styles.item} rounded>
-                                        <Input disabled placeholder={usernameFromDB}
-                                               fontFamily={Fonts.NORMAL_FONT}
-                                               style={{textAlign: 'center', fontSize: 10}}/>
-                                    </Item>
+                            <View style={{flex: 1}}>
+                                <Item style={styles.item} rounded>
+                                    <Input disabled placeholder={usernameFromDB}
+                                           fontFamily={Fonts.NORMAL_FONT}
+                                           style={{textAlign: 'center', fontSize: 10}}/>
+                                </Item>
 
-                                    <Item style={styles.item} rounded>
-                                        <Input value={this.state.fullName}
-                                               placeholder={FIRST_LAST_NAME}
-                                               fontFamily={Fonts.NORMAL_FONT}
-                                               style={{textAlign: 'center', fontSize: 10}}
-                                               onChangeText={(fullName) => {
-                                                   this.setState({fullName})
-                                               }}/>
-                                    </Item>
+                                <Item style={styles.item} rounded>
+                                    <Input value={this.state.fullName}
+                                           placeholder={FIRST_LAST_NAME}
+                                           fontFamily={Fonts.NORMAL_FONT}
+                                           style={{textAlign: 'center', fontSize: 10}}
+                                           onChangeText={(fullName) => {
+                                               this.setState({fullName})
+                                           }}/>
+                                </Item>
 
-                                    <Item style={styles.item} rounded>
-                                        <Input disabled placeholder={emailFromDB}
-                                               secureTextEntry={false}
-                                               style={{textAlign: 'center', fontSize: 10}}/>
-                                    </Item>
+                                <Item style={styles.item} rounded>
+                                    <Input disabled placeholder={emailFromDB}
+                                           secureTextEntry={false}
+                                           style={{textAlign: 'center', fontSize: 10}}/>
+                                </Item>
 
-                                    <Item style={styles.item} rounded>
-                                        <CustomLongTextBox placeholder={ABOUT_YOU}
-                                                           style={{textAlign: 'center', fontSize: 10}}
-                                                           value={this.state.bio}
-                                                           onChangeText={(bio) => {
-                                                               this.setState({bio})
-                                                           }}/>
-                                    </Item>
-                                </View>
-
-                                <View
-                                    style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20, flex: 1}}>
-                                    <SaveChangesButton text={SAVE_CHANGES} icon='check'
-                                                       onPress={this.onSaveChangesPressed.bind(this)}/>
-                                </View>
-
+                                <Item style={styles.item} rounded>
+                                    <CustomLongTextBox placeholder={ABOUT_YOU}
+                                                       style={{textAlign: 'center', fontSize: 10}}
+                                                       value={this.state.bio}
+                                                       onChangeText={(bio) => {
+                                                           this.setState({bio})
+                                                       }}/>
+                                </Item>
                             </View>
+
+                            <View
+                                style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20, flex: 1}}>
+                                <SaveChangesButton text={SAVE_CHANGES} icon='check'
+                                                   onPress={this.onSaveChangesPressed.bind(this)}/>
+                            </View>
+
                         </View>
-                    </KeyboardAwareScrollView>
-                </View>
-            </AndroidBackHandler>
+                    </View>
+                </KeyboardAwareScrollView>
+            </View>
         );
     }
 
     onBackPress() {
-        this.props.navigation.navigate('Profile');
+        this.props.navigation.goBack();
     }
 
     onSaveChangesPressed() {
@@ -130,7 +116,7 @@ class ProfileEdit extends Component {
             position: 'bottom',
             type: 'success',
             duration: 500,
-            onClose: () => this.props.navigation.navigate('Profile')
+            onClose: () => this.props.navigation.goBack()
         });
     }
 
@@ -227,7 +213,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    changeMode: (mode) => dispatch(modeChanged(mode)),
+    normalize: () => dispatch(normalize()),
     updateUser: () => dispatch(userUpdated()),
     editProfile: (fullName, bio) => dispatch(editProfile(fullName, bio)),
     changeProfilePic: (formData) => dispatch(changeProfilePic(formData))

@@ -5,14 +5,12 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, PageModes} from '../../config';
 import {BackHeader, PasswordTextBox, CustomStatusBar} from '../../components';
-import {checkPassword} from "../../helpers/Validators";
 import ChangePassButton from '../../containers/ChangePassButton';
 import {
     previousPasswordChanged,
     newPasswordChanged,
     repeatedPasswordChanged,
     changePassword,
-    modeChanged,
     Actions,
     reset,
 } from './actions';
@@ -64,12 +62,11 @@ class ChangePass extends Component {
     }
 
     onBackPress() {
-        this.props.navigation.navigate('ProfileSettings');
+        this.props.navigation.goBack();
     }
 
     onSaveChangesPressed() {
         const {previousPassword, newPassword} = this.props;
-        this.props.changeMode(PageModes.LOADING);
         this.props.changePassword(previousPassword, newPassword)
             .then((result) => {
                 if (result.type === Actions.CHANGE_PASS_SUCCESS) {
@@ -88,7 +85,7 @@ class ChangePass extends Component {
             type: 'success',
             duration: 500,
             onClose: () => {
-                this.props.navigation.navigate('Main');
+                this.props.navigation.goBack();
                 this.props.reset()
             }
         });
@@ -109,30 +106,10 @@ class ChangePass extends Component {
 
     onNewPasswordChange(newPassword) {
         this.props.changeNewPassword(newPassword);
-        this.validateNewPasswordLocally(newPassword);
     }
 
     onRepeatedPasswordChange(repeatedPassword) {
         this.props.changeRepeatedPassword(repeatedPassword);
-        this.validateRepeatedPasswordLocally(repeatedPassword);
-    }
-
-    validateNewPasswordLocally(newPassword) {
-        const {repeatedPassword} = this.props;
-        this.validate(newPassword, repeatedPassword);
-    }
-
-    validateRepeatedPasswordLocally(repeatedPassword) {
-        const {newPassword} = this.props;
-        this.validate(newPassword, repeatedPassword);
-    }
-
-    validate(newPassword, repeatedPassword) {
-        if (checkPassword(newPassword) && newPassword === repeatedPassword) {
-            this.props.changeMode(PageModes.NORMAL)
-        } else {
-            this.props.changeMode(PageModes.DISABLED)
-        }
     }
 }
 
@@ -149,7 +126,6 @@ const mapDispatchToProps = (dispatch) => ({
     changeNewPassword: (newPassword) => dispatch(newPasswordChanged(newPassword)),
     changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
     changePassword: (previousPassword, newPassword) => dispatch(changePassword(previousPassword, newPassword)),
-    changeMode: (mode) => dispatch(modeChanged(mode)),
     reset: () => dispatch(reset())
 });
 

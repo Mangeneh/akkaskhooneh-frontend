@@ -1,7 +1,7 @@
 import {Server} from "../../config";
 
 export const Actions = {
-    MODE_CHANGED: 'PROFILE_EDIT_MODE_CHANGED',
+    NORMALIZE: 'PROFILE_EDIT_NORMALIZE',
     IMAGE_CHANGED: 'PROFILE_EDIT_IMAGE_CHANGED',
     EDIT_PROFILE: 'EDIT_PROFILE',
     EDIT_PROFILE_SUCCESS: 'EDIT_PROFILE_SUCCESS',
@@ -11,10 +11,9 @@ export const Actions = {
     CHANGE_PROFILE_PIC_FAIL: 'CHANGE_PROFILE_PIC_FAIL',
 };
 
-export const modeChanged = (mode) => {
+export const normalize = () => {
     return {
-        type: Actions.MODE_CHANGED,
-        payload: mode
+        type: Actions.NORMALIZE
     }
 };
 

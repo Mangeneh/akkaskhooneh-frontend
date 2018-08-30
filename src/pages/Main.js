@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Animated, Easing} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {Container} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,16 +9,41 @@ import {Colors} from '../config';
 import Profile from "./profile/Profile";
 import ProfileEdit from "./profileEdit/ProfileEdit";
 import ProfileSettings from "./profileSettings/ProfileSettings";
+import ChangePass from "./changePass/ChangePass";
 
 const profileStack = createStackNavigator({
     Profile: Profile,
     ProfileEdit: ProfileEdit,
     ProfileSettings: ProfileSettings,
+    ChangePass: ChangePass
 }, {
     initialRouteName: 'Profile',
     navigationOptions: {
         header: null,
-    }
+    },
+    transitionConfig: () => ({
+        transitionSpec: {
+            easing: Easing.out(Easing.poly(5)),
+            timing: Animated.timing,
+        },
+        screenInterpolator: sceneProps => {
+            const {layout, position, scene} = sceneProps;
+            const {index} = scene;
+
+            const height = layout.initHeight;
+            const translateY = position.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [height, 0, 0],
+            });
+
+            const opacity = position.interpolate({
+                inputRange: [index - 1, index - 0.99, index + 1],
+                outputRange: [0, 1, 1],
+            });
+
+            return {opacity, transform: [{translateY}]};
+        },
+    }),
 });
 
 profileStack.navigationOptions = ({navigation}) => {
@@ -73,7 +98,7 @@ const Bottom = createMaterialTopTabNavigator(
         }),
         tabBarPosition: 'bottom',
         initialRouteName: 'Profile',
-        backBehavior : 'none',
+        backBehavior: 'none',
         tabBarOptions: {
             activeTintColor: 'white',
             inactiveTintColor: 'white',
