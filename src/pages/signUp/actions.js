@@ -4,7 +4,6 @@ export const Actions = {
     EMAIL_CHANGED: 'SIGN_UP_EMAIL_CHANGED',
     PASSWORD_CHANGED: 'SIGN_UP_PASSWORD_CHANGED',
     REPEATED_PASSWORD_CHANGED: 'REPEATED_PASSWORD_CHANGED',
-    MODE_CHANGED: 'SIGN_UP_MODE_CHANGED',
     VALIDATE_EMAIL: 'VALIDATE_EMAIL',
     VALIDATE_EMAIL_SUCCESS: 'VALIDATE_EMAIL_SUCCESS',
     VALIDATE_EMAIL_FAIL: 'VALIDATE_EMAIL_FAIL',
@@ -12,14 +11,8 @@ export const Actions = {
     SIGN_IN_FROM_OTHER_ACCOUNTS: 'SIGN_UP_SIGN_IN_FROM_OTHER_ACCOUNTS',
     EMAIL_RESET: 'SIGN_UP_EMAIL_RESET',
     SIGN_UP_RESET: 'SIGN_UP_RESET',
-    // PASSWORD_FIELD_PRESSED: 'SIGN_UP_PASSWORD_FIELD_PRESSED',
+    PASSWORD_FIELD_PRESSED: 'SIGN_UP_PASSWORD_FIELD_PRESSED',
 };
-
-export const passwordFieldPressed = () => {
-    return {
-        type: PASSWORD_FIELD_PRESSED,
-    }
-}
 
 export const emailChanged = (email) => {
     return {
@@ -39,13 +32,6 @@ export const repeatedPasswordChanged = (password) => {
     return {
         type: Actions.REPEATED_PASSWORD_CHANGED,
         payload: password
-    }
-};
-
-export const modeChanged = (mode) => {
-    return {
-        type: Actions.MODE_CHANGED,
-        payload: mode
     }
 };
 

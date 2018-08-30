@@ -4,61 +4,45 @@ import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Strings, Colors, PageModes, Fonts} from '../../config';
-import {EmailTextBox, PasswordTextBox, FullStatusBar} from '../../components';
-import {checkEmail, checkPassword} from "../../helpers/Validators";
+import {Strings, Colors, PageModes, Fonts, Addresses} from '../../config';
+import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
 import {
     emailChanged,
     Actions,
     validateEmail,
-    modeChanged,
     passwordChanged,
     repeatedPasswordChanged,
-    passwordFieldPressed,
     reset,
     resetEmail,
 } from './actions';
 import SignUpButton from '../../containers/SignUpButton';
 
 class SignUp extends Component {
-    static navigationOptions = {
-        header: null,
-    };
-
     render() {
         const {SIGN_UP, PASSWORD, REPEAT_PASSWORD} = Strings;
-        const {error} = this.props;
+        const {email, password, repeatedPassword, error, changeEmail, changePassword, resetEmail, changeRepeatedPassword} = this.props;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
+                <CustomStatusBar/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
-                    <FullStatusBar/>
                     <View style={{backgroundColor: Colors.BASE, flex: 1}}>
                         {this.renderLogoSection()}
                         <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                             <View style={{marginLeft: 32, marginRight: 32}}>
-                                <EmailTextBox error={error} reset={() => this.props.resetEmail()}
-                                              value={this.props.email}
-                                              onChangeEmail={(email) => this.onEmailChange(email)}/>
+                                <EmailTextBox error={error} reset={() => resetEmail()}
+                                              value={email}
+                                              onChangeEmail={(email) => changeEmail(email)}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                {/* <Tooltip
-                                    animated
-                                    isVisible={this.props.toolTipVisible}
-                                    content={<Text style={{fontSize: 8}}>Password must contain at least 6 characters, 1 number and 1 letter.</Text>}
-                                    placement="top"
-                                    onClose={() => this.setState({ toolTipVisible: false })}
-                                > */}
-                                <PasswordTextBox onPress={this.props.showPasswordTooltip.bind(this)}
-                                                 placeholder={PASSWORD} value={this.props.password}
-                                                 onChangePassword={(password) => this.onPasswordChange(password)}/>
-                                {/* </Tooltip> */}
+                                <PasswordTextBox placeholder={PASSWORD} value={password}
+                                                 onChangePassword={(password) => changePassword(password)}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox placeholder={REPEAT_PASSWORD} value={this.props.repeatedPassword}
-                                                 onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}/>
+                                <PasswordTextBox placeholder={REPEAT_PASSWORD} value={repeatedPassword}
+                                                 onChangePassword={(repeatedPassword) => changeRepeatedPassword(repeatedPassword)}/>
                             </View>
-                            <SignUpButton onPress={this.onSignUpPress.bind(this)} text={SIGN_UP} icon={'login'}/>
+                            <SignUpButton onPress={() => this.onSignUpPress()} text={SIGN_UP} icon={'login'}/>
                         </View>
                         {this.renderOtherLoginSection()}
                     </View>
@@ -67,13 +51,12 @@ class SignUp extends Component {
         );
     }
 
-
     renderLogoSection() {
         const {APP_NAME} = Strings;
         return (
-            <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
                 <Avatar large containerStyle={{marginBottom: 12}} rounded
-                        source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
+                        source={{uri: Addresses.LOGO}}/>
                 <Text style={styles.text}>{APP_NAME}</Text>
             </View>
         )
@@ -116,51 +99,13 @@ class SignUp extends Component {
         )
     }
 
-    onEmailChange(email) {
-        this.props.changeEmail(email);
-        this.validateEmailLocally(email);
-    }
-
-    onPasswordChange(password) {
-        this.props.changePassword(password);
-        this.validatePasswordLocally(password);
-    }
-
-    onRepeatedPasswordChange(repeatedPassword) {
-        this.props.changeRepeatedPassword(repeatedPassword);
-        this.validateRepeatedPasswordLocally(repeatedPassword);
-    }
-
-    validateEmailLocally(email) {
-        const {repeatedPassword, password} = this.props;
-        this.validate(email, password, repeatedPassword);
-    }
-
-    validatePasswordLocally(password) {
-        const {repeatedPassword, email} = this.props;
-        this.validate(email, password, repeatedPassword);
-    }
-
-    validateRepeatedPasswordLocally(repeatedPassword) {
-        const {password, email} = this.props;
-        this.validate(email, password, repeatedPassword);
-    }
-
-    validate(email, password, repeatedPassword) {
-        if (checkPassword(password) && checkEmail(email) && password === repeatedPassword) {
-            this.props.changeMode(PageModes.NORMAL)
-        } else {
-            this.props.changeMode(PageModes.DISABLED)
-        }
-    }
-
     onSignUpPress() {
-        const {email, password} = this.props;
-        this.props.validateEmail(email)
+        const {email, password, validateEmail, navigation, reset} = this.props;
+        validateEmail(email)
             .then((result) => {
                 if (result.type === Actions.VALIDATE_EMAIL_SUCCESS) {
-                    this.props.navigation.navigate('SignUpComplete', {email, password});
-                    this.props.reset();
+                    navigation.navigate('SignUpComplete', {email, password});
+                    reset();
                 } else {
                     Toast.show({
                         text: Strings.EMAIL_ALREADY_EXISTS,
@@ -173,30 +118,11 @@ class SignUp extends Component {
     }
 
     onReturnToLoginPress() {
-        this.props.navigation.navigate('Login');
-        this.props.reset();
+        const {navigation, reset} = this.props;
+        navigation.navigate('Login');
+        reset();
     }
 }
-
-const mapStateToProps = (state) => ({
-    email: state.signUpPage.email.toLowerCase(),
-    password: state.signUpPage.password,
-    repeatedPassword: state.signUpPage.repeatedPassword,
-    mode: state.signUpPage.mode,
-    error: state.signUpPage.mode === PageModes.ERROR,
-    toolTipVisible: state.signUpPage.toolTipVisible
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    changeEmail: (email) => dispatch(emailChanged(email)),
-    changePassword: (password) => dispatch(passwordChanged(password)),
-    changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
-    changeMode: (mode) => dispatch(modeChanged(mode)),
-    validateEmail: (email) => dispatch(validateEmail(email)),
-    resetEmail: () => dispatch(resetEmail()),
-    showPasswordTooltip: () => dispatch(passwordFieldPressed()),
-    reset: () => dispatch(reset())
-});
 
 const styles = StyleSheet.create({
     text: {
@@ -206,6 +132,23 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignSelf: 'center'
     }
+});
+
+const mapStateToProps = (state) => ({
+    email: state.signUpPage.email.toLowerCase(),
+    password: state.signUpPage.password,
+    repeatedPassword: state.signUpPage.repeatedPassword,
+    mode: state.signUpPage.mode,
+    error: state.signUpPage.mode === PageModes.ERROR,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changeEmail: (email) => dispatch(emailChanged(email)),
+    changePassword: (password) => dispatch(passwordChanged(password)),
+    changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
+    validateEmail: (email) => dispatch(validateEmail(email)),
+    resetEmail: () => dispatch(resetEmail()),
+    reset: () => dispatch(reset())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
