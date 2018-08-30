@@ -3,13 +3,13 @@ import {TouchableOpacity, Animated, Easing} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
 import {Container} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {createStackNavigator, createMaterialTopTabNavigator} from "react-navigation";
+import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation';
 import Home from './home/Home';
 import {Colors} from '../config';
-import Profile from "./profile/Profile";
-import ProfileEdit from "./profileEdit/ProfileEdit";
-import ProfileSettings from "./profileSettings/ProfileSettings";
-import ChangePass from "./changePass/ChangePass";
+import Profile from './profile/Profile';
+import ProfileEdit from './profileEdit/ProfileEdit';
+import ProfileSettings from './profileSettings/ProfileSettings';
+import ChangePass from './changePass/ChangePass';
 
 const profileStack = createStackNavigator({
     Profile: Profile,

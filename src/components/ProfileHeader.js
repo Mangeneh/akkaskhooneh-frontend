@@ -9,9 +9,7 @@ export default class ProfileHeader extends Component {
             <View>
                 <Header androidStatusBarColor={Colors.BASE} style={{backgroundColor: Colors.BASE}}>
                     <Left style={{flex: 1, marginLeft: 16}}>
-                        <TouchableOpacity onPress={() => {
-                            this.props.onEditPress()
-                        }}>
+                        <TouchableOpacity onPress={() => this.props.onEditPress()}>
                             <Text style={{color: 'white', fontFamily: Fonts.NORMAL_FONT}}>{Strings.EDIT}</Text>
                         </TouchableOpacity>
                     </Left>
@@ -23,9 +21,7 @@ export default class ProfileHeader extends Component {
                     }}>{this.props.username}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 16}}>
-                        <TouchableOpacity onPress={() => {
-                            this.props.onSettingsPress()
-                        }}>
+                        <TouchableOpacity onPress={() => this.props.onSettingsPress()}>
                             <Icon type={'MaterialCommunityIcons'} name='ship-wheel' style={{color: 'white'}}/>
                         </TouchableOpacity>
                     </Right>

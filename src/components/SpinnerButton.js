@@ -19,7 +19,7 @@ export default class SpinnerButton extends Component {
     renderButtonContent() {
         const {text, icon, loading} = this.props;
         if (loading) {
-            return (<Spinner color='white'/>)
+            return <Spinner color='white'/>;
         } else {
             return (
                 <View style={{flexDirection: 'row'}}>

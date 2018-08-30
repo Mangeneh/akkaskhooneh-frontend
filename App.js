@@ -6,11 +6,10 @@ import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
 import {Root} from 'native-base';
 import rootReducer from './src/reducers';
-import {Login, SignUp, SignUpComplete, Main, AddPostInfo} from './src/pages';
+import {Login, SignUp, SignUpComplete, Main, AddPostInfo,NewPost} from './src/pages';
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
 import {Actions as SignUpActions} from './src/pages/signUp/actions';
 import {accessTokenUpdated} from './src/actions/UserInfoActions';
-import NewPost from "./src/pages/newPost/NewPost";
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',

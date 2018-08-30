@@ -24,9 +24,7 @@ class AddPostHeader extends Component {
                     }}>{this.props.username}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 16}}>
-                        <TouchableOpacity onPress={() => {
-                            this.props.onSettingsPress()
-                        }}>
+                        <TouchableOpacity onPress={() => this.props.onSettingsPress()}>
                             <Icon type={'MaterialCommunityIcons'} name='ship-wheel' style={{color: 'white'}}/>
                         </TouchableOpacity>
                     </Right>
@@ -36,4 +34,4 @@ class AddPostHeader extends Component {
     }
 }
 
-export default connect(null,null)(AddPostHeader);
+export default connect(null, null)(AddPostHeader);
