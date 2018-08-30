@@ -1,53 +1,38 @@
-import React, {Component,} from 'react';
-import {TouchableOpacity, View, StyleSheet, CameraRoll} from 'react-native'
+import React, {Component} from 'react';
+import {TouchableOpacity, View, StyleSheet} from 'react-native'
 import {Text, Toast} from 'native-base';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
-import {checkEmail, checkPassword} from "../../helpers/Validators";
-import {EmailTextBox, PasswordTextBox, FullStatusBar} from '../../components';
-import {Strings, Colors, PageModes, Fonts} from '../../config';
+import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
+import {Strings, Colors, PageModes, Fonts, Addresses} from '../../config';
 import LoginButton from '../../containers/LoginButton';
-import {
-    emailChanged,
-    Actions,
-    loginUser,
-    modeChanged,
-    passwordChanged,
-    reset,
-    resetPassword,
-    resetEmail
-} from './actions';
+import {emailChanged, Actions, loginUser, passwordChanged, reset, resetPassword, resetEmail} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
 
 class Login extends Component {
-    static navigationOptions = {
-        header: null,
-    };
-
     render() {
         const {ENTER, FORGOT_PASSWORD, PASSWORD} = Strings;
-        const {error, email, password} = this.props;
+        const {error, email, password, changeEmail, changePassword, resetEmail, resetPassword} = this.props;
         return (
             <View style={{flex: 1}}>
-
+                <CustomStatusBar/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
-                    <FullStatusBar/>
                     <View style={{backgroundColor: Colors.BASE, flex: 1}}>
                         {this.renderLogoSection()}
                         <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
                             <View style={{marginLeft: 32, marginRight: 32}}>
                                 <EmailTextBox error={error} value={email}
-                                              onChangeEmail={(email) => this.onEmailChange(email)}
-                                              reset={() => this.props.resetEmail()}/>
+                                              onChangeEmail={(email) => changeEmail(email)}
+                                              reset={() => resetEmail()}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} value={password} placeholder={PASSWORD}
-                                                 onChangePassword={(password) => this.onPasswordChange(password)}
-                                                 reset={() => this.props.resetPassword()}/>
+                                                 onChangePassword={(password) => changePassword(password)}
+                                                 reset={() => resetPassword()}/>
                             </View>
-                            <LoginButton onPress={this.onLoginPress.bind(this)} text={ENTER} icon={'login'}/>
+                            <LoginButton onPress={() => this.onLoginPress()} text={ENTER} icon={'login'}/>
                             <TouchableOpacity style={{marginTop: 24}}>
                                 <Text style={styles.text}>{FORGOT_PASSWORD}</Text>
                             </TouchableOpacity>
@@ -62,11 +47,10 @@ class Login extends Component {
     renderLogoSection() {
         const {APP_NAME} = Strings;
         return (
-            <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
                 <Avatar large rounded containerStyle={{marginBottom: 12}}
-                        source={{uri: 'https://image.freepik.com/vector-gratis/logo-con-diseno-de-camara_1465-19.jpg'}}/>
-                <Text style={styles.text}
-                >{APP_NAME}</Text>
+                        source={{uri: Addresses.LOGO}}/>
+                <Text style={styles.text}>{APP_NAME}</Text>
             </View>
         )
     }
@@ -108,37 +92,9 @@ class Login extends Component {
         )
     }
 
-    onEmailChange(email) {
-        this.props.changeEmail(email);
-        this.validateEmailLocally(email);
-    }
-
-    onPasswordChange(password) {
-        this.props.changePassword(password);
-        this.validatePasswordLocally(password);
-    }
-
-    validateEmailLocally(email) {
-        const {password} = this.props;
-        this.validate(email, password);
-    }
-
-    validatePasswordLocally(password) {
-        const {email} = this.props;
-        this.validate(email, password);
-    }
-
-    validate(email, password) {
-        if (checkPassword(password) && checkEmail(email)) {
-            this.props.changeMode(PageModes.NORMAL)
-        } else {
-            this.props.changeMode(PageModes.DISABLED)
-        }
-    }
-
     onLoginPress() {
-        const {email, password} = this.props;
-        this.props.loginUser(email, password)
+        const {email, password, loginUser} = this.props;
+        loginUser(email, password)
             .then((response) => {
                 if (response.type === Actions.LOGIN_SUCCESS) {
                     this.onSuccess(response);
@@ -149,16 +105,13 @@ class Login extends Component {
     }
 
     onSuccess(response) {
-        CameraRoll.getPhotos({
-            first: 5,
-            assetType: 'All'
-        }).then(r => console.log(r));
         const {access, refresh} = response.payload.data;
-        this.props.setAccessToken(access);
-        this.props.setRefreshToken(refresh);
-        this.props.updateUser();
-        this.props.navigation.navigate('Main');
-        this.props.reset();
+        const {setAccessToken, setRefreshToken, updateUser, navigation, reset} = this.props;
+        setAccessToken(access);
+        setRefreshToken(refresh);
+        updateUser();
+        navigation.navigate('Main');
+        reset();
     }
 
     onFail(response) {
@@ -171,8 +124,9 @@ class Login extends Component {
     }
 
     onSignUpPress() {
-        this.props.navigation.navigate('SignUp');
-        this.props.reset();
+        const {navigation, reset} = this.props;
+        navigation.navigate('SignUp');
+        reset();
     }
 }
 
@@ -196,7 +150,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     changeEmail: (email) => dispatch(emailChanged(email)),
     changePassword: (password) => dispatch(passwordChanged(password)),
-    changeMode: (mode) => dispatch(modeChanged(mode)),
     loginUser: (email, password) => dispatch(loginUser(email, password)),
     setRefreshToken: (refreshToken) => dispatch(refreshTokenSet(refreshToken)),
     setAccessToken: (accessToken) => dispatch(accessTokenSet(accessToken)),
@@ -206,4 +159,4 @@ const mapDispatchToProps = (dispatch) => ({
     reset: () => dispatch(reset())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

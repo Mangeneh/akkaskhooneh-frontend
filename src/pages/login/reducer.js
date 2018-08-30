@@ -1,5 +1,6 @@
 import {Actions} from './actions';
 import {PageModes} from '../../config';
+import {checkEmail, checkPassword} from "../../helpers/Validators";
 
 const INITIAL_STATE = {
     email: 'test@test.com',
@@ -8,12 +9,12 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {EMAIL_CHANGED, LOGIN_RESET, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS,PASSWORD_RESET,EMAIL_RESET} = Actions;
+    const {EMAIL_CHANGED, LOGIN_RESET, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS, PASSWORD_RESET, EMAIL_RESET} = Actions;
     switch (action.type) {
         case EMAIL_CHANGED:
-            return {...state, email: action.payload};
+            return {...state, email: action.payload, mode: validate(action.payload, state.password)};
         case PASSWORD_CHANGED:
-            return {...state, password: action.payload};
+            return {...state, password: action.payload, mode: validate(state.email, action.payload)};
         case MODE_CHANGED:
             return {...state, mode: action.payload};
         case LOGIN:
@@ -23,12 +24,20 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_SUCCESS:
             return {...state, mode: PageModes.SUCCESS};
         case PASSWORD_RESET:
-            return {...state,password:'', mode: PageModes.DISABLED};
+            return {...state, password: '', mode: PageModes.DISABLED};
         case EMAIL_RESET:
-            return {...state,email:'', mode: PageModes.DISABLED};
+            return {...state, email: '', mode: PageModes.DISABLED};
         case LOGIN_RESET:
             return INITIAL_STATE;
         default:
             return state;
+    }
+}
+
+function validate(email, password) {
+    if (checkPassword(password) && checkEmail(email)) {
+        return PageModes.NORMAL;
+    } else {
+        return PageModes.DISABLED;
     }
 }
