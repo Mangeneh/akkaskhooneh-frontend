@@ -1,17 +1,35 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {Icon as PlusIcon} from 'react-native-elements';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {Container} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {createStackNavigator, createMaterialTopTabNavigator} from "react-navigation";
 import Home from './home/Home';
 import {Colors} from '../config';
 import Profile from "./profile/Profile";
-import NavigationService from '../NavigationService';
+import ProfileEdit from "./profileEdit/ProfileEdit";
+import ProfileSettings from "./profileSettings/ProfileSettings";
 
-const Bottom = createMaterialBottomTabNavigator(
+const profileStack = createStackNavigator({
+    Profile: Profile,
+    ProfileEdit: ProfileEdit,
+    ProfileSettings: ProfileSettings,
+}, {
+    initialRouteName: 'Profile',
+    navigationOptions: {
+        header: null,
+    }
+});
+
+profileStack.navigationOptions = ({navigation}) => {
+    return {
+        tabBarVisible: navigation.state.index === 0
+    }
+};
+
+const Bottom = createMaterialTopTabNavigator(
     {
-        Profile: {screen: Profile},
+        Profile: {screen: profileStack},
         NotificationCenter: {screen: Home},
         Nothing: {screen: Home},
         Search: {screen: Home},
@@ -53,24 +71,28 @@ const Bottom = createMaterialBottomTabNavigator(
                 }
             },
         }),
-        labeled: false,
+        tabBarPosition: 'bottom',
         initialRouteName: 'Profile',
-        activeTintColor: '#252384',
-        inactiveTintColor: '#ff1a1e',
-        barStyle: {backgroundColor: '#fff', height: 60},
+        backBehavior : 'none',
+        tabBarOptions: {
+            activeTintColor: 'white',
+            inactiveTintColor: 'white',
+            showLabel: false,
+            showIcon: true,
+            tabStyle: {backgroundColor: '#fff', height: 60},
+            style: {
+                backgroundColor: '#fff',
+            }
+        }
     });
 
 export default class Main extends React.Component {
-    static navigationOptions = {
-        header: null,
-    };
-
     render() {
         return (
-            <Container style={{zIndex: 10}}>
+            <Container>
                 <Bottom/>
                 <TouchableOpacity activeOpacity={0.8} style={{position: 'absolute', alignSelf: 'center', bottom: 20}}
-                                  onPress={() => NavigationService.navigate('NewPost')}>
+                                  onPress={() => this.props.navigation.navigate('NewPost')}>
                     <PlusIcon
                         color={'white'}
                         name={'plus'}

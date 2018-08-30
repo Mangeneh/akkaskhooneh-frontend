@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
 import {View, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import NavigationService from '../../NavigationService';
 import {Colors, Fonts, Strings} from '../../config';
 import {ProfileHeader, SelfProfileInfo, CustomStatusBar} from '../../components';
 import {getPhotosNextPage} from './actions';
@@ -10,10 +9,6 @@ import {getPhotosNextPage} from './actions';
 const WIDTH = Dimensions.get('window').width;
 
 class Profile extends Component {
-    static navigationOptions = {
-        header: null,
-    };
-
     componentDidMount() {
         setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
         this.updatePhotos();
@@ -80,11 +75,11 @@ class Profile extends Component {
     }
 
     onEditPress() {
-        NavigationService.navigate('ProfileEdit');
+        this.props.navigation.navigate('ProfileEdit');
     }
 
     onSettingsPress() {
-        NavigationService.navigate('ProfileSettings');
+        this.props.navigation.navigate('ProfileSettings');
     }
 }
 

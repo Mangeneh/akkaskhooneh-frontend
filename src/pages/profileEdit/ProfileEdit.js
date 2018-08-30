@@ -27,7 +27,7 @@ class ProfileEdit extends Component {
     };
 
     onBackButtonPressAndroid = () => {
-        this.props.navigation.navigate('Main');
+        this.props.navigation.navigate('Profile');
         return true;
     };
 
@@ -104,7 +104,7 @@ class ProfileEdit extends Component {
     }
 
     onBackPress() {
-        this.props.navigation.navigate('Main');
+        this.props.navigation.navigate('Profile');
     }
 
     onSaveChangesPressed() {
@@ -130,7 +130,7 @@ class ProfileEdit extends Component {
             position: 'bottom',
             type: 'success',
             duration: 500,
-            onClose: () => this.props.navigation.navigate('Main')
+            onClose: () => this.props.navigation.navigate('Profile')
         });
     }
 

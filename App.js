@@ -6,22 +6,11 @@ import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
 import {Root} from 'native-base';
 import rootReducer from './src/reducers';
-import {
-    Login,
-    SignUp,
-    SignUpComplete,
-    ProfileEdit,
-    ProfileSettings,
-    ChangePass,
-    NewPost,
-    Main,
-    Profile,
-    AddPostInfo
-} from './src/pages';
+import {Login, SignUp, SignUpComplete, Main, AddPostInfo} from './src/pages';
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
 import {Actions as SignUpActions} from './src/pages/signUp/actions';
-import NavigationService from './src/NavigationService';
 import {accessTokenUpdated} from './src/actions/UserInfoActions';
+import NewPost from "./src/pages/newPost/NewPost";
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140',
@@ -80,14 +69,10 @@ const AuthStack = createStackNavigator({
 const RootStack = createSwitchNavigator({
     AuthStack: AuthStack,
     Main: Main,
-    Profile: Profile,
-    ProfileEdit: ProfileEdit,
-    ProfileSettings: ProfileSettings,
-    ChangePass: ChangePass,
-    NewPost: NewPost,
+    NewPost:NewPost,
     AddPostInfo: AddPostInfo,
 }, {
-    initialRouteName: 'AuthStack',
+    initialRouteName: 'Main',
     navigationOptions: {
         header: null,
     }
@@ -98,11 +83,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <RootStack
-                        ref={navigatorRef => {
-                            NavigationService.setTopLevelNavigator(navigatorRef);
-                        }}
-                    />
+                    <RootStack/>
                 </Provider>
             </Root>
         );

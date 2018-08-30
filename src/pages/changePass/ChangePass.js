@@ -18,10 +18,6 @@ import {
 } from './actions';
 
 class ChangePass extends Component {
-    static navigationOptions = {
-        header: null
-    };
-
     render() {
         const {SAVE_NEW_PASSWORD, NEW_PASSWORD, CURRENT_PASSWORD, REPEAT_NEW_PASSWORD, CHANGE_PASS} = Strings;
         const {error, previousPassword, newPassword, repeatedPassword} = this.props;
