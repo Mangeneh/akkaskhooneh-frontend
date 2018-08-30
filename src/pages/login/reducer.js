@@ -9,14 +9,12 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    const {EMAIL_CHANGED, LOGIN_RESET, PASSWORD_CHANGED, MODE_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS, PASSWORD_RESET, EMAIL_RESET} = Actions;
+    const {EMAIL_CHANGED, LOGIN_RESET, PASSWORD_CHANGED, LOGIN_FAIL, LOGIN, LOGIN_SUCCESS, PASSWORD_RESET, EMAIL_RESET} = Actions;
     switch (action.type) {
         case EMAIL_CHANGED:
             return {...state, email: action.payload, mode: validate(action.payload, state.password)};
         case PASSWORD_CHANGED:
             return {...state, password: action.payload, mode: validate(state.email, action.payload)};
-        case MODE_CHANGED:
-            return {...state, mode: action.payload};
         case LOGIN:
             return {...state, mode: PageModes.LOADING};
         case LOGIN_FAIL:
