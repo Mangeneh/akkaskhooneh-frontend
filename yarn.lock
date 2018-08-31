@@ -4415,6 +4415,10 @@ react-native-camera-roll-picker@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-1.2.3.tgz#b117fd3a2b9012dcccee1261a9bc427226b8d6d2"
 
+react-native-contacts@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-2.2.3.tgz#7b229d484f41a4ed1dd6cd186dc6106c9a5edfcd"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"

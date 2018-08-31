@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-contacts')
     compile project(":rncamerakit")
     compile project(':react-native-camera-kit')
     compile project(':react-native-image-crop-picker')
