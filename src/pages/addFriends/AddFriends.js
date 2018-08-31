@@ -10,12 +10,13 @@ class AddFriends extends Component {
 
     constructor(props) {
         super(props);
-        Contacts.getAll((err, contacts) => {
+        this.state = {contacts: []};
+        Contacts.getAllWithoutPhotos((err, contacts) => {
             if (err) throw err;
             // contacts returned
+            this.setContacts(contacts);
             console.log(contacts);
-            this.contacts = contacts;
-        })
+        });
     }
 
     render() {
@@ -37,12 +38,11 @@ class AddFriends extends Component {
                         <Icon name="ios-search"/>
                     </Item>
                 </View>
-                <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
+                <View style={{backgroundColor: Colors.WHITE_BACK}}>
                     <FlatList
-                        style={{width: '100%', marginTop: 8}}
-                        numColumns={2}
-                        keyExtractor={(item, index) => item.id}
-                        data={this.contacts}
+                        style={{width: '100%'}}
+                        keyExtractor={(item, index) => item.recordID}
+                        data={this.state.contacts}
                         renderItem={({item, index}) => this.renderContact(item, index)}
                     />
                 </View>
@@ -51,7 +51,22 @@ class AddFriends extends Component {
     }
 
     renderContact(item, index) {
+        return (
+            <View style={{flexDirection: 'row'}}>
+                <View style={{flex:1,justifyContent: 'flex-start'}}>
+                    <Button>
+                        <Text style={{fontFamily: Fonts.NORMAL_FONT}}>{Strings.INVITE}</Text>
+                    </Button>
+                </View>
+                <View style={{flex:1,justifyContent: 'center',alignItems: 'flex-end'}}>
+                    <Text>{`${item.givenName} ${item.familyName}`}</Text>
+                </View>
+            </View>
+        );
+    }
 
+    setContacts(contacts) {
+        this.setState({contacts});
     }
 }
 
