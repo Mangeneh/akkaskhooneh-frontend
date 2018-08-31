@@ -9,5 +9,19 @@ import NewPost from './newPost/NewPost';
 import Home from './home/Home';
 import AddPostInfo from './addPostInfo/AddPostInfo'
 import Main from './Main';
+import AddFriends from './addFriends/AddFriends';
 
-export {Login, SignUp, SignUpComplete, Profile, ProfileEdit, ProfileSettings, ChangePass, NewPost, Home, Main, AddPostInfo};
+export {
+    Login,
+    SignUp,
+    SignUpComplete,
+    Profile,
+    ProfileEdit,
+    ProfileSettings,
+    ChangePass,
+    NewPost,
+    Home,
+    Main,
+    AddPostInfo,
+    AddFriends
+};

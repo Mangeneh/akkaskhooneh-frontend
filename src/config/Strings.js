@@ -42,4 +42,6 @@ export const Strings = {
     ADD_TAG: 'اضافه کردن تگ',
     ADD_POST: 'ارسال پست',
     NEXT_LEVEL: 'مرحله بعد',
+    INVITE_FRIENDS: 'دعوت از دوستان',
+    SEARCH_CONTACT: 'جستجوی مخاطب'
 };

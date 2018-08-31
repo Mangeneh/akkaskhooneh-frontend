@@ -9,9 +9,7 @@ export default class BackHeader extends Component {
             <View>
                 <Header androidStatusBarColor={Colors.BASE} style={{backgroundColor: Colors.BASE}}>
                     <Left style={{flex: 1, marginLeft: 16}}>
-                        <TouchableOpacity onPress={() => {
-                            this.props.onBackPress()
-                        }}>
+                        <TouchableOpacity onPress={() => this.props.onBackPress()}>
                             <Icon type={'Ionicons'} name='ios-arrow-back' style={{color: 'white'}}/>
                         </TouchableOpacity>
                     </Left>
