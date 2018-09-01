@@ -80,41 +80,46 @@ class SignUp extends Component {
                 <TouchableOpacity>
                     <SocialIcon
                         light
-                        type='facebook'
-                    />
+                        type='facebook'/>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <SocialIcon
                         light
-                        type='google'
-                    />
+                        type='google'/>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <SocialIcon
                         light
-                        type='twitter'
-                    />
+                        type='twitter'/>
                 </TouchableOpacity>
             </View>
         )
     }
 
     onSignUpPress() {
-        const {email, password, validateEmail, navigation, reset} = this.props;
-        validateEmail(email)
-            .then((result) => {
-                if (result.type === Actions.VALIDATE_EMAIL_SUCCESS) {
-                    navigation.navigate('SignUpComplete', {email, password});
-                    reset();
-                } else {
-                    Toast.show({
-                        text: Strings.EMAIL_ALREADY_EXISTS,
-                        textStyle: {textAlign: 'center'},
-                        position: 'bottom',
-                        type: 'danger'
-                    });
-                }
+        const {email} = this.props;
+        this.props.validateEmail(email)
+            .then((response) => {
+                this.onSuccess();
+            })
+            .catch((error) => {
+                this.onFail(error);
             });
+    }
+
+    onSuccess() {
+        const {email,password} = this.props;
+        this.props.navigation.navigate('SignUpComplete', {email, password});
+        this.props.reset();
+    }
+
+    onFail(error) {
+        Toast.show({
+            text: Strings.EMAIL_ALREADY_EXISTS,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'danger'
+        });
     }
 
     onReturnToLoginPress() {

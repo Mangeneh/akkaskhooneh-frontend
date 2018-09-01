@@ -1,5 +1,6 @@
 import {Actions} from './actions';
 import {PageModes} from '../../config';
+import {checkUsername} from "../../helpers";
 
 const INITIAL_STATE = {
     mode: PageModes.NORMAL,
@@ -17,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
         case IMAGE_CHANGED:
             return {...state, image: action.payload};
         case USER_NAME_CHANGED:
-            return {...state, username: action.payload};
+            return {...state, username: action.payload, mode: validate(action.payload)};
         case BIO_CHANGED:
             return {...state, bio: action.payload};
         case FULL_NAME_CHANGED:
@@ -32,5 +33,13 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         default:
             return state;
+    }
+}
+
+function validate(username) {
+    if (checkUsername(username)) {
+        return PageModes.NORMAL;
+    } else {
+        return PageModes.DISABLED;
     }
 }

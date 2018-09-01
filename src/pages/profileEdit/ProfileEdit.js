@@ -9,8 +9,9 @@ import FormData from 'form-data';
 import {Strings, Colors, Constants, Fonts} from '../../config';
 import {CustomLongTextBox, BackHeader, CustomStatusBar} from '../../components';
 import SaveChangesButton from '../../containers/SaveChangesButton';
-import {editProfile, Actions, changeProfilePic, normalize} from './actions';
+import {editProfile, changeProfilePic, normalize} from './actions';
 import {userUpdated} from '../../actions/UserInfoActions';
+import {extractImageSource} from "../../helpers";
 
 class ProfileEdit extends Component {
     state = {
@@ -96,16 +97,15 @@ class ProfileEdit extends Component {
     onSaveChangesPressed() {
         this.props.editProfile(this.state.fullName, this.state.bio)
             .then((response) => {
-                if (response.type === Actions.EDIT_PROFILE_SUCCESS) {
-                    if (this.state.imageFile !== null) {
-                        this.changeImage();
-                    } else {
-                        this.onSuccess();
-                    }
+                if (this.state.imageFile !== null) {
+                    this.changeImage();
                 } else {
-                    this.onFail();
+                    this.onSuccess();
                 }
             })
+            .catch((error) => {
+                this.onFail();
+            });
     }
 
     onSuccess() {
@@ -140,10 +140,10 @@ class ProfileEdit extends Component {
                 cancelButtonIndex: CANCEL_INDEX,
             },
             buttonIndex => {
-                if (buttonIndex == 0) {
+                if (buttonIndex === 0) {
                     this.onOpenCameraPress()
                 }
-                if (buttonIndex == 1) {
+                if (buttonIndex === 1) {
                     this.onChooseFromGalleryPress()
                 }
             })
@@ -151,22 +151,22 @@ class ProfileEdit extends Component {
 
     onChooseFromGalleryPress() {
         ImagePicker.openPicker({
-            width: 300,
-            height: 300,
+            width: Constants.IMAGE_SIZE,
+            height: Constants.IMAGE_SIZE,
             cropping: true
         }).then(image => {
-            const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+            const imageSource = extractImageSource(image);
             this.setState({imageFile: image, imageSource});
         });
     }
 
     onOpenCameraPress() {
         ImagePicker.openCamera({
-            width: 300,
-            height: 300,
+            width: Constants.IMAGE_SIZE,
+            height: Constants.IMAGE_SIZE,
             cropping: true
         }).then(image => {
-            const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+            const imageSource = extractImageSource(image);
             this.setState({imageFile: image, imageSource});
         });
     }
@@ -181,11 +181,10 @@ class ProfileEdit extends Component {
         });
         this.props.changeProfilePic(formData)
             .then((response) => {
-                if (response.type === Actions.CHANGE_PROFILE_PIC_SUCCESS) {
-                    this.onSuccess();
-                } else {
-                    this.onFail();
-                }
+                this.onSuccess();
+            })
+            .catch((error) => {
+                this.onFail();
             });
     }
 }

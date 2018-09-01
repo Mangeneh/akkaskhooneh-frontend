@@ -1,33 +1,27 @@
 import React, {Component,} from 'react';
 import {Item, Input, ActionSheet, Icon, Toast} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native'
+import {View, TouchableOpacity, StyleSheet} from 'react-native'
 import {connect} from 'react-redux';
 import {Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {CustomLongTextBox, BackHeader,FullStatusBar} from '../../components';
-import {Strings, Colors, Constants, PageModes, Fonts} from '../../config';
+import ImagePicker from 'react-native-image-crop-picker';
+import {CustomLongTextBox, BackHeader, FullStatusBar} from '../../components';
+import {Strings, Colors, Constants, Fonts, Addresses} from '../../config';
 import SignUpCompleteButton from '../../containers/SignUpCompleteButton';
 import {
-    modeChanged,
     signUpUser,
     bioChanged,
-    Actions,
     fullNameChanged,
     usernameChanged,
     reset,
     imageChanged
 } from './actions';
 import {accessTokenSet, refreshTokenSet, userUpdated} from '../../actions/UserInfoActions';
-import ImagePicker from 'react-native-image-crop-picker';
-import {checkUsername} from "../../helpers/Validators";
+import {extractImageSource} from "../../helpers";
 
 class SignUpComplete extends Component {
-    static navigationOptions = {
-        header: null,
-    };
-
     render() {
-        const {username, bio, fullName} = this.props;
+        const {username, bio, fullName, changeUsername, changeFullName, changeBio} = this.props;
         const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
@@ -41,7 +35,7 @@ class SignUpComplete extends Component {
                             style={styles.avatar} onPress={this.onChooseImagePress.bind(this)}>
                             <Avatar rounded large containerStyle={{alignSelf: 'center'}}
                                     icon={{name: 'camera', type: 'Feather'}}
-                                    source={{uri: this.props.image === null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9n0_3cEO-YFRPdAicSd0HlrwafnECzagpAXiRBFYgUZ6vaYkatQ' : this.props.image}}/>
+                                    source={{uri: this.props.image === null ? Addresses.CHOOSE_AVATAR : this.props.image}}/>
                         </TouchableOpacity>
                         <View style={{flex: 1, justifyContent: 'center'}}>
                             <Item style={styles.item} rounded>
@@ -49,7 +43,7 @@ class SignUpComplete extends Component {
                                        fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}
                                        value={username}
-                                       onChangeText={(username) => this.onUsernameChange(username)}
+                                       onChangeText={(username) => changeUsername(username)}
                                 />
                             </Item>
                             <Item style={styles.item} rounded>
@@ -57,7 +51,7 @@ class SignUpComplete extends Component {
                                        fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}
                                        value={fullName}
-                                       onChangeText={(fullName) => this.onFullNameChange(fullName)}
+                                       onChangeText={(fullName) => changeFullName(fullName)}
                                 />
                             </Item>
                             <Item style={styles.item} rounded disabled>
@@ -71,7 +65,7 @@ class SignUpComplete extends Component {
                                 <CustomLongTextBox placeholder={ABOUT_YOU}
                                                    style={styles.input}
                                                    value={bio}
-                                                   onChangeText={(bio) => this.onBioChange(bio)}/>
+                                                   onChangeText={(bio) => changeBio(bio)}/>
                             </Item>
                         </View>
                         <View style={{flex: 1, justifyContent: 'center'}}>
@@ -85,17 +79,15 @@ class SignUpComplete extends Component {
     }
 
     onSaveChangesPress() {
-        this.props.changeMode(PageModes.LOADING);
         const email = this.props.navigation.getParam('email');
         const password = this.props.navigation.getParam('password');
         const {username, fullName, bio} = this.props;
         this.props.signUpUser(email, password, username, fullName, bio)
             .then((response) => {
-                if (response.type === Actions.SIGN_UP_SUCCESS) {
-                    this.onSuccess(response);
-                } else {
-                    this.onFail();
-                }
+                this.onSuccess(response);
+            })
+            .catch((error) => {
+                this.onFail();
             });
     }
 
@@ -107,30 +99,13 @@ class SignUpComplete extends Component {
         this.props.navigation.navigate('Main');
     }
 
-    onFail(response) {
+    onFail(error) {
         Toast.show({
             text: Strings.SIGN_UP_FAIL,
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'
         });
-    }
-
-    onUsernameChange(username) {
-        this.props.changeUsername(username);
-        if (checkUsername(username)) {
-            this.props.changeMode(PageModes.NORMAL);
-        } else {
-            this.props.changeMode(PageModes.DISABLED);
-        }
-    }
-
-    onFullNameChange(fullName) {
-        this.props.changeFullName(fullName);
-    }
-
-    onBioChange(bio) {
-        this.props.changeBio(bio);
     }
 
     onChooseImagePress() {
@@ -144,10 +119,10 @@ class SignUpComplete extends Component {
                 cancelButtonIndex: CANCEL_INDEX,
             },
             buttonIndex => {
-                if (buttonIndex == 0) {
+                if (buttonIndex === 0) {
                     this.onOpenCameraPress()
                 }
-                if (buttonIndex == 1) {
+                if (buttonIndex === 1) {
                     this.onChooseFromGalleryPress()
                 }
             })
@@ -155,22 +130,23 @@ class SignUpComplete extends Component {
 
     onChooseFromGalleryPress() {
         ImagePicker.openPicker({
-            width: 300,
-            height: 400,
+            width: Constants.IMAGE_SIZE,
+            height: Constants.IMAGE_SIZE,
             cropping: true
         }).then(image => {
-            let imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+            let imageSource = extractImageSource(image);
             this.props.changeImage(imageSource);
         });
     }
 
     onOpenCameraPress() {
         ImagePicker.openCamera({
-            width: 300,
-            height: 400,
+            width: Constants.IMAGE_SIZE,
+            height: Constants.IMAGE_SIZE,
             cropping: true
         }).then(image => {
-            this.props.changeImage(image.sourceURL);
+            let imageSource = extractImageSource(image);
+            this.props.changeImage(imageSource);
         });
     }
 }
@@ -205,7 +181,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    changeMode: (mode) => dispatch(modeChanged(mode)),
     changeUsername: (username) => dispatch(usernameChanged(username)),
     changeBio: (bio) => dispatch(bioChanged(bio)),
     changeImage: (image) => dispatch(imageChanged(image)),

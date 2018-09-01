@@ -11,7 +11,6 @@ import {
     newPasswordChanged,
     repeatedPasswordChanged,
     changePassword,
-    Actions,
     reset,
 } from './actions';
 
@@ -69,11 +68,10 @@ class ChangePass extends Component {
         const {previousPassword, newPassword} = this.props;
         this.props.changePassword(previousPassword, newPassword)
             .then((result) => {
-                if (result.type === Actions.CHANGE_PASS_SUCCESS) {
-                    this.onSuccess();
-                } else {
-                    this.onFail();
-                }
+                this.onSuccess();
+            })
+            .catch((error) => {
+                this.onFail();
             });
     }
 
