@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
 import {Strings, Colors, PageModes, Fonts, Addresses} from '../../config';
 import LoginButton from '../../containers/LoginButton';
-import {emailChanged, Actions, loginUser, passwordChanged, reset, resetPassword, resetEmail} from './actions';
+import {emailChanged, loginUser, passwordChanged, reset, resetPassword, resetEmail} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
 
 class Login extends Component {
@@ -73,48 +73,43 @@ class Login extends Component {
                 <TouchableOpacity>
                     <SocialIcon
                         light
-                        type='facebook'
-                    />
+                        type='facebook'/>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <SocialIcon
                         light
-                        type='google'
-                    />
+                        type='google'/>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <SocialIcon
                         light
-                        type='twitter'
-                    />
+                        type='twitter'/>
                 </TouchableOpacity>
             </View>
         )
     }
 
     onLoginPress() {
-        const {email, password, loginUser} = this.props;
-        loginUser(email, password)
+        const {email, password} = this.props;
+        this.props.loginUser(email, password)
             .then((response) => {
-                if (response.type === Actions.LOGIN_SUCCESS) {
-                    this.onSuccess(response);
-                } else {
-                    this.onFail(response);
-                }
+                this.onSuccess(response);
+            })
+            .catch((error) => {
+                this.onFail(error);
             });
     }
 
     onSuccess(response) {
         const {access, refresh} = response.payload.data;
-        const {setAccessToken, setRefreshToken, updateUser, navigation, reset} = this.props;
-        setAccessToken(access);
-        setRefreshToken(refresh);
-        updateUser();
-        navigation.navigate('Main');
-        reset();
+        this.props.setAccessToken(access);
+        this.props.setRefreshToken(refresh);
+        this.props.updateUser();
+        this.props.navigation.navigate('Main');
+        this.props.reset();
     }
 
-    onFail(response) {
+    onFail(error) {
         Toast.show({
             text: Strings.WRONG_CREDENTIALS,
             textStyle: {textAlign: 'center'},
@@ -124,9 +119,8 @@ class Login extends Component {
     }
 
     onSignUpPress() {
-        const {navigation, reset} = this.props;
-        navigation.navigate('SignUp');
-        reset();
+        this.props.navigation.navigate('SignUp');
+        this.props.reset();
     }
 }
 
