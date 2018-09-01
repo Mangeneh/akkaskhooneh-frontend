@@ -17,7 +17,7 @@ import {
     imageChanged
 } from './actions';
 import {accessTokenSet, refreshTokenSet, userUpdated} from '../../actions/UserInfoActions';
-import {extractImageSource} from "../../helpers";
+import { extractImageSource} from "../../helpers";
 
 class SignUpComplete extends Component {
     render() {

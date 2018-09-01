@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Colors, PageModes} from '../config';
 
-const ButtonStyle = StyleSheet.create({
+export const ButtonStyle = StyleSheet.create({
     normalStyle: {
         alignSelf: 'center',
         marginRight: 32, marginLeft: 32, marginTop: 16,
