@@ -45,9 +45,7 @@ class NewPost extends Component {
                             <CameraRollPicker selectSingleItem={true}
                                               callback={this.getSelectedImages}
                                               backgroundColor={Colors.LIGHT_GRAY}
-                            >
-                                const image = await this.camera.capture(true);
-                            </CameraRollPicker >
+                            />
 
                         </View>
                     </SlidingUpPanel>
@@ -66,7 +64,6 @@ class NewPost extends Component {
 
     async onCameraScreenPress() {
         const image = await this.camera.capture(true);
-        console.warn('HELLO');
         if (image !== null) {
           console.warn('Success!')
         }
@@ -97,8 +94,8 @@ class NewPost extends Component {
 
     onNextPress() {
         const {selectedPics} = this.props;
-        this.props.selectPic(selectedPics),
-            this.props.navigation.navigate('AddPostInfo');
+        this.props.selectPic(selectedPics);
+        this.props.navigation.navigate('AddPostInfo');
     }
 }
 

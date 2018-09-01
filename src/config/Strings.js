@@ -44,6 +44,8 @@ export const Strings = {
     NEXT_LEVEL: 'مرحله بعد',
     INVITE_FRIENDS: 'دعوت از دوستان',
     SEARCH_CONTACT: 'جستجوی مخاطب',
-    INVITE:'دعوت',
+    INVITE: 'دعوت',
+    SAVE_POST_INFO: 'ثبت توضیحات',
+    POST_INFO: 'توضیحات عکس',
 
 };
