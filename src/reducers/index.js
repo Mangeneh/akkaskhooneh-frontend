@@ -18,5 +18,5 @@ export default combineReducers({
     signUpCompletePage: SignUpCompletePageReducer,
     changePassPage: ChangePassPageReducer,
     newPostPage: NewPostReducer,
-    AddPostInfoPage: AddPostInfoReducer, 
+    addPostInfoPage: AddPostInfoReducer, 
 });

@@ -5,15 +5,15 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, PageModes} from '../../config';
 import {BackHeader, PasswordTextBox, CustomStatusBar, CustomLongTextBox} from '../../components';
-import ChangePassButton from '../../containers/ChangePassButton';
-import {
-    Actions,
-} from './actions';
+import TagInput from 'react-native-tag-input';
 import SendPostButton from '../../containers/SendPostButton';
+import {userUpdated} from '../../actions/UserInfoActions';
+import {Actions} from './actions';
+
 
 const WIDTH = Dimensions.get('window').width;
 
-export default class AddPostInfo extends Component {
+class AddPostInfo extends Component {
     render() {
         const {SAVE_POST_INFO, LOCATION, ADD_TAGS, SEND_POST} = Strings;
         return (
@@ -50,6 +50,13 @@ export default class AddPostInfo extends Component {
                                     </TouchableOpacity>
                                 </Right>
                             </Item>
+
+                            {/* <TagInput
+                                placeholder={ADD_TAGS}
+                                value={this.state.currentTag}
+                                labelExtractor={(tag) => tag}
+                                onChangeTag={(tag) => changeTag(tag)}
+                            /> */}
 
                         </View>
 
@@ -93,3 +100,15 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     }
 });
+
+const mapStateToProps = (state) => ({
+    mode: state.addPostInfoPage.mode,
+    tags: state.addPostInfoPage.tags,
+    currentTag: state.addPostInfoPage.currentTag,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    updateUser: () => dispatch(userUpdated()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPostInfo)
