@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Toast, Icon, Input} from 'native-base';
-import {View, Dimensions, Image, StyleSheet, Text} from 'react-native'
+import {Item, Toast, Icon, Input, Left, Right} from 'native-base';
+import {View, Dimensions, Image, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors, PageModes} from '../../config';
@@ -22,11 +22,42 @@ export default class AddPostInfo extends Component {
                                          contentContainerStyle={{flexGrow: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
                         <CustomStatusBar/>
-                        <View style={{flex: 1}}>
+                        <View style={{flex: 1, backgroundColor: 'white'}}>
                             {this.renderImageWithCaption()}
+                            <Item style={{backgroundColor: 'white'}}>
+                                <Left>
+                                    <TouchableOpacity>
+                                        <Icon type={'Ionicons'} name='ios-arrow-back'
+                                                style={{color: Colors.ACCENT}}/>
+                                    </TouchableOpacity>
+                                </Left>
+                                <Right>
+                                    <TouchableOpacity>
+                                        <Text style={styles.text}>
+                                            'Location'
+                                        </Text>
+                                    </TouchableOpacity>
+                                </Right>
+                            </Item>
+
+                            <Item style={{backgroundColor: 'white'}}>
+                                <Left>
+                                    <TouchableOpacity>
+                                        <Icon type={'Ionicons'} name='ios-arrow-back'
+                                                style={{color: Colors.ACCENT}}/>
+                                    </TouchableOpacity>
+                                </Left>
+                                <Right>
+                                    <TouchableOpacity>
+                                        <Text style={styles.text}>
+                                            'Tags'
+                                        </Text>
+                                    </TouchableOpacity>
+                                </Right>
+                            </Item>
 
                         </View>
-                        <View style={{flex: 6}}></View>
+
                     </View>
                 </KeyboardAwareScrollView>
             </View>
@@ -39,7 +70,7 @@ export default class AddPostInfo extends Component {
             <View style={styles.photo}>
                 <View style = {{flex: 3}}>
                     <CustomLongTextBox placeholder={POST_INFO}
-                        style={{borderRadius: 10, textAlign: 'right', fontSize: 10,  backgroundColor: 'white', height: 100, marginRight: 10, marginLeft: 10}} />
+                        style={{borderRadius: 10, textAlign: 'right', fontSize: 10,  backgroundColor: Colors.LIGHT_GRAY, height: 100, marginRight: 10, marginLeft: 10}} />
                 </View>
 
                 <Image source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwB5xYYex1ai-Ij9AbbbD6m7wx068Wlx2ikZH0q0TBFuq-cMWv'}} resizeMode={'stretch'}
