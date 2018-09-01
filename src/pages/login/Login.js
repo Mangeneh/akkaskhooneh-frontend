@@ -4,6 +4,7 @@ import {Text, Toast} from 'native-base';
 import {SocialIcon, Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
+import {strings} from '../../i18n';
 import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
 import {Strings, Colors, PageModes, Fonts, Addresses} from '../../config';
 import LoginButton from '../../containers/LoginButton';
@@ -45,12 +46,11 @@ class Login extends Component {
     }
 
     renderLogoSection() {
-        const {APP_NAME} = Strings;
         return (
             <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-                <Avatar large rounded containerStyle={{marginBottom: 12}}
+                <Avatar large rounded containerStyle={{marginBottom: 12, alignSelf: 'center'}}
                         source={{uri: Addresses.LOGO}}/>
-                <Text style={styles.text}>{APP_NAME}</Text>
+                <Text style={styles.text}>{strings('app_name')}</Text>
             </View>
         )
     }

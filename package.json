@@ -17,6 +17,7 @@
     "react-native-camera-roll-picker": "^1.2.3",
     "react-native-contacts": "^2.2.3",
     "react-native-elements": "^0.19.1",
+    "react-native-i18n": "^2.0.15",
     "react-native-image-crop-picker": "^0.21.1",
     "react-native-keyboard-aware-scroll-view": "latest",
     "react-native-material-bottom-navigation": "^1.0.0",
