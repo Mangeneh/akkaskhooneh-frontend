@@ -49,4 +49,5 @@ export const Strings = {
     POST_INFO: 'توضیحات عکس',
     LOCATION: 'موقعیت',
     ADD_TAGS: 'اضافه کردن تگ',
+    SEND_POST: 'ارسال پست',
 };

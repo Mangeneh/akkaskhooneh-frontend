@@ -91,7 +91,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <AddPostInfo/>
+                    <RootStack/>
                 </Provider>
             </Root>
         );

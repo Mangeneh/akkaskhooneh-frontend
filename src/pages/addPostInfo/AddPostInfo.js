@@ -9,12 +9,13 @@ import ChangePassButton from '../../containers/ChangePassButton';
 import {
     Actions,
 } from './actions';
+import SendPostButton from '../../containers/SendPostButton';
 
 const WIDTH = Dimensions.get('window').width;
 
 export default class AddPostInfo extends Component {
     render() {
-        const {SAVE_POST_INFO, LOCATION, ADD_TAGS} = Strings;
+        const {SAVE_POST_INFO, LOCATION, ADD_TAGS, SEND_POST} = Strings;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={SAVE_POST_INFO}/>
@@ -50,6 +51,10 @@ export default class AddPostInfo extends Component {
                                 </Right>
                             </Item>
 
+                        </View>
+
+                        <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
+                            <SendPostButton style={{position: 'absolute', alignSelf: 'center'}} text={SEND_POST}/>
                         </View>
 
                     </View>
