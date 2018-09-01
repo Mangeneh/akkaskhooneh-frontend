@@ -80,7 +80,7 @@ const RootStack = createSwitchNavigator({
     Main: Main,
     NewPostStack: NewPostStack,
 }, {
-    initialRouteName: 'NewPostStack',
+    initialRouteName: 'AuthStack',
     navigationOptions: {
         header: null,
     }
@@ -91,7 +91,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <NewPostStack/>
+                    <RootStack/>
                 </Provider>
             </Root>
         );
