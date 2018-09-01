@@ -75,10 +75,19 @@ const NewPostStack = createStackNavigator({
     }
 });
 
-const RootStack = createSwitchNavigator({
-    AuthStack: AuthStack,
+const Inside = createStackNavigator({
     Main: Main,
     NewPostStack: NewPostStack,
+}, {
+    initialRouteName: 'Main',
+    navigationOptions: {
+        header: null,
+    }
+});
+
+const RootStack = createSwitchNavigator({
+    AuthStack: AuthStack,
+    Inside: Inside
 }, {
     initialRouteName: 'AuthStack',
     navigationOptions: {
