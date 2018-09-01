@@ -174,7 +174,6 @@ class ProfileEdit extends Component {
     changeImage() {
         const {imageSource, imageFile} = this.state;
         const formData = new FormData();
-        console.log(this.state);
         formData.append('profile_picture', {
             uri: imageSource, // your file path string
             name: 'my_photo.jpg',

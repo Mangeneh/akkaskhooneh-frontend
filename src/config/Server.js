@@ -7,5 +7,6 @@ export const Server = {
     LOGIN_USER: '/auth/login/',
     GET_PHOTOS_NEXT_PAGE: '/social/pictures/?page=',
     CHECK_EMAIL: '/auth/checkemail/',
-    SIGN_UP_USER:'/auth/register/'
+    SIGN_UP_USER: '/auth/register/',
+    SEND_POST: '/social/create-new-post/'
 };

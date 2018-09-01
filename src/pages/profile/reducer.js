@@ -11,10 +11,8 @@ export default (state = INITIAL_STATE, action) => {
     const {GET_PHOTOS_NEXT_PAGE_SUCCESS, GET_PHOTOS_NEXT_PAGE} = Actions;
     switch (action.type) {
         case GET_PHOTOS_NEXT_PAGE:
-            console.log(action);
             return {...state, fetchStatus: true};
         case GET_PHOTOS_NEXT_PAGE_SUCCESS:
-            console.warn(action);
             return {
                 ...state,
                 photosNext: state.photosNext+1,

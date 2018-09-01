@@ -9,6 +9,15 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case Actions.SEND_POST:
+            console.log(action);
+            return state;
+        case Actions.SEND_POST_FAIL:
+            console.log(action);
+            return state;
+        case Actions.SEND_POST_SUCCESS:
+            console.log(action);
+            return state;
         default:
             return state;
     }

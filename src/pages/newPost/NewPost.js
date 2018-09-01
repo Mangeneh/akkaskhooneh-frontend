@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Button, Text} from 'native-base';
 import {View, Dimensions, TouchableOpacity, Platform} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {CameraKitCamera} from 'react-native-camera-kit';
@@ -7,7 +8,6 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
 import ImagePicker from "react-native-image-crop-picker";
 import {Strings, Colors} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
-import ChoosePhotoButton from '../../containers/ChoosePhotoButton';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -76,8 +76,10 @@ export default class NewPost extends Component {
         if (this.state.hasChosen) {
             return (
                 <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
-                    <ChoosePhotoButton style={{position: 'absolute', alignSelf: 'center'}} text={Strings.NEXT_LEVEL}
-                                       onPress={() => this.continue()}/>
+                    <Button style={{position: 'absolute', alignSelf: 'center'}}
+                            onPress={() => this.continue()}>
+                        <Text>{Strings.NEXT_LEVEL}</Text>
+                    </Button>
                 </View>
             )
         }
@@ -87,6 +89,7 @@ export default class NewPost extends Component {
         if (image.length === 0) {
             this.setState({hasChosen: false});
         } else {
+            console.log(image);
             this.setState({imageSource: image[0].uri, hasChosen: true});
         }
     }

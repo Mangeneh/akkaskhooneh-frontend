@@ -3,12 +3,12 @@ import {Item, Toast, Icon, Input, Left, Right} from 'native-base';
 import {View, Dimensions, Image, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
-import {Strings, Colors, PageModes} from '../../config';
-import {BackHeader, PasswordTextBox, CustomStatusBar, CustomLongTextBox} from '../../components';
+import {Strings, Colors} from '../../config';
+import {BackHeader, CustomStatusBar, CustomLongTextBox} from '../../components';
 import TagInput from 'react-native-tag-input';
 import SendPostButton from '../../containers/SendPostButton';
-import {userUpdated} from '../../actions/UserInfoActions';
-import {Actions} from './actions';
+import {Actions,sendPost} from './actions';
+import FormData from "form-data";
 
 
 const WIDTH = Dimensions.get('window').width;
@@ -61,7 +61,7 @@ class AddPostInfo extends Component {
                         </View>
 
                         <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
-                            <SendPostButton style={{position: 'absolute', alignSelf: 'center'}} text={SEND_POST}/>
+                            <SendPostButton style={{position: 'absolute', alignSelf: 'center'}} text={SEND_POST} onPress={()=>this.SendPost()}/>
                         </View>
 
                     </View>
@@ -79,7 +79,7 @@ class AddPostInfo extends Component {
                         style={{borderRadius: 10, textAlign: 'right', fontSize: 10,  backgroundColor: Colors.LIGHT_GRAY, height: 100, marginRight: 10, marginLeft: 10}} />
                 </View>
 
-                <Image source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwB5xYYex1ai-Ij9AbbbD6m7wx068Wlx2ikZH0q0TBFuq-cMWv'}} resizeMode={'stretch'}
+                <Image source={{uri: this.props.navigation.getParam('imageSource')}} resizeMode={'stretch'}
                    style={{borderRadius: 10, width: 100, height: 100, flex: 1, marginRight: 8 }}/>
             </View>
         )
@@ -87,6 +87,16 @@ class AddPostInfo extends Component {
 
     onBackPress() {
         this.props.navigation.goBack();
+    }
+
+    SendPost() {
+        const formData = new FormData();
+        formData.append('picture', {
+            uri: this.props.navigation.getParam('imageSource'), // your file path string
+            name: 'my_photo.jpg',
+            type: 'image/jpeg'
+        });
+        this.props.sendPost(formData);
     }
 }
 
@@ -108,7 +118,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    updateUser: () => dispatch(userUpdated()),
+    sendPost: (post) => dispatch(sendPost(post)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostInfo)
