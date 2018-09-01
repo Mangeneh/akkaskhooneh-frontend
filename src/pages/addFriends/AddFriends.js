@@ -10,10 +10,9 @@ class AddFriends extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {contacts: []};
+        this.state = {selectedContacts: []};
         Contacts.getAllWithoutPhotos((err, contacts) => {
             if (err) throw err;
-            // contacts returned
             this.setContacts(contacts);
             console.log(contacts);
         });
@@ -42,7 +41,7 @@ class AddFriends extends Component {
                     <FlatList
                         style={{width: '100%'}}
                         keyExtractor={(item, index) => item.recordID}
-                        data={this.state.contacts}
+                        data={this.state.selectedContacts}
                         renderItem={({item, index}) => this.renderContact(item, index)}
                     />
                 </View>
@@ -53,20 +52,21 @@ class AddFriends extends Component {
     renderContact(item, index) {
         return (
             <View style={{flexDirection: 'row'}}>
-                <View style={{flex:1,justifyContent: 'flex-start'}}>
+                <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 16, marginTop: 8, marginBottom: 8}}>
                     <Button>
                         <Text style={{fontFamily: Fonts.NORMAL_FONT}}>{Strings.INVITE}</Text>
                     </Button>
                 </View>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'flex-end'}}>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
                     <Text>{`${item.givenName} ${item.familyName}`}</Text>
                 </View>
             </View>
         );
     }
 
-    setContacts(contacts) {
-        this.setState({contacts});
+    setContacts(allContacts) {
+        const selectedContacts = allContacts.filter(contact => contact.emailAddresses.length !== 0);
+        this.setState({selectedContacts});
     }
 }
 
