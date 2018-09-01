@@ -80,7 +80,7 @@ const RootStack = createSwitchNavigator({
     Main: Main,
     NewPostStack: NewPostStack,
 }, {
-    initialRouteName: 'AuthStack',
+    initialRouteName: 'NewPost',
     navigationOptions: {
         header: null,
     }

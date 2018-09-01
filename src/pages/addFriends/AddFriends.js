@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, View} from 'react-native';
-import {Container, Header, Item, Input, Icon, Button, Text} from 'native-base';
+import {Container, Item, Input, Icon, Button, Text} from 'native-base';
 import Contacts from 'react-native-contacts';
 import BackHeader from "../../components/BackHeader";
 import {Colors, Constants, Fonts, Strings} from "../../config";
@@ -14,7 +14,6 @@ class AddFriends extends Component {
         Contacts.getAllWithoutPhotos((err, contacts) => {
             if (err) throw err;
             this.setContacts(contacts);
-            console.log(contacts);
         });
     }
 
@@ -37,11 +36,19 @@ class AddFriends extends Component {
                         <Icon name="ios-search"/>
                     </Item>
                 </View>
-                <View style={{backgroundColor: Colors.WHITE_BACK}}>
+                <View>
                     <FlatList
                         style={{width: '100%'}}
                         keyExtractor={(item, index) => item.recordID}
                         data={this.state.selectedContacts}
+                        ItemSeparatorComponent={() => <View
+                            style={{
+                                height: 2,
+                                width: "100%",
+                                alignSelf:'center',
+                                backgroundColor: Colors.WHITE_BACK,
+                            }}
+                        />}
                         renderItem={({item, index}) => this.renderContact(item, index)}
                     />
                 </View>
@@ -53,7 +60,7 @@ class AddFriends extends Component {
         return (
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 16, marginTop: 8, marginBottom: 8}}>
-                    <Button>
+                    <Button style={{width:90,height:30}}>
                         <Text style={{fontFamily: Fonts.NORMAL_FONT}}>{Strings.INVITE}</Text>
                     </Button>
                 </View>

@@ -63,7 +63,7 @@ class Profile extends Component {
         return (
             <View style={index % 2 === 0 ? styles.evenPhoto : styles.oddPhoto}>
                 <Image source={{uri: item.picture}} resizeMode={'stretch'}
-                       style={{width: WIDTH / 2, height: WIDTH / 2}}/>
+                       style={{width: WIDTH / 2 - 12, height: WIDTH / 2 - 12}}/>
             </View>
         );
     }
@@ -85,9 +85,7 @@ class Profile extends Component {
 
 const styles = StyleSheet.create({
     evenPhoto: {
-        justifyContent: 'center',
-        flex: 1,
-        alignItems: 'center',
+        justifyContent: 'flex-start',
         marginRight: 4,
         marginLeft: 8,
         marginBottom: 8,
@@ -95,9 +93,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     oddPhoto: {
-        justifyContent: 'center',
-        flex: 1,
-        alignItems: 'center',
+        justifyContent: 'flex-start',
         marginBottom: 8,
         marginRight: 8,
         marginLeft: 4,
