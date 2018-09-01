@@ -47,5 +47,6 @@ export const Strings = {
     INVITE: 'دعوت',
     SAVE_POST_INFO: 'ثبت توضیحات',
     POST_INFO: 'توضیحات عکس',
-
+    LOCATION: 'موقعیت',
+    ADD_TAGS: 'اضافه کردن تگ',
 };

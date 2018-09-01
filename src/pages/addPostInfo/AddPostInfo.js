@@ -14,7 +14,7 @@ const WIDTH = Dimensions.get('window').width;
 
 export default class AddPostInfo extends Component {
     render() {
-        const {SAVE_POST_INFO} = Strings;
+        const {SAVE_POST_INFO, LOCATION, ADD_TAGS} = Strings;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={SAVE_POST_INFO}/>
@@ -24,33 +24,27 @@ export default class AddPostInfo extends Component {
                         <CustomStatusBar/>
                         <View style={{flex: 1, backgroundColor: 'white'}}>
                             {this.renderImageWithCaption()}
-                            <Item style={{backgroundColor: 'white'}}>
+                            <Item style={{backgroundColor: 'white', marginBottom: 10}}>
                                 <Left>
                                     <TouchableOpacity>
-                                        <Icon type={'Ionicons'} name='ios-arrow-back'
-                                                style={{color: Colors.ACCENT}}/>
+                                        <Icon type={'EvilIcons'} name='location'
+                                                style={{color: Colors.TEXT}}/>
                                     </TouchableOpacity>
                                 </Left>
                                 <Right>
                                     <TouchableOpacity>
                                         <Text style={styles.text}>
-                                            'Location'
+                                            {LOCATION}
                                         </Text>
                                     </TouchableOpacity>
                                 </Right>
                             </Item>
 
                             <Item style={{backgroundColor: 'white'}}>
-                                <Left>
-                                    <TouchableOpacity>
-                                        <Icon type={'Ionicons'} name='ios-arrow-back'
-                                                style={{color: Colors.ACCENT}}/>
-                                    </TouchableOpacity>
-                                </Left>
                                 <Right>
                                     <TouchableOpacity>
                                         <Text style={styles.text}>
-                                            'Tags'
+                                            {ADD_TAGS}
                                         </Text>
                                     </TouchableOpacity>
                                 </Right>
