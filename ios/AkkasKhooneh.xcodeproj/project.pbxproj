@@ -48,6 +48,7 @@
 		7E52CB0A64664071A32ED296 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 719F5DEBD8C545268C6F2B75 /* FontAwesome5_Solid.ttf */; };
 		7FE17AE29CAB4BAD8073D207 /* IRANSansWeb_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66CA6A8BB4E343378CF217BB /* IRANSansWeb_Light.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		9276B8D7671545A291964405 /* libRCTContacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7669A26E54A741A88C8C4871 /* libRCTContacts.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B4B79B8A61F74A83BD27C9CF /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03A313EA0B5647008F6D789F /* FontAwesome5_Regular.ttf */; };
 		B5164E51BA0941BEB50676BF /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88D106AAA253415D8016CEE5 /* Foundation.ttf */; };
@@ -68,7 +69,6 @@
 		F2F0EDC635A1430CABE8666F /* IRANSansWeb.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFFD23452B4E4A31AD846B8F /* IRANSansWeb.ttf */; };
 		F5409D409E044A89A1B99F91 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 516715956C664B94B515ED65 /* Octicons.ttf */; };
 		FB1E9C9239664929AA93E7DA /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B130CA6ABBC14292A4C85036 /* rubicon-icon-font.ttf */; };
-		9276B8D7671545A291964405 /* libRCTContacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7669A26E54A741A88C8C4871 /* libRCTContacts.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -380,6 +380,13 @@
 			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
 			remoteInfo = RCTCameraRoll;
 		};
+		D3E980E7213A52E200102D0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE6E48B5FDBC4817B0FBD753 /* RCTContacts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1441618E1BD0A79300FA4F59;
+			remoteInfo = RCTContacts;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -434,6 +441,7 @@
 		6A81D63E712047558F81F3C8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		719F5DEBD8C545268C6F2B75 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		72343CB615C24FD4AEA5FE68 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		7669A26E54A741A88C8C4871 /* libRCTContacts.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTContacts.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7E8DA445140F4B0F8A3E87AA /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		7F425652F6EE4B8E835BFBEF /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -455,9 +463,8 @@
 		DEEC53AAE5944A1187704D0E /* IRANSansWeb_Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansWeb_Bold.ttf; path = ../src/assets/fonts/IRANSansWeb_Bold.ttf; sourceTree = "<group>"; };
 		EDF6DEF779544ED7A59267F6 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		EE150F61EB55437FB563ECEE /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		EE6E48B5FDBC4817B0FBD753 /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
 		EFFD23452B4E4A31AD846B8F /* IRANSansWeb.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansWeb.ttf; path = ../src/assets/fonts/IRANSansWeb.ttf; sourceTree = "<group>"; };
-		EE6E48B5FDBC4817B0FBD753 /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; name = "RCTContacts.xcodeproj"; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		7669A26E54A741A88C8C4871 /* libRCTContacts.a */ = {isa = PBXFileReference; name = "libRCTContacts.a"; path = "libRCTContacts.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -772,6 +779,7 @@
 				EE150F61EB55437FB563ECEE /* libRNVectorIcons.a */,
 				D6579EA3DED543B486F1BD7F /* libimageCropPicker.a */,
 				218F8F02597A42C4A8C93D01 /* libRNCamera.a */,
+				7669A26E54A741A88C8C4871 /* libRCTContacts.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -812,6 +820,14 @@
 			isa = PBXGroup;
 			children = (
 				D3CBD62F213672530051FCF3 /* libRCTCameraRoll.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3E980E4213A52E200102D0B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3E980E8213A52E200102D0B /* libRCTContacts.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -947,6 +963,10 @@
 				{
 					ProductGroup = D3CBD62B213672530051FCF3 /* Products */;
 					ProjectRef = D3CBD62A213672530051FCF3 /* RCTCameraRoll.xcodeproj */;
+				},
+				{
+					ProductGroup = D3E980E4213A52E200102D0B /* Products */;
+					ProjectRef = EE6E48B5FDBC4817B0FBD753 /* RCTContacts.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -1302,6 +1322,13 @@
 			remoteRef = D3CBD62E213672530051FCF3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D3E980E8213A52E200102D0B /* libRCTContacts.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTContacts.a;
+			remoteRef = D3E980E7213A52E200102D0B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1467,7 +1494,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = AkkasKhoonehTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1498,7 +1525,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = AkkasKhoonehTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1530,7 +1557,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = AkkasKhooneh/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1555,7 +1582,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = AkkasKhooneh/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1587,7 +1614,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1627,7 +1654,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1666,7 +1693,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1705,7 +1732,7 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-contacts\ios\RCTContacts",
+					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

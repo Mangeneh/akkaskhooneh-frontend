@@ -14,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
             console.log(action);
             return {...state, fetchStatus: true};
         case GET_PHOTOS_NEXT_PAGE_SUCCESS:
-            console.log(action);
+            console.warn(action);
             return {
                 ...state,
                 photosNext: state.photosNext+1,

@@ -71,7 +71,7 @@ const RootStack = createSwitchNavigator({
     NewPost: NewPost,
     AddPostInfo: AddPostInfo,
 }, {
-    initialRouteName: 'Main',
+    initialRouteName: 'AuthStack',
     navigationOptions: {
         header: null,
     }
@@ -82,7 +82,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <AddFriends/>
+                    <RootStack/>
                 </Provider>
             </Root>
         );

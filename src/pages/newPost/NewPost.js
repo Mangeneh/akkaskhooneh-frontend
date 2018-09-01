@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Dimensions} from 'react-native';
+import {View, Dimensions, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {CameraKitCamera} from 'react-native-camera-kit';
 import {Strings, Colors} from '../../config';
@@ -33,11 +33,11 @@ class NewPost extends Component {
                 <CustomStatusBar/>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={PHOTO_GALLERY}/>
                 <View style={{flex: 1}}>
-                    <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+                    <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}} onPress={() => this.onCameraScreenPress()}>
                         <View style={{flex: 1, backgroundColor: Colors.ACCENT}}>
                             {this.renderCameraSection()}
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <SlidingUpPanel visible={true} style={{height: 100}}
                                     draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}} startCollapsed>
                         <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
@@ -45,7 +45,9 @@ class NewPost extends Component {
                             <CameraRollPicker selectSingleItem={true}
                                               callback={this.getSelectedImages}
                                               backgroundColor={Colors.LIGHT_GRAY}
-                            />
+                            >
+                                const image = await this.camera.capture(true);
+                            </CameraRollPicker >
 
                         </View>
                     </SlidingUpPanel>
@@ -60,6 +62,17 @@ class NewPost extends Component {
 
     onBackPress() {
         this.props.navigation.navigate('Main');
+    }
+
+    async onCameraScreenPress() {
+        const image = await this.camera.capture(true);
+        console.warn('HELLO');
+        if (image !== null) {
+          console.warn('Success!')
+        }
+        else {
+          console.warn('Fail!')
+        }
     }
 
     renderCameraSection() {
