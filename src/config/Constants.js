@@ -3,4 +3,5 @@ export const Constants = {
     TEXT_BOX_RADIUS: 10,
     TEXT_NORMAL_SIZE: 12,
     TEXT_BOX_ELEVATION: 1,
+    IMAGE_SIZE:500
 };

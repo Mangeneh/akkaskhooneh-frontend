@@ -6,7 +6,7 @@ import {CameraKitCamera} from 'react-native-camera-kit';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import ImagePicker from "react-native-image-crop-picker";
-import {Strings, Colors} from '../../config';
+import {Strings, Colors, Constants} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -19,7 +19,7 @@ export default class NewPost extends Component {
         return (
             <View style={{flex: 1}}>
                 <CustomStatusBar/>
-                <BackHeader onBackPress={() => this.navigation.goBack()} title={PHOTO_GALLERY}/>
+                <BackHeader onBackPress={() => this.props.navigation.goBack()} title={PHOTO_GALLERY}/>
                 <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}}
                                   onPress={() => this.onCameraScreenPress()}>
                     {this.renderCameraSection()}
@@ -42,12 +42,13 @@ export default class NewPost extends Component {
 
     onCameraScreenPress() {
         ImagePicker.openCamera({
-            width: 300,
-            height: 300,
+            width: Constants.IMAGE_SIZE,
+            height: Constants.IMAGE_SIZE,
             cropping: true
         }).then(image => {
             const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
             this.setState({imageSource, hasChosen: true});
+            this.continue();
         });
     }
 
@@ -62,8 +63,7 @@ export default class NewPost extends Component {
                 shouldSaveToCameraRoll
                 cameraOptions={{
                     ratioOverlay: '1:1',
-                }}
-            />
+                }}/>
         )
     }
 
@@ -76,8 +76,7 @@ export default class NewPost extends Component {
         if (this.state.hasChosen) {
             return (
                 <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
-                    <Button style={{position: 'absolute', alignSelf: 'center'}}
-                            onPress={() => this.continue()}>
+                    <Button onPress={() => this.continue()}>
                         <Text>{Strings.NEXT_LEVEL}</Text>
                     </Button>
                 </View>
@@ -89,7 +88,6 @@ export default class NewPost extends Component {
         if (image.length === 0) {
             this.setState({hasChosen: false});
         } else {
-            console.log(image);
             this.setState({imageSource: image[0].uri, hasChosen: true});
         }
     }

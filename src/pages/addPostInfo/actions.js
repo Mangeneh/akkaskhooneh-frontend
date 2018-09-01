@@ -17,5 +17,4 @@ export const sendPost = (post) => {
             }
         }
     };
-
 };

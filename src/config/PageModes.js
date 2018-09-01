@@ -5,5 +5,3 @@ export const PageModes = {
     LOADING: 'LOADING',
     SUCCESS: 'SUCCESS'
 };
-
-export default PageModes;
