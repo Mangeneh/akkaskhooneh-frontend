@@ -45,10 +45,10 @@ class AddPostInfo extends Component {
             <View style={{flex: 1, backgroundColor: 'white'}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={SAVE_POST_INFO}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
-                                         contentContainerStyle={{flexGrow: 1}}>
+                                         contentContainerStyle={{flexGrow: 1}} style={{flex: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
                         <CustomStatusBar/>
-                        <View style={{flex: 1, backgroundColor: 'white'}}>
+                        <View style={{flex: 5, backgroundColor: 'white'}}>
                             {this.renderImageWithCaption()}
                             <Item style={{backgroundColor: 'white', marginBottom: 10}}
                                   onPress={this.onLocationPress.bind(this)}>
@@ -84,7 +84,7 @@ class AddPostInfo extends Component {
                                 }}
                             />
 
-                            <View style={{alignContent: 'center', alignSelf: 'center'}}>
+                            <View style={{flex: 1, alignContent: 'center', alignSelf: 'center'}}>
                                 <SendPostButton style={{position: 'absolute', alignSelf: 'center'}} text={SEND_POST}
                                                 onPress={() => this.SendPost()}/>
                             </View>
