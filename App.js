@@ -101,7 +101,7 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <NewPostStack/>
+                    <RootStack/>
                 </Provider>
             </Root>
         );

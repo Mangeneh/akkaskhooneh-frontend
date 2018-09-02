@@ -24,7 +24,7 @@ export default class NewPost extends Component {
                                   onPress={() => this.onCameraScreenPress()}>
                     {this.renderCameraSection()}
                 </TouchableOpacity>
-                <SlidingUpPanel showBackdrop
+                <SlidingUpPanel startCollapsed
                                 draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}}
                                 visible>
                     <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
