@@ -1,23 +1,59 @@
 import React, {Component} from 'react';
 import {Item, Toast, Icon, Input, Left, Right} from 'native-base';
-import {View, Dimensions, Image, StyleSheet, Text, TouchableOpacity} from 'react-native'
+import {View, Dimensions, Image, StyleSheet, Text, TouchableOpacity, Platform} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {Strings, Colors} from '../../config';
 import {BackHeader, CustomStatusBar, CustomLongTextBox} from '../../components';
 import TagInput from 'react-native-tag-input';
 import SendPostButton from '../../containers/SendPostButton';
-import {Actions,sendPost} from './actions';
+import {Actions, sendPost} from './actions';
 import FormData from "form-data";
-
+import RNGooglePlaces from 'react-native-google-places';
 
 const WIDTH = Dimensions.get('window').width;
 
+const inputProps = {
+  keyboardType: 'default',
+  placeholder: 'tags',
+  autoFocus: true,
+  style: {
+    fontSize: 10,
+    marginVertical: Platform.OS == 'ios' ? 10 : -2,
+  },
+};
+
 class AddPostInfo extends Component {
+
+    state = {
+        tags: [],
+        text: "",
+    };
+
+    onChangeTags = (tags) => {
+        this.setState({ tags });
+    }
+
+    onChangeText = (text) => {
+        this.setState({ text });
+
+        const lastTyped = text.charAt(text.length - 1);
+        const parseWhen = [' '];
+
+        if (parseWhen.indexOf(lastTyped) > -1) {
+            this.setState({
+            tags: [...this.state.tags, this.state.text],
+            text: "",
+            });
+        }
+    }
+
+    labelExtractor = (tag) => tag;
+
     render() {
         const {SAVE_POST_INFO, LOCATION, ADD_TAGS, SEND_POST} = Strings;
         return (
-            <View style={{flex: 1, backgroundColor: Colors.BASE}}>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={SAVE_POST_INFO}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
@@ -25,15 +61,15 @@ class AddPostInfo extends Component {
                         <CustomStatusBar/>
                         <View style={{flex: 1, backgroundColor: 'white'}}>
                             {this.renderImageWithCaption()}
-                            <Item style={{backgroundColor: 'white', marginBottom: 10}}>
+                            <Item style={{backgroundColor: 'white', marginBottom: 10}} onPress={this.onLocationPress.bind(this)}>
                                 <Left>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={this.onLocationPress.bind(this)}>
                                         <Icon type={'EvilIcons'} name='location'
                                                 style={{color: Colors.TEXT}}/>
                                     </TouchableOpacity>
                                 </Left>
                                 <Right>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={this.onLocationPress.bind(this)}>
                                         <Text style={styles.text}>
                                             {LOCATION}
                                         </Text>
@@ -41,28 +77,28 @@ class AddPostInfo extends Component {
                                 </Right>
                             </Item>
 
-                            <Item style={{backgroundColor: 'white'}}>
-                                <Right>
-                                    <TouchableOpacity>
-                                        <Text style={styles.text}>
-                                            {ADD_TAGS}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </Right>
+                            <Item style={{backgroundColor: 'white'}} title={ADD_TAGS}>
+                                <TagInput
+                                    value={this.state.tags}
+                                    onChange={this.onChangeTags}
+                                    labelExtractor={this.labelExtractor}
+                                    text={this.state.text}
+                                    onChangeText={this.onChangeText}
+                                    tagColor={Colors.ACCENT}
+                                    tagTextColor="white"
+                                    inputProps={inputProps}
+                                    maxHeight={75}
+                                    placeholder={ADD_TAGS}
+                                    tagContainerStyle={{width: 50, height:30}}
+                                />
                             </Item>
-
-                            {/* <TagInput
-                                placeholder={ADD_TAGS}
-                                value={this.state.currentTag}
-                                labelExtractor={(tag) => tag}
-                                onChangeTag={(tag) => changeTag(tag)}
-                            /> */}
 
                         </View>
 
                         <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
                             <SendPostButton style={{position: 'absolute', alignSelf: 'center'}} text={SEND_POST} onPress={()=>this.SendPost()}/>
                         </View>
+
 
                     </View>
                 </KeyboardAwareScrollView>
@@ -89,6 +125,16 @@ class AddPostInfo extends Component {
         this.props.navigation.goBack();
     }
 
+    onLocationPress() {
+        RNGooglePlaces.openAutocompleteModal()
+        .then((place) => {
+            console.log(place);
+            // place represents user's selection from the
+            // suggestions and it is a simplified Google Place object.
+        })
+        .catch(error => console.log(error.message));  // error is a Javascript Error object
+    }
+
     SendPost() {
         const formData = new FormData();
         formData.append('picture', {
@@ -113,8 +159,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     mode: state.addPostInfoPage.mode,
-    tags: state.addPostInfoPage.tags,
-    currentTag: state.addPostInfoPage.currentTag,
 });
 
 const mapDispatchToProps = (dispatch) => ({

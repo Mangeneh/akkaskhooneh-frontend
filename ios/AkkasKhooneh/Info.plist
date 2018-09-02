@@ -38,8 +38,6 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -51,8 +49,16 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To Add Location To Posts.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>To Add Location To Posts.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To Add Location To Posts.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To Choose Photo.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>To Add Location To Posts.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>To Find People You Know.</string>
 	<key>NSCameraUsageDescription</key>

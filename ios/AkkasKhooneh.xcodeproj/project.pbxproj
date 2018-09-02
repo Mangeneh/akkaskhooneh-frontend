@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -13,6 +14,8 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* AkkasKhoonehTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AkkasKhoonehTests.m */; };
 		042B9ACDB11046FBBBDA0A28 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6579EA3DED543B486F1BD7F /* libimageCropPicker.a */; };
+		078F59C7B2B33AB2585CE255 /* libPods-AkkasKhooneh-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C99EA455AB548BE1DFD15C9 /* libPods-AkkasKhooneh-tvOS.a */; };
+		09869D6AA4AB4AACBCE2514C /* libRNI18n-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD1089E69E462FB4F86657 /* libRNI18n-tvOS.a */; };
 		0F6461A6B039403CAAFE7326 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE150F61EB55437FB563ECEE /* libRNVectorIcons.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -38,17 +41,21 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* AkkasKhoonehTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AkkasKhoonehTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		3216FA732D0546A280AB4E2C /* libRNGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A27664B0C2BD403ABCC6014F /* libRNGooglePlaces.a */; };
+		3396B96CB16DDF4A00E96B9D /* libPods-AkkasKhooneh-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61328AC37805A8340777F086 /* libPods-AkkasKhooneh-tvOSTests.a */; };
 		3D68B21A3E244C9EAC75E3B0 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6131DC82FDAF4C71BCD20732 /* Roboto_medium.ttf */; };
 		469ECD59BE0449F59695F03B /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EE5F39F0D29499BADF72905 /* MaterialCommunityIcons.ttf */; };
 		55985F16625E4FB19981CBE3 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AE23EC835AD4CC89AE7D926 /* FontAwesome.ttf */; };
 		561CCE801B3D4EA1AB3F2180 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC0FF70FA88E4B4C82ABD8BE /* Roboto.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		6A72776612311E67E90CC6E3 /* libPods-AkkasKhoonehTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C88E581FCED0EB21633348F8 /* libPods-AkkasKhoonehTests.a */; };
 		6C53C00E7F52417DB953FD83 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F425652F6EE4B8E835BFBEF /* Zocial.ttf */; };
 		784C56A905EA41EBA544AC34 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43A88BF5DAEF47998F06C19B /* Ionicons.ttf */; };
 		7E52CB0A64664071A32ED296 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 719F5DEBD8C545268C6F2B75 /* FontAwesome5_Solid.ttf */; };
 		7FE17AE29CAB4BAD8073D207 /* IRANSansWeb_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66CA6A8BB4E343378CF217BB /* IRANSansWeb_Light.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9276B8D7671545A291964405 /* libRCTContacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7669A26E54A741A88C8C4871 /* libRCTContacts.a */; };
+		A56498A21A2A43E59586E441 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A3D5529EE14D1391C51F90 /* libRNI18n.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B4B79B8A61F74A83BD27C9CF /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03A313EA0B5647008F6D789F /* FontAwesome5_Regular.ttf */; };
 		B5164E51BA0941BEB50676BF /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88D106AAA253415D8016CEE5 /* Foundation.ttf */; };
@@ -69,9 +76,7 @@
 		F2F0EDC635A1430CABE8666F /* IRANSansWeb.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFFD23452B4E4A31AD846B8F /* IRANSansWeb.ttf */; };
 		F5409D409E044A89A1B99F91 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 516715956C664B94B515ED65 /* Octicons.ttf */; };
 		FB1E9C9239664929AA93E7DA /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B130CA6ABBC14292A4C85036 /* rubicon-icon-font.ttf */; };
-		A56498A21A2A43E59586E441 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A3D5529EE14D1391C51F90 /* libRNI18n.a */; };
-		09869D6AA4AB4AACBCE2514C /* libRNI18n-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD1089E69E462FB4F86657 /* libRNI18n-tvOS.a */; };
-		3216FA732D0546A280AB4E2C /* libRNGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A27664B0C2BD403ABCC6014F /* libRNGooglePlaces.a */; };
+		FBC8E98A2B21A5E94AB6B62C /* libPods-AkkasKhooneh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6F7CEEEF8EBF671C177EF3 /* libPods-AkkasKhooneh.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -362,6 +367,27 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		D34676A3213BB9A8009AFCCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE0C591E7DE4494CB25181A8 /* RNGooglePlaces.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNGooglePlaces;
+		};
+		D34676A9213BB9A8009AFCCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C969EC5797B146E58DC5A4AC /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNI18n;
+		};
+		D34676AB213BB9A8009AFCCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C969EC5797B146E58DC5A4AC /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6476C4051EEAA69700B10F51;
+			remoteInfo = "RNI18n-tvOS";
+		};
 		D369C47C21355E3C007FAC95 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D369C45121355E3C007FAC95 /* ReactNativeCameraKit.xcodeproj */;
@@ -418,6 +444,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* AkkasKhoonehTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AkkasKhoonehTests.m; sourceTree = "<group>"; };
 		03A313EA0B5647008F6D789F /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		0DCF661012B8C6B500D8C480 /* Pods-AkkasKhooneh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhooneh.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhooneh/Pods-AkkasKhooneh.debug.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* AkkasKhooneh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AkkasKhooneh.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -434,45 +461,56 @@
 		2D02E47B1E0B4A5D006451C7 /* AkkasKhooneh-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AkkasKhooneh-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* AkkasKhooneh-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AkkasKhooneh-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3197E611750578B53900D55E /* Pods-AkkasKhooneh-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhooneh-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhooneh-tvOS/Pods-AkkasKhooneh-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		43A88BF5DAEF47998F06C19B /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		47A3D5529EE14D1391C51F90 /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
 		516715956C664B94B515ED65 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		5AE23EC835AD4CC89AE7D926 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		5F2771BAE02C664680A8552F /* Pods-AkkasKhoonehTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhoonehTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhoonehTests/Pods-AkkasKhoonehTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6092394CFB384CF5BC056790 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		6131DC82FDAF4C71BCD20732 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
+		61328AC37805A8340777F086 /* libPods-AkkasKhooneh-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AkkasKhooneh-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66CA6A8BB4E343378CF217BB /* IRANSansWeb_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansWeb_Light.ttf; path = ../src/assets/fonts/IRANSansWeb_Light.ttf; sourceTree = "<group>"; };
 		6A81D63E712047558F81F3C8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		719F5DEBD8C545268C6F2B75 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		72343CB615C24FD4AEA5FE68 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		7669A26E54A741A88C8C4871 /* libRCTContacts.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTContacts.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7C401A9451CFCF9288B237B2 /* Pods-AkkasKhooneh-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhooneh-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhooneh-tvOSTests/Pods-AkkasKhooneh-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7D6F7CEEEF8EBF671C177EF3 /* libPods-AkkasKhooneh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AkkasKhooneh.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8DA445140F4B0F8A3E87AA /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
+		7EFCFB0122E6F731F0E9A7DA /* Pods-AkkasKhooneh-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhooneh-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhooneh-tvOS/Pods-AkkasKhooneh-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7F425652F6EE4B8E835BFBEF /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		85147ED1CDE642EDB060CC30 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		86920F70726D40EF857F2B85 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		88D106AAA253415D8016CEE5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		8BEB8995F62C4CA8B07CFC1E /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		8C401E089647899BD8623782 /* Pods-AkkasKhooneh-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhooneh-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhooneh-tvOSTests/Pods-AkkasKhooneh-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		8EE5F39F0D29499BADF72905 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		90DD1089E69E462FB4F86657 /* libRNI18n-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNI18n-tvOS.a"; sourceTree = "<group>"; };
+		9C99EA455AB548BE1DFD15C9 /* libPods-AkkasKhooneh-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AkkasKhooneh-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A27664B0C2BD403ABCC6014F /* libRNGooglePlaces.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGooglePlaces.a; sourceTree = "<group>"; };
+		A780862D01CA575F42A03453 /* Pods-AkkasKhooneh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhooneh.release.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhooneh/Pods-AkkasKhooneh.release.xcconfig"; sourceTree = "<group>"; };
 		AB5D2457E5BE4B74B41F7BD3 /* IRANSansWeb_UltraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansWeb_UltraLight.ttf; path = ../src/assets/fonts/IRANSansWeb_UltraLight.ttf; sourceTree = "<group>"; };
 		AC0FF70FA88E4B4C82ABD8BE /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B130CA6ABBC14292A4C85036 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
+		C88E581FCED0EB21633348F8 /* libPods-AkkasKhoonehTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AkkasKhoonehTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C969EC5797B146E58DC5A4AC /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 		D33CF0702131864900CFF368 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33CF0742131864D00CFF368 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D369C45121355E3C007FAC95 /* ReactNativeCameraKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeCameraKit.xcodeproj; path = "../node_modules/react-native-camera-kit/ios/lib/ReactNativeCameraKit.xcodeproj"; sourceTree = "<group>"; };
 		D3CBD62A213672530051FCF3 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		D6579EA3DED543B486F1BD7F /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		DEEC53AAE5944A1187704D0E /* IRANSansWeb_Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansWeb_Bold.ttf; path = ../src/assets/fonts/IRANSansWeb_Bold.ttf; sourceTree = "<group>"; };
+		E534F7736DB6EAF59FB65209 /* Pods-AkkasKhoonehTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AkkasKhoonehTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AkkasKhoonehTests/Pods-AkkasKhoonehTests.release.xcconfig"; sourceTree = "<group>"; };
 		EDF6DEF779544ED7A59267F6 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		EE150F61EB55437FB563ECEE /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		EE6E48B5FDBC4817B0FBD753 /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
 		EFFD23452B4E4A31AD846B8F /* IRANSansWeb.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansWeb.ttf; path = ../src/assets/fonts/IRANSansWeb.ttf; sourceTree = "<group>"; };
-		C969EC5797B146E58DC5A4AC /* RNI18n.xcodeproj */ = {isa = PBXFileReference; name = "RNI18n.xcodeproj"; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		47A3D5529EE14D1391C51F90 /* libRNI18n.a */ = {isa = PBXFileReference; name = "libRNI18n.a"; path = "libRNI18n.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		90DD1089E69E462FB4F86657 /* libRNI18n-tvOS.a */ = {isa = PBXFileReference; name = "libRNI18n-tvOS.a"; path = "libRNI18n-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		FE0C591E7DE4494CB25181A8 /* RNGooglePlaces.xcodeproj */ = {isa = PBXFileReference; name = "RNGooglePlaces.xcodeproj"; path = "../node_modules/react-native-google-places/ios/RNGooglePlaces.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		A27664B0C2BD403ABCC6014F /* libRNGooglePlaces.a */ = {isa = PBXFileReference; name = "libRNGooglePlaces.a"; path = "libRNGooglePlaces.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		FE0C591E7DE4494CB25181A8 /* RNGooglePlaces.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGooglePlaces.xcodeproj; path = "../node_modules/react-native-google-places/ios/RNGooglePlaces.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,6 +519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
+				6A72776612311E67E90CC6E3 /* libPods-AkkasKhoonehTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +550,7 @@
 				9276B8D7671545A291964405 /* libRCTContacts.a in Frameworks */,
 				A56498A21A2A43E59586E441 /* libRNI18n.a in Frameworks */,
 				3216FA732D0546A280AB4E2C /* libRNGooglePlaces.a in Frameworks */,
+				FBC8E98A2B21A5E94AB6B62C /* libPods-AkkasKhooneh.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +567,7 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				09869D6AA4AB4AACBCE2514C /* libRNI18n-tvOS.a in Frameworks */,
+				078F59C7B2B33AB2585CE255 /* libPods-AkkasKhooneh-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +576,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
+				3396B96CB16DDF4A00E96B9D /* libPods-AkkasKhooneh-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,8 +703,27 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				7D6F7CEEEF8EBF671C177EF3 /* libPods-AkkasKhooneh.a */,
+				9C99EA455AB548BE1DFD15C9 /* libPods-AkkasKhooneh-tvOS.a */,
+				61328AC37805A8340777F086 /* libPods-AkkasKhooneh-tvOSTests.a */,
+				C88E581FCED0EB21633348F8 /* libPods-AkkasKhoonehTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4F4D47C04B98440D1A7FB80D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0DCF661012B8C6B500D8C480 /* Pods-AkkasKhooneh.debug.xcconfig */,
+				A780862D01CA575F42A03453 /* Pods-AkkasKhooneh.release.xcconfig */,
+				3197E611750578B53900D55E /* Pods-AkkasKhooneh-tvOS.debug.xcconfig */,
+				7EFCFB0122E6F731F0E9A7DA /* Pods-AkkasKhooneh-tvOS.release.xcconfig */,
+				7C401A9451CFCF9288B237B2 /* Pods-AkkasKhooneh-tvOSTests.debug.xcconfig */,
+				8C401E089647899BD8623782 /* Pods-AkkasKhooneh-tvOSTests.release.xcconfig */,
+				5F2771BAE02C664680A8552F /* Pods-AkkasKhoonehTests.debug.xcconfig */,
+				E534F7736DB6EAF59FB65209 /* Pods-AkkasKhoonehTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
@@ -731,6 +792,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				B983F9A74CEE47DF8A058DCC /* Resources */,
 				D33CF03E213185AF00CFF368 /* Recovered References */,
+				4F4D47C04B98440D1A7FB80D /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -793,6 +855,9 @@
 				D6579EA3DED543B486F1BD7F /* libimageCropPicker.a */,
 				218F8F02597A42C4A8C93D01 /* libRNCamera.a */,
 				7669A26E54A741A88C8C4871 /* libRCTContacts.a */,
+				47A3D5529EE14D1391C51F90 /* libRNI18n.a */,
+				A27664B0C2BD403ABCC6014F /* libRNGooglePlaces.a */,
+				90DD1089E69E462FB4F86657 /* libRNI18n-tvOS.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -809,6 +874,23 @@
 			isa = PBXGroup;
 			children = (
 				D33CF06F213185B100CFF368 /* libRNVectorIcons.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D34676A0213BB9A8009AFCCE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D34676A4213BB9A8009AFCCE /* libRNGooglePlaces.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D34676A5213BB9A8009AFCCE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D34676AA213BB9A8009AFCCE /* libRNI18n.a */,
+				D34676AC213BB9A8009AFCCE /* libRNI18n-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -852,6 +934,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AkkasKhoonehTests" */;
 			buildPhases = (
+				924880A7B81B4F0E1E484536 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -870,11 +953,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AkkasKhooneh" */;
 			buildPhases = (
+				8900AEF0C67B0C149853CBEA /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D33CF0732131864A00CFF368 /* Embed Frameworks */,
+				00A95FF22C37CB28E97816F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -889,6 +974,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "AkkasKhooneh-tvOS" */;
 			buildPhases = (
+				90BD814D239FDC38B8F4B483 /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -907,6 +993,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "AkkasKhooneh-tvOSTests" */;
 			buildPhases = (
+				4B58F8F654578CE1BB5571A6 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -1024,6 +1111,14 @@
 				{
 					ProductGroup = D3ADA00E2134138F007D1CBD /* Products */;
 					ProjectRef = 22B35E8A8653442B8728476F /* RNCamera.xcodeproj */;
+				},
+				{
+					ProductGroup = D34676A0213BB9A8009AFCCE /* Products */;
+					ProjectRef = FE0C591E7DE4494CB25181A8 /* RNGooglePlaces.xcodeproj */;
+				},
+				{
+					ProductGroup = D34676A5213BB9A8009AFCCE /* Products */;
+					ProjectRef = C969EC5797B146E58DC5A4AC /* RNI18n.xcodeproj */;
 				},
 				{
 					ProductGroup = D33CF068213185B100CFF368 /* Products */;
@@ -1314,6 +1409,27 @@
 			remoteRef = D33CF06E213185B100CFF368 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D34676A4213BB9A8009AFCCE /* libRNGooglePlaces.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGooglePlaces.a;
+			remoteRef = D34676A3213BB9A8009AFCCE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D34676AA213BB9A8009AFCCE /* libRNI18n.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNI18n.a;
+			remoteRef = D34676A9213BB9A8009AFCCE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D34676AC213BB9A8009AFCCE /* libRNI18n-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNI18n-tvOS.a";
+			remoteRef = D34676AB213BB9A8009AFCCE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D369C47D21355E3C007FAC95 /* libReactNativeCameraKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1401,6 +1517,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00A95FF22C37CB28E97816F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AkkasKhooneh/Pods-AkkasKhooneh-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AkkasKhooneh/Pods-AkkasKhooneh-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1428,6 +1570,94 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		4B58F8F654578CE1BB5571A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AkkasKhooneh-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8900AEF0C67B0C149853CBEA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AkkasKhooneh-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		90BD814D239FDC38B8F4B483 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AkkasKhooneh-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		924880A7B81B4F0E1E484536 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AkkasKhoonehTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1496,6 +1726,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F2771BAE02C664680A8552F /* Pods-AkkasKhoonehTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1508,7 +1739,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = AkkasKhoonehTests/Info.plist;
@@ -1535,6 +1766,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E534F7736DB6EAF59FB65209 /* Pods-AkkasKhoonehTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1544,7 +1776,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = AkkasKhoonehTests/Info.plist;
@@ -1571,6 +1803,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DCF661012B8C6B500D8C480 /* Pods-AkkasKhooneh.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1581,7 +1814,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = AkkasKhooneh/Info.plist;
@@ -1599,6 +1832,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A780862D01CA575F42A03453 /* Pods-AkkasKhooneh.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1608,7 +1842,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = AkkasKhooneh/Info.plist;
@@ -1626,6 +1860,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3197E611750578B53900D55E /* Pods-AkkasKhooneh-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1642,7 +1877,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOS/Info.plist";
@@ -1671,6 +1906,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EFCFB0122E6F731F0E9A7DA /* Pods-AkkasKhooneh-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1687,7 +1923,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOS/Info.plist";
@@ -1716,6 +1952,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C401A9451CFCF9288B237B2 /* Pods-AkkasKhooneh-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1731,7 +1968,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOSTests/Info.plist";
@@ -1760,6 +1997,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C401E089647899BD8623782 /* Pods-AkkasKhooneh-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1775,7 +2013,7 @@
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)\..\node_modules\react-native-i18n\ios",
+					"$(SRCROOT)..\node_modules\neact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "AkkasKhooneh-tvOSTests/Info.plist";

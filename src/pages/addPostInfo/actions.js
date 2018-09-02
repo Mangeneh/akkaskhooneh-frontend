@@ -4,7 +4,7 @@ export const Actions = {
     SEND_POST : 'SEND_POST',
     SEND_POST_SUCCESS : 'SEND_POST_SUCCESS',
     SEND_POST_FAIL : 'SEND_POST_FAIL',
-};
+}; 
 
 export const sendPost = (post) => {
     return {

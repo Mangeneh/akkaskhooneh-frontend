@@ -3,11 +3,10 @@ import {PageModes} from '../../config';
 
 const INITIAL_STATE = {
     mode: PageModes.NORMAL,
-    tags: [],
-    currentTag: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
+    const {TAG_CHANGED, TAGS_LIST_CHANGED} = Actions;
     switch (action.type) {
         case Actions.SEND_POST:
             return {...state, mode: PageModes.LOADING};

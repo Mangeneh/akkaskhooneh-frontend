@@ -6,7 +6,7 @@ import {CameraKitCamera} from 'react-native-camera-kit';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import ImagePicker from "react-native-image-crop-picker";
-import {Strings, Colors, Fonts} from '../../config';
+import {Strings, Colors, Fonts, Constants} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 
 const HEIGHT = Dimensions.get('window').height;
