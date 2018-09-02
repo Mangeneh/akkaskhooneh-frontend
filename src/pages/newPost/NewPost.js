@@ -75,9 +75,9 @@ export default class NewPost extends Component {
     renderButton() {
         if (this.state.hasChosen) {
             return (
-                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center', textAlign: 'center'}}>
+                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
                     <Button onPress={() => this.continue()} style={{alignSelf: 'center',
-                        marginRight: 32, marginLeft: 32, marginTop: 16, width: 300, height: 50, backgroundColor: Colors.ACCENT, borderRadius: 10, textAlign: 'center'}}>
+                        marginRight: 32, marginLeft: 32, marginTop: 16, width: 300, height: 50, backgroundColor: Colors.ACCENT, borderRadius: 10}}>
                         <Right />
                         <Body>
                             <Text style={{color: 'white', fontFamily: Fonts.NORMAL_FONT}}>{Strings.NEXT_LEVEL}</Text>

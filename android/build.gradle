@@ -39,4 +39,6 @@ ext {
     compileSdkVersion = 26
     targetSdkVersion = 26
     supportLibVersion = "26.1.0"
+    googlePlayServicesVersion = "11.6.2"
+    androidMapsUtilsVersion = "0.5+"
 }
