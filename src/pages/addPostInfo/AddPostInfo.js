@@ -97,11 +97,10 @@ class AddPostInfo extends Component {
     }
 
     renderImageWithCaption() {
-        const {POST_INFO} = Strings;
         return (
             <View style={styles.photo}>
                 <View style={{flex: 3}}>
-                    <CustomLongTextBox placeholder={strings('post_info')}
+                    <CustomLongTextBox placeholder={strings('description')}
                                        style={{
                                            borderRadius: 10,
                                            textAlign: 'right',

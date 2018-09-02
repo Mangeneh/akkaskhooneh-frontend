@@ -31,4 +31,6 @@ export const getSelfBio = (state) => state.userInfo.user.bio;
 export const getSelfFullName = (state) => state.userInfo.user.fullname;
 export const getSelfNumOfFollowers = (state) => state.userInfo.user.followers;
 export const getSelfNumOfFollowings = (state) => state.userInfo.user.following;
-export const getSelfProfilePicture = (state) => state.userInfo.user.profile_picture;
+export const getAccessToken = (state) => state.userInfo.accessToken;
+export const getRefreshToken = (state) => state.userInfo.refreshToken;
+export const getLastRefreshTime = (state) => state.userInfo.lastRefreshTime;

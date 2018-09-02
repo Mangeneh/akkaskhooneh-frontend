@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
 import {View, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {Colors, Fonts, Strings} from '../../config';
+import {Colors, Fonts} from '../../config';
 import {ProfileHeader, SelfProfileInfo, CustomStatusBar} from '../../components';
 import {getPhotosNextPage} from './actions';
 import {strings} from "../../i18n";

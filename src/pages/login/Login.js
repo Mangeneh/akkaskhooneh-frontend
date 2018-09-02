@@ -32,7 +32,7 @@ class Login extends Component {
                                                  onChangePassword={(password) => changePassword(password)}
                                                  reset={() => resetPassword()}/>
                             </View>
-                            <LoginButton onPress={() => this.onLoginPress()} text={strings('enter')} icon={'login'}/>
+                            <LoginButton onPress={() => this.onLoginPress()} text={strings('login')} icon={'login'}/>
                             <TouchableOpacity style={{marginTop: 24}}>
                                 <Text style={styles.text}>{strings('forgot_password')}</Text>
                             </TouchableOpacity>
