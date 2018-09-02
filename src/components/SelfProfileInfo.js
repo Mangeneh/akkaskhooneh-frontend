@@ -2,28 +2,36 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
-import {Strings, Fonts} from '../config';
+import {Fonts} from '../config';
+import {
+    getSelfBio,
+    getSelfFullName,
+    getSelfNumOfFollowers,
+    getSelfNumOfFollowings,
+    getSelfProfilePicture
+} from '../reducers/UserInfoReducer';
+import {strings} from "../i18n";
 
 class SelfProfileInfo extends Component {
     render() {
-        const {bio, fullname, followers, following} = this.props.user;
+        const {bio, fullName, followers, followings} = this.props;
         return (
             <View style={{height: 80, flexDirection: 'row', alignItems: 'flex-start'}}>
                 <View style={styles.textArea}>
-                    <Text style={styles.name}>{fullname}</Text>
+                    <Text style={styles.name}>{fullName}</Text>
                     <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start'}}>
                         <TouchableOpacity>
                             <Text style={{
                                 marginRight: 16,
                                 fontFamily: Fonts.NORMAL_FONT,
                                 fontSize: 12
-                            }}>{`${following} ${Strings.FOLLOWING}`}</Text>
+                            }}>{strings('num_of_followings', {number: followings})}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <Text style={{
                                 fontFamily: Fonts.NORMAL_FONT,
                                 fontSize: 12
-                            }}>{`${followers} ${Strings.FOLLOWER}`}</Text>
+                            }}>{strings('num_of_followers', {number: followers})}</Text>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.bio}>{bio}</Text>
@@ -39,7 +47,7 @@ class SelfProfileInfo extends Component {
                 height={80}
                 width={80}
                 rounded
-                source={{uri: this.props.user.profile_picture}}
+                source={{uri: this.props.profilePicture}}
             />
         );
     }
@@ -66,7 +74,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-    user: state.userInfo.user
+    user: state.userInfo.user,
+    bio: getSelfBio(state),
+    profilePicture: getSelfProfilePicture(state),
+    fullName: getSelfFullName(state),
+    followers: getSelfNumOfFollowers(state),
+    followings: getSelfNumOfFollowings(state)
 });
 
 export default connect(mapStateToProps, null)(SelfProfileInfo);

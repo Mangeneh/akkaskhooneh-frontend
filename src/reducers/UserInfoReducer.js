@@ -24,3 +24,11 @@ export default (state = INITIAL_STATE, action) => {
             return state;
     }
 }
+
+export const getSelfEmail = (state) => state.userInfo.user.email;
+export const getSelfUsername = (state) => state.userInfo.user.username;
+export const getSelfBio = (state) => state.userInfo.user.bio;
+export const getSelfFullName = (state) => state.userInfo.user.fullname;
+export const getSelfNumOfFollowers = (state) => state.userInfo.user.followers;
+export const getSelfNumOfFollowings = (state) => state.userInfo.user.following;
+export const getSelfProfilePicture = (state) => state.userInfo.user.profile_picture;

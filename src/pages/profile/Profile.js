@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
 import {View, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {Colors, Fonts, Strings, Constants} from '../../config';
+import {Colors, Fonts, Strings} from '../../config';
 import {ProfileHeader, SelfProfileInfo, CustomStatusBar} from '../../components';
 import {getPhotosNextPage} from './actions';
+import {strings} from "../../i18n";
+import {getSelfUsername} from "../../reducers/UserInfoReducer";
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -15,7 +17,6 @@ class Profile extends Component {
     }
 
     render() {
-        const {PHOTOS, INTERESTS} = Strings;
         return (
             <Container>
                 <CustomStatusBar/>
@@ -27,20 +28,20 @@ class Profile extends Component {
                     </View>
                     <Tabs ref={component => this._tabs = component}
                           tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
-                        <Tab heading={INTERESTS}
+                        <Tab heading={strings('interests')}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              tabStyle={{backgroundColor: 'white'}}
                              activeTabStyle={{backgroundColor: 'white'}}>
                         </Tab>
 
-                        <Tab heading={PHOTOS}
+                        <Tab heading={strings('photos')}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
-                                {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) : (
+                                {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) :
                                     <FlatList
                                         onEndReached={() => this.updatePhotos()}
                                         style={{width: '100%', marginTop: 8}}
@@ -49,7 +50,6 @@ class Profile extends Component {
                                         data={this.props.photos}
                                         renderItem={({item, index}) => this.renderPhoto(item, index)}
                                     />
-                                )
                                 }
                             </View>
                         </Tab>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-    username: state.userInfo.user.username,
+    username: getSelfUsername(state),
     photos: state.profilePage.photos,
     photosNext: state.profilePage.photosNext,
     isLoading: state.profilePage.isLoading,
