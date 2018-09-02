@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Text} from 'native-base';
+import {Button, Text, Right, Left, Body} from 'native-base';
 import {View, Dimensions, TouchableOpacity, Platform} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {CameraKitCamera} from 'react-native-camera-kit';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import ImagePicker from "react-native-image-crop-picker";
-import {Strings, Colors, Constants} from '../../config';
+import {Strings, Colors, Fonts} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -75,9 +75,14 @@ export default class NewPost extends Component {
     renderButton() {
         if (this.state.hasChosen) {
             return (
-                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
-                    <Button onPress={() => this.continue()}>
-                        <Text>{Strings.NEXT_LEVEL}</Text>
+                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center', textAlign: 'center'}}>
+                    <Button onPress={() => this.continue()} style={{alignSelf: 'center',
+                        marginRight: 32, marginLeft: 32, marginTop: 16, width: 300, height: 50, backgroundColor: Colors.ACCENT, borderRadius: 10, textAlign: 'center'}}>
+                        <Right />
+                        <Body>
+                            <Text style={{color: 'white', fontFamily: Fonts.NORMAL_FONT}}>{Strings.NEXT_LEVEL}</Text>
+                        </Body>
+                        <Left />
                     </Button>
                 </View>
             )
