@@ -6,14 +6,13 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {strings} from '../../i18n';
 import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
-import {Strings, Colors, PageModes, Fonts, Addresses} from '../../config';
+import {Colors, PageModes, Fonts, Addresses} from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import {emailChanged, loginUser, passwordChanged, reset, resetPassword, resetEmail} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
 
 class Login extends Component {
     render() {
-        const {ENTER, FORGOT_PASSWORD, PASSWORD} = Strings;
         const {error, email, password, changeEmail, changePassword, resetEmail, resetPassword} = this.props;
         return (
             <View style={{flex: 1}}>
@@ -29,13 +28,13 @@ class Login extends Component {
                                               reset={() => resetEmail()}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} value={password} placeholder={PASSWORD}
+                                <PasswordTextBox error={error} value={password} placeholder={strings('password')}
                                                  onChangePassword={(password) => changePassword(password)}
                                                  reset={() => resetPassword()}/>
                             </View>
-                            <LoginButton onPress={() => this.onLoginPress()} text={ENTER} icon={'login'}/>
+                            <LoginButton onPress={() => this.onLoginPress()} text={strings('enter')} icon={'login'}/>
                             <TouchableOpacity style={{marginTop: 24}}>
-                                <Text style={styles.text}>{FORGOT_PASSWORD}</Text>
+                                <Text style={styles.text}>{strings('forgot_password')}</Text>
                             </TouchableOpacity>
                         </View>
                         {this.renderOtherLoginSection()}
@@ -56,12 +55,11 @@ class Login extends Component {
     }
 
     renderOtherLoginSection() {
-        const {SIGN_UP} = Strings;
         return (
             <View style={{flex: 1, justifyContent: 'center',}}>
                 {this.renderOtherLoginButtons()}
                 <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => this.onSignUpPress()}>
-                    <Text style={styles.text}>{SIGN_UP}</Text>
+                    <Text style={styles.text}>{strings('sign_up')}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -111,7 +109,7 @@ class Login extends Component {
 
     onFail(error) {
         Toast.show({
-            text: Strings.WRONG_CREDENTIALS,
+            text: strings('wrong_credentials'),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'

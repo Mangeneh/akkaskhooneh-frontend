@@ -12,7 +12,7 @@ import {Actions as SignUpActions} from './src/pages/signUp/actions';
 import {accessTokenUpdated} from './src/actions/UserInfoActions';
 
 const client = axios.create({
-    baseURL: 'http://10.0.3.2:8000/', // http://192.168.11.140
+    baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000/
     responseType: 'json'
 });
 
