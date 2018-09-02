@@ -47,5 +47,7 @@
   "invite": "Invite",
   "save_post_info": "ثبت توضیحات",
   "post_info": "توضیحات عکس",
-  "send_post": "ارسال پست"
+  "send_post": "ارسال پست",
+  "all": "All",
+  "picture_quantity": "{{quantity}} Pictures"
 }

@@ -115,7 +115,7 @@ class ProfileEdit extends Component {
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'success',
-            duration: 500,
+            duration: 250,
             onClose: () => this.props.navigation.goBack()
         });
     }

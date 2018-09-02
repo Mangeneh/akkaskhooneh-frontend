@@ -10,6 +10,7 @@ import {Login, SignUp, SignUpComplete, Main, AddPostInfo, NewPost, AddFriends, P
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
 import {Actions as SignUpActions} from './src/pages/signUp/actions';
 import {accessTokenUpdated} from './src/actions/UserInfoActions';
+import Board from "./src/components/Board";
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000/

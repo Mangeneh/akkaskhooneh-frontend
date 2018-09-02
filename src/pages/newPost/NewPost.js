@@ -19,7 +19,7 @@ export default class NewPost extends Component {
         return (
             <View style={{flex: 1}}>
                 <CustomStatusBar/>
-                <BackHeader onBackPress={() => this.props.navigation.goBack()} title={PHOTO_GALLERY}/>
+                <BackHeader onBackPress={() => this.props.navigation.navigate('Main')} title={PHOTO_GALLERY}/>
                 <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}}
                                   onPress={() => this.onCameraScreenPress()}>
                     {this.renderCameraSection()}
