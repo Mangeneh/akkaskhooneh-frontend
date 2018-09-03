@@ -23,12 +23,10 @@ export default class NewPost extends Component {
                     <BackHeader onBackPress={() => this.props.navigation.navigate('Main')} title={PHOTO_GALLERY}/>
                 </View>
                 <View style={{flex: 1}}>
-                    <View>
-                        <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}}
-                                          onPress={() => this.onCameraScreenPress()}>
-                            {this.renderCameraSection()}
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}}
+                                      onPress={() => this.onCameraScreenPress()}>
+                        {this.renderCameraSection()}
+                    </TouchableOpacity>
                     <View style={{height: '100%', width: '100%', position: 'absolute'}}>
                         <SlidingUpPanel showBackdrop startCollapsed
                                         draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}}
