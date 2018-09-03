@@ -5,6 +5,7 @@ import {Container} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation';
 import Home from './home/Home';
+import Search from './search/Search';
 import {Colors} from '../config';
 import Profile from './profile/Profile';
 import ProfileEdit from './profileEdit/ProfileEdit';
@@ -55,9 +56,9 @@ profileStack.navigationOptions = ({navigation}) => {
 const Bottom = createMaterialTopTabNavigator(
     {
         Profile: {screen: profileStack},
-        NotificationCenter: {screen: Home},
+        NotificationCenter: {screen: Search},
         Nothing: {screen: Home},
-        Search: {screen: Home},
+        Search: {screen: Search},
         Home: {screen: Home},
     },
     {
@@ -97,7 +98,7 @@ const Bottom = createMaterialTopTabNavigator(
             },
         }),
         tabBarPosition: 'bottom',
-        initialRouteName: 'Profile',
+        initialRouteName: 'Home',
         backBehavior: 'none',
         tabBarOptions: {
             activeTintColor: 'white',
