@@ -6,6 +6,7 @@ import SpinnerButton from './SpinnerButton';
 import CustomLongTextBox from './CustomLongTextBox';
 import FullStatusBar from './FullStatusBar';
 import CustomStatusBar from './CustomStatusBar';
+import Tags from './Tags';
 
 export {
     EmailTextBox,
@@ -15,5 +16,6 @@ export {
     CustomLongTextBox,
     SpinnerButton,
     FullStatusBar,
-    CustomStatusBar
+    CustomStatusBar,
+    Tags
 };

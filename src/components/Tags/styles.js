@@ -6,7 +6,6 @@ export default StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "center"
   },
-
   textInputContainer: {
     flex: 1,
     minWidth: 100,
@@ -15,7 +14,6 @@ export default StyleSheet.create({
     borderRadius: 16,
     backgroundColor: "#ccc"
   },
-
   textInput: {
     margin: 0,
     padding: 0,
@@ -26,7 +24,6 @@ export default StyleSheet.create({
     fontSize: 13,
     color: "rgba(0, 0, 0, 0.87)"
   },
-
   tag: {
     justifyContent: "center",
     backgroundColor: "#e0e0e0",

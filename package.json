@@ -25,8 +25,6 @@
     "react-native-material-bottom-navigation": "^1.0.0",
     "react-native-paper": "^1.11.1",
     "react-native-super-grid": "^2.4.3",
-    "react-native-tag-input": "0.0.21",
-    "react-native-tags": "^1.4.0",
     "react-native-vector-icons": "^5.0.0",
     "react-native-walkthrough-tooltip": "^0.2.0",
     "react-navigation": "^2.12.1",

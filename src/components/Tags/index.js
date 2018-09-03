@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { View, TextInput} from "react-native";
-
+import {View, TextInput} from "react-native";
 import Tag from "./Tag";
 import styles from "./styles";
 
-class Tags extends React.Component {
+export default class Tags extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             tags: props.initialTags,
             text: props.initialText
@@ -29,7 +27,7 @@ class Tags extends React.Component {
                     this.props.onChangeTags && this.props.onChangeTags(this.state.tags)
             );
         } else if (
-            text.length > 1 &&
+            text.length > 1 && text !== '  ' &&
             (text.slice(-1) === " " || text.slice(-1) === ",") &&
             !(this.state.tags.indexOf(text.slice(0, -1).trim()) > -1)
         ) {
@@ -41,8 +39,10 @@ class Tags extends React.Component {
                 () =>
                     this.props.onChangeTags && this.props.onChangeTags(this.state.tags)
             );
+        } else if (text.slice(1).includes(' ')) {
+            return;
         } else {
-            this.setState({ text });
+            this.setState({text});
         }
     };
 
@@ -128,5 +128,4 @@ Tags.propTypes = {
     deleteOnTagPress: PropTypes.bool
 };
 
-export { Tag };
-export default Tags;
+export {Tag};
