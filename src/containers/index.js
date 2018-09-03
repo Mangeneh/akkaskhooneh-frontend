@@ -1,6 +1,17 @@
-export * from './SignUpCompleteButton';
-export * from './ChangePassButton';
-export * from './LoginButton';
-export * from './SaveChangesButton';
-export * from './SendPostButton';
-export * from './SignUpButton';
+import SignUpCompleteButton from './SignUpCompleteButton';
+import ChangePassButton from './ChangePassButton';
+import LoginButton from './LoginButton';
+import SaveChangesButton from './SaveChangesButton';
+import SendPostButton from './SendPostButton';
+import SignUpButton from './SignUpButton';
+import SelfProfileInfo from './SelfProfileInfo';
+
+export {
+    SignUpCompleteButton,
+    ChangePassButton,
+    LoginButton,
+    SaveChangesButton,
+    SelfProfileInfo,
+    SendPostButton,
+    SignUpButton
+};

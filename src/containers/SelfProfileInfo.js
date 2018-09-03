@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
-import {Fonts} from '../config';
+import {Fonts} from '../config/index';
 import {
     getSelfBio,
     getSelfFullName,

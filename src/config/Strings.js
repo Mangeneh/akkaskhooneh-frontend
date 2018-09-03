@@ -1,5 +1,5 @@
 export const Strings = {
-    APP_NAME: 'عکاسخونه',
+    APP_NAME: 'app_name',
     EMAIL_ADDRESS: 'آدرس ایمیل',
     PASSWORD: 'رمز عبور',
     REPEAT_PASSWORD: 'تکرار رمز عبور',
@@ -37,7 +37,7 @@ export const Strings = {
     CHANGE_PASS_FAIL: 'تغییر رمز عبور با خطا مواجه شد.',
     PHOTO_GALLERY: 'گالری تصاویر',
     COMMIT_INFO: 'ثبت توضیح',
-    PICTURE_INFO: 'توضیحات عکس',
+    DESCRIPTION: 'description',
     LOCATION: 'موقعیت',
     ADD_TAG: 'اضافه کردن تگ',
     ADD_POST: 'ارسال پست',
