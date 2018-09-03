@@ -8,14 +8,14 @@ import {Strings, Colors, PageModes, Fonts, Addresses} from '../../config';
 import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
 import {
     emailChanged,
-    Actions,
     validateEmail,
     passwordChanged,
     repeatedPasswordChanged,
     reset,
     resetEmail,
 } from './actions';
-import SignUpButton from '../../containers/SignUpButton';
+import {SignUpButton} from '../../containers';
+import {strings} from "../../i18n";
 
 class SignUp extends Component {
     render() {
@@ -52,12 +52,11 @@ class SignUp extends Component {
     }
 
     renderLogoSection() {
-        const {APP_NAME} = Strings;
         return (
             <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
                 <Avatar large containerStyle={{marginBottom: 12}} rounded
                         source={{uri: Addresses.LOGO}}/>
-                <Text style={styles.text}>{APP_NAME}</Text>
+                <Text style={styles.text}>{strings(Strings.APP_NAME)}</Text>
             </View>
         )
     }
@@ -108,7 +107,7 @@ class SignUp extends Component {
     }
 
     onSuccess() {
-        const {email,password} = this.props;
+        const {email, password} = this.props;
         this.props.navigation.navigate('SignUpComplete', {email, password});
         this.props.reset();
     }

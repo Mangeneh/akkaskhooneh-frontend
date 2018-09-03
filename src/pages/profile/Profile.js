@@ -3,10 +3,11 @@ import {Container, Tab, Tabs} from 'native-base';
 import {View, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {Colors, Fonts} from '../../config';
-import {ProfileHeader, SelfProfileInfo, CustomStatusBar} from '../../components';
+import {ProfileHeader, CustomStatusBar} from '../../components';
 import {getPhotosNextPage} from './actions';
 import {strings} from "../../i18n";
 import {getSelfUsername} from "../../reducers/UserInfoReducer";
+import {SelfProfileInfo} from "../../containers";
 
 const WIDTH = Dimensions.get('window').width;
 
