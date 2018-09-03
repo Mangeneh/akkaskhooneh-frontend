@@ -1,22 +1,18 @@
 import React, {Component} from 'react';
 import {Item, Icon, Left, Right} from 'native-base';
-import {View, Image, StyleSheet, Text, TouchableOpacity, Platform} from 'react-native'
+import {View, Image, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
+import FormData from "form-data";
+import RNGooglePlaces from 'react-native-google-places';
 import {Strings, Colors, Fonts, Constants} from '../../config';
 import {BackHeader, CustomStatusBar, CustomLongTextBox} from '../../components';
 import SendPostButton from '../../containers/SendPostButton';
 import {sendPost} from './actions';
-import FormData from "form-data";
-import RNGooglePlaces from 'react-native-google-places';
 import {strings} from "../../i18n";
 import Tags from "../../components/Tags";
 
 class AddPostInfo extends Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     state = {
         tags: [],
@@ -25,8 +21,7 @@ class AddPostInfo extends Component {
 
     onChangeTags = (tags) => {
         this.setState({tags});
-        // console.warn(tags);
-        // console.warn(this.state.tags);
+        console.log(tags);
     };
 
     render() {
@@ -92,7 +87,10 @@ class AddPostInfo extends Component {
                 <View style={{flex: 3}}>
                     <CustomLongTextBox placeholder={strings('description')}
                                        value={this.state.description}
-                                       onChangeText={(description) => {this.setState({description}); console.warn(this.state.description)}}
+                                       onChangeText={(description) => {
+                                           this.setState({description});
+                                           console.warn(this.state.description)
+                                       }}
                                        style={{
                                            borderRadius: 10,
                                            textAlign: 'right',
@@ -132,6 +130,7 @@ class AddPostInfo extends Component {
             type: 'image/jpeg'
         });
         formData.append('caption', this.state.description);
+        console.log(this.state.tags.join(','));
         formData.append('tags', this.state.tags);
         this.props.sendPost(formData);
     }
