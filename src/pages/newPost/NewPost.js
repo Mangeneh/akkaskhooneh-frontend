@@ -17,26 +17,39 @@ export default class NewPost extends Component {
     render() {
         const {PHOTO_GALLERY} = Strings;
         return (
-            <View style={{flex: 1}}>
-                <CustomStatusBar/>
-                <BackHeader onBackPress={() => this.props.navigation.navigate('Main')} title={PHOTO_GALLERY}/>
-                <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}}
-                                  onPress={() => this.onCameraScreenPress()}>
-                    {this.renderCameraSection()}
-                </TouchableOpacity>
-                <SlidingUpPanel startCollapsed
-                                draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}}
-                                visible>
-                    <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
-                        <Icon type='MaterialIcons' name='drag-handle'
-                              style={{backgroundColor: Colors.LIGHT_GRAY}}/>
-                        <CameraRollPicker selectSingleItem
-                                          callback={(image) => this.onSelectImage(image)}
-                                          backgroundColor={Colors.LIGHT_GRAY}/>
-                    </View>
-                </SlidingUpPanel>
-                {this.renderButton()}
+            <View style={{flex:1}}>
+             <CustomStatusBar/>
+             <View>
+                        <BackHeader onBackPress={() => this.props.navigation.navigate('Main')} title={PHOTO_GALLERY} />
             </View>
+                <View style={{flex: 1}}>
+                   
+                    
+                    <View>
+                        <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}}
+                                        onPress={() => this.onCameraScreenPress()}>
+                            {this.renderCameraSection()}
+                        </TouchableOpacity>
+                    </View>   
+                    <View style={{height: '100%', width: '100%', position: 'absolute'}}>
+                    <SlidingUpPanel  showBackdrop startCollapsed
+                                    draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}}
+                                    visible>
+                        <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
+                            <Icon type='MaterialIcons' name='drag-handle'
+                                style={{backgroundColor: Colors.LIGHT_GRAY}}/>
+                            <CameraRollPicker selectSingleItem
+                                            callback={(image) => this.onSelectImage(image)}
+                                            backgroundColor={Colors.LIGHT_GRAY}/>
+                        </View>
+                    </SlidingUpPanel>
+                </View>
+                {this.renderButton()}
+            `  </View>
+
+                
+            </View>
+           
         );
     }
 
@@ -75,7 +88,7 @@ export default class NewPost extends Component {
     renderButton() {
         if (this.state.hasChosen) {
             return (
-                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center'}}>
+                <View style={{position: 'absolute', bottom: 40, alignContent: 'center', alignSelf: 'center', width: '100%'}}>
                     <Button onPress={() => this.continue()} style={{alignSelf: 'center',
                         marginRight: 32, marginLeft: 32, marginTop: 16, width: 300, height: 50, backgroundColor: Colors.ACCENT, borderRadius: 10}}>
                         <Right />
