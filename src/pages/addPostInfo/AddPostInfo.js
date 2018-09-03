@@ -14,27 +14,19 @@ import {strings} from "../../i18n";
 
 class AddPostInfo extends Component {
 
+    constructor(props)
+    {
+      super(props)
+      this.onChangeTags = this.onChangeTags.bind(this)
+    }
+
     state = {
         tags: [],
-        text: "",
     };
 
     onChangeTags = (tags) => {
         this.setState({tags});
-    };
-
-    onChangeText = (text) => {
-        this.setState({text});
-
-        const lastTyped = text.charAt(text.length - 1);
-        const parseWhen = [' '];
-
-        if (parseWhen.indexOf(lastTyped) > -1) {
-            this.setState({
-                tags: [...this.state.tags, this.state.text],
-                text: "",
-            });
-        }
+        console.warn(this.state.tags);
     };
 
     labelExtractor = (tag) => tag;
@@ -68,7 +60,7 @@ class AddPostInfo extends Component {
                             </Item>
                             <Tags
                                 initialText={strings('add_tag')}
-                                onChangeTags={tags => console.log(tags)}
+                                onChangeTags={tags => this.onChangeTags(tags)}
                                 style={{justifyContent: "center"}}
                                 tagContainerStyle={{backgroundColor: Colors.ACCENT}}
                                 tagTextStyle={{
@@ -138,6 +130,9 @@ class AddPostInfo extends Component {
             uri: this.props.navigation.getParam('imageSource'), // your file path string
             name: 'my_photo.jpg',
             type: 'image/jpeg'
+        });
+        formData.append('tags', {
+
         });
         this.props.sendPost(formData);
     }
