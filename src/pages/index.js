@@ -10,6 +10,7 @@ import Home from './home/Home';
 import AddPostInfo from './addPostInfo/AddPostInfo'
 import Main from './Main';
 import AddFriends from './addFriends/AddFriends';
+import Search from './search/Search';
 
 export {
     Login,
@@ -23,5 +24,6 @@ export {
     Home,
     Main,
     AddPostInfo,
-    AddFriends
+    AddFriends,
+    Search,
 };
