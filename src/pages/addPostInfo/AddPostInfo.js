@@ -9,15 +9,13 @@ import SendPostButton from '../../containers/SendPostButton';
 import {sendPost} from './actions';
 import FormData from "form-data";
 import RNGooglePlaces from 'react-native-google-places';
-import Tags from "react-native-tags";
 import {strings} from "../../i18n";
+import Tags from "../../components/Tags";
 
 class AddPostInfo extends Component {
 
-    constructor(props)
-    {
-      super(props)
-      this.onChangeTags = this.onChangeTags.bind(this)
+    constructor(props) {
+        super(props)
     }
 
     state = {
@@ -26,10 +24,9 @@ class AddPostInfo extends Component {
 
     onChangeTags = (tags) => {
         this.setState({tags});
-        console.warn(this.state.tags);
+        // console.warn(tags);
+        // console.warn(this.state.tags);
     };
-
-    labelExtractor = (tag) => tag;
 
     render() {
         const {SAVE_POST_INFO, LOCATION, ADD_TAGS, SEND_POST} = Strings;
@@ -60,6 +57,7 @@ class AddPostInfo extends Component {
                             </Item>
                             <Tags
                                 initialText={strings('add_tag')}
+                                initialTags={this.state.tags}
                                 onChangeTags={tags => this.onChangeTags(tags)}
                                 style={{justifyContent: "center"}}
                                 tagContainerStyle={{backgroundColor: Colors.ACCENT}}
@@ -75,7 +73,6 @@ class AddPostInfo extends Component {
                                     borderRadius: 16,
                                 }}
                             />
-
                             <View style={{flex: 1, alignContent: 'center', alignSelf: 'center'}}>
                                 <SendPostButton style={{position: 'absolute', alignSelf: 'center'}} text={SEND_POST}
                                                 onPress={() => this.SendPost()}/>
@@ -93,6 +90,8 @@ class AddPostInfo extends Component {
             <View style={styles.photo}>
                 <View style={{flex: 3}}>
                     <CustomLongTextBox placeholder={strings('description')}
+                                       value={this.state.description}
+                                       onChangeText={(description) => this.setState({description})}
                                        style={{
                                            borderRadius: 10,
                                            textAlign: 'right',
@@ -131,9 +130,7 @@ class AddPostInfo extends Component {
             name: 'my_photo.jpg',
             type: 'image/jpeg'
         });
-        formData.append('tags', {
-
-        });
+        formData.append('tags', {});
         this.props.sendPost(formData);
     }
 }

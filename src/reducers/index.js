@@ -8,6 +8,7 @@ import ChangePassPageReducer from '../pages/changePass/reducer';
 import ProfilePageReducer from '../pages/profile/reducer';
 import AddPostInfoReducer from '../pages/addPostInfo/reducer';
 import PostsReducer from "./PostsReducer";
+import BoardsReducer from "./BoardsReducer";
 
 export default combineReducers({
     loginPage: LoginPageReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     signUpCompletePage: SignUpCompletePageReducer,
     changePassPage: ChangePassPageReducer,
     addPostInfoPage: AddPostInfoReducer,
-    posts: PostsReducer
+    posts: PostsReducer,
+    boards:BoardsReducer
 });

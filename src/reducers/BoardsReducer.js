@@ -1,9 +1,7 @@
-import {Actions} from '../actions/PostsActions';
+import {} from '../actions/BoardsActions';
 
 const INITIAL_STATE = {
-    selfPosts: [],
-    homePosts: [],
-    otherPosts: []
+    selfBoards: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
