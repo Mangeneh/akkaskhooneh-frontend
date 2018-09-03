@@ -6,8 +6,9 @@ import { BackHeader } from '../../components';
 export default class Search extends Component {
     render() {
         return (
-            <View>
-                <Text style={{justifyContent: 'center', alignSelf: 'center'}}>Not Implemented! Come Back Later!</Text>
+            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+                <Text>'Not Yet Implemented!Come Back Later!'</Text>
             </View>
+
         )}
 }
