@@ -24,7 +24,7 @@ export default class Post extends Component {
           </Right>
         </CardItem>
         <CardItem cardBody>
-          <Image source={{uri: 'https://www.publicdomainpictures.net/pictures/250000/velka/paint-abstract-colorful-background.jpg'}} style={{height: 200, width: null, flex: 1}}/>
+          <Image source={{uri: this.props.imageSource}} style={{height: 200, width: null, flex: 1}}/>
         </CardItem>
         <CardItem style= {{borderRadius: Constants.POST_CARD_RADIUS}}>
           <Left>

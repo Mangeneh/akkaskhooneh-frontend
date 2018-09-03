@@ -45,7 +45,7 @@ export default class NewPost extends Component {
                     </SlidingUpPanel>
                 </View>
                 {this.renderButton()}
-            `  </View>
+              </View>
 
                 
             </View>
