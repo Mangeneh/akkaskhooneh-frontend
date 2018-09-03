@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 
 export default class Post extends Component {
   render() {
     return (
-      <Container>
-        <Header />
-        <Content>
+      <View>
           <Card>
             <CardItem>
               <Left>
@@ -39,8 +37,7 @@ export default class Post extends Component {
               </Right>
             </CardItem>
           </Card>
-        </Content>
-      </Container>
+      </View>
     );
   }
 }
