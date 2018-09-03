@@ -20,6 +20,7 @@ class AddPostInfo extends Component {
 
     state = {
         tags: [],
+        description: '',
     };
 
     onChangeTags = (tags) => {
@@ -91,7 +92,7 @@ class AddPostInfo extends Component {
                 <View style={{flex: 3}}>
                     <CustomLongTextBox placeholder={strings('description')}
                                        value={this.state.description}
-                                       onChangeText={(description) => this.setState({description})}
+                                       onChangeText={(description) => {this.setState({description}); console.warn(this.state.description)}}
                                        style={{
                                            borderRadius: 10,
                                            textAlign: 'right',
@@ -130,7 +131,8 @@ class AddPostInfo extends Component {
             name: 'my_photo.jpg',
             type: 'image/jpeg'
         });
-        formData.append('tags', {});
+        formData.append('caption', this.state.description);
+        formData.append('tags', this.state.tags);
         this.props.sendPost(formData);
     }
 }
