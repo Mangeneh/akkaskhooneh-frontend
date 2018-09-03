@@ -49,4 +49,6 @@ export const Strings = {
     POST_INFO: 'توضیحات عکس',
     ADD_TAGS: 'اضافه کردن تگ',
     SEND_POST: 'ارسال پست',
+    ADD_TO_INTERESTS: 'اضافه به علاقه‌مندی‌ها',
+    CREATE_NEW_BOARD: 'ساخت برد جدید',
 };

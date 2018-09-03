@@ -41,7 +41,7 @@ export default class Post extends Component {
             </Button>
           </Left>
           <Right>
-            <Button transparent style={{flexDirection: 'row'}}>
+            <Button transparent style={{flexDirection: 'row'}} onPress={this.props.saveButtonPressed}>
                 <Icon name='bookmark-o' type='FontAwesome' style={{color: Colors.BASE}}/>
             </Button>
           </Right>
