@@ -11,7 +11,7 @@ export default class AddBoardModal extends Component {
             <Text style={{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.TEXT_NORMAL_SIZE}}>{Strings.ADD_TO_INTERESTS}</Text>
  
             <Item style={{flexDirection: 'row'}}>
-                <Input style={{color: Colors.BASE, textAlign: 'right', justifyContent: 'center', fontSize: Constants.ITEM_FONT_SIZE}} onChange={this.props.onNameChange()} placeholder={Strings.CREATE_NEW_BOARD}/>
+                <Input style={{color: Colors.BASE, textAlign: 'right', justifyContent: 'center', fontSize: Constants.ITEM_FONT_SIZE}} onChangeText={this.props.onNameChange} placeholder={Strings.CREATE_NEW_BOARD} value={this.props.value}/>
                 <TouchableOpacity>
                     <Icon name='plus' type='Entypo' style={{color: Colors.BASE, justifyContent: 'flex-end', alignSelf: 'center'}} onPress={this.props.onAddPress}/>
                 </TouchableOpacity>

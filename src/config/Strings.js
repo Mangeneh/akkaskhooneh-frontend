@@ -51,4 +51,6 @@ export const Strings = {
     SEND_POST: 'ارسال پست',
     ADD_TO_INTERESTS: 'اضافه به علاقه‌مندی‌ها',
     CREATE_NEW_BOARD: 'ساخت برد جدید',
+    CREATE_NEW_BOARD_SUCCESS: 'برد جدید با موفقیت ساخته شد.',
+    CREATE_NEW_BOARD_FAIL: 'ساخت برد با خطا مواجه شد.'
 };

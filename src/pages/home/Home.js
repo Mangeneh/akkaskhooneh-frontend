@@ -4,17 +4,20 @@ import Post from '../../components/Post';
 import {BackHeader} from '../../components';
 import Modal from "react-native-modal";
 import AddBoardModal from '../../components/AddBoardModal';
-import {boardNameChanged} from './actions';
+import {boardNameChanged, createBoard} from './actions';
 import {connect} from 'react-redux';
 import {Toast} from 'native-base';
+import { Strings } from '../../config';
 
 class Home extends Component {
 
     state = {
         visibleModal: false,
+
     };
 
     render() {
+        const {boardName, changeBoardName} = this.props;
         return (
             <View style={{flex: 1}}> 
                 <BackHeader onBackPress={() => this.props.navigation.navigate('Main')}/>
@@ -26,7 +29,7 @@ class Home extends Component {
                     isVisible={this.state.visibleModal === true}
                     onBackdropPress={() => this.setState({ visibleModal: null })}
                     >
-                    <AddBoardModal onNameChange={(name) => this.props.changeBoardName(name)} onAddPress={this.onAddPress.bind(this)}/>
+                    <AddBoardModal value={boardName} onNameChange={(boardName) => changeBoardName(boardName)} onAddPress={this.onAddPress.bind(this)}/>
                 </Modal>  
             </View>
         );
@@ -36,16 +39,38 @@ class Home extends Component {
         this.setState({ visibleModal: true })
     }
 
+    onFail(error) {
+        Toast.show({
+            text: Strings.CREATE_NEW_BOARD_FAIL,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'danger'
+        });
+        this.setState({ visibleModal: false })
+    }
+
+    onSuccess(response) {
+        Toast.show({
+            text: Strings.CREATE_NEW_BOARD_SUCCESS,
+            textStyle: {textAlign: 'center'},
+            position: 'bottom',
+            type: 'success'
+        });
+        this.setState({ visibleModal: false })
+    }
+
     onAddPress() {
-        console.warn(this.props.boardName);
-        // if(this.props.boardName === '') {
-        //     Toast.show({
-        //         text: 'ERROR',
-        //         textStyle: {textAlign: 'center'},
-        //         position: 'bottom',
-        //         type: 'danger'
-        //     });
-        // }
+        const {boardName} = this.props;
+        if(boardName !== '')
+        {
+            this.props.createBoard(boardName)
+                .then((response) => {
+                    this.onSuccess(response);
+                })
+                .catch((error) => {
+                    this.onFail(error);
+                });
+        }
     }
 }
 
@@ -56,6 +81,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     changeBoardName: (boardName) => dispatch(boardNameChanged(boardName)),
+    createBoard: (boardName) => dispatch(createBoard(boardName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
