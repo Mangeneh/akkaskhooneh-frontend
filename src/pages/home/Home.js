@@ -40,17 +40,13 @@ class Home extends Component {
             <View style={{flex: 1}}>
                 <HomeHeader onAddFriendsPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
                             title={strings(Strings.APP_NAME)}/>
-
-                <ScrollView style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
-                        <FlatList
-                            onEndReached={() => this.updatePosts()}
-                            style={{width: '100%', marginTop: 8}}
-                            keyExtractor={(item, index) => item.id.toString()}
-                            data={this.props.posts}
-                            renderItem={({item, index}) => this.renderPost(item, index)}
-                        />
-                </ScrollView>
-
+                <FlatList
+                    onEndReached={() => this.updatePosts()}
+                    style={{width: '100%', marginTop: 8}}
+                    keyExtractor={(item, index) => item.id.toString()}
+                    data={this.props.posts}
+                    renderItem={({item, index}) => this.renderPost(item, index)}
+                />
                 <Modal
                     isVisible={this.state.visibleModal === true}
                     onBackdropPress={() => this.setState({visibleModal: null})}
@@ -82,7 +78,7 @@ class Home extends Component {
     }
 
     showModal() {
-        this.setState({visibleModal: true})
+        this.setState({visibleModal: true});
     }
 
     onCreateBoardSuccess(error) {
@@ -92,7 +88,7 @@ class Home extends Component {
             position: 'bottom',
             type: 'danger'
         });
-        this.setState({visibleModal: false})
+        this.setState({visibleModal: false});
     }
 
     onCreateBoardSuccess(response) {
@@ -102,7 +98,7 @@ class Home extends Component {
             position: 'bottom',
             type: 'success'
         });
-        this.setState({visibleModal: false})
+        this.setState({visibleModal: false});
     }
 
     onAddPress() {

@@ -33,7 +33,6 @@ class Profile extends Component {
         this.updateBoards();
     }
 
-
     componentDidMount() {
         setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
     }
@@ -57,15 +56,14 @@ class Profile extends Component {
                              tabStyle={{backgroundColor: 'white'}}
                              activeTabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
-                                {(this.props.boardsIsLoading) ? (<ActivityIndicator size="large"/>) :
-                                    <FlatList
-                                        onEndReached={() => this.updateBoards()}
-                                        style={{width: '100%', marginTop: 8}}
-                                        keyExtractor={(item, index) => item.id.toString()}
-                                        data={this.props.boards}
-                                        renderItem={({item, index}) => this.renderBoard(item, index)}
-                                    />
-                                }
+                                <FlatList
+                                    onEndReached={() => this.updateBoards()}
+                                    style={{width: '100%', marginTop: 8}}
+                                    keyExtractor={(item, index) => item.id.toString()}
+                                    data={this.props.boards}
+                                    renderItem={({item, index}) => this.renderBoard(item, index)}
+                                />
+                                {(this.props.postsIsLoading) ? (<ActivityIndicator size="large"/>) : <View/>}
                             </View>
                         </Tab>
                         <Tab heading={strings(Strings.PHOTOS)}
@@ -74,16 +72,15 @@ class Profile extends Component {
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
-                                {(this.props.photosIsLoading) ? (<ActivityIndicator size="large"/>) :
-                                    <FlatList
-                                        onEndReached={() => this.updatePhotos()}
-                                        style={{width: '100%', marginTop: 8}}
-                                        numColumns={2}
-                                        keyExtractor={(item, index) => item.id}
-                                        data={this.props.photos}
-                                        renderItem={({item, index}) => this.renderPhoto(item, index)}
-                                    />
-                                }
+                                <FlatList
+                                    onEndReached={() => this.updatePhotos()}
+                                    style={{width: '100%', marginTop: 8}}
+                                    numColumns={2}
+                                    keyExtractor={(item, index) => item.id}
+                                    data={this.props.photos}
+                                    renderItem={({item, index}) => this.renderPhoto(item, index)}
+                                />
+                                {(this.props.photosIsLoading) ? (<ActivityIndicator size="large"/>) : <View/>}
                             </View>
                         </Tab>
                     </Tabs>
