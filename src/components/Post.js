@@ -14,27 +14,27 @@ export default class Post extends Component {
             </Button>
           </Left>
           <Body />
-          <Right style={{flexDirection: 'row', alignSelf: 'flex-end', marginRight: 24}}>
+          <Right style={{flexDirection: 'row', alignSelf: 'flex-end', paddingRight: 12}}>
               <View style={{flexDirection: 'column'}}>
-                <Text style = {{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.POST_NAME_FONT_SIZE, marginRight: 8}}>یاسمن جعفری</Text>
-                <Text note style = {{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.POST_TIME_FONT_SIZE}}>۲ ساعت پیش</Text>
+                <Text style = {{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.POST_NAME_FONT_SIZE, textAlign: 'right', paddingRight: 8}}>{this.props.item.owner_username}</Text>
+                <Text note style = {{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.POST_TIME_FONT_SIZE, paddingRight: 8}}>۲ ساعت پیش</Text>
                 <Text />
               </View>
-              <Thumbnail source={{uri: 'https://www.publicdomainpictures.net/pictures/250000/velka/paint-abstract-colorful-background.jpg'}}/>
+              <Thumbnail source={{uri: this.props.item.profile_picture}}/>
           </Right>
         </CardItem>
         <CardItem cardBody>
-          <Image source={{uri: this.props.imageSource}} style={{height: 200, width: null, flex: 1}}/>
+          <Image source={{uri: this.props.item.post_picture}} style={{height: 200, width: null, flex: 1}}/>
         </CardItem>
         <CardItem style= {{borderRadius: Constants.POST_CARD_RADIUS}}>
           <Left>
             <Button transparent style={{flexDirection: 'row'}}>
               <Icon name='heart-outlined' type='Entypo' style={{color: Colors.BASE}}/>
-              <Text style={{color: Colors.BASE}}>12</Text>
+              <Text style={{color: Colors.BASE}}>{this.props.item.likes}</Text>
             </Button>
             <Button transparent style={{flexDirection: 'row' }}>
               <Icon name='commenting-o' type='FontAwesome' style={{color: Colors.BASE}}/>
-               <Text style={{color: Colors.BASE}}>4</Text>
+               <Text style={{color: Colors.BASE}}>{this.props.item.comments}</Text>
             </Button>
             <Button transparent style={{flexDirection: 'row'}}>
               <Icon name='share-2' type='Feather' style={{color: Colors.BASE}}/>
