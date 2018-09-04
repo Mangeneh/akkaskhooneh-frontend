@@ -10,7 +10,7 @@ import {BackHeader, CustomStatusBar, CustomLongTextBox} from '../../components';
 import SendPostButton from '../../containers/SendPostButton';
 import {sendPost} from './actions';
 import {strings} from "../../i18n";
-import Tags from "../../components/Tags";
+import {Tags} from "../../components";
 
 class AddPostInfo extends Component {
 
@@ -74,7 +74,6 @@ class AddPostInfo extends Component {
                                                 onPress={() => this.SendPost()}/>
                             </View>
                         </View>
-
                     </View>
                 </KeyboardAwareScrollView>
             </View>
@@ -101,7 +100,6 @@ class AddPostInfo extends Component {
                                            marginLeft: 10
                                        }}/>
                 </View>
-
                 <Image source={{uri: this.props.navigation.getParam('imageSource')}} resizeMode={'stretch'}
                        style={{borderRadius: 10, width: 100, height: 100, flex: 1, marginRight: 8}}/>
             </View>

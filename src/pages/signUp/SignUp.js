@@ -19,7 +19,6 @@ import {strings} from "../../i18n";
 
 class SignUp extends Component {
     render() {
-        const {SIGN_UP, PASSWORD, REPEAT_PASSWORD} = Strings;
         const {email, password, repeatedPassword, error, changeEmail, changePassword, resetEmail, changeRepeatedPassword} = this.props;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
@@ -35,14 +34,14 @@ class SignUp extends Component {
                                               onChangeEmail={(email) => changeEmail(email)}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox placeholder={PASSWORD} value={password}
+                                <PasswordTextBox placeholder={strings(Strings.PASSWORD)} value={password}
                                                  onChangePassword={(password) => changePassword(password)}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox placeholder={REPEAT_PASSWORD} value={repeatedPassword}
+                                <PasswordTextBox placeholder={strings(Strings.REPEAT_PASSWORD)} value={repeatedPassword}
                                                  onChangePassword={(repeatedPassword) => changeRepeatedPassword(repeatedPassword)}/>
                             </View>
-                            <SignUpButton onPress={() => this.onSignUpPress()} text={SIGN_UP} icon={'login'}/>
+                            <SignUpButton onPress={() => this.onSignUpPress()} text={strings(Strings.SIGN_UP)} icon={'login'}/>
                         </View>
                         {this.renderOtherLoginSection()}
                     </View>
@@ -62,12 +61,11 @@ class SignUp extends Component {
     }
 
     renderOtherLoginSection() {
-        const {ENTER_LOGIN_PAGE} = Strings;
         return (
             <View style={{flex: 1, justifyContent: 'center',}}>
                 {this.renderOtherLoginButtons()}
                 <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => this.onReturnToLoginPress()}>
-                    <Text style={styles.text}>{ENTER_LOGIN_PAGE}</Text>
+                    <Text style={styles.text}>{strings(Strings.ENTER_LOGIN_PAGE)}</Text>
                 </TouchableOpacity>
             </View>
         )

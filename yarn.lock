@@ -4417,6 +4417,12 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-native-animatable@^1.2.4:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.0.tgz#b5c3940fc758cfd9b2fe54613a457c4b6962b46e"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-camera-kit@^6.2.6:
   version "6.2.6"
   resolved "https://registry.yarnpkg.com/react-native-camera-kit/-/react-native-camera-kit-6.2.6.tgz#d2d0b493b35b537a6b6dfe9abda74805b6f99ae9"
@@ -4515,6 +4521,13 @@ react-native-material-bottom-navigation@^1.0.0:
   dependencies:
     prop-types "^15.6.1"
 
+react-native-modal@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-6.5.0.tgz#46220b2289a41597d344c1db17454611b426a758"
+  dependencies:
+    prop-types "^15.6.1"
+    react-native-animatable "^1.2.4"
+
 react-native-paper@2.0.0-alpha.4:
   version "2.0.0-alpha.4"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-2.0.0-alpha.4.tgz#2186fd85e3e5aee368a0861f6a302015e76f24d9"
@@ -4565,17 +4578,6 @@ react-native-tab-view@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-1.0.2.tgz#66e0bc6d38a227ed2b212e3a256b7902f6ce02ed"
   dependencies:
     prop-types "^15.6.1"
-
-react-native-tag-input@0.0.21:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/react-native-tag-input/-/react-native-tag-input-0.0.21.tgz#07e361c58ce063b04670bd7ead6773464de98129"
-  dependencies:
-    invariant "^2.2.2"
-    prop-types "^15.5.10"
-
-react-native-tags@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-tags/-/react-native-tags-1.4.0.tgz#73fbd04e21452814d99a62815214c25e42945805"
 
 react-native-vector-icons@4.5.0:
   version "4.5.0"

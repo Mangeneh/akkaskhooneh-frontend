@@ -25,13 +25,13 @@ export default (state = INITIAL_STATE, action) => {
     }
 }
 
-export const getSelfEmail = (state) => state.userInfo.user.email;
-export const getSelfUsername = (state) => state.userInfo.user.username;
-export const getSelfBio = (state) => state.userInfo.user.bio;
-export const getSelfFullName = (state) => state.userInfo.user.fullname;
-export const getSelfNumOfFollowers = (state) => state.userInfo.user.followers;
-export const getSelfNumOfFollowings = (state) => state.userInfo.user.following;
-export const getSelfProfilePicture = (state) => state.userInfo.user.profile_picture;
-export const getAccessToken = (state) => state.userInfo.accessToken;
-export const getRefreshToken = (state) => state.userInfo.refreshToken;
-export const getLastRefreshTime = (state) => state.userInfo.lastRefreshTime;
+export const selectSelfEmail = (state) => state.userInfo.user.email;
+export const selectSelfUsername = (state) => state.userInfo.user.username;
+export const selectSelfBio = (state) => state.userInfo.user.bio;
+export const selectSelfFullName = (state) => state.userInfo.user.fullname;
+export const selectSelfNumOfFollowers = (state) => state.userInfo.user.followers;
+export const selectSelfNumOfFollowings = (state) => state.userInfo.user.following;
+export const selectSelfProfilePicture = (state) => state.userInfo.user.profile_picture;
+export const selectAccessToken = (state) => state.userInfo.accessToken;
+export const selectRefreshToken = (state) => state.userInfo.refreshToken;
+export const selectLastRefreshTime = (state) => state.userInfo.lastRefreshTime;

@@ -4,11 +4,11 @@ import {Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {Fonts} from '../config/index';
 import {
-    getSelfBio,
-    getSelfFullName,
-    getSelfNumOfFollowers,
-    getSelfNumOfFollowings,
-    getSelfProfilePicture
+    selectSelfBio,
+    selectSelfFullName,
+    selectSelfNumOfFollowers,
+    selectSelfNumOfFollowings,
+    selectSelfProfilePicture
 } from '../reducers/UserInfoReducer';
 import {strings} from "../i18n";
 
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     user: state.userInfo.user,
-    bio: getSelfBio(state),
-    profilePicture: getSelfProfilePicture(state),
-    fullName: getSelfFullName(state),
-    followers: getSelfNumOfFollowers(state),
-    followings: getSelfNumOfFollowings(state)
+    bio: selectSelfBio(state),
+    profilePicture: selectSelfProfilePicture(state),
+    fullName: selectSelfFullName(state),
+    followers: selectSelfNumOfFollowers(state),
+    followings: selectSelfNumOfFollowings(state)
 });
 
 export default connect(mapStateToProps, null)(SelfProfileInfo);

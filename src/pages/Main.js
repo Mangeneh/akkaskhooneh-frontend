@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation';
 import Home from './home/Home';
 import Search from './search/Search';
-import {Colors} from '../config';
+import {Colors, Pages} from '../config';
 import Profile from './profile/Profile';
 import ProfileEdit from './profileEdit/ProfileEdit';
 import ProfileSettings from './profileSettings/ProfileSettings';
@@ -18,7 +18,7 @@ const profileStack = createStackNavigator({
     ProfileSettings: ProfileSettings,
     ChangePass: ChangePass
 }, {
-    initialRouteName: 'Profile',
+    initialRouteName: Pages.PROFILE,
     navigationOptions: {
         header: null,
     },
@@ -90,9 +90,7 @@ const Bottom = createMaterialTopTabNavigator(
              */
             tabBarOnPress: (argument) => {
                 const {routeName} = navigation.state;
-                if (routeName === 'Nothing') {
-
-                } else {
+                if (routeName !== 'Nothing') {
                     argument.defaultHandler();
                 }
             },

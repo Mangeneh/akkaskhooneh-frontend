@@ -6,7 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import {strings} from '../../i18n';
 import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
-import {Colors, PageModes, Fonts, Addresses} from '../../config';
+import {Colors, PageModes, Fonts, Addresses, Strings} from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import {emailChanged, loginUser, passwordChanged, reset, resetPassword, resetEmail} from './actions';
 import {userUpdated, refreshTokenSet, accessTokenSet} from '../../actions/UserInfoActions';
@@ -28,13 +28,14 @@ class Login extends Component {
                                               reset={() => resetEmail()}/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} value={password} placeholder={strings('password')}
+                                <PasswordTextBox error={error} value={password} placeholder={strings(Strings.PASSWORD)}
                                                  onChangePassword={(password) => changePassword(password)}
                                                  reset={() => resetPassword()}/>
                             </View>
-                            <LoginButton onPress={() => this.onLoginPress()} text={strings('login')} icon={'login'}/>
+                            <LoginButton onPress={() => this.onLoginPress()} text={strings(Strings.LOGIN)}
+                                         icon={'login'}/>
                             <TouchableOpacity style={{marginTop: 24}}>
-                                <Text style={styles.text}>{strings('forgot_password')}</Text>
+                                <Text style={styles.text}>{strings(Strings.FORGOT_PASSWORD)}</Text>
                             </TouchableOpacity>
                         </View>
                         {this.renderOtherLoginSection()}

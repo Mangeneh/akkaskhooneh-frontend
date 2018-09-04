@@ -13,6 +13,7 @@ import SaveChangesButton from '../../containers/SaveChangesButton';
 import {editProfile, changeProfilePic, normalize} from './actions';
 import {userUpdated} from '../../actions/UserInfoActions';
 import {extractImageSource} from "../../helpers";
+import {strings} from "../../i18n";
 
 class ProfileEdit extends Component {
     state = {
@@ -27,7 +28,7 @@ class ProfileEdit extends Component {
     }
 
     render() {
-        const {SAVE_CHANGES, EDIT_PROFILE, ABOUT_YOU, FIRST_LAST_NAME} = Strings;
+        const {SAVE_CHANGES, EDIT_PROFILE, FIRST_LAST_NAME} = Strings;
         const {emailFromDB, usernameFromDB} = this.props;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
@@ -69,7 +70,7 @@ class ProfileEdit extends Component {
                                 </Item>
 
                                 <Item style={styles.item} rounded>
-                                    <CustomLongTextBox placeholder={ABOUT_YOU}
+                                    <CustomLongTextBox placeholder={strings(Strings.ABOUT_YOU)}
                                                        style={{textAlign: 'center', fontSize: 10}}
                                                        value={this.state.bio}
                                                        onChangeText={(bio) => {

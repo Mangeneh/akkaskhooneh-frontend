@@ -2,12 +2,24 @@ import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
 import {View, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {Colors, Fonts} from '../../config';
-import {ProfileHeader, CustomStatusBar} from '../../components';
-import {getPhotosNextPage} from './actions';
+import {Colors, Fonts, Pages, Strings} from '../../config';
+import {ProfileHeader, CustomStatusBar, Board} from '../../components';
 import {strings} from "../../i18n";
-import {getSelfUsername} from "../../reducers/UserInfoReducer";
+import {selectSelfUsername} from "../../reducers/UserInfoReducer";
 import {SelfProfileInfo} from "../../containers";
+import {
+    selectSelfBoards,
+    selectSelfBoardsIsLoading,
+    selectSelfBoardsNextPage,
+    selectSelfBoardsTotalPages
+} from "../../reducers/BoardsReducer";
+import {getSelfBoardsNextPage, getSelfPhotosNextPage} from "../../actions";
+import {
+    selectSelfPhotos,
+    selectSelfPhotosIsLoading,
+    selectSelfPhotosNextPage,
+    selectSelfPhotosTotalPages
+} from "../../reducers/PostsReducer";
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -15,6 +27,7 @@ class Profile extends Component {
     componentDidMount() {
         setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
         this.updatePhotos();
+        this.updateBoards();
     }
 
     render() {
@@ -29,14 +42,24 @@ class Profile extends Component {
                     </View>
                     <Tabs ref={component => this._tabs = component}
                           tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
-                        <Tab heading={strings('interests')}
+                        <Tab heading={strings(Strings.INTERESTS)}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              tabStyle={{backgroundColor: 'white'}}
                              activeTabStyle={{backgroundColor: 'white'}}>
+                            <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
+                                {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) :
+                                    <FlatList
+                                        onEndReached={() => this.updateBoards()}
+                                        style={{width: '100%', marginTop: 8}}
+                                        keyExtractor={(item, index) => item.id.toString()}
+                                        data={this.props.boards}
+                                        renderItem={({item, index}) => this.renderBoard(item, index)}
+                                    />
+                                }
+                            </View>
                         </Tab>
-
-                        <Tab heading={strings('photos')}
+                        <Tab heading={strings(Strings.PHOTOS)}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              activeTabStyle={{backgroundColor: 'white'}}
@@ -70,17 +93,33 @@ class Profile extends Component {
     }
 
     updatePhotos() {
-        if (!this.props.fetchStatus) {
-            this.props.getPhotosNextPage(this.props.photosNext);
+        if (this.props.photosNextPage <= this.props.photosTotalPages) {
+            this.props.getPhotosNextPage(this.props.photosNextPage);
         }
     }
 
+    updateBoards() {
+        if (this.props.boardsNextPage <= this.props.boardsTotalPages) {
+            this.props.getBoardsNextPage(this.props.boardsNextPage);
+        }
+    }
+
+    renderBoard(item, index) {
+        return (
+            <Board
+                boardName={item.name}
+                posts={item.last_pics}
+                quantity={item.count}
+            />
+        )
+    }
+
     onEditPress() {
-        this.props.navigation.navigate('ProfileEdit');
+        this.props.navigation.navigate(Pages.PROFILE_EDIT);
     }
 
     onSettingsPress() {
-        this.props.navigation.navigate('ProfileSettings');
+        this.props.navigation.navigate(Pages.PROFILE_SETTINGS);
     }
 }
 
@@ -104,15 +143,20 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-    username: getSelfUsername(state),
-    photos: state.profilePage.photos,
-    photosNext: state.profilePage.photosNext,
-    isLoading: state.profilePage.isLoading,
-    fetchStatus: state.profilePage.fetchStatus
+    username: selectSelfUsername(state),
+    photos: selectSelfPhotos(state),
+    photosNextPage: selectSelfPhotosNextPage(state),
+    photosTotalPages: selectSelfPhotosTotalPages(state),
+    photosIsLoading: selectSelfPhotosIsLoading(state),
+    boards: selectSelfBoards(state),
+    boardsNextPage: selectSelfBoardsNextPage(state),
+    boardsTotalPages: selectSelfBoardsTotalPages(state),
+    boardsIsLoading: selectSelfBoardsIsLoading(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getPhotosNextPage: (photosNext) => dispatch(getPhotosNextPage(photosNext))
+    getPhotosNextPage: (photosNext) => dispatch(getSelfPhotosNextPage(photosNext)),
+    getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

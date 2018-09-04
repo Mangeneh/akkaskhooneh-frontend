@@ -5,3 +5,5 @@ export * from './Fonts';
 export * from './Strings';
 export * from './Server';
 export * from './Addresses';
+export * from './RequestMethods';
+export * from './Pages';

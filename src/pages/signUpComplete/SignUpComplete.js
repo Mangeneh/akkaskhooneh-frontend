@@ -18,11 +18,12 @@ import {
 } from './actions';
 import {accessTokenSet, refreshTokenSet, userUpdated} from '../../actions/UserInfoActions';
 import { extractImageSource} from "../../helpers";
+import {strings} from "../../i18n";
 
 class SignUpComplete extends Component {
     render() {
         const {username, bio, fullName, changeUsername, changeFullName, changeBio} = this.props;
-        const {USER_NAME, FIRST_LAST_NAME, ABOUT_YOU, COMPLETE_INFO} = Strings;
+        const { FIRST_LAST_NAME} = Strings;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={() => this.props.navigation.goBack()}/>
@@ -39,7 +40,7 @@ class SignUpComplete extends Component {
                         </TouchableOpacity>
                         <View style={{flex: 1, justifyContent: 'center'}}>
                             <Item style={styles.item} rounded>
-                                <Input placeholder={USER_NAME}
+                                <Input placeholder={strings(Strings.USERNAME)}
                                        fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}
                                        value={username}
@@ -47,7 +48,7 @@ class SignUpComplete extends Component {
                                 />
                             </Item>
                             <Item style={styles.item} rounded>
-                                <Input placeholder={FIRST_LAST_NAME}
+                                <Input placeholder={strings(Strings.COMPLETE_INFO)}
                                        fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}
                                        value={fullName}
@@ -62,7 +63,7 @@ class SignUpComplete extends Component {
                             </Item>
                             <Item style={styles.item} rounded>
 
-                                <CustomLongTextBox placeholder={ABOUT_YOU}
+                                <CustomLongTextBox placeholder={strings(Strings.ABOUT_YOU)}
                                                    style={styles.input}
                                                    value={bio}
                                                    onChangeText={(bio) => changeBio(bio)}/>

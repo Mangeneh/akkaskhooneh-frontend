@@ -7,6 +7,7 @@ import CustomLongTextBox from './CustomLongTextBox';
 import FullStatusBar from './FullStatusBar';
 import CustomStatusBar from './CustomStatusBar';
 import Tags from './Tags';
+import Board from './Board';
 
 export {
     EmailTextBox,
@@ -17,5 +18,6 @@ export {
     SpinnerButton,
     FullStatusBar,
     CustomStatusBar,
-    Tags
+    Tags,
+    Board
 };

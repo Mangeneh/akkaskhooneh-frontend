@@ -5,8 +5,9 @@ export const Server = {
     CHANGE_PROFILE_PIC: '/social/change-pic/',
     CHANGE_PASSWORD: '/auth/changepassword/',
     LOGIN_USER: '/auth/login/',
+    GET_SELF_PHOTOS_NEXT_PAGE: '/social/pictures/?page=',
+    GET_SELF_BOARDS_NEXT_PAGE: '/social/boards/?page=',
     CREATE_BOARD: '/social/create-new-board/',
-    GET_PHOTOS_NEXT_PAGE: '/social/pictures/?page=',
     CHECK_EMAIL: '/auth/checkemail/',
     SIGN_UP_USER: '/auth/register/',
     SEND_POST: '/social/create-new-post/'
