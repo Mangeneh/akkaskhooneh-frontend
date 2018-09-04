@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, View, Dimensions } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Item } from 'native-base';
 import { Constants, Colors, Fonts } from '../config';
 
 export default class Post extends Component {
@@ -25,6 +25,16 @@ export default class Post extends Component {
         </CardItem>
         <CardItem cardBody>
           <Image source={{uri: this.props.item.post_picture}} style={{height: 200, width: null, flex: 1}}/>
+        </CardItem>
+        <CardItem>
+          <Item>
+            <Left />
+            <Body />
+            <Right>
+              <Text style={{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.ITEM_FONT_SIZE, textAlign: 'right'}}>{this.props.item.caption}</Text>
+              <Text />
+            </Right>
+          </Item>
         </CardItem>
         <CardItem style= {{borderRadius: Constants.POST_CARD_RADIUS}}>
           <Left>
