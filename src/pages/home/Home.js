@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {View, ScrollView} from 'react-native';
 import Post from '../../components/Post';
-import {BackHeader} from '../../components';
+import {HomeHeader} from '../../components';
 import Modal from "react-native-modal";
 import AddBoardModal from '../../components/AddBoardModal';
 import {boardNameChanged, createBoard} from './actions';
 import {connect} from 'react-redux';
 import {Toast} from 'native-base';
 import { Strings } from '../../config';
+import { strings } from '../../i18n';
 
 class Home extends Component {
 
@@ -20,7 +21,7 @@ class Home extends Component {
         const {boardName, changeBoardName} = this.props;
         return (
             <View style={{flex: 1}}> 
-                <BackHeader onBackPress={() => this.props.navigation.navigate('Main')}/>
+                <HomeHeader onAddFriendsPress={() => this.props.navigation.navigate('AddFriends')} title={strings(Strings.APP_NAME)}/>
                 <ScrollView>
                     <Post imageSource='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC2VCb3j_W6M6uXfn6JW6H1YzZoF2fP1-w2jRcTuARfz451HUM' saveButtonPressed={this.showModal.bind(this)}></Post>
                 </ScrollView>

@@ -5,6 +5,7 @@ import {Container} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation';
 import Home from './home/Home';
+import AddFriends from './addFriends/AddFriends';
 import Search from './search/Search';
 import {Colors, Pages} from '../config';
 import Profile from './profile/Profile';
@@ -47,6 +48,16 @@ const profileStack = createStackNavigator({
     }),
 });
 
+const HomeStack= createStackNavigator({
+    Home: Home,
+    AddFriends: AddFriends,  
+    initialRouteName: Pages.HOME,
+}, {
+    navigationOptions: {
+        header: null,
+    },   
+})
+
 profileStack.navigationOptions = ({navigation}) => {
     return {
         tabBarVisible: navigation.state.index === 0
@@ -59,7 +70,7 @@ const Bottom = createMaterialTopTabNavigator(
         NotificationCenter: {screen: Search},
         Nothing: {screen: Home},
         Search: {screen: Search},
-        Home: {screen: Home},
+        Home: {screen: HomeStack},
     },
     {
         navigationOptions: ({navigation}) => ({

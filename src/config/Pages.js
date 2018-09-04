@@ -9,5 +9,6 @@ export const Pages = {
     CHANGE_PASS: 'ChangePass',
     ADD_POST_INFO: 'AddPostInfo',
     ADD_FRIENDS: 'AddFriends',
-    MAIN:'Main'
+    MAIN:'Main',
+    HOME: 'Home',
 };
