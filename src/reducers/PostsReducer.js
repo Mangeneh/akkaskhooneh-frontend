@@ -4,7 +4,7 @@ const INITIAL_SELF_PHOTOS_STATE = {
     selfPhotos: [],
     selfPhotosNextPage: 1,
     selfPhotosTotalPages: 1,
-    selfPhotosIsLoading: true
+    selfPhotosIsLoading: false
 };
 
 const INITIAL_HOME_POSTS_STATE = {
@@ -31,10 +31,7 @@ export default (state = INITIAL_STATE, action) => {
     const {GET_HOME_POSTS_NEXT_PAGE, GET_HOME_POSTS_NEXT_PAGE_SUCCESS, GET_SELF_PHOTOS_NEXT_PAGE, GET_SELF_PHOTOS_NEXT_PAGE_FAIL, GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS, RESET_HOME_POSTS, RESET_OTHERS_PHOTOS, RESET_SELF_PHOTOS} = PostsActions;
     switch (action.type) {
         case GET_HOME_POSTS_NEXT_PAGE:
-        {
             return {...state, homePostsIsLoading: true};
-        }
-
         case GET_HOME_POSTS_NEXT_PAGE_SUCCESS:
             return {
                 ...state,
@@ -42,7 +39,7 @@ export default (state = INITIAL_STATE, action) => {
                 homePostsNextPage: state.homePostsNextPage + 1,
                 homePostsTotalPages: action.payload.data.total_pages,
                 homePostsIsLoading: false,
-            }
+            };
         case GET_SELF_PHOTOS_NEXT_PAGE:
             return {...state, selfPhotosIsLoading: true};
         case GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS:

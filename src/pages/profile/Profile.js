@@ -51,7 +51,7 @@ class Profile extends Component {
                              tabStyle={{backgroundColor: 'white'}}
                              activeTabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
-                                {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) :
+                                {(this.props.boardsIsLoading) ? (<ActivityIndicator size="large"/>) :
                                     <FlatList
                                         onEndReached={() => this.updateBoards()}
                                         style={{width: '100%', marginTop: 8}}
@@ -68,7 +68,7 @@ class Profile extends Component {
                              activeTabStyle={{backgroundColor: 'white'}}
                              tabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
-                                {(this.props.isLoading) ? (<ActivityIndicator size="large"/>) :
+                                {(this.props.photosIsLoading) ? (<ActivityIndicator size="large"/>) :
                                     <FlatList
                                         onEndReached={() => this.updatePhotos()}
                                         style={{width: '100%', marginTop: 8}}
@@ -96,13 +96,13 @@ class Profile extends Component {
     }
 
     updatePhotos() {
-        if (this.props.photosNextPage <= this.props.photosTotalPages) {
+        if (this.props.photosNextPage <= this.props.photosTotalPages && !this.props.photosIsLoading) {
             this.props.getPhotosNextPage(this.props.photosNextPage);
         }
     }
 
     updateBoards() {
-        if (this.props.boardsNextPage <= this.props.boardsTotalPages) {
+        if (this.props.boardsNextPage <= this.props.boardsTotalPages && !this.props.boardsIsLoading) {
             this.props.getBoardsNextPage(this.props.boardsNextPage);
         }
     }
