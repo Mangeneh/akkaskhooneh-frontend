@@ -16,6 +16,15 @@ export default class AddBoardModal extends Component {
                     <Icon name='plus' type='Entypo' style={{color: Colors.BASE, justifyContent: 'flex-end', alignSelf: 'center'}} onPress={this.props.onAddPress}/>
                 </TouchableOpacity>
             </Item>
+
+                                    <FlatList
+                                        onEndReached={this.props.onEnd}
+                                        style={{width: '100%', marginTop: 8}}
+                                        numColumns={2}
+                                        keyExtractor={(item, index) => item.id}
+                                        data={this.props.photos}
+                                        renderItem={({item, index}) => this.renderPhoto(item, index)}
+                                    />
         </View>
     )}
 }

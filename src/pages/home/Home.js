@@ -16,7 +16,13 @@ import {
     selectHomePostsNextPage,
     selectHomePostsTotalPages,
 } from "../../reducers/PostsReducer";
-import {getHomePostsNextPage} from "../../actions";
+import {
+    selectSelfBoards,
+    selectSelfBoardsIsLoading,
+    selectSelfBoardsNextPage,
+    selectSelfBoardsTotalPages
+} from "../../reducers/BoardsReducer";
+import {getHomePostsNextPage, getSelfBoardsNextPage} from "../../actions";
 
 class Home extends Component {
     constructor(props) {
@@ -50,7 +56,7 @@ class Home extends Component {
                     onBackdropPress={() => this.setState({visibleModal: null})}
                 >
                     <AddBoardModal value={boardName} onNameChange={(boardName) => changeBoardName(boardName)}
-                                   onAddPress={this.onAddPress.bind(this)}/>
+                                   onAddPress={this.onAddPress.bind(this)} onEnd={this.updateBoards.bind(this)}/>
                 </Modal>
             </View>
         );
@@ -69,8 +75,13 @@ class Home extends Component {
         }
     }
 
+    updateBoards() {
+        if (this.props.boardsNextPage <= this.props.boardsTotalPages && !this.props.boardsIsLoading) {
+            this.props.getBoardsNextPage(this.props.boardsNextPage);
+        }
+    }
+
     showModal() {
-        console.warn('Hello')
         this.setState({visibleModal: true})
     }
 
@@ -115,12 +126,17 @@ const mapStateToProps = (state) => ({
     postsNextPage: selectHomePostsNextPage(state),
     postsTotalPages: selectHomePostsTotalPages(state),
     postsIsLoading: selectHomePostsIsLoading(state),
+    boards: selectSelfBoards(state),
+    boardsNextPage: selectSelfBoardsNextPage(state),
+    boardsTotalPages: selectSelfBoardsTotalPages(state),
+    boardsIsLoading: selectSelfBoardsIsLoading(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeBoardName: (boardName) => dispatch(boardNameChanged(boardName)),
     createBoard: (boardName) => dispatch(createBoard(boardName)),
     getPostsNextPage: (postsNext) => dispatch(getHomePostsNextPage(postsNext)),
+    getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
