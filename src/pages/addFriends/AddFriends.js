@@ -60,7 +60,7 @@ class AddFriends extends Component {
     renderContact(item, index) {
         return (
             <View style={{flexDirection: 'row'}}>
-                <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 16, marginTop: 8, marginBottom: 8, textAlign: 'center'}}>
+                <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 16, marginTop: 8, marginBottom: 8}}>
                     <Button style={{width: 90,height: 30, backgroundColor: Colors.ACCENT, textAlign: 'center'}}>
                         <Right />
                         <Text style={{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.TEXT_NORMAL_SIZE}}>{Strings.INVITE}</Text>
