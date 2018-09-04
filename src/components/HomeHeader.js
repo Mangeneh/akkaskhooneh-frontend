@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title} from 'native-base';
-import {TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
+import {connect} from 'react-redux';
 import {Colors, Fonts} from '../config';
+import {selectHomePostsIsLoading} from "../reducers/PostsReducer";
 
-export default class HomeHeader extends Component {
+class HomeHeader extends Component {
     render() {
         return (
             <View>
@@ -21,12 +23,20 @@ export default class HomeHeader extends Component {
                     }}>{this.props.title}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 16}}>
-                        <TouchableOpacity>
-                            <Icon/>
-                        </TouchableOpacity>
+                        {(this.props.postsIsLoading) ? (<ActivityIndicator size="large"/>) :
+                            <TouchableOpacity>
+                                <Icon/>
+                            </TouchableOpacity>
+                        }
                     </Right>
                 </Header>
             </View>
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    postsIsLoading: selectHomePostsIsLoading(state),
+});
+
+export default connect(mapStateToProps, null)(HomeHeader);

@@ -4,14 +4,14 @@ const INITIAL_SELF_BOARDS_STATE = {
     selfBoards: [],
     selfBoardsNextPage: 1,
     selfBoardsTotalPages: 1,
-    selfBoardsIsLoading: true
+    selfBoardsIsLoading: false
 };
 
 const INITIAL_OTHERS_BOARDS_STATE = {
     othersBoards: [],
     othersBoardsNextPage: 1,
     othersBoardsTotalPages: 1,
-    othersBoardsIsLoading: true
+    othersBoardsIsLoading: false
 };
 
 const INITIAL_STATE = {
