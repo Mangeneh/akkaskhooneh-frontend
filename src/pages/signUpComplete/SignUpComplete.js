@@ -17,13 +17,13 @@ import {
     imageChanged
 } from './actions';
 import {accessTokenSet, refreshTokenSet, userUpdated} from '../../actions/UserInfoActions';
-import { extractImageSource} from "../../helpers";
+import {extractImageSource} from "../../helpers";
 import {strings} from "../../i18n";
 
 class SignUpComplete extends Component {
     render() {
         const {username, bio, fullName, changeUsername, changeFullName, changeBio} = this.props;
-        const { FIRST_LAST_NAME} = Strings;
+        const {FIRST_LAST_NAME} = Strings;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={() => this.props.navigation.goBack()}/>
@@ -70,7 +70,7 @@ class SignUpComplete extends Component {
                             </Item>
                         </View>
                         <View style={{flex: 1, justifyContent: 'center'}}>
-                            <SignUpCompleteButton text={COMPLETE_INFO} icon='check'
+                            <SignUpCompleteButton text={strings(Strings.COMPLETE_INFO)} icon='check'
                                                   onPress={this.onSaveChangesPress.bind(this)}/>
                         </View>
                     </View>
