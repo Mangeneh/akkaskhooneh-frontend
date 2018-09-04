@@ -1,13 +1,12 @@
 import React from 'react';
-import {TouchableOpacity, Animated, Easing} from 'react-native';
-import {Icon as PlusIcon} from 'react-native-elements';
-import {Container} from 'native-base';
+import {Animated, Easing} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation';
 import Home from './home/Home';
 import Search from './search/Search';
 import {Colors, Pages} from '../config';
 import Profile from './profile/Profile';
+import BottomTabComponent from "../components/BottomTabComponent";
 
 const profileStack = createStackNavigator({
     Profile: Profile,
@@ -56,7 +55,7 @@ homeStack.navigationOptions = ({navigation}) => {
     }
 };
 
-const Bottom = createMaterialTopTabNavigator(
+export default createMaterialTopTabNavigator(
     {
         Profile: {screen: profileStack},
         NotificationCenter: {screen: Search},
@@ -98,6 +97,7 @@ const Bottom = createMaterialTopTabNavigator(
                 }
             },
         }),
+        tabBarComponent: BottomTabComponent,
         tabBarPosition: 'bottom',
         initialRouteName: 'Home',
         backBehavior: 'none',
@@ -113,24 +113,3 @@ const Bottom = createMaterialTopTabNavigator(
             }
         }
     });
-
-export default class Main extends React.Component {
-    render() {
-        return (
-            <Container>
-                <Bottom/>
-                <TouchableOpacity activeOpacity={0.8} style={{position: 'absolute', alignSelf: 'center', bottom: 20}}
-                                  onPress={() => this.props.navigation.navigate('NewPost')}>
-                    <PlusIcon
-                        color={'white'}
-                        name={'plus'}
-                        raised
-                        size={30}
-                        containerStyle={{backgroundColor: Colors.ACCENT}}
-                        type={'material-community'}
-                    />
-                </TouchableOpacity>
-            </Container>
-        );
-    }
-}
