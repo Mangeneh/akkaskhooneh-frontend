@@ -20,6 +20,8 @@ import {
     selectSelfPhotosNextPage,
     selectSelfPhotosTotalPages
 } from "../../reducers/PostsReducer";
+import NavigationService from '../../NavigationService';
+
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -116,11 +118,11 @@ class Profile extends Component {
     }
 
     onEditPress() {
-        this.props.navigation.navigate(Pages.PROFILE_EDIT);
+        NavigationService.navigate(Pages.PROFILE_EDIT);
     }
 
     onSettingsPress() {
-        this.props.navigation.navigate(Pages.PROFILE_SETTINGS);
+        NavigationService.navigate(Pages.PROFILE_SETTINGS);
     }
 }
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Item, Right, Left, Icon} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, Text, SafeAreaView} from 'react-native'
 import {connect} from 'react-redux';
-import {Strings, Fonts, Colors, Constants} from '../../config';
+import {Strings, Fonts, Colors, Constants, Pages} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 import {reset} from '../../actions/UserInfoActions';
 
@@ -44,7 +44,7 @@ class ProfileSettings extends Component {
     }
 
     onChangePassPressed() {
-        this.props.navigation.navigate('ChangePass');
+        this.props.navigation.navigate(Pages.CHANGE_PASS);
     }
 
     onBackPress() {
@@ -52,7 +52,7 @@ class ProfileSettings extends Component {
     }
 
     onSignOutPress() {
-        this.props.navigation.navigate('Login');
+        this.props.navigation.navigate(Pages.AUTH_STACK);
         this.props.reset();
     }
 }

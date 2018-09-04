@@ -5,7 +5,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import FormData from "form-data";
 import RNGooglePlaces from 'react-native-google-places';
-import {Strings, Colors, Fonts, Constants} from '../../config';
+import {Strings, Colors, Fonts, Constants, Pages} from '../../config';
 import {BackHeader, CustomStatusBar, CustomLongTextBox} from '../../components';
 import SendPostButton from '../../containers/SendPostButton';
 import {sendPost} from './actions';
@@ -127,10 +127,14 @@ class AddPostInfo extends Component {
             name: 'my_photo.jpg',
             type: 'image/jpeg'
         });
-        formData.append('caption', this.state.description);
-        console.log(this.state.tags.join(','));
-        formData.append('tags', this.state.tags);
-        this.props.sendPost(formData);
+        // formData.append('caption', this.state.description);
+        // console.log(this.state.tags.join(','));
+        // formData.append('tags', this.state.tags);
+        this.props.sendPost(formData)
+            .then((response) => {
+                    this.props.navigation.navigate(Pages.MAIN);
+                }
+            );
     }
 }
 
