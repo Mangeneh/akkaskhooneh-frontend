@@ -9,8 +9,7 @@ export const Pages = {
     CHANGE_PASS: 'ChangePass',
     ADD_POST_INFO: 'AddPostInfo',
     ADD_FRIENDS: 'AddFriends',
-    MAIN:'Main',
-    AUTH_STACK:'AuthStack'
-    MAIN:'Main',
+    MAIN: 'Main',
+    AUTH_STACK: 'AuthStack',
     HOME: 'Home',
 };
