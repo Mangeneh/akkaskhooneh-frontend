@@ -60,7 +60,7 @@ const Bottom = createMaterialTopTabNavigator(
     {
         Profile: {screen: profileStack},
         NotificationCenter: {screen: Search},
-        Nothing: {screen: Home},
+        Nothing: {screen: Search},
         Search: {screen: Search},
         Home: {screen: homeStack},
     },

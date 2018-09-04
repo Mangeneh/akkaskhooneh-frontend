@@ -34,14 +34,8 @@ class Home extends Component {
             <View style={{flex: 1}}>
                 <HomeHeader onAddFriendsPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
                             title={strings(Strings.APP_NAME)}/>
-                {/* <ScrollView>
-                    <Post
-                        imageSource='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC2VCb3j_W6M6uXfn6JW6H1YzZoF2fP1-w2jRcTuARfz451HUM'
-                        saveButtonPressed={this.showModal.bind(this)}/>
-                </ScrollView> */}
 
                 <ScrollView style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
-                    {(this.props.postsIsLoading) ? (<ActivityIndicator size="large"/>) :
                         <FlatList
                             onEndReached={() => this.updatePosts()}
                             style={{width: '100%', marginTop: 8}}
@@ -49,7 +43,6 @@ class Home extends Component {
                             data={this.props.posts}
                             renderItem={({item, index}) => this.renderPost(item, index)}
                         />
-                    }
                 </ScrollView>
 
                 <Modal
