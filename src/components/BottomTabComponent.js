@@ -2,13 +2,16 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {MaterialTopTabBar} from 'react-navigation-tabs';
 import {Icon} from "react-native-elements";
-import {Colors} from "../config";
+import {Colors, Pages} from "../config";
+import NavigationService from "../NavigationService";
+import CustomStatusBar from "./CustomStatusBar";
 
 export default props => (
     <View>
+        <CustomStatusBar/>
         <TouchableOpacity activeOpacity={0.8}
                           style={{position: 'absolute', zIndex: 10, alignSelf: 'center', bottom: 20}}
-                          onPress={() => this.props.navigation.navigate('NewPost')}>
+                          onPress={() => NavigationService.navigate(Pages.NEW_POST)}>
             <Icon
                 color={'white'}
                 name={'plus'}

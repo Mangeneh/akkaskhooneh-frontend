@@ -3,9 +3,9 @@ import {FlatList, View} from 'react-native';
 import {Container, Item, Input, Icon, Button, Text, Right, Left} from 'native-base';
 import Contacts from 'react-native-contacts';
 import BackHeader from "../../components/BackHeader";
-import {Colors, Constants, Fonts, Strings} from "../../config";
+import {Colors, Constants, Strings} from "../../config";
 import {CustomStatusBar} from "../../components";
-import { colors } from 'react-native-elements';
+import {strings} from "../../i18n";
 
 class AddFriends extends Component {
 
@@ -19,21 +19,20 @@ class AddFriends extends Component {
     }
 
     render() {
-        const {TEXT_BOX_FONT_SIZE, TEXT_BOX_RADIUS} = Constants;
+        const { TEXT_BOX_RADIUS} = Constants;
         return (
             <Container>
                 <CustomStatusBar/>
-                <BackHeader title={Strings.INVITE_FRIENDS} onBackPress={() => this.props.navigation.goBack()}/>
-                <View style={{marginRight:8, marginLeft: 8, marginTop: 16}}>
+                <BackHeader title={strings(Strings.INVITE_FRIENDS)} onBackPress={() => this.props.navigation.goBack()}/>
+                <View style={{marginRight: 8, marginLeft: 8, marginTop: 16}}>
                     <Item rounded style={{
                         alignSelf: 'center',
                         backgroundColor: Colors.WHITE_BACK,
                         borderRadius: TEXT_BOX_RADIUS
                     }}>
                         <Icon name="ios-people" style={{color: Colors.BASE}}/>
-                        <Input placeholder={Strings.SEARCH_CONTACT}
-                               style={{textAlign: 'right', fontSize: Constants.ITEM_FONT_SIZE}}
-                               fontFamily={Fonts.NORMAL_FONT}/>
+                        <Input placeholder={strings(Strings.SEARCH_CONTACT)}
+                               style={{textAlign: 'right', fontSize: Constants.ITEM_FONT_SIZE}}/>
                         <Icon name="ios-search" style={{color: Colors.BASE}}/>
                     </Item>
                 </View>
@@ -46,7 +45,7 @@ class AddFriends extends Component {
                             style={{
                                 height: 2,
                                 width: "100%",
-                                alignSelf:'center',
+                                alignSelf: 'center',
                                 backgroundColor: Colors.WHITE_BACK,
                             }}
                         />}
@@ -60,15 +59,27 @@ class AddFriends extends Component {
     renderContact(item, index) {
         return (
             <View style={{flexDirection: 'row'}}>
-                <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 16, marginTop: 8, marginBottom: 8, textAlign: 'center'}}>
-                    <Button style={{width: 90,height: 30, backgroundColor: Colors.ACCENT, textAlign: 'center'}}>
-                        <Right />
-                        <Text style={{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.TEXT_NORMAL_SIZE}}>{Strings.INVITE}</Text>
-                        <Left />
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'flex-start',
+                    marginLeft: 16,
+                    marginTop: 8,
+                    marginBottom: 8,
+                    textAlign: 'center'
+                }}>
+                    <Button style={{width: 90, height: 30, backgroundColor: Colors.ACCENT, textAlign: 'center'}}>
+                        <Right/>
+                        <Text style={{
+                            fontSize: Constants.TEXT_NORMAL_SIZE
+                        }}>{strings(Strings.INVITE)}</Text>
+                        <Left/>
                     </Button>
                 </View>
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
-                    <Text style={{fontSize: Fonts.NORMAL_FONT, fontSize: Constants.TEXT_NORMAL_SIZE, marginRight: 8}}>{`${item.givenName} ${item.familyName}`}</Text>
+                    <Text style={{
+                        fontSize: Constants.TEXT_NORMAL_SIZE,
+                        marginRight: 8
+                    }}>{`${item.givenName} ${item.familyName}`}</Text>
                 </View>
             </View>
         );

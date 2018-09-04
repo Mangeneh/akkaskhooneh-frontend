@@ -21,14 +21,12 @@ class AddPostInfo extends Component {
 
     onChangeTags = (tags) => {
         this.setState({tags});
-        console.log(tags);
     };
 
     render() {
-        const {SAVE_POST_INFO, LOCATION, ADD_TAGS, SEND_POST} = Strings;
         return (
             <View style={{flex: 1, backgroundColor: 'white'}}>
-                <BackHeader onBackPress={this.onBackPress.bind(this)} title={SAVE_POST_INFO}/>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={strings(Strings.SEND_POST)}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}} style={{flex: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
@@ -46,31 +44,30 @@ class AddPostInfo extends Component {
                                 <Right>
                                     <TouchableOpacity onPress={this.onLocationPress.bind(this)}>
                                         <Text style={styles.text}>
-                                            {LOCATION}
+                                            {strings(Strings.LOCATION)}
                                         </Text>
                                     </TouchableOpacity>
                                 </Right>
                             </Item>
                             <Tags
-                                initialText={strings('add_tag')}
+                                initialText={strings(Strings.ADD_TAG)}
                                 initialTags={this.state.tags}
                                 onChangeTags={tags => this.onChangeTags(tags)}
                                 style={{justifyContent: "center"}}
                                 tagContainerStyle={{backgroundColor: Colors.ACCENT}}
                                 tagTextStyle={{
                                     color: 'white',
-                                    fontFamily: Fonts.NORMAL_FONT,
                                     fontSize: Constants.TEXT_NORMAL_SIZE
                                 }}
                                 inputStyle={{
                                     fontSize: Constants.TEXT_NORMAL_SIZE,
-                                    fontFamily: Fonts.NORMAL_FONT,
                                     backgroundColor: Colors.LIGHT_GRAY,
                                     borderRadius: 16,
                                 }}
                             />
                             <View style={{flex: 1, alignContent: 'center', alignSelf: 'center'}}>
-                                <SendPostButton style={{position: 'absolute', alignSelf: 'center'}} text={SEND_POST}
+                                <SendPostButton style={{position: 'absolute', alignSelf: 'center'}}
+                                                text={strings(Strings.SEND_POST)}
                                                 onPress={() => this.SendPost()}/>
                             </View>
                         </View>
@@ -84,11 +81,10 @@ class AddPostInfo extends Component {
         return (
             <View style={styles.photo}>
                 <View style={{flex: 3}}>
-                    <CustomLongTextBox placeholder={strings('description')}
+                    <CustomLongTextBox placeholder={strings(Strings.DESCRIPTION)}
                                        value={this.state.description}
                                        onChangeText={(description) => {
                                            this.setState({description});
-                                           console.warn(this.state.description)
                                        }}
                                        style={{
                                            borderRadius: 10,
@@ -113,7 +109,6 @@ class AddPostInfo extends Component {
     onLocationPress() {
         RNGooglePlaces.openAutocompleteModal()
             .then((place) => {
-                console.log(place);
                 // place represents user's selection from the
                 // suggestions and it is a simplified Google Place object.
             })

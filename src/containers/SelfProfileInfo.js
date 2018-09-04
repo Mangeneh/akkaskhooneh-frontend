@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
-import {Fonts} from '../config/index';
 import {
     selectSelfBio,
     selectSelfFullName,
@@ -11,6 +10,7 @@ import {
     selectSelfProfilePicture
 } from '../reducers/UserInfoReducer';
 import {strings} from "../i18n";
+import {Strings} from "../config";
 
 class SelfProfileInfo extends Component {
     render() {
@@ -23,15 +23,13 @@ class SelfProfileInfo extends Component {
                         <TouchableOpacity>
                             <Text style={{
                                 marginRight: 16,
-                                fontFamily: Fonts.NORMAL_FONT,
                                 fontSize: 12
-                            }}>{strings('num_of_followings', {number: followings})}</Text>
+                            }}>{strings(Strings.NUM_OF_FOLLOWINGS, {number: followings})}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <Text style={{
-                                fontFamily: Fonts.NORMAL_FONT,
                                 fontSize: 12
-                            }}>{strings('num_of_followers', {number: followers})}</Text>
+                            }}>{strings(Strings.NUM_OF_FOLLOWERS, {number: followers})}</Text>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.bio}>{bio}</Text>
@@ -56,12 +54,10 @@ class SelfProfileInfo extends Component {
 const styles = StyleSheet.create({
     name: {
         flex: 1,
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: 14
     },
     bio: {
         flex: 1,
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: 10,
         marginBottom: 12
     },

@@ -13,14 +13,14 @@ import {
     changePassword,
     reset,
 } from './actions';
+import {strings} from "../../i18n";
 
 class ChangePass extends Component {
     render() {
-        const {SAVE_NEW_PASSWORD, NEW_PASSWORD, CURRENT_PASSWORD, REPEAT_NEW_PASSWORD, CHANGE_PASS} = Strings;
         const {error, previousPassword, newPassword, repeatedPassword} = this.props;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
-                <BackHeader onBackPress={this.onBackPress.bind(this)} title={CHANGE_PASS}/>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={strings(Strings.CHANGE_PASS)}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
@@ -30,19 +30,20 @@ class ChangePass extends Component {
                         </View>
                         <View style={{flex: 1, justifyContent: 'flex-start'}}>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={CURRENT_PASSWORD} value={previousPassword}
+                                <PasswordTextBox error={error} placeholder={strings(Strings.CURRENT_PASSWORD)} value={previousPassword}
                                                  onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
                                                  reset={() => this.props.reset()}
                                 />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={NEW_PASSWORD} value={newPassword}
+                                <PasswordTextBox error={error} placeholder={strings(Strings.NEW_PASSWORD)}
+                                                 value={newPassword}
                                                  onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
                                                  reset={() => this.props.reset()}
                                 />
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={REPEAT_NEW_PASSWORD}
+                                <PasswordTextBox error={error} placeholder={strings(Strings.REPEAT_NEW_PASSWORD)}
                                                  value={repeatedPassword}
                                                  onChangePassword={(repeatedPassword) => this.onRepeatedPasswordChange(repeatedPassword)}
                                                  reset={() => this.props.reset()}
@@ -51,7 +52,7 @@ class ChangePass extends Component {
                         </View>
 
                         <View style={{alignSelf: 'center', justifyContent: 'flex-start', marginBottom: 20, flex: 1}}>
-                            <ChangePassButton text={SAVE_NEW_PASSWORD} icon="check"
+                            <ChangePassButton text={strings(Strings.SAVE_NEW_PASSWORD)} icon="check"
                                               onPress={this.onSaveChangesPressed.bind(this)}/>
                         </View>
                     </View>
@@ -77,7 +78,7 @@ class ChangePass extends Component {
 
     onSuccess() {
         Toast.show({
-            text: Strings.CHANGE_PASS_SUCCESS,
+            text: strings(Strings.CHANGE_PASS_SUCCESS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'success',
@@ -91,7 +92,7 @@ class ChangePass extends Component {
 
     onFail() {
         Toast.show({
-            text: Strings.CHANGE_PASS_FAIL,
+            text: strings(Strings.CHANGE_PASS_FAIL),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'

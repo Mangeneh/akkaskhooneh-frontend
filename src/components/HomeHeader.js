@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title} from 'native-base';
 import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import {Colors, Fonts} from '../config';
+import {Colors} from '../config';
 import {selectHomePostsIsLoading} from "../reducers/PostsReducer";
 
 class HomeHeader extends Component {
@@ -18,8 +18,7 @@ class HomeHeader extends Component {
                     <Body style={{flex: 3}}>
                     <Title style={{
                         alignSelf: 'center',
-                        color: 'white',
-                        fontFamily: Fonts.NORMAL_FONT
+                        color: 'white'
                     }}>{this.props.title}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 16}}>

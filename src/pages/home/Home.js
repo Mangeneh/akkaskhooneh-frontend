@@ -93,7 +93,7 @@ class Home extends Component {
 
     onCreateBoardSuccess(response) {
         Toast.show({
-            text: Strings.CREATE_NEW_BOARD_SUCCESS,
+            text: strings(Strings.CREATE_NEW_BOARD_SUCCESS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'success'

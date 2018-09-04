@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {Avatar} from 'react-native-elements';
 import {Item, Input, ActionSheet, Toast} from 'native-base';
@@ -7,7 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import FormData from 'form-data';
-import {Strings, Colors, Constants, Fonts} from '../../config';
+import {Strings, Colors, Constants} from '../../config';
 import {CustomLongTextBox, BackHeader, CustomStatusBar} from '../../components';
 import SaveChangesButton from '../../containers/SaveChangesButton';
 import {editProfile, changeProfilePic, normalize} from './actions';
@@ -28,11 +27,10 @@ class ProfileEdit extends Component {
     }
 
     render() {
-        const {SAVE_CHANGES, EDIT_PROFILE, FIRST_LAST_NAME} = Strings;
         const {emailFromDB, usernameFromDB} = this.props;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
-                <BackHeader onBackPress={this.onBackPress.bind(this)} title={EDIT_PROFILE}/>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={strings(Strings.EDIT_PROFILE)}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}}>
                     <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center'}}>
@@ -49,14 +47,12 @@ class ProfileEdit extends Component {
                             <View style={{flex: 1}}>
                                 <Item style={styles.item} rounded>
                                     <Input disabled placeholder={usernameFromDB}
-                                           fontFamily={Fonts.NORMAL_FONT}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                                 </Item>
 
                                 <Item style={styles.item} rounded>
                                     <Input value={this.state.fullName}
-                                           placeholder={FIRST_LAST_NAME}
-                                           fontFamily={Fonts.NORMAL_FONT}
+                                           placeholder={strings(Strings.FIRST_LAST_NAME)}
                                            style={{textAlign: 'center', fontSize: 10}}
                                            onChangeText={(fullName) => {
                                                this.setState({fullName})
@@ -81,7 +77,7 @@ class ProfileEdit extends Component {
 
                             <View
                                 style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20, flex: 1}}>
-                                <SaveChangesButton text={SAVE_CHANGES} icon='check'
+                                <SaveChangesButton text={strings(Strings.SAVE_CHANGES)} icon='check'
                                                    onPress={this.onSaveChangesPressed.bind(this)}/>
                             </View>
 
@@ -113,7 +109,7 @@ class ProfileEdit extends Component {
     onSuccess() {
         this.props.updateUser();
         Toast.show({
-            text: Strings.EDIT_PROFILE_SUCCESS,
+            text: strings(Strings.EDIT_PROFILE_SUCCESS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'success',
@@ -124,7 +120,7 @@ class ProfileEdit extends Component {
 
     onFail() {
         Toast.show({
-            text: Strings.EDIT_PROFILE_FAIL,
+            text: strings(Strings.EDIT_PROFILE_FAIL),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'

@@ -17,7 +17,6 @@ export default class BackHeader extends Component {
                     <Title style={{
                         alignSelf: 'center',
                         color: 'white',
-                        fontFamily: Fonts.NORMAL_FONT
                     }}>{this.props.title}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 16}}>

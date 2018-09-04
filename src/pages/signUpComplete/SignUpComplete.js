@@ -6,7 +6,7 @@ import {Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ImagePicker from 'react-native-image-crop-picker';
 import {CustomLongTextBox, BackHeader, FullStatusBar} from '../../components';
-import {Strings, Colors, Constants, Fonts, Addresses, Pages} from '../../config';
+import {Strings, Colors, Constants, Addresses, Pages} from '../../config';
 import SignUpCompleteButton from '../../containers/SignUpCompleteButton';
 import {
     signUpUser,
@@ -23,7 +23,6 @@ import {strings} from "../../i18n";
 class SignUpComplete extends Component {
     render() {
         const {username, bio, fullName, changeUsername, changeFullName, changeBio} = this.props;
-        const {FIRST_LAST_NAME} = Strings;
         return (
             <View style={{flex: 1, backgroundColor: Colors.BASE}}>
                 <BackHeader onBackPress={() => this.props.navigation.goBack()}/>
@@ -41,7 +40,6 @@ class SignUpComplete extends Component {
                         <View style={{flex: 1, justifyContent: 'center'}}>
                             <Item style={styles.item} rounded>
                                 <Input placeholder={strings(Strings.USERNAME)}
-                                       fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}
                                        value={username}
                                        onChangeText={(username) => changeUsername(username)}
@@ -49,7 +47,6 @@ class SignUpComplete extends Component {
                             </Item>
                             <Item style={styles.item} rounded>
                                 <Input placeholder={strings(Strings.COMPLETE_INFO)}
-                                       fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}
                                        value={fullName}
                                        onChangeText={(fullName) => changeFullName(fullName)}
@@ -58,7 +55,6 @@ class SignUpComplete extends Component {
                             <Item style={styles.item} rounded disabled>
                                 <Icon style={{color: Colors.SUCCESS}} name='mail'/>
                                 <Input disabled placeholder={this.props.navigation.getParam('email')}
-                                       fontFamily={Fonts.NORMAL_FONT}
                                        style={styles.input}/>
                             </Item>
                             <Item style={styles.item} rounded>
@@ -102,7 +98,7 @@ class SignUpComplete extends Component {
 
     onFail(error) {
         Toast.show({
-            text: Strings.SIGN_UP_FAIL,
+            text: strings(Strings.SIGN_UP_FAIL),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'
@@ -168,7 +164,6 @@ const styles = StyleSheet.create({
     },
     input: {
         textAlign: 'center',
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: 12
     },
 });

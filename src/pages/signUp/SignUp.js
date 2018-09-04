@@ -112,7 +112,7 @@ class SignUp extends Component {
 
     onFail(error) {
         Toast.show({
-            text: Strings.EMAIL_ALREADY_EXISTS,
+            text: strings(Strings.EMAIL_ALREADY_EXISTS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'

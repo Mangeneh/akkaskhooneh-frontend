@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title, Text} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import {Colors, Strings, Fonts} from '../config';
+import {Colors, Strings} from '../config';
+import {strings} from "../i18n";
 
 class AddPostHeader extends Component {
     render() {
@@ -13,14 +14,13 @@ class AddPostHeader extends Component {
                         <TouchableOpacity onPress={() => {
                             this.props.onEditPress()
                         }}>
-                            <Text style={{color: 'white', fontFamily: Fonts.NORMAL_FONT}}>{Strings.EDIT}</Text>
+                            <Text style={{color: 'white'}}>{strings(Strings.EDIT)}</Text>
                         </TouchableOpacity>
                     </Left>
                     <Body style={{flex: 3}}>
                     <Title style={{
                         alignSelf: 'center',
-                        color: 'white',
-                        fontFamily: Fonts.NORMAL_FONT
+                        color: 'white'
                     }}>{this.props.username}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 16}}>

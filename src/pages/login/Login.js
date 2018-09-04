@@ -110,7 +110,7 @@ class Login extends Component {
 
     onFail(error) {
         Toast.show({
-            text: strings('wrong_credentials'),
+            text: strings(Strings.WRONG_CREDENTIALS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'
