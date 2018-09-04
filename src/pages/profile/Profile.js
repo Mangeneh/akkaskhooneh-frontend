@@ -51,8 +51,8 @@ class Profile extends Component {
                           tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}
                           locked>
                         <Tab heading={strings(Strings.INTERESTS)}
-                             activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
-                             textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
+                             activeTextStyle={{color: Colors.TEXT, fontSize: 12}}
+                             textStyle={{color: Colors.TEXT, fontSize: 12}}
                              tabStyle={{backgroundColor: 'white'}}
                              activeTabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>

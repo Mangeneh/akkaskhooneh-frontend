@@ -11,7 +11,6 @@ export default class PasswordTextBox extends Component {
                   rounded error={error}>
                 <Icon style={{color: Colors.ICON}} name='key'/>
                 <Input placeholder={this.props.placeholder} secureTextEntry value={value}
-                       fontFamily={Fonts.NORMAL_FONT}
                        style={{textAlign: 'center', fontSize: TEXT_BOX_FONT_SIZE}}
                        onChangeText={onChangePassword}/>
                 <Icon name={error ? 'close-circle' : null} onPress={reset}/>

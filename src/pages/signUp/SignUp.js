@@ -128,7 +128,6 @@ class SignUp extends Component {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: Fonts.TEXT_NORMAL_SIZE,
         color: 'white',
         textAlign: 'center',
