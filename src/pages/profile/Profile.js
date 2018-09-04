@@ -26,10 +26,16 @@ import NavigationService from '../../NavigationService';
 const WIDTH = Dimensions.get('window').width;
 
 class Profile extends Component {
-    componentDidMount() {
-        setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
+
+    constructor(props) {
+        super(props);
         this.updatePhotos();
         this.updateBoards();
+    }
+
+
+    componentDidMount() {
+        setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
     }
 
     render() {

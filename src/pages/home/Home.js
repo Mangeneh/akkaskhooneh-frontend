@@ -19,7 +19,8 @@ import {
 import {getHomePostsNextPage} from "../../actions";
 
 class Home extends Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
         this.updatePosts();
     }
 
@@ -64,16 +65,14 @@ class Home extends Component {
 
     renderPost(item, index) {
         return (
-            <Post saveButtonPressed={this.showModal.bind(this)} item={item} />
+            <Post saveButtonPressed={this.showModal.bind(this)} item={item}/>
         );
     }
 
     updatePosts() {
-        if (this.props.postsNextPage <= this.props.postsTotalPages) {
-            this.props.getPostsNextPage(this.props.postsNextPage).then((response) => {
-            })
-            .catch((error) => {
-            });;
+        if (this.props.postsNextPage <= this.props.postsTotalPages &&
+            !this.props.postsIsLoading) {
+            this.props.getPostsNextPage(this.props.postsNextPage);
         }
     }
 
