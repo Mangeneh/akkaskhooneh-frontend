@@ -11,4 +11,6 @@ export const Pages = {
     ADD_FRIENDS: 'AddFriends',
     MAIN:'Main',
     AUTH_STACK:'AuthStack'
+    MAIN:'Main',
+    HOME: 'Home',
 };

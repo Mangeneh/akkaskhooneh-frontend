@@ -8,6 +8,7 @@ import FullStatusBar from './FullStatusBar';
 import CustomStatusBar from './CustomStatusBar';
 import Tags from './Tags';
 import Board from './Board';
+import HomeHeader from './HomeHeader';
 
 export {
     EmailTextBox,
@@ -19,5 +20,6 @@ export {
     FullStatusBar,
     CustomStatusBar,
     Tags,
-    Board
+    Board,
+    HomeHeader,
 };

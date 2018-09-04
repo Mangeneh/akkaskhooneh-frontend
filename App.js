@@ -81,6 +81,7 @@ const NewPostStack = createStackNavigator({
 const Inside = createStackNavigator({
     Main: Main,
     NewPostStack: NewPostStack,
+    AddFriends: AddFriends,
 }, {
     initialRouteName: Pages.MAIN,
     navigationOptions: {
