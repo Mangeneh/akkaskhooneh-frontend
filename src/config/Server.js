@@ -7,6 +7,7 @@ export const Server = {
     LOGIN_USER: '/auth/login/',
     GET_SELF_PHOTOS_NEXT_PAGE: '/social/pictures/?page=',
     GET_SELF_BOARDS_NEXT_PAGE: '/social/boards/?page=',
+    GET_BOARDS_DETAILS: '/social/boardsdetails/',
     CREATE_BOARD: '/social/create-new-board/',
     CHECK_EMAIL: '/auth/checkemail/',
     SIGN_UP_USER: '/auth/register/',

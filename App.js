@@ -10,6 +10,8 @@ import {Login, SignUp, SignUpComplete, Main, AddPostInfo, NewPost, AddFriends, P
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
 import {Actions as SignUpActions} from './src/pages/signUp/actions';
 import {accessTokenUpdated} from './src/actions/UserInfoActions';
+import NavigationService from './src/NavigationService';
+import {Pages} from "./src/config";
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000/
@@ -60,7 +62,7 @@ const AuthStack = createStackNavigator({
     SignUp: SignUp,
     SignUpComplete: SignUpComplete,
 }, {
-    initialRouteName: 'Login',
+    initialRouteName: Pages.LOGIN,
     navigationOptions: {
         header: null,
     }
@@ -70,7 +72,7 @@ const NewPostStack = createStackNavigator({
     NewPost: NewPost,
     AddPostInfo: AddPostInfo,
 }, {
-    initialRouteName: 'NewPost',
+    initialRouteName: Pages.NEW_POST,
     navigationOptions: {
         header: null,
     }
@@ -80,7 +82,7 @@ const Inside = createStackNavigator({
     Main: Main,
     NewPostStack: NewPostStack,
 }, {
-    initialRouteName: 'Main',
+    initialRouteName: Pages.MAIN,
     navigationOptions: {
         header: null,
     }
@@ -91,7 +93,7 @@ const RootStack = createSwitchNavigator({
     Inside: Inside,
     Home: Home,
 }, {
-    initialRouteName: 'AuthStack',
+    initialRouteName: Pages.AUTH_STACK,
     navigationOptions: {
         header: null,
     }
@@ -102,7 +104,9 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <RootStack />
+                    <RootStack ref={navigatorRef => {
+                        NavigationService.setTopLevelNavigator(navigatorRef);
+                    }}/>
                 </Provider>
             </Root>
         );
