@@ -7,7 +7,7 @@ export default class ProfileHeader extends Component {
     render() {
         return (
             <View>
-                <Header androidStatusBarColor={Colors.BASE} style={{backgroundColor: Colors.BASE}}>
+                <Header androidStatusBarColor={Colors.BASE} style={{backgroundColor: Colors.BASE}} hasTabs>
                     <Left style={{flex: 1, marginLeft: 16}}>
                         <TouchableOpacity onPress={() => this.props.onEditPress()}>
                             <Text style={{color: 'white', fontFamily: Fonts.NORMAL_FONT}}>{Strings.EDIT}</Text>

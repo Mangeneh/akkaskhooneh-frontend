@@ -6,7 +6,7 @@ import {Avatar} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ImagePicker from 'react-native-image-crop-picker';
 import {CustomLongTextBox, BackHeader, FullStatusBar} from '../../components';
-import {Strings, Colors, Constants, Fonts, Addresses} from '../../config';
+import {Strings, Colors, Constants, Fonts, Addresses, Pages} from '../../config';
 import SignUpCompleteButton from '../../containers/SignUpCompleteButton';
 import {
     signUpUser,
@@ -97,7 +97,7 @@ class SignUpComplete extends Component {
         this.props.setAccessToken(access);
         this.props.setRefreshToken(refresh);
         this.props.updateUser();
-        this.props.navigation.navigate('Main');
+        this.props.navigation.navigate(Pages.MAIN);
     }
 
     onFail(error) {

@@ -41,7 +41,8 @@ class Profile extends Component {
                         <SelfProfileInfo/>
                     </View>
                     <Tabs ref={component => this._tabs = component}
-                          tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}>
+                          tabBarUnderlineStyle={{backgroundColor: Colors.ACCENT}} initialPage={1}
+                          locked>
                         <Tab heading={strings(Strings.INTERESTS)}
                              activeTextStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}
                              textStyle={{color: Colors.TEXT, fontSize: 12, fontFamily: Fonts.NORMAL_FONT}}

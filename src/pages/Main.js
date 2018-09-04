@@ -98,6 +98,7 @@ const Bottom = createMaterialTopTabNavigator(
         tabBarPosition: 'bottom',
         initialRouteName: 'Home',
         backBehavior: 'none',
+        swipeEnabled: false,
         tabBarOptions: {
             activeTintColor: 'white',
             inactiveTintColor: 'white',
