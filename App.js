@@ -14,6 +14,7 @@ import NavigationService from './src/NavigationService';
 import {Pages} from "./src/config";
 import ProfileSettings from "./src/pages/profileSettings/ProfileSettings";
 import ChangePass from "./src/pages/changePass/ChangePass";
+import SelfBoardsPageHeader from "./src/components/SelfBoardsPageHeader";
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000/

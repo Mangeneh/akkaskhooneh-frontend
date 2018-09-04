@@ -10,6 +10,7 @@ import AddPostInfoReducer from '../pages/addPostInfo/reducer';
 import PostsReducer from './PostsReducer';
 import BoardsReducer from './BoardsReducer';
 import HomeReducer from '../pages/home/reducer';
+import BoardsPageReducer from '../pages/boardsPage/reducer';
 
 export default combineReducers({
     loginPage: LoginPageReducer,
@@ -21,6 +22,7 @@ export default combineReducers({
     changePassPage: ChangePassPageReducer,
     addPostInfoPage: AddPostInfoReducer,
     posts: PostsReducer,
-    boards: BoardsReducer, 
+    boards: BoardsReducer,
     homePage: HomeReducer,
+    boardsPage: BoardsPageReducer
 });

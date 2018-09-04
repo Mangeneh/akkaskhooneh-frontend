@@ -21,7 +21,7 @@ export const getSelfPhotosNextPage = (photosNext) => {
         payload: {
             request: {
                 method: RequestMethods.GET,
-                url: `${Server.GET_SELF_PHOTOS_NEXT_PAGE}${photosNext}/`,
+                url: `${Server.GET_SELF_PHOTOS_NEXT_PAGE}${photosNext}`,
             }
         }
     };
@@ -33,7 +33,7 @@ export const getHomePostsNextPage = (postsNext) => {
         payload: {
             request: {
                 method: RequestMethods.GET,
-                url: `${Server.GET_HOME_POSTS_NEXT_PAGE}${postsNext}/`,
+                url: `${Server.GET_HOME_POSTS_NEXT_PAGE}${postsNext}`,
             }
         }
     };
