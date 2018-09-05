@@ -3,6 +3,7 @@ package com.akkaskhooneh;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImageResizerPackage(),
             new RNGooglePlacesPackage(),
             new RNI18nPackage(),
             new ReactNativeContacts(),

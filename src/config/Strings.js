@@ -53,4 +53,5 @@ export const Strings = {
     CHOOSE_A_BOARD: 'choose_a_board',
     NEW_USER_FIRST_IMPRESSION: 'new_user_first_impression',
     PASSWORD_INSTRUCTION:'password_instruction',
+    RESIZE_FAILED: 'resize_failed',
 };

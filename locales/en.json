@@ -53,5 +53,6 @@
   "create_new_board_fail": "An Error Occurred While Creating New Board.",
   "choose_a_board": "Choose One Of The Boards Below.",
   "new_user_first_impression": "Invite Your Friends To AkkasKhooneh To See Their Posts.",
-  "password_instruction": "Passwords must at least contain 6 characters,both numbers and letters."
+  "password_instruction": "Passwords must at least contain 6 characters,both numbers and letters.",
+  "resize_failed": "Could Not Resize Image."
 }

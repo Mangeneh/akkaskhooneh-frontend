@@ -140,6 +140,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-resizer')
     compile project(':react-native-google-places')
     compile(project(':react-native-google-places')){
             exclude group: 'com.google.android.gms', module: 'play-services-base'

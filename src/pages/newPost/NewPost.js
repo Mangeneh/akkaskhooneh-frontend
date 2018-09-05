@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Text, Right, Left, Body} from 'native-base';
+import {Button, Text, Right, Left, Body, Toast} from 'native-base';
 import {View, Dimensions, TouchableOpacity, Platform} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {CameraKitCamera} from 'react-native-camera-kit';
@@ -9,11 +9,12 @@ import ImagePicker from "react-native-image-crop-picker";
 import {Strings, Colors, Fonts, Constants, Pages} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 import {strings} from "../../i18n";
+import ImageResizer from 'react-native-image-resizer';
 
 const HEIGHT = Dimensions.get('window').height;
 
 export default class NewPost extends Component {
-    state = {imageSource: '', hasChosen: false};
+    state = {imageSource: '', hasChosen: false, resizedImageUri: ''};
 
     render() {
         return (
@@ -76,7 +77,22 @@ export default class NewPost extends Component {
 
     continue() {
         const {imageSource} = this.state;
-        this.props.navigation.navigate(Pages.ADD_POST_INFO, {imageSource});
+        ImageResizer.createResizedImage(imageSource, 1080, 1080, "JPEG", 90).then((response) => {
+            console.warn('RESIZE successful')
+            this.setState({
+                resizedImageUri: uri,
+              });
+              this.props.navigation.navigate(Pages.ADD_POST_INFO, {imageSource: this.state.resizedImageUri});
+          }).catch((err) => {
+            Toast.show({
+                text: strings(Strings.RESIZE_FAILED),
+                textStyle: {textAlign: 'center'},
+                position: 'bottom',
+                type: 'danger'
+            });
+            console.warn(err)
+          });
+
     }
 
     renderButton() {

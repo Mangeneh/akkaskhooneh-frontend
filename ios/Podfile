@@ -14,6 +14,8 @@ target 'AkkasKhooneh' do
   target 'AkkasKhooneh-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
+
   end
 
   target 'AkkasKhoonehTests' do
