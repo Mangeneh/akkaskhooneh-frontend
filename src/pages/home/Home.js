@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {View, ScrollView, ActivityIndicator, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {Toast, Text} from 'native-base';
+import Modal from 'react-native-modal';
 import NavigationService from '../../NavigationService';
 import Post from '../../components/Post';
 import {HomeHeader} from '../../components';
-import Modal from "react-native-modal";
 import AddBoardModal from '../../components/AddBoardModal';
 import {boardNameChanged, createBoard} from './actions';
 import {Pages, Strings, Colors, Constants} from '../../config';
@@ -17,10 +17,15 @@ import {
     selectHomePostsTotalPages,
 } from "../../reducers/PostsReducer";
 import {
-    selectSelectedBoardID,
     selectSelectedPostID,
 } from "../../reducers/BoardsReducer";
-import {getHomePostsNextPage, selectedPostChanged, addPostToBoard} from "../../actions";
+import {
+    getHomePostsNextPage,
+    selectedPostChanged,
+    addPostToBoard,
+    getSelfBoardsNextPage,
+    resetSelfBoards
+} from "../../actions";
 
 
 class Home extends Component {
@@ -30,6 +35,7 @@ class Home extends Component {
     }
 
     state = {
+        newBoardName: '',
         visibleModal: false,
     };
 
@@ -41,20 +47,25 @@ class Home extends Component {
                             title={strings(Strings.APP_NAME)}/>
                 {this.renderContent()}
                 <Modal
-                    isVisible={this.state.visibleModal === true}
-                    onBackdropPress={() => this.setState({visibleModal: null})}
+                    isVisible={this.state.visibleModal}
+                    onBackdropPress={() => this.setState({visibleModal: false})}
+                    onModalHide={() => changeBoardName('')}
                 >
-                    <AddBoardModal value={boardName} onNameChange={(boardName) => changeBoardName(boardName)}
-                                   onAddPress={this.onAddPress.bind(this)} onBoardNamePressed={(selectedBoardID) => this.AddNewPostToBoard(selectedBoardID)}/>
+                    <AddBoardModal
+                        value={boardName} onNameChange={(boardName) => changeBoardName(boardName)}
+                        onAddPress={this.onAddPress.bind(this)}
+                        onBoardNamePressed={(selectedBoardID) => this.addNewPostToBoard(selectedBoardID)}/>
                 </Modal>
             </View>
         );
     }
 
     renderPost(item, index) {
-
         return (
-            <Post saveButtonPressed={() => {this.showModal(); this.props.changeSelectedPostID(item.id);}} item={item}/>
+            <Post saveButtonPressed={() => {
+                this.showModal();
+                this.props.changeSelectedPostID(item.id);
+            }} item={item}/>
         );
     }
 
@@ -94,7 +105,6 @@ class Home extends Component {
     }
 
     onCreateBoardFail(error) {
-        console.warn('HERE?!?')
         Toast.show({
             text: Strings.CREATE_NEW_BOARD_FAIL,
             textStyle: {textAlign: 'center'},
@@ -112,14 +122,14 @@ class Home extends Component {
             type: 'success'
         });
         this.setState({visibleModal: false});
-        this.AddNewPostToBoard(response.payload.data.id);
+        this.addNewPostToBoard(response.payload.data.id);
     }
 
-    AddNewPostToBoard(selectedBoardID)
-    {
+    addNewPostToBoard(selectedBoardID) {
         const {selectedPostID} = this.props;
         this.props.addPostToBoard(selectedPostID, selectedBoardID)
             .then((response) => {
+                this.props.resetSelfBoards();
             })
             .catch((error) => {
             });
@@ -131,17 +141,14 @@ class Home extends Component {
         if (boardName !== '') {
             this.props.createBoard(boardName)
                 .then((response) => {
-                    console.warn(response)
                     this.onCreateBoardSuccess(response);
                 })
                 .catch((error) => {
-                    console.warn("mnooooooooo");
                     this.onCreateBoardFail(error);
                 });
         }
     }
 }
-
 
 const mapStateToProps = (state) => ({
     boardName: state.homePage.boardName,
@@ -149,13 +156,13 @@ const mapStateToProps = (state) => ({
     postsNextPage: selectHomePostsNextPage(state),
     postsTotalPages: selectHomePostsTotalPages(state),
     postsIsLoading: selectHomePostsIsLoading(state),
-    selectedBoardID: selectSelectedBoardID(state),
     selectedPostID: selectSelectedPostID(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeSelectedPostID: (id) => dispatch(selectedPostChanged(id)),
     changeBoardName: (boardName) => dispatch(boardNameChanged(boardName)),
+    resetSelfBoards: () => dispatch(resetSelfBoards()),
     createBoard: (boardName) => dispatch(createBoard(boardName)),
     getPostsNextPage: (postsNext) => dispatch(getHomePostsNextPage(postsNext)),
     getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext)),

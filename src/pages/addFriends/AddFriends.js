@@ -19,7 +19,7 @@ class AddFriends extends Component {
     }
 
     render() {
-        const { TEXT_BOX_RADIUS} = Constants;
+        const {TEXT_BOX_RADIUS} = Constants;
         return (
             <Container>
                 <CustomStatusBar/>
@@ -31,7 +31,7 @@ class AddFriends extends Component {
                         borderRadius: TEXT_BOX_RADIUS
                     }}>
                         <Icon name="ios-people" style={{color: Colors.BASE}}/>
-                        <Input placeholder={strings(Strings.SEARCH_CONTACT)}
+                        <Input placeholder={strings(Strings.SEARCH_CONTACTS)}
                                style={{textAlign: 'right', fontSize: Constants.ITEM_FONT_SIZE}}/>
                         <Icon name="ios-search" style={{color: Colors.BASE}}/>
                     </Item>
@@ -64,10 +64,9 @@ class AddFriends extends Component {
                     justifyContent: 'flex-start',
                     marginLeft: 16,
                     marginTop: 8,
-                    marginBottom: 8,
-                    textAlign: 'center'
+                    marginBottom: 8
                 }}>
-                    <Button style={{width: 90, height: 30, backgroundColor: Colors.ACCENT, textAlign: 'center'}}>
+                    <Button style={{width: 90, height: 30, backgroundColor: Colors.ACCENT}}>
                         <Right/>
                         <Text style={{
                             fontSize: Constants.TEXT_NORMAL_SIZE

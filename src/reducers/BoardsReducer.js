@@ -5,7 +5,6 @@ const INITIAL_SELF_BOARDS_STATE = {
     selfBoardsNextPage: 1,
     selfBoardsTotalPages: 1,
     selfBoardsIsLoading: false,
-    selectedBoardID: 0,
     selectedPostID: 0,
 };
 
@@ -50,5 +49,4 @@ export const selectSelfBoards = (state) => state.boards.selfBoards;
 export const selectSelfBoardsTotalPages = (state) => state.boards.selfBoardsTotalPages;
 export const selectSelfBoardsNextPage = (state) => state.boards.selfBoardsNextPage;
 export const selectSelfBoardsIsLoading = (state) => state.boards.selfBoardsIsLoading;
-export const selectSelectedBoardID = (state) => state.boards.selectedBoardID;
 export const selectSelectedPostID = (state) => state.boards.selectedPostID;

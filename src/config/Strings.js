@@ -40,7 +40,7 @@ export const Strings = {
     LOCATION: 'location',
     NEXT: 'next',
     INVITE_FRIENDS: 'invite_friends',
-    SEARCH_CONTACT: 'search_contact',
+    SEARCH_CONTACTS: 'search_contacts',
     INVITE: 'invite',
     TAGS: 'tags',
     SEND_POST: 'send_post',

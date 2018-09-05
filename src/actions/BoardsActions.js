@@ -16,10 +16,9 @@ export const BoardsActions = {
     CHANGE_SELECTED_POST_ID: 'FEED_ADD_CHANGE_SELECTED_POST_ID',
 };
 
-export const selectedBoardChanged = (selectedBoardID) => {
+export const resetSelfBoards = () => {
     return {
-        type: BoardsActions.CHANGE_SELECTED_BOARD_ID,
-        payload: selectedBoardID
+        type: BoardsActions.RESET_SELF_BOARDS,
     }
 };
 
