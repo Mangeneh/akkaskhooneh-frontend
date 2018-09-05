@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Item, Right, Left, Icon} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, Text, SafeAreaView} from 'react-native'
+import {Item, Right, Left, Icon, Text} from 'native-base';
+import {View, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native'
 import {connect} from 'react-redux';
 import {Strings, Colors, Constants, Pages} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
@@ -21,7 +21,7 @@ class ProfileSettings extends Component {
                                 <Left>
                                     <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
                                         <Icon type={'Ionicons'} name='ios-arrow-back'
-                                              style={{color: Colors.ACCENT}}/>
+                                              style={{color: Colors.ACCENT, marginLeft: 16}}/>
                                     </TouchableOpacity>
                                 </Left>
                                 <Right>
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
+        marginRight: 16,
         color: Colors.TEXT,
     },
     exit: {
