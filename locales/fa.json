@@ -51,5 +51,6 @@
   "create_new_board": "ساخت برد جدید",
   "create_new_board_success": "برد جدید با موفقیت ساخته شد.",
   "create_new_board_fail": "ساخت برد با خطا مواجه شد.",
-  "choose_a_board": "یکی از بردهای زیر رو انتخاب کنید."
+  "choose_a_board": "یکی از بردهای زیر رو انتخاب کنید.",
+  "new_user_first_impression": "برای دیدن عکسای دوستاتون، اونا رو به عکاسخونه دعوت کنید."
 }

@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {View, ScrollView, ActivityIndicator, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import {Toast} from 'native-base';
+import {Toast, Text} from 'native-base';
 import NavigationService from '../../NavigationService';
 import Post from '../../components/Post';
 import {HomeHeader} from '../../components';
 import Modal from "react-native-modal";
 import AddBoardModal from '../../components/AddBoardModal';
 import {boardNameChanged, createBoard} from './actions';
-import {Pages, Strings, Colors} from '../../config';
+import {Pages, Strings, Colors, Constants} from '../../config';
 import {strings} from '../../i18n';
 import {
     selectHomePosts,
@@ -39,13 +39,7 @@ class Home extends Component {
             <View style={{flex: 1}}>
                 <HomeHeader onAddFriendsPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
                             title={strings(Strings.APP_NAME)}/>
-                <FlatList
-                    onEndReached={() => this.updatePosts()}
-                    style={{width: '100%', marginTop: 8}}
-                    keyExtractor={(item, index) => item.id.toString()}
-                    data={this.props.posts}
-                    renderItem={({item, index}) => this.renderPost(item, index)}
-                />
+                {this.renderContent()}
                 <Modal
                     isVisible={this.state.visibleModal === true}
                     onBackdropPress={() => this.setState({visibleModal: null})}
@@ -64,11 +58,35 @@ class Home extends Component {
         );
     }
 
+    renderContent() {
+        return (this.props.posts.length === 0 && !this.props.postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed())
+    }
+
     updatePosts() {
         if (this.props.postsNextPage <= this.props.postsTotalPages &&
             !this.props.postsIsLoading) {
             this.props.getPostsNextPage(this.props.postsNextPage);
         }
+    }
+
+    renderNewUserFirstImpression() {
+        return (
+            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+                <Text style={{fontSize: Constants.TEXT_NORMAL_SIZE, color: Colors.ICON}}>{strings(Strings.NEW_USER_FIRST_IMPRESSION)}</Text>
+            </View>
+        )
+    }
+
+    renderFeed() {
+        return (
+            <FlatList
+                onEndReached={() => this.updatePosts()}
+                style={{width: '100%', marginTop: 8}}
+                keyExtractor={(item, index) => item.id.toString()}
+                data={this.props.posts}
+                renderItem={({item, index}) => this.renderPost(item, index)}
+            />
+        )
     }
 
     showModal() {
