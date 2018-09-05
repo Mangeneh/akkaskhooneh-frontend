@@ -13,7 +13,7 @@ import {
     selectSelfBoardsNextPage,
     selectSelfBoardsTotalPages
 } from "../../reducers/BoardsReducer";
-import {getSelfBoardsNextPage, getSelfPhotosNextPage, resetSelfBoards} from "../../actions";
+import {getSelfBoardsNextPage, getSelfPhotosNextPage, resetSelfBoards, resetSelfPhotos} from "../../actions";
 import {
     selectSelfPhotos,
     selectSelfPhotosIsLoading,
@@ -77,6 +77,11 @@ class Profile extends Component {
                              tabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
                                 <FlatList
+                                    onRefresh={() => {
+                                        this.props.resetSelfPhotos();
+                                        this.props.getPhotosNextPage(1);
+                                    }}
+                                    refreshing={this.props.photosIsLoading}
                                     onEndReached={() => this.updatePhotos()}
                                     style={{width: '100%', marginTop: 8}}
                                     numColumns={2}
@@ -165,6 +170,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    resetSelfPhotos: () => dispatch(resetSelfPhotos()),
     resetSelfBoards: () => dispatch(resetSelfBoards()),
     getPhotosNextPage: (photosNext) => dispatch(getSelfPhotosNextPage(photosNext)),
     getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext))
