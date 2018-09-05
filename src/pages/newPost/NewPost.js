@@ -14,7 +14,7 @@ import ImageResizer from 'react-native-image-resizer';
 const HEIGHT = Dimensions.get('window').height;
 
 export default class NewPost extends Component {
-    state = {imageSource: '', hasChosen: false, resizedImageUri: ''};
+    state = {imageSource: '', hasChosen: false};
 
     render() {
         return (
@@ -78,11 +78,7 @@ export default class NewPost extends Component {
     continue() {
         const {imageSource} = this.state;
         ImageResizer.createResizedImage(imageSource, 1080, 1080, "JPEG", 90).then((response) => {
-            console.warn('RESIZE successful')
-            this.setState({
-                resizedImageUri: uri,
-              });
-              this.props.navigation.navigate(Pages.ADD_POST_INFO, {imageSource: this.state.resizedImageUri});
+            this.props.navigation.navigate(Pages.ADD_POST_INFO, {imageSource: response.uri});
           }).catch((err) => {
             Toast.show({
                 text: strings(Strings.RESIZE_FAILED),
@@ -90,7 +86,6 @@ export default class NewPost extends Component {
                 position: 'bottom',
                 type: 'danger'
             });
-            console.warn(err)
           });
 
     }

@@ -62,6 +62,7 @@
 		BB7DF7BDA697490FB0998DDA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85147ED1CDE642EDB060CC30 /* MaterialIcons.ttf */; };
 		C6DD708F977047BF8810C493 /* IRANSansWeb_UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB5D2457E5BE4B74B41F7BD3 /* IRANSansWeb_UltraLight.ttf */; };
 		D2F0C2042A934642AE3F1C23 /* IRANSansWeb_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEEC53AAE5944A1187704D0E /* IRANSansWeb_Bold.ttf */; };
+		D314EE0B21401079006BFEE4 /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D314EDE821401018006BFEE4 /* libRCTImageResizer.a */; };
 		D33CF0712131864900CFF368 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33CF0702131864900CFF368 /* RSKImageCropper.framework */; };
 		D33CF0722131864900CFF368 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D33CF0702131864900CFF368 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D33CF0752131864D00CFF368 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33CF0742131864D00CFF368 /* QBImagePicker.framework */; };
@@ -352,6 +353,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		D314EDE721401018006BFEE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D314EDD821401018006BFEE4 /* RCTImageResizer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D72D2E81C16249000E22EC1;
+			remoteInfo = RCTImageResizer;
+		};
 		D33CF06B213185B100CFF368 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7E8DA445140F4B0F8A3E87AA /* imageCropPicker.xcodeproj */;
@@ -498,6 +506,7 @@
 		B130CA6ABBC14292A4C85036 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		C88E581FCED0EB21633348F8 /* libPods-AkkasKhoonehTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AkkasKhoonehTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C969EC5797B146E58DC5A4AC /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
+		D314EDD821401018006BFEE4 /* RCTImageResizer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImageResizer.xcodeproj; path = "../node_modules/react-native-image-resizer/ios/RCTImageResizer.xcodeproj"; sourceTree = "<group>"; };
 		D33CF0702131864900CFF368 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33CF0742131864D00CFF368 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D369C45121355E3C007FAC95 /* ReactNativeCameraKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeCameraKit.xcodeproj; path = "../node_modules/react-native-camera-kit/ios/lib/ReactNativeCameraKit.xcodeproj"; sourceTree = "<group>"; };
@@ -526,6 +535,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D314EE0B21401079006BFEE4 /* libRCTImageResizer.a in Frameworks */,
 				D3CBD630213672750051FCF3 /* libRCTCameraRoll.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -746,6 +756,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D314EDD821401018006BFEE4 /* RCTImageResizer.xcodeproj */,
 				D3CBD62A213672530051FCF3 /* RCTCameraRoll.xcodeproj */,
 				D369C45121355E3C007FAC95 /* ReactNativeCameraKit.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -845,6 +856,14 @@
 				719F5DEBD8C545268C6F2B75 /* FontAwesome5_Solid.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		D314EDD921401018006BFEE4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D314EDE821401018006BFEE4 /* libRCTImageResizer.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D33CF03E213185AF00CFF368 /* Recovered References */ = {
@@ -1074,6 +1093,10 @@
 				{
 					ProductGroup = 00C302BC1ABCB91800DB3ED1 /* Products */;
 					ProjectRef = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
+				},
+				{
+					ProductGroup = D314EDD921401018006BFEE4 /* Products */;
+					ProjectRef = D314EDD821401018006BFEE4 /* RCTImageResizer.xcodeproj */;
 				},
 				{
 					ProductGroup = 78C398B11ACF4ADC00677621 /* Products */;
@@ -1394,6 +1417,13 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D314EDE821401018006BFEE4 /* libRCTImageResizer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTImageResizer.a;
+			remoteRef = D314EDE721401018006BFEE4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D33CF06C213185B100CFF368 /* libimageCropPicker.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1521,8 +1551,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AkkasKhooneh/Pods-AkkasKhooneh-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
@@ -1530,8 +1558,6 @@
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
@@ -1575,15 +1601,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AkkasKhooneh-tvOSTests-checkManifestLockResult.txt",
 			);
@@ -1597,15 +1619,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AkkasKhooneh-checkManifestLockResult.txt",
 			);
@@ -1619,15 +1637,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AkkasKhooneh-tvOS-checkManifestLockResult.txt",
 			);
@@ -1641,15 +1655,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AkkasKhoonehTests-checkManifestLockResult.txt",
 			);
@@ -1812,8 +1822,10 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)..\node_modules\neact-native-i18nios",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-contactsiosRCTContacts",
+					"eact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = AkkasKhooneh/Info.plist;
@@ -1840,8 +1852,10 @@
 					"$(SRCROOT)/../node_modules/@expo/vector-icons/vendor/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-					"$(SRCROOT)..\node_modules\neact-native-contactsiosRCTContacts",
-					"$(SRCROOT)..\node_modules\neact-native-i18nios",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-contactsiosRCTContacts",
+					"eact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = AkkasKhooneh/Info.plist;
