@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
-import {Button, Text, Right, Left, Body, Toast} from 'native-base';
-import {View, Dimensions, TouchableOpacity, Platform} from 'react-native';
+import {Button, Text, Body, Toast} from 'native-base';
+import {View, Dimensions, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {CameraKitCamera} from 'react-native-camera-kit';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import ImagePicker from "react-native-image-crop-picker";
-import {Strings, Colors, Fonts, Constants, Pages} from '../../config';
+import ImageResizer from 'react-native-image-resizer';
+import {Strings, Colors, Constants, Pages} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 import {strings} from "../../i18n";
-import ImageResizer from 'react-native-image-resizer';
+import {extractImageSource} from "../../helpers";
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -20,7 +21,7 @@ export default class NewPost extends Component {
         return (
             <View style={{flex: 1}}>
                 <View>
-                    <BackHeader onBackPress={() => this.props.navigation.navigate('Main')}
+                    <BackHeader onBackPress={() => this.props.navigation.navigate(Pages.MAIN)}
                                 title={strings(Strings.PHOTO_GALLERY)}/>
                 </View>
                 <View style={{flex: 1}}>
@@ -36,9 +37,11 @@ export default class NewPost extends Component {
                             <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
                                 <Icon type='MaterialIcons' name='drag-handle'
                                       style={{backgroundColor: Colors.LIGHT_GRAY}}/>
-                                <CameraRollPicker selectSingleItem
-                                                  callback={(image) => this.onSelectImage(image)}
-                                                  backgroundColor={Colors.LIGHT_GRAY}/>
+                                <CameraRollPicker
+                                    scrollRenderAheadDistance={12}
+                                    selectSingleItem
+                                    callback={(image) => this.onSelectImage(image)}
+                                    backgroundColor={Colors.LIGHT_GRAY}/>
                             </View>
                         </SlidingUpPanel>
                     </View>
@@ -46,18 +49,6 @@ export default class NewPost extends Component {
                 </View>
             </View>
         );
-    }
-
-    onCameraScreenPress() {
-        ImagePicker.openCamera({
-            width: Constants.IMAGE_SIZE,
-            height: Constants.IMAGE_SIZE,
-            cropping: true
-        }).then(image => {
-            const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
-            this.setState({imageSource, hasChosen: true});
-            this.continue();
-        });
     }
 
     renderCameraSection() {
@@ -73,21 +64,6 @@ export default class NewPost extends Component {
                     ratioOverlay: '1:1',
                 }}/>
         )
-    }
-
-    continue() {
-        const {imageSource} = this.state;
-        ImageResizer.createResizedImage(imageSource, 1080, 1080, "JPEG", 90).then((response) => {
-            this.props.navigation.navigate(Pages.ADD_POST_INFO, {imageSource: response.uri});
-          }).catch((err) => {
-            Toast.show({
-                text: strings(Strings.RESIZE_FAILED),
-                textStyle: {textAlign: 'center'},
-                position: 'bottom',
-                type: 'danger'
-            });
-          });
-
     }
 
     renderButton() {
@@ -119,11 +95,39 @@ export default class NewPost extends Component {
         }
     }
 
+    onCameraScreenPress() {
+        ImagePicker.openCamera({
+            width: Constants.IMAGE_SIZE,
+            height: Constants.IMAGE_SIZE,
+            cropping: true,
+            avoidEmptySpaceAroundImage: false
+        }).then(image => {
+            const imageSource = extractImageSource(image);
+            this.setState({imageSource, hasChosen: true});
+            this.continue();
+        });
+    }
+
     onSelectImage(image) {
+        // Don't use extractImageSource here, because this image comes from gallery.
         if (image.length === 0) {
             this.setState({hasChosen: false});
         } else {
             this.setState({imageSource: image[0].uri, hasChosen: true});
         }
+    }
+
+    continue() {
+        const {imageSource} = this.state;
+        ImageResizer.createResizedImage(imageSource, Constants.IMAGE_SIZE, Constants.IMAGE_SIZE, "JPEG", 90).then((response) => {
+            this.props.navigation.navigate(Pages.ADD_POST_INFO, {imageSource: response.uri});
+        }).catch((err) => {
+            Toast.show({
+                text: strings(Strings.RESIZE_FAILED),
+                textStyle: {textAlign: 'center'},
+                position: 'bottom',
+                type: 'danger'
+            });
+        });
     }
 }

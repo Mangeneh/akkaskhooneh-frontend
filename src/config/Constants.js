@@ -7,6 +7,6 @@ export const Constants = {
     POST_TIME_FONT_SIZE: 8,
     COUNT_FONT_SIZE: 8,
     TEXT_BOX_ELEVATION: 1,
-    IMAGE_SIZE:500,
+    IMAGE_SIZE:1080,
     POST_CARD_RADIUS: 8,
 };
