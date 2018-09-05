@@ -20,6 +20,7 @@ import {
     selectSelectedPostID,
 } from "../../reducers/BoardsReducer";
 import {
+    resetHomePosts,
     getHomePostsNextPage,
     selectedPostChanged,
     addPostToBoard,
@@ -94,6 +95,11 @@ class Home extends Component {
     renderFeed() {
         return (
             <FlatList
+                onRefresh={() => {
+                    this.props.resetHomePosts();
+                    this.props.getPostsNextPage(1);
+                }}
+                refreshing={this.props.postsIsLoading}
                 onEndReached={() => this.updatePosts()}
                 style={{width: '100%', marginTop: 8}}
                 keyExtractor={(item, index) => item.id.toString()}
@@ -162,6 +168,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    resetHomePosts: () => dispatch(resetHomePosts()),
     changeSelectedPostID: (id) => dispatch(selectedPostChanged(id)),
     changeBoardName: (boardName) => dispatch(boardNameChanged(boardName)),
     resetSelfBoards: () => dispatch(resetSelfBoards()),
