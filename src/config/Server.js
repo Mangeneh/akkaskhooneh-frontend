@@ -12,5 +12,6 @@ export const Server = {
     CREATE_BOARD: '/social/create-new-board/',
     CHECK_EMAIL: '/auth/checkemail/',
     SIGN_UP_USER: '/auth/register/',
-    SEND_POST: '/social/create-new-post/'
+    SEND_POST: '/social/create-new-post/',
+    ADD_POST_TO_BOARD: '/social/addnewposttoboard/',
 };

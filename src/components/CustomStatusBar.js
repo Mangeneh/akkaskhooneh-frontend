@@ -4,6 +4,6 @@ import {Colors} from "../config/Colors";
 
 export default class CustomStatusBar extends Component {
     render() {
-        return (<StatusBar barStyle='light-content' backgroundColor={Colors.BASE} networkActivityIndicatorVisible/>);
+        return (<StatusBar barStyle='light-content' backgroundColor={Colors.BASE}/>);
     }
 }

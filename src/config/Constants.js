@@ -5,6 +5,7 @@ export const Constants = {
     POST_NAME_FONT_SIZE: 10,
     ITEM_FONT_SIZE: 10,
     POST_TIME_FONT_SIZE: 8,
+    COUNT_FONT_SIZE: 8,
     TEXT_BOX_ELEVATION: 1,
     IMAGE_SIZE:500,
     POST_CARD_RADIUS: 8,

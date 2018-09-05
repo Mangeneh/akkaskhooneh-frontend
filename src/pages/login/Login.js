@@ -110,7 +110,7 @@ class Login extends Component {
 
     onFail(error) {
         Toast.show({
-            text: strings('wrong_credentials'),
+            text: strings(Strings.WRONG_CREDENTIALS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'
@@ -125,7 +125,6 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: Fonts.TEXT_NORMAL_SIZE,
         color: 'white',
         textAlign: 'center',

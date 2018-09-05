@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, FlatList, Text, Image, StyleSheet} from 'react-native';
 import {strings} from "../i18n";
-import {Strings} from "../config";
+import {Strings, Constants, Colors} from "../config";
 
 export default class Board extends Component {
 
@@ -11,11 +11,11 @@ export default class Board extends Component {
             <View>
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flex: 1, alignItems: 'flex-start', marginLeft: 8}}>
-                        <Text>{strings(Strings.ALL)}</Text>
+                        <Text style={{fontSize: Constants.ITEM_FONT_SIZE, color: Colors.ICON}}>{strings(Strings.ALL)}</Text>
                     </View>
                     <View style={{flex: 4, flexDirection: 'row', justifyContent: 'flex-end', marginRight: 8}}>
-                        <Text>{strings(Strings.PICTURE_QUANTITY, {quantity})}</Text>
-                        <Text style={{marginLeft: 16}}>{boardName}</Text>
+                        <Text style={{fontSize: Constants.COUNT_FONT_SIZE, color: Colors.ICON}}>{strings(Strings.PICTURE_QUANTITY, {quantity})}</Text>
+                        <Text style={{marginLeft: 16, fontSize: Constants.ITEM_FONT_SIZE, color: Colors.ICON}}>{boardName}</Text>
                     </View>
                 </View>
                 <View>

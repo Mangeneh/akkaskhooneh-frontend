@@ -17,8 +17,7 @@ export default class SelfBoardsPageHeader extends Component {
                     <Body style={{flex: 3}}>
                     <Title style={{
                         alignSelf: 'center',
-                        color: 'white',
-                        fontFamily: Fonts.NORMAL_FONT
+                        color: 'white'
                     }}>{boardName}</Title>
                     </Body>
                     <Right style={{flex: 1, marginRight: 4}}>

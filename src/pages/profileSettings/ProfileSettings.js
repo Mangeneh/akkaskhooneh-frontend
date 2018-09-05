@@ -2,18 +2,18 @@ import React, {Component} from 'react';
 import {Item, Right, Left, Icon} from 'native-base';
 import {View, TouchableOpacity, StyleSheet, Text, SafeAreaView} from 'react-native'
 import {connect} from 'react-redux';
-import {Strings, Fonts, Colors, Constants, Pages} from '../../config';
+import {Strings, Colors, Constants, Pages} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 import {reset} from '../../actions/UserInfoActions';
+import {strings} from "../../i18n";
 
 class ProfileSettings extends Component {
     render() {
-        const {SIGN_OUT, CHANGE_PASS} = Strings;
         return (
             <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                <CustomStatusBar/>
-                <BackHeader onBackPress={this.onBackPress.bind(this)} title={Strings.PROFILE_SETTINGS}/>
+                <BackHeader onBackPress={this.onBackPress.bind(this)} title={strings(Strings.PROFILE_SETTINGS)}/>
                 <View style={{backgroundColor: 'white', flex: 1}}>
+                    <CustomStatusBar/>
                     <View style={{flex: 1}}/>
                     <View style={{backgroundColor: 'white', flex: 10}}>
                         <View>
@@ -27,7 +27,7 @@ class ProfileSettings extends Component {
                                 <Right>
                                     <TouchableOpacity onPress={this.onChangePassPressed.bind(this)}>
                                         <Text style={styles.text}>
-                                            {CHANGE_PASS}
+                                            {strings(Strings.CHANGE_PASS)}
                                         </Text>
                                     </TouchableOpacity>
                                 </Right>
@@ -37,7 +37,7 @@ class ProfileSettings extends Component {
                 </View>
                 <TouchableOpacity style={{marginBottom: 0, backgroundColor: 'white'}}
                                   onPress={this.onSignOutPress.bind(this)}>
-                    <Text style={styles.exit}>{SIGN_OUT}</Text>
+                    <Text style={styles.exit}>{strings(Strings.SIGN_OUT)}</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         );
@@ -67,12 +67,10 @@ const styles = StyleSheet.create({
         elevation: Constants.TEXT_BOX_ELEVATION
     },
     text: {
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: 16,
         color: Colors.TEXT,
     },
     exit: {
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: Constants.TEXT_NORMAL_SIZE,
         color: Colors.TEXT,
         textAlign: 'center'

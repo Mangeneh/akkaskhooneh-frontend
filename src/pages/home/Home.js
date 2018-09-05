@@ -16,7 +16,12 @@ import {
     selectHomePostsNextPage,
     selectHomePostsTotalPages,
 } from "../../reducers/PostsReducer";
-import {getHomePostsNextPage} from "../../actions";
+import {
+    selectSelectedBoardID,
+    selectSelectedPostID,
+} from "../../reducers/BoardsReducer";
+import {getHomePostsNextPage, selectedPostChanged, addPostToBoard} from "../../actions";
+
 
 class Home extends Component {
     constructor(props) {
@@ -46,15 +51,16 @@ class Home extends Component {
                     onBackdropPress={() => this.setState({visibleModal: null})}
                 >
                     <AddBoardModal value={boardName} onNameChange={(boardName) => changeBoardName(boardName)}
-                                   onAddPress={this.onAddPress.bind(this)}/>
+                                   onAddPress={this.onAddPress.bind(this)} onBoardNamePressed={(selectedBoardID) => this.AddNewPostToBoard(selectedBoardID)}/>
                 </Modal>
             </View>
         );
     }
 
     renderPost(item, index) {
+
         return (
-            <Post saveButtonPressed={this.showModal.bind(this)} item={item}/>
+            <Post saveButtonPressed={() => {this.showModal(); this.props.changeSelectedPostID(item.id);}} item={item}/>
         );
     }
 
@@ -69,7 +75,7 @@ class Home extends Component {
         this.setState({visibleModal: true});
     }
 
-    onCreateBoardSuccess(error) {
+    onCreateBoardFail(error) {
         Toast.show({
             text: Strings.CREATE_NEW_BOARD_FAIL,
             textStyle: {textAlign: 'center'},
@@ -81,11 +87,23 @@ class Home extends Component {
 
     onCreateBoardSuccess(response) {
         Toast.show({
-            text: Strings.CREATE_NEW_BOARD_SUCCESS,
+            text: strings(Strings.CREATE_NEW_BOARD_SUCCESS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'success'
         });
+        this.setState({visibleModal: false});
+        AddNewPostToBoard(response.payload.data.id);
+    }
+
+    AddNewPostToBoard(selectedBoardID)
+    {
+        const {selectedPostID} = this.props;
+        this.props.addPostToBoard(selectedPostID, selectedBoardID)
+            .then((response) => {
+            })
+            .catch((error) => {
+            });
         this.setState({visibleModal: false});
     }
 
@@ -97,7 +115,7 @@ class Home extends Component {
                     this.onCreateBoardSuccess(response);
                 })
                 .catch((error) => {
-                    this.onCreateBoardSuccess(error);
+                    this.onCreateBoardFail(error);
                 });
         }
     }
@@ -110,13 +128,17 @@ const mapStateToProps = (state) => ({
     postsNextPage: selectHomePostsNextPage(state),
     postsTotalPages: selectHomePostsTotalPages(state),
     postsIsLoading: selectHomePostsIsLoading(state),
+    selectedBoardID: selectSelectedBoardID(state),
+    selectedPostID: selectSelectedPostID(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    changeSelectedPostID: (id) => dispatch(selectedPostChanged(id)),
     changeBoardName: (boardName) => dispatch(boardNameChanged(boardName)),
     createBoard: (boardName) => dispatch(createBoard(boardName)),
     getPostsNextPage: (postsNext) => dispatch(getHomePostsNextPage(postsNext)),
-    getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext))
+    getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext)),
+    addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

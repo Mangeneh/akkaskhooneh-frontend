@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Text, Icon, Spinner} from 'native-base';
 import {View} from 'react-native';
-import {Fonts} from '../config';
 
 export default class SpinnerButton extends Component {
     render() {
@@ -24,7 +23,7 @@ export default class SpinnerButton extends Component {
             return (
                 <View style={{flexDirection: 'row'}}>
                     <Icon type={'MaterialCommunityIcons'} name={icon}/>
-                    <Text style={{fontFamily: Fonts.NORMAL_FONT}}>{text}</Text>
+                    <Text>{text}</Text>
                 </View>
             )
         }

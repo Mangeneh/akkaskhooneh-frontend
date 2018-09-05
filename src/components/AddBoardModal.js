@@ -1,26 +1,27 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity,FlatList} from 'react-native';
-import {Icon, Item, Input, Left, Right, Body} from 'native-base';
+import {View, StyleSheet, TouchableOpacity,FlatList} from 'react-native';
+import {Icon, Item, Input, Left, Right, Body, Text} from 'native-base';
 import {Strings, Colors, Constants, Fonts} from '../config';
 import {connect} from 'react-redux';
 import {
     selectSelfBoards,
     selectSelfBoardsIsLoading,
     selectSelfBoardsNextPage,
-    selectSelfBoardsTotalPages
+    selectSelfBoardsTotalPages,
 } from "../reducers/BoardsReducer";
 import {getSelfBoardsNextPage} from "../actions";
+import {strings} from '../i18n';
 
 class AddBoardModal extends Component {
 
     render() {
         return (
         <View style={styles.modalContent}>
-            <Text style={{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.TEXT_NORMAL_SIZE}}>{Strings.ADD_TO_INTERESTS}</Text>
-            <Text note >{Strings.ChooseABoard}</Text>
+            <Text style={{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.TEXT_NORMAL_SIZE}}>{strings(Strings.ADD_TO_INTERESTS)}</Text>
+            <Text note style={{fontSize: Constants.ITEM_FONT_SIZE}}>{strings(Strings.CHOOSE_A_BOARD)}</Text>
  
             <Item style={{flexDirection: 'row', backgroundColor: Colors.LIGHT_GRAY}}>
-                <Input style={{color: Colors.BASE, textAlign: 'right', justifyContent: 'center', fontSize: Constants.ITEM_FONT_SIZE}} onChangeText={this.props.onNameChange} placeholder={Strings.CREATE_NEW_BOARD} value={this.props.value}/>
+                <Input style={{color: Colors.BASE, textAlign: 'right', justifyContent: 'center', fontSize: Constants.ITEM_FONT_SIZE}} onChangeText={this.props.onNameChange} placeholder={strings(Strings.CREATE_NEW_BOARD)} value={this.props.value}/>
                 <TouchableOpacity>
                     <Icon name='plus' type='Entypo' style={{color: Colors.BASE, justifyContent: 'flex-end', alignSelf: 'center'}} onPress={this.props.onAddPress}/>
                 </TouchableOpacity>
@@ -49,7 +50,7 @@ class AddBoardModal extends Component {
                 <Left />
                 <Body />
                 <Right>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => {this.props.onBoardNamePressed(item.id);}}>
                         <Text />
                             <Text style={{fontSize: Constants.TEXT_NORMAL_SIZE, fontFamily: Fonts.NORMAL_FONT, marginRight: 8}}>{item.name}</Text>
                         <Text />
@@ -78,11 +79,11 @@ const mapStateToProps = (state) => ({
     boards: selectSelfBoards(state),
     boardsNextPage: selectSelfBoardsNextPage(state),
     boardsTotalPages: selectSelfBoardsTotalPages(state),
-    boardsIsLoading: selectSelfBoardsIsLoading(state)
+    boardsIsLoading: selectSelfBoardsIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext))
+    getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext)),    
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBoardModal);

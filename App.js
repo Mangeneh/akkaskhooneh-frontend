@@ -4,7 +4,7 @@ import {createStore, applyMiddleware} from 'redux';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
-import {Root} from 'native-base';
+import {Root, StyleProvider} from 'native-base';
 import rootReducer from './src/reducers';
 import {Login, SignUp, SignUpComplete, Main, AddPostInfo, NewPost, AddFriends, ProfileEdit, Home} from './src/pages';
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
@@ -15,6 +15,8 @@ import {Pages} from "./src/config";
 import ProfileSettings from "./src/pages/profileSettings/ProfileSettings";
 import ChangePass from "./src/pages/changePass/ChangePass";
 import SelfBoardsPageHeader from "./src/components/SelfBoardsPageHeader";
+import commonColor from "./native-base-theme/variables/commonColor";
+import getTheme from './native-base-theme/components';
 
 const client = axios.create({
     baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000/
@@ -110,9 +112,11 @@ export default class App extends Component {
         return (
             <Root>
                 <Provider store={store}>
-                    <RootStack ref={navigatorRef => {
-                        NavigationService.setTopLevelNavigator(navigatorRef);
-                    }}/>
+                    <StyleProvider style={getTheme(commonColor)}>
+                        <RootStack ref={navigatorRef => {
+                            NavigationService.setTopLevelNavigator(navigatorRef);
+                        }}/>
+                    </StyleProvider>
                 </Provider>
             </Root>
         );

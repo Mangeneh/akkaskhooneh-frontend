@@ -12,7 +12,6 @@ export default class EmailTextBox extends Component {
                   rounded error={error}>
                 <Icon style={{color: Colors.ICON}} name='mail'/>
                 <Input
-                    fontFamily={Fonts.NORMAL_FONT}
                     type='email' placeholder={strings(Strings.EMAIL_ADDRESS)}
                     value={value}
                     style={{textAlign: 'center', fontSize: TEXT_BOX_FONT_SIZE}}

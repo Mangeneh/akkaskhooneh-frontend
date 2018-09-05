@@ -112,7 +112,7 @@ class SignUp extends Component {
 
     onFail(error) {
         Toast.show({
-            text: Strings.EMAIL_ALREADY_EXISTS,
+            text: strings(Strings.EMAIL_ALREADY_EXISTS),
             textStyle: {textAlign: 'center'},
             position: 'bottom',
             type: 'danger'
@@ -128,7 +128,6 @@ class SignUp extends Component {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: Fonts.NORMAL_FONT,
         fontSize: Fonts.TEXT_NORMAL_SIZE,
         color: 'white',
         textAlign: 'center',

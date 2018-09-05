@@ -8,6 +8,7 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
 import ImagePicker from "react-native-image-crop-picker";
 import {Strings, Colors, Fonts, Constants} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
+import {strings} from "../../i18n";
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -15,12 +16,11 @@ export default class NewPost extends Component {
     state = {imageSource: '', hasChosen: false};
 
     render() {
-        const {PHOTO_GALLERY} = Strings;
         return (
             <View style={{flex: 1}}>
-                <CustomStatusBar/>
                 <View>
-                    <BackHeader onBackPress={() => this.props.navigation.navigate('Main')} title={PHOTO_GALLERY}/>
+                    <BackHeader onBackPress={() => this.props.navigation.navigate('Main')}
+                                title={strings(Strings.PHOTO_GALLERY)}/>
                 </View>
                 <View style={{flex: 1}}>
                     <TouchableOpacity style={{flex: 1, backgroundColor: Colors.BASE}}
@@ -28,6 +28,7 @@ export default class NewPost extends Component {
                         {this.renderCameraSection()}
                     </TouchableOpacity>
                     <View style={{height: '100%', width: '100%', position: 'absolute'}}>
+                        <CustomStatusBar/>
                         <SlidingUpPanel showBackdrop startCollapsed
                                         draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}}
                                         visible>
@@ -100,7 +101,7 @@ export default class NewPost extends Component {
                     }}>
                         <Right/>
                         <Body>
-                        <Text style={{color: 'white', fontFamily: Fonts.NORMAL_FONT}}>{Strings.NEXT_LEVEL}</Text>
+                        <Text style={{color: 'white'}}>{strings(Strings.NEXT)}</Text>
                         </Body>
                         <Left/>
                     </Button>
