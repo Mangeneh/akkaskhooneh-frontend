@@ -4,7 +4,7 @@ export const PostsActions = {
     GET_SELF_PHOTOS_NEXT_PAGE: 'GET_SELF_PHOTOS_NEXT_PAGE',
     GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS',
     GET_SELF_PHOTOS_NEXT_PAGE_FAIL: 'GET_SELF_PHOTOS_NEXT_PAGE_FAIL',
-    RESET_SELF_PHOTOS: 'RESET_SELF_PHOTOS',
+    RESET_SELF_PHOTOS: 'RESET_SELF_PHOTOS',   
     GET_HOME_POSTS_NEXT_PAGE: 'GET_HOME_POSTS_NEXT_PAGE',
     GET_HOME_POSTS_NEXT_PAGE_SUCCESS: 'GET_HOME_POSTS_NEXT_PAGE_SUCCESS',
     GET_HOME_POSTS_NEXT_PAGE_FAIL: 'GET_HOME_POSTS_NEXT_PAGE_FAIL',
@@ -18,6 +18,12 @@ export const PostsActions = {
 export const resetSelfPhotos = () => {
     return {
         type: PostsActions.RESET_SELF_PHOTOS
+    }
+};
+
+export const resetHomePosts = () => {
+    return {
+        type: PostsActions.RESET_HOME_POSTS
     }
 };
 
