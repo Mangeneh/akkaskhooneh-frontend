@@ -54,5 +54,6 @@ export const Strings = {
     ADD_TO_INTERESTS: 'اضافه به علاقه‌مندی‌ها',
     CREATE_NEW_BOARD: 'ساخت برد جدید',
     CREATE_NEW_BOARD_SUCCESS: 'برد جدید با موفقیت ساخته شد.',
-    CREATE_NEW_BOARD_FAIL: 'ساخت برد با خطا مواجه شد.'
+    CREATE_NEW_BOARD_FAIL: 'ساخت برد با خطا مواجه شد.',
+    CHOOSE_A_BOARD: 'یکی از بوردهای زیر را انتخاب کنید.',
 };

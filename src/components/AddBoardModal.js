@@ -17,6 +17,7 @@ class AddBoardModal extends Component {
         return (
         <View style={styles.modalContent}>
             <Text style={{fontFamily: Fonts.NORMAL_FONT, fontSize: Constants.TEXT_NORMAL_SIZE}}>{Strings.ADD_TO_INTERESTS}</Text>
+            <Text note >{Strings.ChooseABoard}</Text>
  
             <Item style={{flexDirection: 'row', backgroundColor: Colors.LIGHT_GRAY}}>
                 <Input style={{color: Colors.BASE, textAlign: 'right', justifyContent: 'center', fontSize: Constants.ITEM_FONT_SIZE}} onChangeText={this.props.onNameChange} placeholder={Strings.CREATE_NEW_BOARD} value={this.props.value}/>
