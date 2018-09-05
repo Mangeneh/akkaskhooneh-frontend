@@ -13,7 +13,7 @@ import {
     selectSelfBoardsNextPage,
     selectSelfBoardsTotalPages
 } from "../../reducers/BoardsReducer";
-import {getSelfBoardsNextPage, getSelfPhotosNextPage} from "../../actions";
+import {getSelfBoardsNextPage, getSelfPhotosNextPage, resetSelfBoards} from "../../actions";
 import {
     selectSelfPhotos,
     selectSelfPhotosIsLoading,
@@ -56,6 +56,11 @@ class Profile extends Component {
                              activeTabStyle={{backgroundColor: 'white'}}>
                             <View style={{backgroundColor: Colors.WHITE_BACK, flex: 1}}>
                                 <FlatList
+                                    onRefresh={() => {
+                                        this.props.resetSelfBoards();
+                                        this.props.getBoardsNextPage(1);
+                                    }}
+                                    refreshing={this.props.boardsIsLoading}
                                     onEndReached={() => this.updateBoards()}
                                     style={{width: '100%', marginTop: 8}}
                                     keyExtractor={(item, index) => item.id.toString()}
@@ -160,6 +165,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    resetSelfBoards: () => dispatch(resetSelfBoards()),
     getPhotosNextPage: (photosNext) => dispatch(getSelfPhotosNextPage(photosNext)),
     getBoardsNextPage: (boardsNext) => dispatch(getSelfBoardsNextPage(boardsNext))
 });
