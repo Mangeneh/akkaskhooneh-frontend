@@ -12,7 +12,7 @@ import {
     Right,
     Item
 } from 'native-base';
-import {Constants, Colors, Fonts} from '../config';
+import {Constants, Colors} from '../config';
 
 export default class Post extends Component {
     render() {
@@ -44,15 +44,11 @@ export default class Post extends Component {
                 </CardItem>
                 <CardItem>
                     <Item>
-                        <Left/>
-                        <Body/>
-                        <Right>
-                            <Text style={{
-                                fontSize: Constants.ITEM_FONT_SIZE,
-                                textAlign: 'right'
-                            }}>{this.props.item.caption}</Text>
-                            <Text/>
-                        </Right>
+                        <Text style={{
+                            fontSize: Constants.ITEM_FONT_SIZE,
+                            textAlign: 'right'
+                        }}>{this.props.item.caption}</Text>
+                        <Text/>
                     </Item>
                 </CardItem>
                 <CardItem style={{borderRadius: Constants.POST_CARD_RADIUS}}>

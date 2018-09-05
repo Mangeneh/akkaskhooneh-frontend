@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, View} from 'react-native';
-import {Container, Item, Input, Icon, Button, Text, Right, Left} from 'native-base';
+import {Item, Input, Icon, Button, Text, Right, Left} from 'native-base';
 import Contacts from 'react-native-contacts';
 import BackHeader from "../../components/BackHeader";
 import {Colors, Constants, Strings} from "../../config";
@@ -21,13 +21,12 @@ class AddFriends extends Component {
     render() {
         const {TEXT_BOX_RADIUS} = Constants;
         return (
-            <Container>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
                 <CustomStatusBar/>
                 <BackHeader title={strings(Strings.INVITE_FRIENDS)} onBackPress={() => this.props.navigation.goBack()}/>
                 <View style={{marginRight: 8, marginLeft: 8, marginTop: 16}}>
                     <Item rounded style={{
                         alignSelf: 'center',
-                        backgroundColor: Colors.WHITE_BACK,
                         borderRadius: TEXT_BOX_RADIUS
                     }}>
                         <Icon name="ios-people" style={{color: Colors.BASE}}/>
@@ -52,7 +51,7 @@ class AddFriends extends Component {
                         renderItem={({item, index}) => this.renderContact(item, index)}
                     />
                 </View>
-            </Container>
+            </View>
         );
     }
 

@@ -43,13 +43,11 @@ class ProfileEdit extends Component {
                                         icon={{name: 'camera', type: 'Feather'}}
                                         source={{uri: this.state.imageSource}}/>
                             </TouchableOpacity>
-
                             <View style={{flex: 1}}>
                                 <Item style={styles.item} rounded>
                                     <Input disabled placeholder={usernameFromDB}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                                 </Item>
-
                                 <Item style={styles.item} rounded>
                                     <Input value={this.state.fullName}
                                            placeholder={strings(Strings.FIRST_LAST_NAME)}
@@ -58,13 +56,11 @@ class ProfileEdit extends Component {
                                                this.setState({fullName})
                                            }}/>
                                 </Item>
-
                                 <Item style={styles.item} rounded>
                                     <Input disabled placeholder={emailFromDB}
                                            secureTextEntry={false}
                                            style={{textAlign: 'center', fontSize: 10}}/>
                                 </Item>
-
                                 <Item style={styles.item} rounded>
                                     <CustomLongTextBox placeholder={strings(Strings.ABOUT_YOU)}
                                                        style={{textAlign: 'center', fontSize: 10}}
@@ -74,13 +70,11 @@ class ProfileEdit extends Component {
                                                        }}/>
                                 </Item>
                             </View>
-
                             <View
                                 style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20, flex: 1}}>
                                 <SaveChangesButton text={strings(Strings.SAVE_CHANGES)} icon='check'
                                                    onPress={this.onSaveChangesPressed.bind(this)}/>
                             </View>
-
                         </View>
                     </View>
                 </KeyboardAwareScrollView>
