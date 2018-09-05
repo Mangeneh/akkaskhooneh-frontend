@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Container, Tab, Tabs} from 'native-base';
 import {View, Image, FlatList, ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {Colors, Fonts, Pages, Strings} from '../../config';
+import {Colors, Pages, Strings} from '../../config';
 import {ProfileHeader, CustomStatusBar, Board} from '../../components';
 import {strings} from "../../i18n";
 import {selectSelfUsername} from "../../reducers/UserInfoReducer";
@@ -21,7 +21,6 @@ import {
     selectSelfPhotosTotalPages
 } from "../../reducers/PostsReducer";
 import NavigationService from '../../NavigationService';
-
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -112,11 +111,7 @@ class Profile extends Component {
 
     renderBoard(item, index) {
         return (
-            <Board
-                boardName={item.name}
-                posts={item.last_pics}
-                quantity={item.count}
-            />
+            <Board board={item} onAllPress={() => this.showBoardDetails(item)}/>
         )
     }
 
@@ -126,6 +121,10 @@ class Profile extends Component {
 
     onSettingsPress() {
         NavigationService.navigate(Pages.PROFILE_SETTINGS);
+    }
+
+    showBoardDetails(item) {
+        NavigationService.navigate(Pages.BOARDS_PAGE, {board: item})
     }
 }
 

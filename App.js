@@ -6,7 +6,17 @@ import axiosMiddleware from 'redux-axios-middleware';
 import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
 import {Root, StyleProvider} from 'native-base';
 import rootReducer from './src/reducers';
-import {Login, SignUp, SignUpComplete, Main, AddPostInfo, NewPost, AddFriends, ProfileEdit, Home} from './src/pages';
+import {
+    Login,
+    SignUp,
+    SignUpComplete,
+    Main,
+    AddPostInfo,
+    NewPost,
+    AddFriends,
+    ProfileEdit,
+    BoardsPage
+} from './src/pages';
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
 import {Actions as SignUpActions} from './src/pages/signUp/actions';
 import {accessTokenUpdated} from './src/actions/UserInfoActions';
@@ -14,7 +24,6 @@ import NavigationService from './src/NavigationService';
 import {Pages} from "./src/config";
 import ProfileSettings from "./src/pages/profileSettings/ProfileSettings";
 import ChangePass from "./src/pages/changePass/ChangePass";
-import SelfBoardsPageHeader from "./src/components/SelfBoardsPageHeader";
 import commonColor from "./native-base-theme/variables/commonColor";
 import getTheme from './native-base-theme/components';
 
@@ -89,7 +98,8 @@ const Inside = createStackNavigator({
     AddFriends: AddFriends,
     ProfileEdit: ProfileEdit,
     ProfileSettings: ProfileSettings,
-    ChangePass: ChangePass
+    ChangePass: ChangePass,
+    BoardsPage: BoardsPage
 }, {
     initialRouteName: Pages.MAIN,
     navigationOptions: {

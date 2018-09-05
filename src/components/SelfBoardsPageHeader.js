@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Header, Left, Body, Right, Icon, Title} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
-import {Colors, Fonts} from '../config';
+import {Colors} from '../config';
 
 export default class SelfBoardsPageHeader extends Component {
     render() {

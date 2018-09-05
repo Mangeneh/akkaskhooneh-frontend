@@ -11,6 +11,7 @@ import AddPostInfo from './addPostInfo/AddPostInfo'
 import Main from './Main';
 import AddFriends from './addFriends/AddFriends';
 import Search from './search/Search';
+import BoardsPage from './boardsPage/BoardsPage';
 
 export {
     Login,
@@ -26,4 +27,5 @@ export {
     AddPostInfo,
     AddFriends,
     Search,
+    BoardsPage
 };
