@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import {Toast, Text} from 'native-base';
+import {Toast, Text, Button} from 'native-base';
 import Modal from 'react-native-modal';
 import NavigationService from '../../NavigationService';
 import Post from '../../components/Post';
@@ -83,7 +83,10 @@ class Home extends Component {
     renderNewUserFirstImpression() {
         return (
             <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: Constants.TEXT_NORMAL_SIZE, color: Colors.ICON}}>{strings(Strings.NEW_USER_FIRST_IMPRESSION)}</Text>
+                <Text style={{fontSize: Constants.TEXT_NORMAL_SIZE, color: Colors.ICON, marginBottom: 8}}>{strings(Strings.NEW_USER_FIRST_IMPRESSION)}</Text>
+                <Button style={{backgroundColor: 'white', alignSelf: 'center'}} onPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}>
+                    <Text style={{fontSize: Constants.TEXT_NORMAL_SIZE, color: Colors.ICON}}>{strings(Strings.INVITE_FRIENDS)}</Text>
+                </Button>
             </View>
         )
     }

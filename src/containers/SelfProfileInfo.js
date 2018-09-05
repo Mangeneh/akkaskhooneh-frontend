@@ -11,7 +11,7 @@ import {
     selectSelfProfilePicture
 } from '../reducers/UserInfoReducer';
 import {strings} from "../i18n";
-import {Strings} from "../config";
+import {Strings, Colors} from "../config";
 
 class SelfProfileInfo extends Component {
     render() {
@@ -24,12 +24,14 @@ class SelfProfileInfo extends Component {
                         <TouchableOpacity>
                             <Text style={{
                                 marginRight: 16,
-                                fontSize: 12
+                                fontSize: 12,
+                                color: Colors.ICON
                             }}>{strings(Strings.NUM_OF_FOLLOWINGS, {number: followings})}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <Text style={{
-                                fontSize: 12
+                                fontSize: 12,
+                                color: Colors.ICON
                             }}>{strings(Strings.NUM_OF_FOLLOWERS, {number: followers})}</Text>
                         </TouchableOpacity>
                     </View>
@@ -60,7 +62,8 @@ const styles = StyleSheet.create({
     bio: {
         flex: 1,
         fontSize: 10,
-        marginBottom: 12
+        marginBottom: 12,
+        color: Colors.ICON
     },
     textArea: {
         alignItems: 'flex-end',
