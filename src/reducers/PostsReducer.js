@@ -1,4 +1,5 @@
 import {PostsActions} from '../actions/PostsActions';
+import GlobalActions from "../actions";
 
 const INITIAL_SELF_PHOTOS_STATE = {
     selfPhotos: [],
@@ -56,6 +57,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, ...INITIAL_HOME_POSTS_STATE};
         case RESET_OTHERS_PHOTOS:
             return {...state, ...INITIAL_OTHERS_PHOTOS_STATE};
+        case GlobalActions.RESET_EVERYTHING:
+            return INITIAL_STATE;
         default:
             return state;
     }

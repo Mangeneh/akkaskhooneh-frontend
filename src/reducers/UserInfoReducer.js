@@ -1,4 +1,5 @@
 import {UserInfoActions} from '../actions/UserInfoActions';
+import GlobalActions from "../actions";
 
 const INITIAL_STATE = {
     user: {},
@@ -19,6 +20,8 @@ export default (state = INITIAL_STATE, action) => {
         case SET_REFRESH_TOKEN:
             return {...state, refreshToken: action.payload};
         case SIGN_OUT:
+            return INITIAL_STATE;
+        case GlobalActions.RESET_EVERYTHING:
             return INITIAL_STATE;
         default:
             return state;

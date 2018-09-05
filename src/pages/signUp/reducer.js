@@ -1,6 +1,7 @@
 import {Actions} from './actions';
 import {PageModes} from '../../config';
 import {checkEmail, checkPassword} from "../../helpers/Validators";
+import GlobalActions from "../../actions";
 
 const INITIAL_STATE = {
     email: '',
@@ -37,6 +38,8 @@ export default (state = INITIAL_STATE, action) => {
         case EMAIL_RESET:
             return {...state, email: '', mode: PageModes.DISABLED};
         case SIGN_UP_RESET:
+            return INITIAL_STATE;
+        case GlobalActions.RESET_EVERYTHING:
             return INITIAL_STATE;
         default:
             return state;

@@ -1,6 +1,7 @@
 import {Actions} from './actions';
 import {PageModes} from '../../config';
 import {checkPassword} from "../../helpers/Validators";
+import GlobalActions from "../../actions";
 
 const INITIAL_STATE = {
     mode: PageModes.DISABLED,
@@ -34,6 +35,8 @@ export default (state = INITIAL_STATE, action) => {
         case CHANGE_PASS_SUCCESS:
             return {...state, mode: PageModes.NORMAL};
         case CHANGE_PASS_RESET:
+            return INITIAL_STATE;
+        case GlobalActions.RESET_EVERYTHING:
             return INITIAL_STATE;
         default:
             return state;

@@ -1,5 +1,6 @@
 import {Actions} from './actions';
 import {PageModes} from "../../config";
+import GlobalActions from "../../actions";
 
 const INITIAL_STATE = {
     mode: PageModes.NORMAL,
@@ -23,6 +24,8 @@ export default (state = INITIAL_STATE, action) => {
             return state;
         case CHANGE_PROFILE_PIC_FAIL:
             return state;
+        case GlobalActions.RESET_EVERYTHING:
+            return INITIAL_STATE;
         default:
             return state;
     }

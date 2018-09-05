@@ -1,4 +1,5 @@
 import {BoardsActions} from '../actions/BoardsActions';
+import GlobalActions from "../actions";
 
 const INITIAL_SELF_BOARDS_STATE = {
     selfBoards: [],
@@ -40,6 +41,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 ...INITIAL_SELF_BOARDS_STATE
             };
+        case GlobalActions.RESET_EVERYTHING:
+            return INITIAL_STATE;
         default:
             return state;
     }

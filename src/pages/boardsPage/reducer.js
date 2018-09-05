@@ -1,4 +1,5 @@
 import {Actions} from './actions';
+import GlobalActions from "../../actions";
 
 const INITIAL_STATE = {
     boardsPhotos: [],
@@ -21,6 +22,8 @@ export default (state = INITIAL_STATE, action) => {
                 boardsPhotosIsLoading: false
             };
         case RESET_BOARDS_PHOTOS:
+            return INITIAL_STATE;
+        case GlobalActions.RESET_EVERYTHING:
             return INITIAL_STATE;
         default:
             return state;

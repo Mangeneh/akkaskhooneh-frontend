@@ -1,6 +1,7 @@
 import {Actions} from './actions';
 import {PageModes} from '../../config';
 import {checkUsername} from "../../helpers";
+import GlobalActions from "../../actions";
 
 const INITIAL_STATE = {
     mode: PageModes.NORMAL,
@@ -30,6 +31,8 @@ export default (state = INITIAL_STATE, action) => {
         case SIGN_UP_FAIL:
             return {...state, mode: PageModes.ERROR};
         case SIGN_UP_COMPLETE_RESET:
+            return INITIAL_STATE;
+        case GlobalActions.RESET_EVERYTHING:
             return INITIAL_STATE;
         default:
             return state;
