@@ -9,6 +9,7 @@ import CustomStatusBar from './CustomStatusBar';
 import Tags from './Tags';
 import Board from './Board';
 import HomeHeader from './HomeHeader';
+import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 
 export {
     EmailTextBox,
@@ -22,4 +23,5 @@ export {
     Tags,
     Board,
     HomeHeader,
+    SelfBoardsPageHeader
 };

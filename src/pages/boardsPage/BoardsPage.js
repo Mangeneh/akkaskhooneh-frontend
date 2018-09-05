@@ -9,8 +9,7 @@ import {
     selectBoardsPhotosNextPage,
     selectBoardsPhotosTotalPages
 } from "./reducer";
-import SelfBoardsPageHeader from "../../components/SelfBoardsPageHeader";
-import CustomStatusBar from "../../components/CustomStatusBar";
+import {SelfBoardsPageHeader, CustomStatusBar} from "../../components";
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -25,7 +24,14 @@ class BoardsPage extends Component {
         return (
             <View style={{flex: 1}}>
                 <CustomStatusBar/>
-                <SelfBoardsPageHeader boardName={this.props.navigation.getParam('board').name}/>
+                <SelfBoardsPageHeader
+                    boardName={this.props.navigation.getParam('board').name}
+                    onBackPress={() => this.props.navigation.goBack()}
+                    onDeletPress={() => {
+                    }}
+                    onAddPress={() => {
+                    }}
+                />
                 {(this.props.boardsIsLoading) ? (<ActivityIndicator size="large"/>) :
                     <FlatList
                         onEndReached={() => this.updatePhotos()}
