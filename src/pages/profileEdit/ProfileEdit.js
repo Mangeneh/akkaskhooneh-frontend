@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Avatar} from 'react-native-elements';
 import {Item, Input, ActionSheet, Toast} from 'native-base';
-import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native'
+import {View, TouchableOpacity, StyleSheet} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -128,11 +128,11 @@ class ProfileEdit extends Component {
     }
 
     onChooseImagePress() {
-        let BUTTONS = [
+        const BUTTONS = [
             {text: 'Take Photo', icon: 'camera', iconColor: '#f42ced'},
             {text: 'Choose Photo', icon: 'flower', iconColor: '#ea943b'},
             {text: 'Cancel', icon: 'close', iconColor: '#25de5b'}];
-        let CANCEL_INDEX = 2;
+        const CANCEL_INDEX = 2;
         ActionSheet.show({
                 options: BUTTONS,
                 cancelButtonIndex: CANCEL_INDEX,

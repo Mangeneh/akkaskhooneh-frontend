@@ -106,11 +106,11 @@ class SignUpComplete extends Component {
     }
 
     onChooseImagePress() {
-        let BUTTONS = [
-            {text: 'Take Photo', icon: 'analytics', iconColor: '#f42ced'},
-            {text: 'Choose Photo', icon: 'analytics', iconColor: '#ea943b'},
+        const BUTTONS = [
+            {text: 'Take Photo', icon: 'camera', iconColor: '#f42ced'},
+            {text: 'Choose Photo', icon: 'flower', iconColor: '#ea943b'},
             {text: 'Cancel', icon: 'close', iconColor: '#25de5b'}];
-        let CANCEL_INDEX = 2;
+        const CANCEL_INDEX = 2;
         ActionSheet.show({
                 options: BUTTONS,
                 cancelButtonIndex: CANCEL_INDEX,
