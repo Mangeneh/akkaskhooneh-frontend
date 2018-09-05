@@ -4,12 +4,14 @@ const INITIAL_STATE = {
     boardsPhotos: [],
     boardsPhotosNextPage: 1,
     boardsPhotosTotalPages: 1,
-    boardsPhotosIsLoading: true
+    boardsPhotosIsLoading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
     const {GET_BOARDS_PHOTOS_NEXT_PAGE, GET_BOARDS_PHOTOS_NEXT_PAGE_FAIL, GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS, RESET_BOARDS_PHOTOS} = Actions;
     switch (action.type) {
+        case GET_BOARDS_PHOTOS_NEXT_PAGE:
+            return {...state, boardsPhotosIsLoading: true}
         case GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS:
             return {
                 ...state,

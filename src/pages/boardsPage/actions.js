@@ -13,7 +13,7 @@ export const getBoardsPhotosNextPage = (boardID, boardsPhotosNext) => {
         payload: {
             request: {
                 method: RequestMethods.GET,
-                url: `${Server.GET_SELF_BOARDS_NEXT_PAGE}${boardID}/?page=${boardsPhotosNext}`,
+                url: `${Server.GET_BOARDS_DETAILS}${boardID}/?page=${boardsPhotosNext}`,
             }
         }
     };

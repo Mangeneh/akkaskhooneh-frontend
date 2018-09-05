@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text} from 'native-base';
 import {Avatar} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {
