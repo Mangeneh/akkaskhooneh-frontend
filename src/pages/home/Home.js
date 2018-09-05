@@ -129,7 +129,6 @@ class Home extends Component {
         const {selectedPostID} = this.props;
         this.props.addPostToBoard(selectedPostID, selectedBoardID)
             .then((response) => {
-                this.props.resetSelfBoards();
             })
             .catch((error) => {
             });
