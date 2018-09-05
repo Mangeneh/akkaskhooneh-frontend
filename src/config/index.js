@@ -7,3 +7,4 @@ export * from './Server';
 export * from './Addresses';
 export * from './RequestMethods';
 export * from './Pages';
+export * from './Graphics';

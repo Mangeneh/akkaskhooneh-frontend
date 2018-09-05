@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {Item, Icon, Left, Right} from 'native-base';
-import {View, Image, StyleSheet, Text, TouchableOpacity} from 'react-native'
+import {Item, Icon, Input, Text} from 'native-base';
+import {View, Image, StyleSheet} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import FormData from "form-data";
-import RNGooglePlaces from 'react-native-google-places';
-import {Strings, Colors, Fonts, Constants, Pages} from '../../config';
+import {Strings, Colors, Constants, Pages, Graphics} from '../../config';
 import {BackHeader, CustomStatusBar, CustomLongTextBox} from '../../components';
 import SendPostButton from '../../containers/SendPostButton';
 import {sendPost} from './actions';
@@ -16,11 +15,7 @@ class AddPostInfo extends Component {
 
     state = {
         tags: [],
-        description: '',
-    };
-
-    onChangeTags = (tags) => {
-        this.setState({tags});
+        caption: '',
     };
 
     render() {
@@ -29,47 +24,35 @@ class AddPostInfo extends Component {
                 <BackHeader onBackPress={this.onBackPress.bind(this)} title={strings(Strings.SEND_POST)}/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
                                          contentContainerStyle={{flexGrow: 1}} style={{flex: 1}}>
-                    <View style={{backgroundColor: Colors.BASE, flex: 1, justifyContent: 'center', marginTop: 0}}>
+                    <View style={{backgroundColor: 'white', flex: 1, justifyContent: 'center', marginTop: 0}}>
                         <CustomStatusBar/>
                         <View style={{flex: 5, backgroundColor: 'white'}}>
                             {this.renderImageWithCaption()}
-                            <Item style={{backgroundColor: 'white', marginBottom: 10}}
-                                  onPress={this.onLocationPress.bind(this)}>
-                                <Left>
-                                    <TouchableOpacity onPress={this.onLocationPress.bind(this)}>
-                                        <Icon type={'EvilIcons'} name='location'
-                                              style={{color: Colors.TEXT}}/>
-                                    </TouchableOpacity>
-                                </Left>
-                                <Right>
-                                    <TouchableOpacity onPress={this.onLocationPress.bind(this)}>
-                                        <Text style={styles.text}>
-                                            {strings(Strings.LOCATION)}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </Right>
+                            <Item style={{
+                                backgroundColor: Colors.LIGHT_GRAY,
+                                borderColor: Colors.LIGHT_GRAY,
+                                borderRadius: Constants.TEXT_BOX_RADIUS,
+                                marginBottom: 10,
+                                marginRight: 8,
+                                marginLeft: 8
+                            }} rounded>
+                                <Icon type={'EvilIcons'} name='location'
+                                      style={{color: Colors.TEXT}}/>
+                                <Input type='location' placeholder={strings(Strings.LOCATION)}
+                                       style={{textAlign: 'right', fontSize: Graphics.TEXT_NORMAL_SIZE}}/>
                             </Item>
-                            <Tags
-                                initialText={strings(Strings.ADD_TAG)}
-                                initialTags={this.state.tags}
-                                onChangeTags={tags => this.onChangeTags(tags)}
-                                style={{justifyContent: "center"}}
-                                tagContainerStyle={{backgroundColor: Colors.ACCENT}}
-                                tagTextStyle={{
-                                    color: 'white',
-                                    fontSize: Constants.TEXT_NORMAL_SIZE
-                                }}
-                                inputStyle={{
-                                    fontSize: Constants.TEXT_NORMAL_SIZE,
-                                    backgroundColor: Colors.LIGHT_GRAY,
-                                    borderRadius: 16,
-                                }}
-                            />
-                            <View style={{flex: 1, alignContent: 'center', alignSelf: 'center'}}>
-                                <SendPostButton style={{position: 'absolute', alignSelf: 'center'}}
-                                                text={strings(Strings.SEND_POST)}
-                                                onPress={() => this.SendPost()}/>
+                            <View style={{marginRight: 8, marginLeft: 8}}>
+                                <Text note>{strings(Strings.TAGS)}</Text>
+                                <Tags
+                                    onChangeTags={tags => this.onChangeTags(tags)}
+                                    style={{justifyContent: "center"}}
+                                />
                             </View>
+                        </View>
+                        <View style={{flex: 1, justifyContent: 'flex-end', marginBottom: 16, alignSelf: 'center'}}>
+                            <SendPostButton style={{position: 'absolute', alignSelf: 'center'}}
+                                            text={strings(Strings.SEND_POST)}
+                                            onPress={() => this.SendPost()}/>
                         </View>
                     </View>
                 </KeyboardAwareScrollView>
@@ -81,20 +64,21 @@ class AddPostInfo extends Component {
         return (
             <View style={styles.photo}>
                 <View style={{flex: 3}}>
-                    <CustomLongTextBox placeholder={strings(Strings.DESCRIPTION)}
-                                       value={this.state.description}
-                                       onChangeText={(description) => {
-                                           this.setState({description});
-                                       }}
-                                       style={{
-                                           borderRadius: 10,
-                                           textAlign: 'right',
-                                           fontSize: 10,
-                                           backgroundColor: Colors.LIGHT_GRAY,
-                                           height: 100,
-                                           marginRight: 10,
-                                           marginLeft: 10
-                                       }}/>
+                    <CustomLongTextBox
+                        placeholder={strings(Strings.CAPTION)}
+                        value={this.state.caption}
+                        onChangeText={(caption) => {
+                            this.onChangeCaption(caption);
+                        }}
+                        style={{
+                            borderRadius: Graphics.BOX_RADIUS,
+                            textAlign: 'right',
+                            fontSize: Graphics.TEXT_NORMAL_SIZE,
+                            backgroundColor: Colors.LIGHT_GRAY,
+                            height: 100,
+                            marginRight: 12,
+                            marginLeft: 8
+                        }}/>
                 </View>
                 <Image source={{uri: this.props.navigation.getParam('imageSource')}} resizeMode={'stretch'}
                        style={{borderRadius: 10, width: 100, height: 100, flex: 1, marginRight: 8}}/>
@@ -106,25 +90,23 @@ class AddPostInfo extends Component {
         this.props.navigation.goBack();
     }
 
-    onLocationPress() {
-        RNGooglePlaces.openAutocompleteModal()
-            .then((place) => {
-                // place represents user's selection from the
-                // suggestions and it is a simplified Google Place object.
-            })
-            .catch(error => console.log(error.message));  // error is a Javascript Error object
+    onChangeTags = (tags) => {
+        this.setState({tags});
+    };
+
+    onChangeCaption(caption) {
+        this.setState({caption});
     }
 
     SendPost() {
         const formData = new FormData();
         formData.append('picture', {
-            uri: this.props.navigation.getParam('imageSource'), // your file path string
+            uri: this.props.navigation.getParam('imageSource'),
             name: 'my_photo.jpg',
             type: 'image/jpeg'
         });
-        // formData.append('caption', this.state.description);
-        // console.log(this.state.tags.join(','));
-        // formData.append('tags', this.state.tags);
+        formData.append('caption', this.state.caption);
+        formData.append('tags', this.state.tags.toString());
         this.props.sendPost(formData)
             .then((response) => {
                     this.props.navigation.navigate(Pages.MAIN);

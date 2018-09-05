@@ -6,7 +6,7 @@ import {CameraKitCamera} from 'react-native-camera-kit';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import ImagePicker from "react-native-image-crop-picker";
-import {Strings, Colors, Fonts, Constants} from '../../config';
+import {Strings, Colors, Fonts, Constants, Pages} from '../../config';
 import {BackHeader, CustomStatusBar} from '../../components';
 import {strings} from "../../i18n";
 
@@ -29,7 +29,7 @@ export default class NewPost extends Component {
                     </TouchableOpacity>
                     <View style={{height: '100%', width: '100%', position: 'absolute'}}>
                         <CustomStatusBar/>
-                        <SlidingUpPanel showBackdrop startCollapsed
+                        <SlidingUpPanel showBackdrop
                                         draggableRange={{bottom: HEIGHT * 0.4, top: HEIGHT * 0.9}}
                                         visible>
                             <View style={{flex: 1, backgroundColor: Colors.LIGHT_GRAY}}>
@@ -76,7 +76,7 @@ export default class NewPost extends Component {
 
     continue() {
         const {imageSource} = this.state;
-        this.props.navigation.navigate('AddPostInfo', {imageSource});
+        this.props.navigation.navigate(Pages.ADD_POST_INFO, {imageSource});
     }
 
     renderButton() {
@@ -99,11 +99,9 @@ export default class NewPost extends Component {
                         backgroundColor: Colors.ACCENT,
                         borderRadius: 10
                     }}>
-                        <Right/>
                         <Body>
                         <Text style={{color: 'white'}}>{strings(Strings.NEXT)}</Text>
                         </Body>
-                        <Left/>
                     </Button>
                 </View>
             )

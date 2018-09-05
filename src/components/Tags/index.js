@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {View, TextInput} from "react-native";
+import {Input} from "native-base";
 import Tag from "./Tag";
 import styles from "./styles";
 
@@ -93,7 +94,7 @@ export default class Tags extends React.Component {
                 {!readonly &&
                 maxNumberOfTags > this.state.tags.length && (
                     <View style={[styles.textInputContainer]}>
-                        <TextInput
+                        <Input
                             value={this.state.text}
                             style={[styles.textInput, inputStyle]}
                             onChangeText={this.onChangeText}
