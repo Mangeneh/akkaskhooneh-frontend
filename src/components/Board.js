@@ -9,8 +9,8 @@ export default class Board extends Component {
     render() {
         const {name, last_pics, count} = this.props.board;
         return (
-            <View>
-                <View style={{flexDirection: 'row'}}>
+            <View style={{marginTop: 4}}>
+                <View style={{flexDirection: 'row', marginBottom: 4}}>
                     <TouchableOpacity style={{flex: 1, alignItems: 'flex-start', marginLeft: 8}}
                                       onPress={this.props.onAllPress}>
                         <Text style={{

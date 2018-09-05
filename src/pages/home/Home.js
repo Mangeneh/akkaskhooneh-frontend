@@ -76,6 +76,7 @@ class Home extends Component {
     }
 
     onCreateBoardFail(error) {
+        console.warn('HERE?!?')
         Toast.show({
             text: Strings.CREATE_NEW_BOARD_FAIL,
             textStyle: {textAlign: 'center'},
@@ -93,7 +94,7 @@ class Home extends Component {
             type: 'success'
         });
         this.setState({visibleModal: false});
-        AddNewPostToBoard(response.payload.data.id);
+        this.AddNewPostToBoard(response.payload.data.id);
     }
 
     AddNewPostToBoard(selectedBoardID)
@@ -112,9 +113,11 @@ class Home extends Component {
         if (boardName !== '') {
             this.props.createBoard(boardName)
                 .then((response) => {
+                    console.warn(response)
                     this.onCreateBoardSuccess(response);
                 })
                 .catch((error) => {
+                    console.warn("mnooooooooo");
                     this.onCreateBoardFail(error);
                 });
         }
