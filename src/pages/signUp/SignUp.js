@@ -16,6 +16,7 @@ import {
 } from './actions';
 import {SignUpButton} from '../../containers';
 import {strings} from "../../i18n";
+import PasswordInstruction from "../../components/PasswordInstruction";
 
 class SignUp extends Component {
     render() {
@@ -36,12 +37,14 @@ class SignUp extends Component {
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox placeholder={strings(Strings.PASSWORD)} value={password}
                                                  onChangePassword={(password) => changePassword(password)}/>
+                                <PasswordInstruction/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox placeholder={strings(Strings.REPEAT_PASSWORD)} value={repeatedPassword}
                                                  onChangePassword={(repeatedPassword) => changeRepeatedPassword(repeatedPassword)}/>
                             </View>
-                            <SignUpButton onPress={() => this.onSignUpPress()} text={strings(Strings.SIGN_UP)} icon={'login'}/>
+                            <SignUpButton onPress={() => this.onSignUpPress()} text={strings(Strings.SIGN_UP)}
+                                          icon={'login'}/>
                         </View>
                         {this.renderOtherLoginSection()}
                     </View>

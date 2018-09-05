@@ -10,6 +10,7 @@ import Tags from './Tags';
 import Board from './Board';
 import HomeHeader from './HomeHeader';
 import SelfBoardsPageHeader from './SelfBoardsPageHeader';
+import PasswordInstruction from './PasswordInstruction';
 
 export {
     EmailTextBox,
@@ -23,5 +24,6 @@ export {
     Tags,
     Board,
     HomeHeader,
-    SelfBoardsPageHeader
+    SelfBoardsPageHeader,
+    PasswordInstruction
 };

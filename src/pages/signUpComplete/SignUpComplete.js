@@ -46,7 +46,7 @@ class SignUpComplete extends Component {
                                 />
                             </Item>
                             <Item style={styles.item} rounded>
-                                <Input placeholder={strings(Strings.COMPLETE_INFO)}
+                                <Input placeholder={strings(Strings.FIRST_LAST_NAME)}
                                        style={styles.input}
                                        value={fullName}
                                        onChangeText={(fullName) => changeFullName(fullName)}

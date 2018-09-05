@@ -14,6 +14,7 @@ import {
     reset,
 } from './actions';
 import {strings} from "../../i18n";
+import PasswordInstruction from "../../components/PasswordInstruction";
 
 class ChangePass extends Component {
     render() {
@@ -30,7 +31,8 @@ class ChangePass extends Component {
                         </View>
                         <View style={{flex: 1, justifyContent: 'flex-start'}}>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox error={error} placeholder={strings(Strings.CURRENT_PASSWORD)} value={previousPassword}
+                                <PasswordTextBox error={error} placeholder={strings(Strings.CURRENT_PASSWORD)}
+                                                 value={previousPassword}
                                                  onChangePassword={(previousPassword) => this.onPreviousPasswordChange(previousPassword)}
                                                  reset={() => this.props.reset()}
                                 />
@@ -41,6 +43,7 @@ class ChangePass extends Component {
                                                  onChangePassword={(newPassword) => this.onNewPasswordChange(newPassword)}
                                                  reset={() => this.props.reset()}
                                 />
+                                <PasswordInstruction/>
                             </View>
                             <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
                                 <PasswordTextBox error={error} placeholder={strings(Strings.REPEAT_NEW_PASSWORD)}
