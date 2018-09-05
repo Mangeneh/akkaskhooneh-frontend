@@ -8,8 +8,8 @@ export default class Board extends Component {
     render() {
         const {boardName, posts, quantity} = this.props;
         return (
-            <View>
-                <View style={{flexDirection: 'row'}}>
+            <View style={{marginTop: 4}}>
+                <View style={{flexDirection: 'row', marginBottom: 4}}>
                     <View style={{flex: 1, alignItems: 'flex-start', marginLeft: 8}}>
                         <Text style={{fontSize: Constants.ITEM_FONT_SIZE, color: Colors.ICON}}>{strings(Strings.ALL)}</Text>
                     </View>
