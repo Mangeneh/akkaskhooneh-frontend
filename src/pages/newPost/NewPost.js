@@ -16,12 +16,13 @@ import { extractImageSource } from '../../helpers';
 import { strings } from '../../i18n';
 
 const HEIGHT = Dimensions.get('window').height;
+const INITIAL_STATE = {
+  imageSource: '',
+  hasChosen: false,
+};
 
 export default class NewPost extends Component {
-  state = {
-    imageSource: '',
-    hasChosen: false,
-  };
+  state = INITIAL_STATE;
 
   render() {
     return (

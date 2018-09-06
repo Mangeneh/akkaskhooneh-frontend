@@ -22,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
     case SEND_POST_SUCCESS:
       return {
         ...state,
-        mode: PageModes.SUCCESS,
+        mode: PageModes.NORMAL,
       };
     case GlobalActions.RESET_EVERYTHING:
       return INITIAL_STATE;

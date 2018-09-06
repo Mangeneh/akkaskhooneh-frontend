@@ -18,7 +18,7 @@ class CameraRollPicker extends Component {
 
     this.state = {
       images: [],
-      selected: this.props.selected,
+      selected: [],
       lastCursor: null,
       initialLoading: true,
       loadingMore: false,
@@ -28,7 +28,12 @@ class CameraRollPicker extends Component {
   }
 
   componentWillMount() {
+    this.setState({ selected: [] });
     this.fetch();
+  }
+
+  componentDidMount() {
+    this.setState({ selected: [] });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,8 +78,6 @@ class CameraRollPicker extends Component {
       loadingMore: false,
       initialLoading: false,
     };
-
-    console.log(assets);
 
     if (!data.page_info.has_next_page) {
       newState.noMore = true;
@@ -201,8 +204,6 @@ class CameraRollPicker extends Component {
       maximum, imagesPerRow, callback, selectSingleItem,
     } = this.props;
 
-    console.log(image);
-    console.log(selected);
     const { selected } = this.state;
 
 
@@ -218,6 +219,8 @@ class CameraRollPicker extends Component {
         selected.push(image);
       }
     }
+
+    console.log(selected);
 
     this.setState({
       selected,

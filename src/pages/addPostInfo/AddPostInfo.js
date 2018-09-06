@@ -1,4 +1,3 @@
-import FormData from 'form-data';
 import {
   Icon, Input, Item, Text,
 } from 'native-base';
@@ -160,15 +159,9 @@ class AddPostInfo extends Component {
   }
 
   SendPost() {
-    const formData = new FormData();
-    formData.append('picture', {
-      uri: this.props.navigation.getParam('imageSource'),
-      name: 'my_photo.jpg',
-      type: 'image/jpeg',
-    });
-    formData.append('caption', this.state.caption);
-    formData.append('tags', this.state.tags.toString());
-    this.props.sendPost(formData)
+    const imageSource = this.props.navigation.getParam('imageSource');
+    const { caption, tags } = this.state;
+    this.props.sendPost(imageSource, caption, tags)
       .then((response) => {
         this.props.navigation.navigate(Pages.MAIN);
       });
@@ -191,7 +184,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendPost: post => dispatch(sendPost(post)),
+  sendPost: (imageSource, caption, tags) => dispatch(sendPost(imageSource, caption, tags)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostInfo);

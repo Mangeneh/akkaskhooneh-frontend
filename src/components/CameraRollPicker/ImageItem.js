@@ -26,7 +26,6 @@ class ImageItem extends Component {
         type="MaterialCommunityIcons"
       />
     );
-    console.log(item);
     const { image } = item.node;
     return (
       <TouchableOpacity
@@ -51,6 +50,8 @@ class ImageItem extends Component {
   }
 
   handleClick(item) {
+    console.log('clicked');
+    console.log(this.props);
     this.props.onClick(item);
   }
 }
