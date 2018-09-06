@@ -160,8 +160,8 @@ class Login extends Component {
   }
 
   onLoginPress() {
-    const { email, password } = this.props;
-    this.props.loginUser(email, password)
+    const { email, password, loginUser } = this.props;
+    loginUser(email, password)
       .then((response) => {
         this.onSuccess(response);
       })

@@ -13,5 +13,7 @@ module.exports = {
   },
   'rules': {
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
+    'no-use-before-define': 'off',
+    'react/prop-types': 'off',
   },
 };
