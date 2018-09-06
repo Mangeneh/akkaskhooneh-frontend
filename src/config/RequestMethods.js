@@ -1,4 +1,4 @@
 export const RequestMethods = {
-    GET: 'GET',
-    POST: 'POST',
+  GET: 'GET',
+  POST: 'POST',
 };
