@@ -171,9 +171,10 @@ class Login extends Component {
   }
 
   onSuccess(response) {
+    const { access, refresh } = response.payload.data;
     const {
-      access, refresh, setAccessToken, setRefreshToken, updateUser, navigation, reset,
-    } = response.payload.data;
+      setAccessToken, setRefreshToken, updateUser, navigation, reset,
+    } = this.props;
     setAccessToken(access);
     setRefreshToken(refresh);
     updateUser();
