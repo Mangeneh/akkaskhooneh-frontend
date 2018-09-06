@@ -17,6 +17,7 @@ module.exports = {
     'no-shadow': 'off',
     'no-unused-vars': 1,
     'max-len': 1,
+    'no-underscore-dangle': 1,
     // React Native
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
