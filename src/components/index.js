@@ -1,5 +1,6 @@
 import BackHeader from './BackHeader';
 import Board from './Board';
+import CameraRollPicker from './CameraRollPicker/CameraRollPicker';
 import CustomLongTextBox from './CustomLongTextBox';
 import CustomStatusBar from './CustomStatusBar';
 import EmailTextBox from './EmailTextBox';
@@ -26,4 +27,5 @@ export {
   HomeHeader,
   SelfBoardsPageHeader,
   PasswordInstruction,
+  CameraRollPicker,
 };

@@ -4,12 +4,11 @@ import {
 import React, { Component } from 'react';
 import { Dimensions, TouchableOpacity, View } from 'react-native';
 import { CameraKitCamera } from 'react-native-camera-kit';
-import CameraRollPicker from 'react-native-camera-roll-picker';
 import { Icon } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 import SlidingUpPanel from 'rn-sliding-up-panel';
-import { BackHeader, CustomStatusBar } from '../../components';
+import { BackHeader, CameraRollPicker, CustomStatusBar } from '../../components';
 import {
   Colors, Constants, Pages, Strings,
 } from '../../config';

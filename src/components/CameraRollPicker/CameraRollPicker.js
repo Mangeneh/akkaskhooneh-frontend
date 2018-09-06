@@ -68,11 +68,13 @@ class CameraRollPicker extends Component {
   }
 
   _appendImages(data) {
-    const assets = data.edges;
+    const assets = data.edges.filter(item => item.node.image.width > 0);
     const newState = {
       loadingMore: false,
       initialLoading: false,
     };
+
+    console.log(assets);
 
     if (!data.page_info.has_next_page) {
       newState.noMore = true;
@@ -118,8 +120,8 @@ class CameraRollPicker extends Component {
         initialListSize={initialListSize}
         pageSize={pageSize}
         removeClippedSubviews={removeClippedSubviews}
-        renderFooter={this._renderFooterSpinner.bind(this)}
-        onEndReached={this._onEndReached.bind(this)}
+        renderFooter={() => this._renderFooterSpinner()}
+        onEndReached={() => this._onEndReached()}
         dataSource={dataSource}
         renderRow={rowData => this._renderRow(rowData)}
       />
@@ -149,7 +151,7 @@ class CameraRollPicker extends Component {
       containerWidth,
     } = this.props;
 
-    const uri = item.node.image.uri;
+    const { uri } = item.node.image;
     const isSelected = (this._arrayObjectIndexOf(selected, 'uri', uri) >= 0);
 
     return (
@@ -161,7 +163,7 @@ class CameraRollPicker extends Component {
         selectedMarker={selectedMarker}
         imagesPerRow={imagesPerRow}
         containerWidth={containerWidth}
-        onClick={this._selectImage.bind(this)}
+        onClick={image => this._selectImage(image)}
       />
     );
   }
@@ -199,7 +201,9 @@ class CameraRollPicker extends Component {
       maximum, imagesPerRow, callback, selectSingleItem,
     } = this.props;
 
-    const selected = this.state.selected;
+    console.log(image);
+    console.log(selected);
+    const { selected } = this.state;
 
 
     const index = this._arrayObjectIndexOf(selected, 'uri', image.uri);
@@ -267,11 +271,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     flex: 1,
-  },
-  marker: {
-    position: 'absolute',
-    top: 5,
-    backgroundColor: 'transparent',
   },
 });
 

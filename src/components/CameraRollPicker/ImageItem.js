@@ -1,3 +1,4 @@
+import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import {
   Dimensions, Image, StyleSheet, TouchableOpacity,
@@ -11,39 +12,37 @@ class ImageItem extends Component {
     if (typeof containerWidth !== 'undefined') {
       width = containerWidth;
     }
-    this._imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
+    this.imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
   }
 
   render() {
     const {
       item, selected, selectedMarker, imageMargin,
     } = this.props;
-
     const marker = selectedMarker || (
-      <Image
-        style={[styles.marker, {
-          width: 25,
-          height: 25,
-        }]}
-        source={require('./circle-check.png')}
+      <Icon
+        name="check-circle"
+        style={styles.marker}
+        type="MaterialCommunityIcons"
       />
     );
-
-    const image = item.node.image;
-
+    console.log(item);
+    const { image } = item.node;
     return (
       <TouchableOpacity
         style={{
           marginBottom: imageMargin,
           marginRight: imageMargin,
+          borderRadius: 8,
+          overflow: 'hidden',
         }}
-        onPress={() => this._handleClick(image)}
+        onPress={() => this.handleClick(image)}
       >
         <Image
           source={{ uri: image.uri }}
           style={{
-            height: this._imageSize,
-            width: this._imageSize,
+            height: this.imageSize,
+            width: this.imageSize,
           }}
         />
         {(selected) ? marker : null}
@@ -51,7 +50,7 @@ class ImageItem extends Component {
     );
   }
 
-  _handleClick(item) {
+  handleClick(item) {
     this.props.onClick(item);
   }
 }
@@ -62,6 +61,7 @@ const styles = StyleSheet.create({
     top: 5,
     right: 5,
     backgroundColor: 'transparent',
+    color: 'white',
   },
 });
 
