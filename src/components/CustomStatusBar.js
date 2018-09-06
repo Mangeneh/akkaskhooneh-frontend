@@ -1,9 +1,5 @@
-import React, {Component} from 'react';
-import {StatusBar} from 'react-native';
-import {Colors} from "../config/Colors";
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { Colors } from '../config/Colors';
 
-export default class CustomStatusBar extends Component {
-    render() {
-        return (<StatusBar barStyle='light-content' backgroundColor={Colors.BASE}/>);
-    }
-}
+export default () => (<StatusBar barStyle="light-content" backgroundColor={Colors.BASE} />);
