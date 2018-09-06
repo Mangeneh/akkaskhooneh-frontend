@@ -1,158 +1,237 @@
-import React, {Component,} from 'react';
-import {Text, Toast} from 'native-base';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {SocialIcon, Avatar} from 'react-native-elements';
-import {connect} from 'react-redux';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Strings, Colors, PageModes, Fonts, Addresses} from '../../config';
-import {EmailTextBox, PasswordTextBox, CustomStatusBar} from '../../components';
+import { Text, Toast } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Avatar, SocialIcon } from 'react-native-elements';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { connect } from 'react-redux';
+import { CustomStatusBar, EmailTextBox, PasswordTextBox } from '../../components';
+import PasswordInstruction from '../../components/PasswordInstruction';
 import {
-    emailChanged,
-    validateEmail,
-    passwordChanged,
-    repeatedPasswordChanged,
-    reset,
-    resetEmail,
+  Addresses, Colors, Fonts, PageModes, Strings,
+} from '../../config';
+import { SignUpButton } from '../../containers';
+import { strings } from '../../i18n';
+import {
+  emailChanged,
+  passwordChanged,
+  repeatedPasswordChanged,
+  reset,
+  resetEmail,
+  validateEmail,
 } from './actions';
-import {SignUpButton} from '../../containers';
-import {strings} from "../../i18n";
-import PasswordInstruction from "../../components/PasswordInstruction";
 
 class SignUp extends Component {
-    render() {
-        const {email, password, repeatedPassword, error, changeEmail, changePassword, resetEmail, changeRepeatedPassword} = this.props;
-        return (
-            <View style={{flex: 1, backgroundColor: Colors.BASE,}}>
-                <CustomStatusBar/>
-                <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'
-                                         contentContainerStyle={{flexGrow: 1}}>
-                    <View style={{backgroundColor: Colors.BASE, flex: 1}}>
-                        {this.renderLogoSection()}
-                        <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-                            <View style={{marginLeft: 32, marginRight: 32}}>
-                                <EmailTextBox error={error} reset={() => resetEmail()}
-                                              value={email}
-                                              onChangeEmail={(email) => changeEmail(email)}/>
-                            </View>
-                            <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox placeholder={strings(Strings.PASSWORD)} value={password}
-                                                 onChangePassword={(password) => changePassword(password)}/>
-                                <PasswordInstruction/>
-                            </View>
-                            <View style={{marginTop: 16, marginLeft: 32, marginRight: 32}}>
-                                <PasswordTextBox placeholder={strings(Strings.REPEAT_PASSWORD)} value={repeatedPassword}
-                                                 onChangePassword={(repeatedPassword) => changeRepeatedPassword(repeatedPassword)}/>
-                            </View>
-                            <SignUpButton onPress={() => this.onSignUpPress()} text={strings(Strings.SIGN_UP)}
-                                          icon={'login'}/>
-                        </View>
-                        {this.renderOtherLoginSection()}
-                    </View>
-                </KeyboardAwareScrollView>
+  render() {
+    const {
+      email,
+      password,
+      repeatedPassword,
+      error,
+      changeEmail,
+      changePassword,
+      resetEmail,
+      changeRepeatedPassword,
+    } = this.props;
+    return (
+      <View style={{
+        flex: 1,
+        backgroundColor: Colors.BASE,
+      }}
+      >
+        <CustomStatusBar />
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
+          <View style={{
+            backgroundColor: Colors.BASE,
+            flex: 1,
+          }}
+          >
+            {this.renderLogoSection()}
+            <View style={{
+              alignSelf: 'center',
+              justifyContent: 'center',
+              flex: 1,
+            }}
+            >
+              <View style={{
+                marginLeft: 32,
+                marginRight: 32,
+              }}
+              >
+                <EmailTextBox
+                  error={error}
+                  reset={() => resetEmail()}
+                  value={email}
+                  onChangeEmail={email => changeEmail(email)}
+                />
+              </View>
+              <View style={{
+                marginTop: 16,
+                marginLeft: 32,
+                marginRight: 32,
+              }}
+              >
+                <PasswordTextBox
+                  placeholder={strings(Strings.PASSWORD)}
+                  value={password}
+                  onChangePassword={password => changePassword(password)}
+                />
+                <PasswordInstruction />
+              </View>
+              <View style={{
+                marginTop: 16,
+                marginLeft: 32,
+                marginRight: 32,
+              }}
+              >
+                <PasswordTextBox
+                  placeholder={strings(Strings.REPEAT_PASSWORD)}
+                  value={repeatedPassword}
+                  onChangePassword={repeatedPassword => changeRepeatedPassword(repeatedPassword)}
+                />
+              </View>
+              <SignUpButton
+                onPress={() => this.onSignUpPress()}
+                text={strings(Strings.SIGN_UP)}
+                icon="login"
+              />
             </View>
-        );
-    }
+            {this.renderOtherLoginSection()}
+          </View>
+        </KeyboardAwareScrollView>
+      </View>
+    );
+  }
 
-    renderLogoSection() {
-        return (
-            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-                <Avatar large containerStyle={{marginBottom: 12}} rounded
-                        source={{uri: Addresses.LOGO}}/>
-                <Text style={styles.text}>{strings(Strings.APP_NAME)}</Text>
-            </View>
-        )
-    }
+  renderLogoSection() {
+    return (
+      <View style={{
+        flex: 1,
+        alignSelf: 'center',
+        justifyContent: 'center',
+      }}
+      >
+        <Avatar
+          large
+          containerStyle={{ marginBottom: 12 }}
+          rounded
+          source={{ uri: Addresses.LOGO }}
+        />
+        <Text style={styles.text}>{strings(Strings.APP_NAME)}</Text>
+      </View>
+    );
+  }
 
-    renderOtherLoginSection() {
-        return (
-            <View style={{flex: 1, justifyContent: 'center',}}>
-                {this.renderOtherLoginButtons()}
-                <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => this.onReturnToLoginPress()}>
-                    <Text style={styles.text}>{strings(Strings.ENTER_LOGIN_PAGE)}</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
+  renderOtherLoginSection() {
+    return (
+      <View style={{
+        flex: 1,
+        justifyContent: 'center',
+      }}
+      >
+        {this.renderOtherLoginButtons()}
+        <TouchableOpacity
+          style={{ alignSelf: 'center' }}
+          onPress={() => this.onReturnToLoginPress()}
+        >
+          <Text style={styles.text}>{strings(Strings.ENTER_LOGIN_PAGE)}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
-    renderOtherLoginButtons() {
-        return (
-            <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: 16}}>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='facebook'/>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='google'/>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <SocialIcon
-                        light
-                        type='twitter'/>
-                </TouchableOpacity>
-            </View>
-        )
-    }
+  renderOtherLoginButtons() {
+    return (
+      <View style={{
+        flexDirection: 'row',
+        alignSelf: 'center',
+        marginBottom: 16,
+      }}
+      >
+        <TouchableOpacity>
+          <SocialIcon
+            light
+            type="facebook"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <SocialIcon
+            light
+            type="google"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <SocialIcon
+            light
+            type="twitter"
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
-    onSignUpPress() {
-        const {email} = this.props;
-        this.props.validateEmail(email)
-            .then((response) => {
-                this.onSuccess();
-            })
-            .catch((error) => {
-                this.onFail(error);
-            });
-    }
+  onSignUpPress() {
+    const { email } = this.props;
+    this.props.validateEmail(email)
+      .then((response) => {
+        this.onSuccess();
+      })
+      .catch((error) => {
+        this.onFail(error);
+      });
+  }
 
-    onSuccess() {
-        const {email, password} = this.props;
-        this.props.navigation.navigate('SignUpComplete', {email, password});
-        this.props.reset();
-    }
+  onSuccess() {
+    const { email, password } = this.props;
+    this.props.navigation.navigate('SignUpComplete', {
+      email,
+      password,
+    });
+    this.props.reset();
+  }
 
-    onFail(error) {
-        Toast.show({
-            text: strings(Strings.EMAIL_ALREADY_EXISTS),
-            textStyle: {textAlign: 'center'},
-            position: 'bottom',
-            type: 'danger'
-        });
-    }
+  onFail(error) {
+    Toast.show({
+      text: strings(Strings.EMAIL_ALREADY_EXISTS),
+      textStyle: { textAlign: 'center' },
+      position: 'bottom',
+      type: 'danger',
+    });
+  }
 
-    onReturnToLoginPress() {
-        const {navigation, reset} = this.props;
-        navigation.navigate('Login');
-        reset();
-    }
+  onReturnToLoginPress() {
+    const { navigation, reset } = this.props;
+    navigation.navigate('Login');
+    reset();
+  }
 }
 
 const styles = StyleSheet.create({
-    text: {
-        fontSize: Fonts.TEXT_NORMAL_SIZE,
-        color: 'white',
-        textAlign: 'center',
-        alignSelf: 'center'
-    }
+  text: {
+    fontSize: Fonts.TEXT_NORMAL_SIZE,
+    color: 'white',
+    textAlign: 'center',
+    alignSelf: 'center',
+  },
 });
 
-const mapStateToProps = (state) => ({
-    email: state.signUpPage.email.toLowerCase(),
-    password: state.signUpPage.password,
-    repeatedPassword: state.signUpPage.repeatedPassword,
-    mode: state.signUpPage.mode,
-    error: state.signUpPage.mode === PageModes.ERROR,
+const mapStateToProps = state => ({
+  email: state.signUpPage.email.toLowerCase(),
+  password: state.signUpPage.password,
+  repeatedPassword: state.signUpPage.repeatedPassword,
+  mode: state.signUpPage.mode,
+  error: state.signUpPage.mode === PageModes.ERROR,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    changeEmail: (email) => dispatch(emailChanged(email)),
-    changePassword: (password) => dispatch(passwordChanged(password)),
-    changeRepeatedPassword: (repeatedPassword) => dispatch(repeatedPasswordChanged(repeatedPassword)),
-    validateEmail: (email) => dispatch(validateEmail(email)),
-    resetEmail: () => dispatch(resetEmail()),
-    reset: () => dispatch(reset())
+const mapDispatchToProps = dispatch => ({
+  changeEmail: email => dispatch(emailChanged(email)),
+  changePassword: password => dispatch(passwordChanged(password)),
+  changeRepeatedPassword: repeatedPassword => dispatch(repeatedPasswordChanged(repeatedPassword)),
+  validateEmail: email => dispatch(validateEmail(email)),
+  resetEmail: () => dispatch(resetEmail()),
+  reset: () => dispatch(reset()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
