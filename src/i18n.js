@@ -8,8 +8,8 @@ I18n.defaultLocale = 'fa';
 I18n.fallbacks = true;
 
 I18n.translations = {
-    fa,
-    // en
+  fa,
+  en,
 };
 
 const currentLocale = I18n.currentLocale();
@@ -22,7 +22,7 @@ ReactNative.I18nManager.allowRTL(isRTL);
 
 // The method we'll use instead of a regular string
 export function strings(name, params = {}) {
-    return I18n.t(name, params);
+  return I18n.t(name, params);
 }
 
 export default I18n;

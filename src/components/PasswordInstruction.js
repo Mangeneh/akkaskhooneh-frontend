@@ -1,17 +1,24 @@
-import React, {Component} from 'react';
-import {Text} from "native-base";
-import {strings} from "../i18n";
-import {Strings} from "../config";
+import { Text } from 'native-base';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Fonts, Strings } from '../config';
+import { strings } from '../i18n';
 
-export default class PasswordInstruction extends Component {
-    render() {
-        return (
-            <Text note style={{
-                alignSelf: 'center',
-                color: 'white',
-                fontSize: 10,
-                marginTop: 4
-            }}>{strings(Strings.PASSWORD_INSTRUCTION)}</Text>
-        );
-    }
-}
+export default () => (
+  <Text
+    note
+    style={styles.instruction}
+  >
+    {strings(Strings.PASSWORD_INSTRUCTION)}
+  </Text>
+);
+
+const styles = StyleSheet.create({
+  instruction: {
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: 'white',
+    fontSize: Fonts.INSTRUCTIONS_FONT_SIZE,
+    marginTop: 4,
+  },
+});
