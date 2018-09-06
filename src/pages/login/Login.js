@@ -171,12 +171,14 @@ class Login extends Component {
   }
 
   onSuccess(response) {
-    const { access, refresh } = response.payload.data;
-    this.props.setAccessToken(access);
-    this.props.setRefreshToken(refresh);
-    this.props.updateUser();
-    this.props.navigation.navigate('Main');
-    this.props.reset();
+    const {
+      access, refresh, setAccessToken, setRefreshToken, updateUser, navigation, reset,
+    } = response.payload.data;
+    setAccessToken(access);
+    setRefreshToken(refresh);
+    updateUser();
+    navigation.navigate('Main');
+    reset();
   }
 
   onFail(error) {
@@ -189,8 +191,9 @@ class Login extends Component {
   }
 
   onSignUpPress() {
-    this.props.navigation.navigate('SignUp');
-    this.props.reset();
+    const { navigation, reset } = this.props;
+    navigation.navigate('SignUp');
+    reset();
   }
 }
 
