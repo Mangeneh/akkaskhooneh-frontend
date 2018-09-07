@@ -21,12 +21,12 @@ module.exports = {
     // React Native
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
-    'react-native/no-inline-styles': 1,
+    'react-native/no-inline-styles': 0,
     'react-native/no-color-literals': 0,
     // React
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
     'react/prop-types': 'off',
-    'react/destructuring-assignment': 1,
+    'react/destructuring-assignment': 0,
     'react/sort-comp': [2, {
       order: [
         'static-methods',

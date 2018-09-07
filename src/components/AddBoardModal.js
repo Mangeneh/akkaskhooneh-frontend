@@ -7,9 +7,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { getSelfBoardsNextPage } from '../actions';
-import {
-  Colors, Constants, Fonts, Strings,
-} from '../config';
+import { Colors, Constants, Strings } from '../config';
 import { strings } from '../i18n';
 import {
   selectSelfBoards,
@@ -22,100 +20,133 @@ class AddBoardModal extends Component {
   render() {
     return (
       <View style={styles.modalContent}>
-        <Text style={{
-          fontSize: Constants.TEXT_NORMAL_SIZE,
-        }}
-        >
-          {strings(Strings.ADD_TO_INTERESTS)}
-        </Text>
-        <Text
-          note
-          style={{ fontSize: Constants.ITEM_FONT_SIZE }}
-        >
-          {strings(Strings.CHOOSE_A_BOARD)}
-        </Text>
-
-        <Item style={{
-          flexDirection: 'row',
-          backgroundColor: Colors.LIGHT_GRAY,
-        }}
-        >
-          <Input
-            style={{
-              color: Colors.BASE,
-              textAlign: 'right',
-              justifyContent: 'center',
-              fontSize: Constants.ITEM_FONT_SIZE,
-            }}
-            onChangeText={this.props.onNameChange}
-            placeholder={strings(Strings.CREATE_NEW_BOARD)}
-            value={this.props.value}
-          />
-          <TouchableOpacity>
-            <Icon
-              name="plus"
-              type="Entypo"
-              style={{
-                color: Colors.BASE,
-                justifyContent: 'flex-end',
-                alignSelf: 'center',
-              }}
-              onPress={this.props.onAddPress}
-            />
-          </TouchableOpacity>
-        </Item>
-        <FlatList
-          onEndReached={() => this.updateBoards()}
-          style={{ width: '100%' }}
-          keyExtractor={(item, index) => item.id.toString()}
-          data={this.props.boards}
-          renderItem={({ item, index }) => this.renderBoard(item, index)}
-        />
-        {(this.props.boardsIsLoading) ? (<ActivityIndicator size="large" />) : <View />}
+        {this.renderHeader()}
+        {this.renderInput()}
+        {this.renderBoardList()}
+        {this.renderSpinner()}
       </View>
     );
   }
 
-  updateBoards() {
-    if (this.props.boardsNextPage <= this.props.boardsTotalPages && !this.props.boardsIsLoading) {
-      this.props.getBoardsNextPage(this.props.boardsNextPage);
-    }
+  renderHeader() {
+    return (
+      <View style={styles.headerContent}>
+        <Text style={styles.headerText}>
+          {strings(Strings.ADD_TO_INTERESTS)}
+        </Text>
+        <Text
+          note
+          style={styles.headerInstruction}
+        >
+          {strings(Strings.CHOOSE_A_BOARD)}
+        </Text>
+      </View>
+    );
   }
 
-  renderBoard(item, index) {
+  renderInput() {
+    const {
+      onNameChange, value, onAddPress,
+    } = this.props;
+    return (
+      <Item style={styles.inputItem}>
+        <Input
+          style={styles.input}
+          onChangeText={onNameChange}
+          placeholder={strings(Strings.CREATE_NEW_BOARD)}
+          value={value}
+        />
+        <TouchableOpacity>
+          <Icon
+            name="plus"
+            type="Entypo"
+            style={styles.icon}
+            onPress={onAddPress}
+          />
+        </TouchableOpacity>
+      </Item>
+    );
+  }
+
+  renderBoardList() {
+    const { boards } = this.props;
+    return (
+      <FlatList
+        onEndReached={() => this.updateBoards()}
+        style={styles.boardList}
+        keyExtractor={item => item.id.toString()}
+        data={boards}
+        renderItem={({ item }) => this.renderBoard(item)}
+      />
+    );
+  }
+
+  renderBoard(item) {
+    const { onBoardNamePressed } = this.props;
     return (
       <Item>
         <TouchableOpacity onPress={() => {
-          this.props.onBoardNamePressed(item.id);
+          onBoardNamePressed(item.id);
         }}
         >
-          <Text style={{
-            fontSize: Constants.TEXT_NORMAL_SIZE,
-            fontFamily: Fonts.NORMAL_FONT,
-            marginRight: 8,
-            marginTop: 4,
-            marginBottom: 4,
-          }}
-          >
+          <Text style={styles.boardName}>
             {item.name}
           </Text>
         </TouchableOpacity>
       </Item>
     );
   }
+
+  renderSpinner() {
+    const { boardsIsLoading } = this.props;
+    return (
+      (boardsIsLoading) ? (<ActivityIndicator size="large" />) : <View />
+    );
+  }
+
+  updateBoards() {
+    const {
+      boardsNextPage, boardsTotalPages, boardsIsLoading, getBoardsNextPage,
+    } = this.props;
+    if (boardsNextPage <= boardsTotalPages && !boardsIsLoading) {
+      getBoardsNextPage(boardsNextPage);
+    }
+  }
 }
 
 const styles = StyleSheet.create({
   modalContent: {
-    backgroundColor: 'white',
-    padding: 22,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'white',
+    padding: 16,
+    borderRadius: 8,
+  },
+  headerContent: { alignItems: 'center' },
+  headerText: { fontSize: Constants.TEXT_NORMAL_SIZE },
+  headerInstruction: { fontSize: Constants.ITEM_FONT_SIZE },
+  inputItem: {
+    flexDirection: 'row',
+    backgroundColor: Colors.LIGHT_GRAY,
+  },
+  input: {
+    justifyContent: 'center',
+    fontSize: Constants.ITEM_FONT_SIZE,
+  },
+  icon: {
+    justifyContent: 'flex-end',
+    alignSelf: 'center',
+  },
+  boardList: {
+    width: '100%',
+  },
+  boardName: {
+    fontSize: Constants.TEXT_NORMAL_SIZE,
+    marginLeft: 4,
+    marginTop: 4,
+    marginBottom: 4,
   },
 });
-
 
 const mapStateToProps = state => ({
   boards: selectSelfBoards(state),
