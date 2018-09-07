@@ -1,8 +1,7 @@
 import { Icon } from 'native-base';
 import React, { Component } from 'react';
-import {
-  Dimensions, Image, StyleSheet, TouchableOpacity,
-} from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 class ImageItem extends Component {
   componentWillMount() {
@@ -16,47 +15,56 @@ class ImageItem extends Component {
     const {
       uri, selected,
     } = this.props;
-    const marker = (
+    const priority = selected ? FastImage.priority.high : FastImage.priority.normal;
+    return (
+      <TouchableOpacity
+        style={styles.imageContainer}
+        onPress={() => this.handleClick(uri)}
+      >
+        <FastImage
+          source={{
+            uri,
+            priority,
+          }}
+          style={{
+            height: this.imageSize,
+            width: this.imageSize,
+          }}
+        />
+        {(selected) ? this.renderMark() : null}
+      </TouchableOpacity>
+    );
+  }
+
+  renderMark() {
+    return (
       <Icon
         name="check-circle"
         style={styles.marker}
         type="MaterialCommunityIcons"
       />
     );
-    return (
-      <TouchableOpacity
-        style={{
-          marginBottom: 4,
-          marginRight: 4,
-          borderRadius: 8,
-          overflow: 'hidden',
-        }}
-        onPress={() => this.handleClick(uri)}
-      >
-        <Image
-          source={{ uri }}
-          style={{
-            height: this.imageSize,
-            width: this.imageSize,
-          }}
-        />
-        {(selected) ? marker : null}
-      </TouchableOpacity>
-    );
   }
 
   handleClick(uri) {
-    this.props.onClick(uri);
+    const { onClick } = this.props;
+    onClick(uri);
   }
 }
 
 const styles = StyleSheet.create({
   marker: {
     position: 'absolute',
-    top: 5,
-    right: 5,
+    top: 4,
+    right: 4,
     backgroundColor: 'transparent',
     color: 'white',
+  },
+  imageContainer: {
+    marginBottom: 4,
+    marginRight: 4,
+    borderRadius: 8,
+    overflow: 'hidden',
   },
 });
 

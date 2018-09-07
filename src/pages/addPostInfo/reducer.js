@@ -7,7 +7,9 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  const { SEND_POST, SEND_POST_SUCCESS, SEND_POST_FAIL } = Actions;
+  const {
+    SEND_POST, SEND_POST_SUCCESS, SEND_POST_FAIL, NORMALIZE,
+  } = Actions;
   switch (action.type) {
     case SEND_POST:
       return {
@@ -20,6 +22,11 @@ export default (state = INITIAL_STATE, action) => {
         mode: PageModes.ERROR,
       };
     case SEND_POST_SUCCESS:
+      return {
+        ...state,
+        mode: PageModes.NORMAL,
+      };
+    case NORMALIZE:
       return {
         ...state,
         mode: PageModes.NORMAL,

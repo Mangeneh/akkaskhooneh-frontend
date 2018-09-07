@@ -2,7 +2,8 @@ import {
   Icon, Input, Item, Text,
 } from 'native-base';
 import React, { Component } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import {
@@ -13,13 +14,18 @@ import {
 } from '../../config';
 import SendPostButton from '../../containers/SendPostButton';
 import { strings } from '../../i18n';
-import { sendPost } from './actions';
+import { normalize, sendPost } from './actions';
 
 class AddPostInfo extends Component {
   state = {
     tags: [],
     caption: '',
   };
+
+  componentWillMount() {
+    const { normalize } = this.props;
+    normalize();
+  }
 
   render() {
     return (
@@ -97,6 +103,7 @@ class AddPostInfo extends Component {
                   position: 'absolute',
                   alignSelf: 'center',
                 }}
+                icon="send"
                 text={strings(Strings.SEND_POST)}
                 onPress={() => this.SendPost()}
               />
@@ -131,9 +138,8 @@ class AddPostInfo extends Component {
             }}
           />
         </View>
-        <Image
+        <FastImage
           source={{ uri: imageSource }}
-          resizeMode="stretch"
           style={{
             borderRadius: 10,
             width: 100,
@@ -185,6 +191,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   sendPost: (imageSource, caption, tags) => dispatch(sendPost(imageSource, caption, tags)),
+  normalize: () => dispatch(normalize()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostInfo);

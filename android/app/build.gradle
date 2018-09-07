@@ -140,6 +140,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fast-image')
     compile project(':react-native-image-resizer')
     compile project(':react-native-google-places')
     compile(project(':react-native-google-places')){

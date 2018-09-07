@@ -127,7 +127,7 @@ export default class App extends Component {
       <Root>
         <Provider store={store}>
           <StyleProvider style={getTheme(commonColor)}>
-            <RootStack ref={(navigatorRef) => {
+            <NewPostStack ref={(navigatorRef) => {
               NavigationService.setTopLevelNavigator(navigatorRef);
             }}
             />

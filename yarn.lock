@@ -4991,6 +4991,10 @@ react-native-elements@^0.19.1:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
+react-native-fast-image@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-5.0.3.tgz#cb53b70a904d908c2c531dcc3d4a77834c9e1c63"
+
 react-native-google-places-autocomplete@^1.3.9:
   version "1.3.9"
   resolved "https://registry.yarnpkg.com/react-native-google-places-autocomplete/-/react-native-google-places-autocomplete-1.3.9.tgz#34c2e8b51df40ecb55ef3ccf57caba4c89ff9b56"
@@ -5581,6 +5585,12 @@ rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1:
 rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
+
+rn-placeholder@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/rn-placeholder/-/rn-placeholder-1.2.0.tgz#d0d7c2fb278698f4101bd0a8a06b14f2147d994c"
+  dependencies:
+    prop-types "^15.5.10"
 
 rn-sliding-up-panel@^1.2.1:
   version "1.2.1"
