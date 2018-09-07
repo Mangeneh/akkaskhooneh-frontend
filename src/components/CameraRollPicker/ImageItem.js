@@ -6,39 +6,35 @@ import {
 
 class ImageItem extends Component {
   componentWillMount() {
-    let { width } = Dimensions.get('window');
-    const { imageMargin, imagesPerRow, containerWidth } = this.props;
-
-    if (typeof containerWidth !== 'undefined') {
-      width = containerWidth;
-    }
+    const { width } = Dimensions.get('window');
+    const imagesPerRow = 3;
+    const imageMargin = 4;
     this.imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
   }
 
   render() {
     const {
-      item, selected, selectedMarker, imageMargin,
+      uri, selected,
     } = this.props;
-    const marker = selectedMarker || (
+    const marker = (
       <Icon
         name="check-circle"
         style={styles.marker}
         type="MaterialCommunityIcons"
       />
     );
-    const { image } = item.node;
     return (
       <TouchableOpacity
         style={{
-          marginBottom: imageMargin,
-          marginRight: imageMargin,
+          marginBottom: 4,
+          marginRight: 4,
           borderRadius: 8,
           overflow: 'hidden',
         }}
-        onPress={() => this.handleClick(image)}
+        onPress={() => this.handleClick(uri)}
       >
         <Image
-          source={{ uri: image.uri }}
+          source={{ uri }}
           style={{
             height: this.imageSize,
             width: this.imageSize,
@@ -49,10 +45,8 @@ class ImageItem extends Component {
     );
   }
 
-  handleClick(item) {
-    console.log('clicked');
-    console.log(this.props);
-    this.props.onClick(item);
+  handleClick(uri) {
+    this.props.onClick(uri);
   }
 }
 
@@ -65,10 +59,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
-ImageItem.defaultProps = {
-  item: {},
-  selected: false,
-};
 
 export default ImageItem;

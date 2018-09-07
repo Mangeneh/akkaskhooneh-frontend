@@ -69,10 +69,7 @@ export default class NewPost extends Component {
                   style={{ backgroundColor: Colors.LIGHT_GRAY }}
                 />
                 <CameraRollPicker
-                  scrollRenderAheadDistance={12}
-                  selectSingleItem
-                  callback={image => this.onSelectImage(image)}
-                  backgroundColor={Colors.LIGHT_GRAY}
+                  onSelectImage={uri => this.onSelectImage(uri)}
                 />
               </View>
             </SlidingUpPanel>
@@ -149,13 +146,12 @@ export default class NewPost extends Component {
       });
   }
 
-  onSelectImage(image) {
-    // Don't use extractImageSource here, because this image comes from gallery.
-    if (image.length === 0) {
+  onSelectImage(uri) {
+    if (uri === '') {
       this.setState({ hasChosen: false });
     } else {
       this.setState({
-        imageSource: image[0].uri,
+        imageSource: uri,
         hasChosen: true,
       });
     }
