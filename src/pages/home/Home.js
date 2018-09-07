@@ -53,6 +53,10 @@ class Home extends Component {
           isVisible={this.state.visibleModal}
           onBackdropPress={() => this.setState({ visibleModal: false })}
           onModalHide={() => changeBoardName('')}
+          animationIn="zoomInDown"
+          animationOut="zoomOutUp"
+          animationInTiming={250}
+          animationOutTiming={250}
         >
           <AddBoardModal
             value={boardName}
