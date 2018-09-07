@@ -14,6 +14,9 @@ export const BoardsActions = {
   RESET_OTHERS_BOARDS: 'RESET_OTHERS_BOARDS',
   CHANGE_SELECTED_BOARD_ID: 'FEED_ADD_CHANGE_SELECTED_BOARD_ID',
   CHANGE_SELECTED_POST_ID: 'FEED_ADD_CHANGE_SELECTED_POST_ID',
+  CREATE_BOARD_FAIL: 'CREATE_BOARD_FAIL',
+  CREATE_BOARD_SUCCESS: 'CREATE_BOARD_SUCCESS',
+  CREATE_BOARD: 'CREATE_BOARD',
 };
 
 export const resetSelfBoards = () => ({
@@ -44,6 +47,19 @@ export const addPostToBoard = (postID, boardID) => ({
       data: {
         board_id: boardID,
         post_id: postID,
+      },
+    },
+  },
+});
+
+export const createBoard = boardName => ({
+  type: BoardsActions.CREATE_BOARD,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.CREATE_BOARD,
+      data: {
+        name: boardName,
       },
     },
   },

@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import {
   addPostToBoard,
+  createBoard,
   getHomePostsNextPage,
   getSelfBoardsNextPage,
   resetHomePosts,
@@ -26,22 +27,20 @@ import {
   selectHomePostsNextPage,
   selectHomePostsTotalPages,
 } from '../../reducers/PostsReducer';
-import { boardNameChanged, createBoard } from './actions';
 
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.updatePosts();
+    this.state = {
+      newBoardName: '',
+      visibleModal: false,
+    };
   }
 
-  state = {
-    newBoardName: '',
-    visibleModal: false,
-  };
-
   render() {
-    const { boardName, changeBoardName } = this.props;
+    const { newBoardName, visibleModal } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <HomeHeader
@@ -50,17 +49,17 @@ class Home extends Component {
         />
         {this.renderContent()}
         <Modal
-          isVisible={this.state.visibleModal}
+          isVisible={visibleModal}
           onBackdropPress={() => this.setState({ visibleModal: false })}
-          onModalHide={() => changeBoardName('')}
+          onModalHide={() => this.setState({ newBoardName: '' })}
           animationIn="zoomInDown"
           animationOut="zoomOutUp"
           animationInTiming={250}
           animationOutTiming={250}
         >
           <AddBoardModal
-            value={boardName}
-            onNameChange={boardName => changeBoardName(boardName)}
+            newBoardName={newBoardName}
+            onNameChange={newBoardName => this.setState({ newBoardName })}
             onAddPress={() => this.onAddPress()}
             onBoardNamePressed={selectedBoardID => this.addNewPostToBoard(selectedBoardID)}
           />
@@ -70,11 +69,12 @@ class Home extends Component {
   }
 
   renderPost(item, index) {
+    const { changeSelectedPostID } = this.props;
     return (
       <Post
         saveButtonPressed={() => {
           this.showModal();
-          this.props.changeSelectedPostID(item.id);
+          changeSelectedPostID(item.id);
         }}
         item={item}
       />
@@ -82,13 +82,16 @@ class Home extends Component {
   }
 
   renderContent() {
-    return (this.props.posts.length === 0 && !this.props.postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
+    const { posts, postsIsLoading } = this.props;
+    return (posts.length === 0 && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
   }
 
   updatePosts() {
-    if (this.props.postsNextPage <= this.props.postsTotalPages
-      && !this.props.postsIsLoading) {
-      this.props.getPostsNextPage(this.props.postsNextPage);
+    const {
+      postsNextPage, postsTotalPages, postsIsLoading, getPostsNextPage,
+    } = this.props;
+    if (postsNextPage <= postsTotalPages && !postsIsLoading) {
+      getPostsNextPage(postsNextPage);
     }
   }
 
@@ -128,20 +131,23 @@ class Home extends Component {
   }
 
   renderFeed() {
+    const {
+      resetHomePosts, getPostsNextPage, postsIsLoading, posts,
+    } = this.props;
     return (
       <FlatList
         onRefresh={() => {
-          this.props.resetHomePosts();
-          this.props.getPostsNextPage(1);
+          resetHomePosts();
+          getPostsNextPage(1);
         }}
-        refreshing={this.props.postsIsLoading}
+        refreshing={postsIsLoading}
         onEndReached={() => this.updatePosts()}
         style={{
           width: '100%',
           marginTop: 8,
         }}
         keyExtractor={(item, index) => item.id.toString()}
-        data={this.props.posts}
+        data={posts}
         renderItem={({ item, index }) => this.renderPost(item, index)}
       />
     );
@@ -149,6 +155,19 @@ class Home extends Component {
 
   showModal() {
     this.setState({ visibleModal: true });
+  }
+
+  onAddPress() {
+    const { newBoardName } = this.state;
+    if (newBoardName !== '') {
+      this.props.createBoard(newBoardName)
+        .then((response) => {
+          this.onCreateBoardSuccess(response);
+        })
+        .catch((error) => {
+          this.onCreateBoardFail(error);
+        });
+    }
   }
 
   onCreateBoardFail(error) {
@@ -173,26 +192,13 @@ class Home extends Component {
   }
 
   addNewPostToBoard(selectedBoardID) {
-    const { selectedPostID } = this.props;
-    this.props.addPostToBoard(selectedPostID, selectedBoardID)
+    const { selectedPostID, addPostToBoard } = this.props;
+    addPostToBoard(selectedPostID, selectedBoardID)
       .then((response) => {
       })
       .catch((error) => {
       });
     this.setState({ visibleModal: false });
-  }
-
-  onAddPress() {
-    const { boardName } = this.props;
-    if (boardName !== '') {
-      this.props.createBoard(boardName)
-        .then((response) => {
-          this.onCreateBoardSuccess(response);
-        })
-        .catch((error) => {
-          this.onCreateBoardFail(error);
-        });
-    }
   }
 }
 
@@ -208,9 +214,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   resetHomePosts: () => dispatch(resetHomePosts()),
   changeSelectedPostID: id => dispatch(selectedPostChanged(id)),
-  changeBoardName: boardName => dispatch(boardNameChanged(boardName)),
   resetSelfBoards: () => dispatch(resetSelfBoards()),
-  createBoard: boardName => dispatch(createBoard(boardName)),
+  createBoard: newBoardName => dispatch(createBoard(newBoardName)),
   getPostsNextPage: postsNext => dispatch(getHomePostsNextPage(postsNext)),
   getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
   addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),

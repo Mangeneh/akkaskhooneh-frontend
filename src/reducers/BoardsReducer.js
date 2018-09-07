@@ -23,7 +23,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   const {
-    CHANGE_SELECTED_BOARD_ID,
     CHANGE_SELECTED_POST_ID,
     RESET_SELF_BOARDS,
     GET_SELF_BOARDS_NEXT_PAGE_SUCCESS,
@@ -43,11 +42,6 @@ export default (state = INITIAL_STATE, action) => {
         selfBoardsTotalPages: action.payload.data.total_pages,
         selfBoardsNextPage: state.selfBoardsNextPage + 1,
         selfBoardsIsLoading: false,
-      };
-    case CHANGE_SELECTED_BOARD_ID:
-      return {
-        ...state,
-        selectedBoardID: action.payload,
       };
     case CHANGE_SELECTED_POST_ID:
       return {

@@ -46,7 +46,7 @@ class AddBoardModal extends Component {
 
   renderInput() {
     const {
-      onNameChange, value, onAddPress,
+      onNameChange, newBoardName, onAddPress,
     } = this.props;
     return (
       <Item style={styles.inputItem}>
@@ -54,7 +54,7 @@ class AddBoardModal extends Component {
           style={styles.input}
           onChangeText={onNameChange}
           placeholder={strings(Strings.CREATE_NEW_BOARD)}
-          value={value}
+          value={newBoardName}
         />
         <TouchableOpacity>
           <Icon
