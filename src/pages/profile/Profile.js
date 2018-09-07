@@ -1,8 +1,9 @@
 import { Container, Tab, Tabs } from 'native-base';
 import React, { Component } from 'react';
 import {
-  ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, View,
+  ActivityIndicator, Dimensions, FlatList, StyleSheet, View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import {
   getSelfBoardsNextPage,
@@ -39,7 +40,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this._tabs.goToPage.bind(this._tabs, 1));
+    setTimeout(this.tabs.goToPage.bind(this.tabs, 1));
   }
 
   render() {
@@ -66,7 +67,7 @@ class Profile extends Component {
             <SelfProfileInfo />
           </View>
           <Tabs
-            ref={component => this._tabs = component}
+            ref={(component) => { this.tabs = component; }}
             tabBarUnderlineStyle={{ backgroundColor: Colors.ACCENT }}
             initialPage={1}
             locked
@@ -153,9 +154,9 @@ class Profile extends Component {
   renderPhoto(item, index) {
     return (
       <View style={index % 2 === 0 ? styles.evenPhoto : styles.oddPhoto}>
-        <Image
+        <FastImage
           source={{ uri: item.picture }}
-          resizeMode="stretch"
+          resizeMode={FastImage.resizeMode.center}
           style={{
             width: WIDTH / 2 - 12,
             height: WIDTH / 2 - 12,

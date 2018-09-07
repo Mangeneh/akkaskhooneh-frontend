@@ -11,7 +11,8 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Colors, Constants } from '../config';
 
 export default class Post extends Component {
@@ -21,7 +22,7 @@ export default class Post extends Component {
         borderRadius: Constants.POST_CARD_RADIUS,
         marginRight: 8,
         marginLeft: 8,
-        marginTop: 10,
+        marginTop: 8,
       }}
       >
         <CardItem style={{ borderRadius: Constants.POST_CARD_RADIUS }}>
@@ -53,7 +54,7 @@ export default class Post extends Component {
                   paddingRight: 8,
                 }}
               >
-۲ ساعت
+                ۲ ساعت
                 پیش
               </Text>
               <Text />
@@ -62,7 +63,7 @@ export default class Post extends Component {
           </Right>
         </CardItem>
         <CardItem cardBody>
-          <Image
+          <FastImage
             source={{ uri: this.props.item.post_picture }}
             style={{
               height: 200,
