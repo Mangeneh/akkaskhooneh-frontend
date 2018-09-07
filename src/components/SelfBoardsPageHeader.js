@@ -19,7 +19,7 @@ export default (props) => {
       }}
       >
         <TouchableOpacity onPress={onBackPress}>
-          <Icon type="MaterialCommunityIcons" name="arrow-left" style={{ color: 'white' }} />
+          <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
         </TouchableOpacity>
       </Left>
       <Body style={{ flex: 3 }}>
@@ -38,8 +38,8 @@ export default (props) => {
       >
         <TouchableOpacity onPress={onAddPress}>
           <Icon
-            type="MaterialCommunityIcons"
             name="plus"
+            type="MaterialCommunityIcons"
             style={{
               marginRight: 4,
               color: 'white',
@@ -47,7 +47,7 @@ export default (props) => {
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={onDeletePress}>
-          <Icon type="MaterialCommunityIcons" name="delete" style={{ color: 'white' }} />
+          <Icon name="delete" type="MaterialCommunityIcons" style={{ color: 'white' }} />
         </TouchableOpacity>
       </Right>
     </Header>

@@ -2,7 +2,7 @@ import {
   Button, Icon, Spinner, Text,
 } from 'native-base';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export default class SpinnerButton extends Component {
   render() {
@@ -25,10 +25,14 @@ export default class SpinnerButton extends Component {
       return <Spinner color="white" />;
     }
     return (
-      <View style={{ flexDirection: 'row' }}>
-        <Icon type="MaterialCommunityIcons" name={icon} />
+      <View style={styles.buttonContent}>
+        <Icon name={icon} type="MaterialCommunityIcons" />
         <Text>{text}</Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  buttonContent: { flexDirection: 'row' },
+});

@@ -20,12 +20,12 @@ export default props => (
       onPress={() => NavigationService.navigate(Pages.NEW_POST)}
     >
       <Icon
-        color="white"
         name="plus"
+        type="material-community"
+        color="white"
         raised
         size={30}
         containerStyle={{ backgroundColor: Colors.ACCENT }}
-        type="material-community"
       />
     </TouchableOpacity>
     <View style={{ zIndex: 1 }}>

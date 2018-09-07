@@ -14,7 +14,7 @@ export default props => (
       }}
       >
         <TouchableOpacity onPress={() => props.onBackPress()}>
-          <Icon type="Ionicons" name="ios-arrow-back" style={{ color: 'white' }} />
+          <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
         </TouchableOpacity>
       </Left>
       <Body style={{ flex: 3 }}>
@@ -31,9 +31,7 @@ export default props => (
         marginRight: 16,
       }}
       >
-        <TouchableOpacity>
-          <Icon />
-        </TouchableOpacity>
+        <View />
       </Right>
     </Header>
   </View>

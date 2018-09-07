@@ -1,35 +1,25 @@
 import { Icon, Input, Item } from 'native-base';
 import React from 'react';
-import {
-  Colors, Constants, Graphics, Strings,
-} from '../config';
+import { Strings } from '../config';
 import { strings } from '../i18n';
+import { TextBoxStyle } from '../styles';
 
 export default (props) => {
   const {
     error, onChangeEmail, value, reset,
   } = props;
-  const { TEXT_BOX_FONT_SIZE, TEXT_BOX_ELEVATION } = Constants;
-  const { BOX_RADIUS } = Graphics;
   return (
     <Item
-      style={{
-        backgroundColor: 'white',
-        borderRadius: BOX_RADIUS,
-        elevation: TEXT_BOX_ELEVATION,
-      }}
+      style={TextBoxStyle.item}
       rounded
       error={error}
     >
-      <Icon style={{ color: Colors.ICON }} name="mail" />
+      <Icon name="mail" style={TextBoxStyle.icon} />
       <Input
         type="email"
         placeholder={strings(Strings.EMAIL_ADDRESS)}
         value={value}
-        style={{
-          textAlign: 'center',
-          fontSize: TEXT_BOX_FONT_SIZE,
-        }}
+        style={TextBoxStyle.input}
         onChangeText={onChangeEmail}
       />
       <Icon name={error ? 'close-circle' : null} onPress={reset} />
