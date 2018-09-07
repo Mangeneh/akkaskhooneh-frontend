@@ -11,24 +11,25 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Colors, Constants } from '../config';
+import { Colors, Constants, Graphics } from '../config';
 
 export default class Post extends Component {
   render() {
+    const { saveButtonPressed, item } = this.props;
     return (
       <Card style={{
-        borderRadius: Constants.POST_CARD_RADIUS,
+        borderRadius: Graphics.POST_CARD_RADIUS,
         marginRight: 8,
         marginLeft: 8,
         marginTop: 8,
       }}
       >
-        <CardItem style={{ borderRadius: Constants.POST_CARD_RADIUS }}>
+        <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
           <Left>
             <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="more-horizontal" type="Feather" style={{ color: Colors.BASE }} />
+              <Icon name="more-horizontal" type="Feather" style={styles.icon} />
             </Button>
           </Left>
           <Body />
@@ -45,7 +46,7 @@ export default class Post extends Component {
                 paddingRight: 8,
               }}
               >
-                {this.props.item.owner_username}
+                {item.owner_username}
               </Text>
               <Text
                 note
@@ -59,17 +60,18 @@ export default class Post extends Component {
               </Text>
               <Text />
             </View>
-            <Thumbnail source={{ uri: this.props.item.profile_picture }} />
+            <Thumbnail source={{ uri: item.profile_picture }} />
           </Right>
         </CardItem>
         <CardItem cardBody>
           <FastImage
-            source={{ uri: this.props.item.post_picture }}
+            source={{ uri: item.post_picture }}
             style={{
               height: 200,
               width: null,
               flex: 1,
             }}
+            resizeMode={FastImage.resizeMode.center}
           />
         </CardItem>
         <CardItem>
@@ -79,30 +81,30 @@ export default class Post extends Component {
               textAlign: 'right',
             }}
             >
-              {this.props.item.caption}
+              {item.caption}
             </Text>
             <Text />
           </Item>
         </CardItem>
-        <CardItem style={{ borderRadius: Constants.POST_CARD_RADIUS }}>
+        <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
           <Left>
             <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="heart-outlined" type="Entypo" style={{ color: Colors.BASE }} />
-              <Text style={{ color: Colors.BASE }}>{this.props.item.likes}</Text>
+              <Icon name="heart-outlined" type="Entypo" style={styles.icon} />
+              <Text style={styles.stats}>{item.likes}</Text>
             </Button>
             <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="commenting-o" type="FontAwesome" style={{ color: Colors.BASE }} />
-              <Text style={{ color: Colors.BASE }}>{this.props.item.comments}</Text>
+              <Icon name="commenting-o" type="FontAwesome" style={styles.icon} />
+              <Text style={styles.stats}>{item.comments}</Text>
             </Button>
             <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="share-2" type="Feather" style={{ color: Colors.BASE }} />
+              <Icon name="share-2" type="Feather" style={styles.icon} />
             </Button>
           </Left>
           <Right>
             <Button
               transparent
               style={{ flexDirection: 'row' }}
-              onPress={this.props.saveButtonPressed}
+              onPress={saveButtonPressed}
             >
               <Icon name="bookmark-o" type="FontAwesome" style={{ color: Colors.BASE }} />
             </Button>
@@ -112,3 +114,8 @@ export default class Post extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  icon: { color: Colors.ICON },
+  stats: { color: Colors.TEXT },
+});

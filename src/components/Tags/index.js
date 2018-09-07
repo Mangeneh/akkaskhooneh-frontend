@@ -25,7 +25,6 @@ export default class Tags extends React.Component {
       maxNumberOfTags,
       inputStyle,
     } = this.props;
-
     return (
       <View style={[styles.container, containerStyle, style]}>
         {this.state.tags.map((tag, i) => (
@@ -56,7 +55,6 @@ export default class Tags extends React.Component {
             tagTextStyle={tagTextStyle}
           />
         ))}
-
         {!readonly
         && maxNumberOfTags > this.state.tags.length && (
           <View style={[styles.textInputContainer]}>

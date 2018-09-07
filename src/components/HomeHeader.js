@@ -9,42 +9,35 @@ import { selectHomePostsIsLoading } from '../reducers/PostsReducer';
 
 class HomeHeader extends Component {
   render() {
+    const { onAddFriendsPress, postsIsLoading, title } = this.props;
     return (
-      <View>
-        <Header androidStatusBarColor={Colors.BASE} style={{ backgroundColor: Colors.BASE }}>
-          <Left style={{
-            flex: 1,
-            marginLeft: 16,
+      <Header androidStatusBarColor={Colors.BASE} style={{ backgroundColor: Colors.BASE }}>
+        <Left style={{
+          flex: 1,
+          marginLeft: 16,
+        }}
+        >
+          <TouchableOpacity onPress={onAddFriendsPress}>
+            <Icon name="user-plus" type="Feather" style={{ color: 'white' }} />
+          </TouchableOpacity>
+        </Left>
+        <Body style={{ flex: 3 }}>
+          <Title style={{
+            alignSelf: 'center',
+            color: 'white',
           }}
           >
-            <TouchableOpacity onPress={this.props.onAddFriendsPress}>
-              <Icon type="Feather" name="user-plus" style={{ color: 'white' }} />
-            </TouchableOpacity>
-          </Left>
-          <Body style={{ flex: 3 }}>
-            <Title style={{
-              alignSelf: 'center',
-              color: 'white',
-            }}
-            >
-              {this.props.title}
-            </Title>
-          </Body>
-          <Right style={{
-            flex: 1,
-            marginRight: 16,
-          }}
-          >
-            {(this.props.postsIsLoading) ? (<ActivityIndicator size="large" />)
-              : (
-                <TouchableOpacity>
-                  <Icon />
-                </TouchableOpacity>
-              )
-            }
-          </Right>
-        </Header>
-      </View>
+            {title}
+          </Title>
+        </Body>
+        <Right style={{
+          flex: 1,
+          marginRight: 16,
+        }}
+        >
+          {(postsIsLoading) ? <ActivityIndicator size="large" /> : <View />}
+        </Right>
+      </Header>
     );
   }
 }
