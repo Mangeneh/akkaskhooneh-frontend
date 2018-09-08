@@ -100,7 +100,7 @@ class PostInfo extends Component {
               <CardItem>
                 <Left>
                   <Button transparent style={{ flexDirection: 'row' }}>
-                    <Icon name={postInfo.is_liked?"heart":"heart-outlined"} type="Entypo" style={{ color: Colors.BASE }}/>
+                    <Icon name={postInfo.is_liked?"heart":"heart-outlined"} type="Entypo" style={{ color: postInfo.is_liked ? 'red' : Colors.BASE }}/>
                     <Text style={{ color: Colors.BASE }}>{postInfo.likes_count}</Text>
                   </Button>
                   <Button transparent style={{ flexDirection: 'row' }}>
