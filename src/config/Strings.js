@@ -60,4 +60,5 @@ export const Strings = {
   DELETE_BOARD_INQUIRY: 'delete_board_inquiry',
   YES: 'yes',
   NO: 'no',
+  SHOW_POST_INFO: 'show_post_info',
 };

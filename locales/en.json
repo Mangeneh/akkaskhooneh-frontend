@@ -60,5 +60,6 @@
   "delete_board_fail": "An Error Occurred While Deleting Board.",
   "delete_board_success": "Board Successfully Deleted.",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "show_post_info": "An Error Occured While Loading Post Info."
 }
