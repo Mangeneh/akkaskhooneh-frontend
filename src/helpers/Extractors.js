@@ -1,6 +1,6 @@
-import {Platform} from "react-native";
+import { Platform } from 'react-native';
 
 export function extractImageSource(image) {
-    const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
-    return imageSource;
+  const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
+  return imageSource;
 }

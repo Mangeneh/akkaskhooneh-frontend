@@ -42,3 +42,14 @@ ext {
     googlePlayServicesVersion = "11.6.2"
     androidMapsUtilsVersion = "0.5+"
 }
+
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 26
+                buildToolsVersion '26.0.3'
+            }
+        }
+    }
+}
