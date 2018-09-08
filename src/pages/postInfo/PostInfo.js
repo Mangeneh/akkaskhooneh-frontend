@@ -152,7 +152,7 @@ class PostInfo extends Component {
             >
               <Item>
                 {this.props.sendCommentLoading
-                  ? <ActivityIndicator size="large" style={{ marginLeft: 16 }} /> : this.renderSendIcon()}
+                  ? <ActivityIndicator size="large" style={{ marginLeft: 12, marginRight: 8 }} /> : this.renderSendIcon()}
                 <Textarea
                   rowSpan={2}
                   placeholder={strings(Strings.COMMENT)}
