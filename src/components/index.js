@@ -11,6 +11,7 @@ import Board from './Board';
 import HomeHeader from './HomeHeader';
 import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import PasswordInstruction from './PasswordInstruction';
+import PostHeader from './PostHeader';
 
 export {
     EmailTextBox,
@@ -25,5 +26,6 @@ export {
     Board,
     HomeHeader,
     SelfBoardsPageHeader,
-    PasswordInstruction
+    PasswordInstruction,
+    PostHeader,
 };

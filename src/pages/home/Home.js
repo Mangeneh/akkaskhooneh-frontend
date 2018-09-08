@@ -66,7 +66,7 @@ class Home extends Component {
             <Post saveButtonPressed={() => {
                 this.showModal();
                 this.props.changeSelectedPostID(item.id);
-            }} item={item}/>
+            }} item={item} top={10} side={8}/>
         );
     }
 

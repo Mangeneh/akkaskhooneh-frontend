@@ -15,7 +15,8 @@ import {
     NewPost,
     AddFriends,
     ProfileEdit,
-    BoardsPage
+    BoardsPage,
+    PostInfo,
 } from './src/pages';
 import {Actions as SignUpCompleteActions} from './src/pages/signUpComplete/actions';
 import {Actions as SignUpActions} from './src/pages/signUp/actions';
@@ -123,9 +124,10 @@ export default class App extends Component {
             <Root>
                 <Provider store={store}>
                     <StyleProvider style={getTheme(commonColor)}>
-                        <RootStack ref={navigatorRef => {
+                        {/* <RootStack ref={navigatorRef => {
                             NavigationService.setTopLevelNavigator(navigatorRef);
-                        }}/>
+                        }}/> */}
+                        < PostInfo />
                     </StyleProvider>
                 </Provider>
             </Root>

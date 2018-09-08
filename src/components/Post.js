@@ -17,7 +17,7 @@ import {Constants, Colors, Fonts} from '../config';
 export default class Post extends Component {
     render() {
         return (
-            <Card style={{borderRadius: Constants.POST_CARD_RADIUS, marginRight: 8, marginLeft: 8, marginTop: 10}}>
+            <Card style={{borderRadius: Constants.POST_CARD_RADIUS, marginRight: this.props.side, marginLeft: this.props.side, marginTop: this.props.top}}>
                 <CardItem style={{borderRadius: Constants.POST_CARD_RADIUS}}>
                     <Left>
                         <Button transparent style={{flexDirection: 'row'}}>
