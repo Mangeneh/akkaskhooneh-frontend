@@ -102,7 +102,7 @@ class Home extends Component {
   }
 
   getSinglePostInfo(id) {
-    const { changeSelectedPostID, getPostInfo } = this.props;
+    const { changeSelectedPostID, getPostInfo, choosePost } = this.props;
     choosePost(id);
     getPostInfo(id)
       .then((response) => {
