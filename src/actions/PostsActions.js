@@ -14,7 +14,13 @@ export const PostsActions = {
   GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL: 'GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL',
   RESET_OTHERS_PHOTOS: 'RESET_OTHERS_PHOTOS',
   GET_POST_INFO: 'FEED_GET_POST_INFO',
+  GET_POST_INFO_SUCCESS: 'FEED_GET_POST_INFO_SUCCESS',
+  GET_POST_INFO_FAIL: 'FEED_GET_POST_INFO_Fail',
 };
+
+export const changeSelectedPhotoForInfo = () => ({
+  type: PostsActions.CHANGE_SELECTED_POST,
+});
 
 export const resetSelfPhotos = () => ({
   type: PostsActions.RESET_SELF_PHOTOS,

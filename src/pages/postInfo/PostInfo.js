@@ -15,9 +15,14 @@ import { Image, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CustomStatusBar, PostHeader } from '../../components';
 import { Colors, Constants } from '../../config';
+import {
+  selectPostInfo,
+} from '../../reducers/PostsReducer';
+import { connect } from 'react-redux';
 
-export default class PostInfo extends Component {
+class PostInfo extends Component {
   render() {
+    const {postInfo} = this.props;
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
@@ -46,7 +51,7 @@ export default class PostInfo extends Component {
                       paddingRight: 8,
                     }}
                     >
-یاسمن جعفری
+                    {postInfo.username}
                     </Text>
                     <Text
                       note
@@ -61,13 +66,13 @@ export default class PostInfo extends Component {
                     <Text />
                   </View>
                   <Thumbnail
-                    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5TH43KjTPkOGsCqmw8hjBcrHO-erQelSZ0FWlA29r0zOoJW92hg' }}
+                    source={{ uri: postInfo.profile_picture }}
                   />
                 </Right>
               </CardItem>
               <CardItem cardBody>
                 <Image
-                  source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5TH43KjTPkOGsCqmw8hjBcrHO-erQelSZ0FWlA29r0zOoJW92hg' }}
+                  source={{ uri: postInfo.picture }}
                   style={{
                     height: 250,
                     width: null,
@@ -85,7 +90,7 @@ export default class PostInfo extends Component {
                       textAlign: 'right',
                     }}
                     >
-همینجوری
+                    {postInfo.caption}
                     </Text>
                     <Text />
                   </Right>
@@ -95,11 +100,11 @@ export default class PostInfo extends Component {
                 <Left>
                   <Button transparent style={{ flexDirection: 'row' }}>
                     <Icon name="heart-outlined" type="Entypo" style={{ color: Colors.BASE }} />
-                    <Text style={{ color: Colors.BASE }}>2</Text>
+                    <Text style={{ color: Colors.BASE }}>{postInfo.likes_count}</Text>
                   </Button>
                   <Button transparent style={{ flexDirection: 'row' }}>
                     <Icon name="commenting-o" type="FontAwesome" style={{ color: Colors.BASE }} />
-                    <Text style={{ color: Colors.BASE }}>4</Text>
+                    <Text style={{ color: Colors.BASE }}>{postInfo.comments_count}</Text>
                   </Button>
                   <Button transparent style={{ flexDirection: 'row' }}>
                     <Icon name="share-2" type="Feather" style={{ color: Colors.BASE }} />
@@ -108,9 +113,7 @@ export default class PostInfo extends Component {
                 <Right>
                   <Button
                     transparent
-                    style={{ flexDirection: 'row' }}
-                    onPress={this.props.saveButtonPressed}
-                  >
+                    style={{ flexDirection: 'row' }} >
                     <Icon name="bookmark-o" type="FontAwesome" style={{ color: Colors.BASE }} />
                   </Button>
                 </Right>
@@ -122,3 +125,9 @@ export default class PostInfo extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  postInfo: selectPostInfo(state),
+});
+
+export default connect(mapStateToProps, null)(PostInfo);

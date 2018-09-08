@@ -13,6 +13,8 @@ const INITIAL_HOME_POSTS_STATE = {
   homePostsNextPage: 1,
   homePostsTotalPages: 1,
   homePostsIsLoading: false,
+  homePostInfo: {},
+  postInfoIsLoading: false,
 };
 
 const INITIAL_OTHERS_PHOTOS_STATE = {
@@ -38,8 +40,24 @@ export default (state = INITIAL_STATE, action) => {
     RESET_HOME_POSTS,
     RESET_OTHERS_PHOTOS,
     RESET_SELF_PHOTOS,
+    CHANGE_SELECTED_POST,
+    GET_POST_INFO,
+    GET_POST_INFO_SUCCESS,
+    GET_POST_INFO_FAIL,
   } = PostsActions;
   switch (action.type) {
+    case GET_POST_INFO:
+      return {
+        ...state,
+        postInfoIsLoading: true,
+      };
+    case GET_POST_INFO_SUCCESS:
+      console.warn(action.payload.data);
+      return {
+        ...state,
+        homePostInfo: action.payload.data,
+        postInfoIsLoading: false,
+      };
     case GET_HOME_POSTS_NEXT_PAGE:
       return {
         ...state,
@@ -88,6 +106,7 @@ export const selectHomePosts = state => state.posts.homePosts;
 export const selectHomePostsNextPage = state => state.posts.homePostsNextPage;
 export const selectHomePostsTotalPages = state => state.posts.homePostsTotalPages;
 export const selectHomePostsIsLoading = state => state.posts.homePostsIsLoading;
+export const selectPostInfo = state => state.posts.homePostInfo;
 
 export const selectOthersPhotos = state => state.posts.othersPhotos;
 export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;
