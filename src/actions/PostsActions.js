@@ -16,6 +16,9 @@ export const PostsActions = {
   GET_POST_INFO: 'FEED_GET_POST_INFO',
   GET_POST_INFO_SUCCESS: 'FEED_GET_POST_INFO_SUCCESS',
   GET_POST_INFO_FAIL: 'FEED_GET_POST_INFO_Fail',
+  LIKE_OR_DISLIKE: 'LIKE_OR_DISLIKE',
+  LIKE_OR_DISLIKE_SUCCESS: 'LIKE_OR_DISLIKE_SUCCESS',
+  LIKE_OR_DISLIKE_FAIL: 'LIKE_OR_DISLIKE_FAIL',
 };
 
 export const changeSelectedPhotoForInfo = () => ({
@@ -56,6 +59,20 @@ export const getPostInfo = selectedPostID => ({
     request: {
       method: RequestMethods.GET,
       url: `${Server.GET_POST_INFO}${selectedPostID}/`,
+    },
+  },
+});
+
+export const sendLikeOrDislike = selectedPostID => ({
+  type: PostsActions.LIKE_OR_DISLIKE,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.LIKE_DISLIKE,
+      date:
+      {
+        post_id: selectedPostID,
+      },
     },
   },
 });

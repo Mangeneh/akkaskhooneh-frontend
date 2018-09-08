@@ -12,6 +12,7 @@ import {
   resetSelfBoards,
   selectedPostChanged,
   getPostInfo,
+  sendLikeOrDislike,
 } from '../../actions';
 import { HomeHeader } from '../../components';
 import AddBoardModal from '../../components/AddBoardModal';
@@ -77,15 +78,29 @@ class Home extends Component {
           this.showModal();
           changeSelectedPostID(item.id);
         }}
+        onLikePressed={() => this.likeOrDislike(item.id)}
         onCommentOrPicPressed={() => { this.getSinglePostInfo(item.id); }}
         item={item}
       />
     );
   }
 
+  likeOrDislike(id) {
+    const { sendLikeOrDislike } = this.props;
+    sendLikeOrDislike(id)
+      .then((response) => {
+        console.warn(response);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  }
+
   getSinglePostInfo(id) {
+    const { changeSelectedPostID } = this.props;
     this.props.getPostInfo(id)
       .then((response) => {
+        changeSelectedPostID(id);
         NavigationService.navigate(Pages.POST_INFO_PAGE);
       })
       .catch((error) => {
@@ -237,6 +252,7 @@ const mapDispatchToProps = dispatch => ({
   getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
   addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
   getPostInfo: postID => dispatch(getPostInfo(postID)),
+  sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

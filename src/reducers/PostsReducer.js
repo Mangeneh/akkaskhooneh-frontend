@@ -52,7 +52,6 @@ export default (state = INITIAL_STATE, action) => {
         postInfoIsLoading: true,
       };
     case GET_POST_INFO_SUCCESS:
-      console.warn(action.payload.data);
       return {
         ...state,
         homePostInfo: action.payload.data,
