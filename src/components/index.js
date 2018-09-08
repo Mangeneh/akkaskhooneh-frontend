@@ -10,6 +10,7 @@ import PasswordInstruction from './PasswordInstruction';
 import PasswordTextBox from './PasswordTextBox';
 import PostHeader from './PostHeader';
 import ProfileHeader from './ProfileHeader';
+import ProfilePageImageItem from './ProfilePageImageItem';
 import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import SpinnerButton from './SpinnerButton';
 import Tags from './Tags';
@@ -30,4 +31,5 @@ export {
   PasswordInstruction,
   PostHeader,
   CameraRollPicker,
+  ProfilePageImageItem,
 };
