@@ -28,10 +28,10 @@ import {
 
 class Login extends Component {
   componentDidMount() {
-    this.animation.play(0, 106);
-    this.interval = setInterval(() => {
-      this.animation.play(0, 106);
-    }, 5000);
+    // this.animation.play();
+    // this.interval = setInterval(() => {
+    //   this.animation.play();
+    // }, 5000);
   }
 
   componentWillUnmount() {
@@ -112,17 +112,24 @@ class Login extends Component {
         justifyContent: 'center',
       }}
       >
-        <LottieView
-          ref={(animation) => {
-            this.animation = animation;
-          }}
-          source={require('../../assets/animations/foto_icon_')}
-          loop={false}
-          style={{ width: 300 }}
-        />
+        {this.renderAnimation()}
         <Text style={styles.text}>{strings('app_name')}</Text>
       </View>
     );
+  }
+
+  renderAnimation() {
+    return null;
+    // return (
+    //   <LottieView
+    //     ref={(animation) => {
+    //       this.animation = animation;
+    //     }}
+    //     source={require('../../assets/animations/foto_icon_')}
+    //     loop={false}
+    //     style={{ width: 300 }}
+    //   />
+    // );
   }
 
   renderOtherLoginSection() {
