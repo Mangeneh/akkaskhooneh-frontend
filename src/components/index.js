@@ -8,26 +8,26 @@ import FullStatusBar from './FullStatusBar';
 import HomeHeader from './HomeHeader';
 import PasswordInstruction from './PasswordInstruction';
 import PasswordTextBox from './PasswordTextBox';
+import PostHeader from './PostHeader';
 import ProfileHeader from './ProfileHeader';
 import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import SpinnerButton from './SpinnerButton';
 import Tags from './Tags';
-import PostHeader from './PostHeader';
 
 export {
-    EmailTextBox,
-    BackHeader,
-    PasswordTextBox,
-    ProfileHeader,
-    CustomLongTextBox,
-    SpinnerButton,
-    FullStatusBar,
-    CustomStatusBar,
-    Tags,
-    Board,
-    HomeHeader,
-    SelfBoardsPageHeader,
-    PasswordInstruction,
-    PostHeader,
-    CameraRollPicker,
+  EmailTextBox,
+  BackHeader,
+  PasswordTextBox,
+  ProfileHeader,
+  CustomLongTextBox,
+  SpinnerButton,
+  FullStatusBar,
+  CustomStatusBar,
+  Tags,
+  Board,
+  HomeHeader,
+  SelfBoardsPageHeader,
+  PasswordInstruction,
+  PostHeader,
+  CameraRollPicker,
 };

@@ -12,11 +12,13 @@ export const BoardsActions = {
   GET_OTHERS_BOARDS_NEXT_PAGE_SUCCESS: 'GET_OTHERS_BOARDS_NEXT_PAGE_SUCCESS',
   GET_OTHERS_BOARDS_NEXT_PAGE_FAIL: 'GET_OTHERS_BOARDS_NEXT_PAGE_FAIL',
   RESET_OTHERS_BOARDS: 'RESET_OTHERS_BOARDS',
-  CHANGE_SELECTED_BOARD_ID: 'FEED_ADD_CHANGE_SELECTED_BOARD_ID',
   CHANGE_SELECTED_POST_ID: 'FEED_ADD_CHANGE_SELECTED_POST_ID',
   CREATE_BOARD_FAIL: 'CREATE_BOARD_FAIL',
   CREATE_BOARD_SUCCESS: 'CREATE_BOARD_SUCCESS',
   CREATE_BOARD: 'CREATE_BOARD',
+  DELETE_BOARD: 'DELETE_BOARD',
+  DELETE_BOARD_SUCCESS: 'DELETE_BOARD_SUCCESS',
+  DELETE_BOARD_FAIL: 'DELETE_BOARD_FAIL',
 };
 
 export const resetSelfBoards = () => ({
@@ -60,6 +62,19 @@ export const createBoard = boardName => ({
       url: Server.CREATE_BOARD,
       data: {
         name: boardName,
+      },
+    },
+  },
+});
+
+export const deleteBoard = boardID => ({
+  type: BoardsActions.DELETE_BOARD,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.DELETE_BOARD,
+      data: {
+        id: boardID,
       },
     },
   },

@@ -1,33 +1,32 @@
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
 import axios from 'axios';
-import axiosMiddleware from 'redux-axios-middleware';
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Root, StyleProvider } from 'native-base';
-import rootReducer from './src/reducers';
+import React, { Component } from 'react';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import axiosMiddleware from 'redux-axios-middleware';
+import getTheme from './native-base-theme/components';
+import commonColor from './native-base-theme/variables/commonColor';
+import { accessTokenUpdated } from './src/actions/UserInfoActions';
+import { Pages } from './src/config';
+import NavigationService from './src/NavigationService';
 import {
-  Login,
-  SignUp,
-  SignUpComplete,
-  Main,
-  AddPostInfo,
-  NewPost,
   AddFriends,
-  ProfileEdit,
+  AddPostInfo,
   BoardsPage,
   ChangePass,
+  Login,
+  Main,
+  NewPost,
+  ProfileEdit,
   ProfileSettings,
-  PostInfo,
+  SignUp,
+  SignUpComplete,
 } from './src/pages';
-import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
 import { Actions as SignUpActions } from './src/pages/signUp/actions';
-import { accessTokenUpdated } from './src/actions/UserInfoActions';
-import NavigationService from './src/NavigationService';
-import { Pages } from './src/config';
-import commonColor from './native-base-theme/variables/commonColor';
-import getTheme from './native-base-theme/components';
+import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
+import rootReducer from './src/reducers';
 
 const client = axios.create({
   baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000

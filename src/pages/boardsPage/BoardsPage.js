@@ -28,8 +28,7 @@ class BoardsPage extends Component {
         <SelfBoardsPageHeader
           boardName={this.props.navigation.getParam('board').name}
           onBackPress={() => this.props.navigation.goBack()}
-          onDeletPress={() => {
-          }}
+          onDeletPress={() => this.deleteBoard()}
           onAddPress={() => {
           }}
         />
@@ -68,10 +67,17 @@ class BoardsPage extends Component {
   }
 
   updatePhotos() {
-    if (this.props.boardsPhotosNextPage <= this.props.boardsPhotosTotalPages
-      && !this.props.boardsPhotosIsLoading) {
-      this.props.getBoardsPhotosNextPage(this.props.navigation.getParam('board').id, this.props.boardsPhotosNextPage);
+    const {
+      boardsPhotosNextPage, boardsPhotosTotalPages, boardsPhotosIsLoading, getBoardsPhotosNextPage, navigation,
+    } = this.props;
+    if (boardsPhotosNextPage <= boardsPhotosTotalPages
+      && !boardsPhotosIsLoading) {
+      getBoardsPhotosNextPage(navigation.getParam('board').id, boardsPhotosNextPage);
     }
+  }
+
+  deleteBoard() {
+
   }
 }
 
