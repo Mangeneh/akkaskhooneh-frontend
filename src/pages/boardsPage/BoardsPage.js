@@ -1,17 +1,13 @@
+import { Body, Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  Dimensions,
-  FlatList,
-  Image,
-  StyleSheet,
-  View,
+  ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, View,
 } from 'react-native';
+import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import { deleteBoard, refreshBoards } from '../../actions';
 import { CustomStatusBar, SelfBoardsPageHeader } from '../../components';
-import { Strings } from '../../config';
+import { Colors, Strings } from '../../config';
 import { showFailiureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
 import { selectSelfUsername } from '../../reducers/UserInfoReducer';
@@ -29,6 +25,12 @@ class BoardsPage extends Component {
   constructor(props) {
     super(props);
     this.updatePhotos();
+    this.state = {
+      isOpen: false,
+      isDisabled: false,
+      swipeToClose: true,
+      sliderValue: 0.3,
+    };
   }
 
   render() {
@@ -42,6 +44,47 @@ class BoardsPage extends Component {
           onAddPress={() => {
           }}
         />
+        <Modal
+          style={{
+            width: 300,
+            height: 100,
+            borderRadius: 5,
+            justifyContent: 'center',
+          }}
+          position="center"
+          ref="modal"
+          backButtonClose
+        >
+          <Text style={styles.modalHeader}>
+            {strings(Strings.DELETE_BOARD_INQUIRY)}
+          </Text>
+          <View style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            borderColor: Colors.ICON,
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+            borderWidth: 0.5,
+          }}
+          >
+            <Button transparent style={styles.modalButton}>
+              <Body>
+                <Text style={styles.modalButtonText}>{strings(Strings.NO)}</Text>
+              </Body>
+            </Button>
+            <View style={{
+              width: 0.5,
+              backgroundColor: Colors.ICON,
+            }}
+            />
+            <Button transparent style={styles.modalButton}>
+              <Body>
+                <Text style={styles.modalButtonText}>{strings(Strings.YES)}</Text>
+              </Body>
+            </Button>
+          </View>
+        </Modal>
         {(this.props.boardsIsLoading) ? (<ActivityIndicator size="large" />)
           : (
             <FlatList
@@ -87,21 +130,7 @@ class BoardsPage extends Component {
   }
 
   confirmDeleteBoard() {
-    Alert.alert(
-      '',
-      strings(Strings.DELETE_BOARD_INQUIRY),
-      [
-        {
-          text: strings(Strings.NO),
-          style: 'cancel',
-        },
-        {
-          text: strings(Strings.YES),
-          onPress: () => this.deleteBoard(),
-        },
-      ],
-      { cancelable: true },
-    );
+    this.refs.modal.open();
   }
 
   deleteBoard() {
@@ -120,6 +149,19 @@ class BoardsPage extends Component {
 }
 
 const styles = StyleSheet.create({
+  modalHeader: {
+    flex: 1,
+    textAlign: 'center',
+    alignSelf: 'center',
+    marginTop: 15,
+    color: Colors.ICON,
+  },
+  modalButton: {
+    flex: 1,
+  },
+  modalButtonText: {
+    color: Colors.ICON,
+  },
   evenPhoto: {
     justifyContent: 'flex-start',
     marginRight: 4,
