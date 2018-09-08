@@ -163,7 +163,7 @@ class PostInfo extends Component {
                     width: '80%',
                     borderRadius: Constants.TEXT_BOX_RADIUS,
                     marginLeft: 8,
-                    marginRight: 16,
+                    marginRight: this.props.sendCommentLoading ? 8 : 16,
                     marginTop: 8,
                     marginBottom: 8,
                   }}
@@ -197,7 +197,13 @@ class PostInfo extends Component {
 
   sendComment() {
     const { commentOnPost, postId } = this.props;
-    commentOnPost(postId, this.state.commentText);
+    commentOnPost(postId, this.state.commentText)
+      .then((response) => {
+        console.warn('SUCCESS');
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
   }
 }
 
