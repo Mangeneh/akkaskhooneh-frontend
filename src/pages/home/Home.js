@@ -5,6 +5,7 @@ import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import {
   addPostToBoard,
+  choosePost,
   createBoard,
   getHomePostsNextPage,
   getPostInfo,
@@ -36,12 +37,11 @@ class Home extends Component {
     this.updatePosts();
     this.state = {
       newBoardName: '',
-      visibleModal: false,
     };
   }
 
   render() {
-    const { newBoardName, visibleModal } = this.state;
+    const { newBoardName } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <HomeHeader
@@ -90,13 +90,14 @@ class Home extends Component {
   }
 
   likeOrDislike(id) {
-    const { sendLikeOrDislike } = this.props;
+    const { sendLikeOrDislike, choosePost } = this.props;
+    choosePost(id);
     sendLikeOrDislike(id)
       .then((response) => {
-        console.warn(response);
+
       })
       .catch((error) => {
-        console.warn(error);
+
       });
   }
 
@@ -213,7 +214,6 @@ class Home extends Component {
       position: 'bottom',
       type: 'danger',
     });
-    this.setState({ visibleModal: false });
   }
 
   onCreateBoardSuccess(response) {
@@ -223,7 +223,6 @@ class Home extends Component {
       position: 'bottom',
       type: 'success',
     });
-    this.setState({ visibleModal: false });
     this.addNewPostToBoard(response.payload.data.id);
   }
 
@@ -257,6 +256,7 @@ const mapDispatchToProps = dispatch => ({
   addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
   getPostInfo: postID => dispatch(getPostInfo(postID)),
   sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
+  choosePost: postID => dispatch(choosePost(postID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

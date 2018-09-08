@@ -1,6 +1,8 @@
 import { Text } from 'native-base';
 import React, { Component } from 'react';
-import { ActivityIndicator, CameraRoll, FlatList, Platform, StyleSheet, View, } from 'react-native';
+import {
+  ActivityIndicator, CameraRoll, FlatList, Platform, StyleSheet, View,
+} from 'react-native';
 import { Colors, Strings } from '../../config';
 import { strings } from '../../i18n';
 
@@ -25,7 +27,7 @@ class CameraRollPicker extends Component {
     if (initialLoading) {
       return (
         <View style={styles.loader}>
-          <ActivityIndicator/>
+          <ActivityIndicator />
         </View>
       );
     }
@@ -35,7 +37,7 @@ class CameraRollPicker extends Component {
         removeClippedSubviews
         onEndReachedThreshold={0.5}
         numColumns={3}
-        keyExtractor={(item) => item.uri}
+        keyExtractor={item => item.uri}
         renderFooter={() => this.renderFooterSpinner()}
         onEndReached={() => this.onEndReached()}
         data={images}
@@ -69,7 +71,7 @@ class CameraRollPicker extends Component {
   renderFooterSpinner() {
     const { noMore } = this.state;
     if (!noMore) {
-      return <ActivityIndicator/>;
+      return <ActivityIndicator />;
     }
     return null;
   }

@@ -17,7 +17,9 @@ import { Colors, Constants, Graphics } from '../config';
 
 export default class Post extends Component {
   render() {
-    const { saveButtonPressed, item } = this.props;
+    const {
+      saveButtonPressed, item, onCommentOrPicPressed, onLikePressed,
+    } = this.props;
     return (
       <Card style={{
         borderRadius: Graphics.POST_CARD_RADIUS,
@@ -63,7 +65,7 @@ export default class Post extends Component {
             <Thumbnail source={{ uri: item.profile_picture }} />
           </Right>
         </CardItem>
-        <TouchableOpacity onPress={this.props.onCommentOrPicPressed} activeOpacity={0.5}>
+        <TouchableOpacity onPress={onCommentOrPicPressed} activeOpacity={0.5}>
           <CardItem cardBody>
             <FastImage
               source={{ uri: item.post_picture }}
@@ -90,14 +92,14 @@ export default class Post extends Component {
         </CardItem>
         <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
           <Left>
-            <Button transparent style={{ flexDirection: 'row' }} onPress={this.props.onLikePressed}>
+            <Button transparent style={{ flexDirection: 'row' }} onPress={onLikePressed}>
               <Icon name="heart-outlined" type="Entypo" style={styles.icon} />
               <Text style={styles.stats}>{item.likes}</Text>
             </Button>
             <Button
               transparent
               style={{ flexDirection: 'row' }}
-              onPress={this.props.onCommentOrPicPressed}
+              onPress={onCommentOrPicPressed}
             >
               <Icon name="commenting-o" type="FontAwesome" style={styles.icon} />
               <Text style={styles.stats}>{item.comments}</Text>

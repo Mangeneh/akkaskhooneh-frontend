@@ -8,31 +8,38 @@ import {
   Left,
   Right,
   Text,
-  Thumbnail,
-  Input,
   Textarea,
+  Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { View, SafeAreaView, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, SafeAreaView, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { CustomStatusBar, PostHeader } from '../../components';
-import { Colors, Constants, Strings, Graphics } from '../../config';
-import { selectPostInfo, selectCommentLoading } from '../../reducers/PostsReducer';
-import { strings } from '../../i18n';
-import { TextBoxStyle } from '../../styles';
 import { sendComment } from '../../actions';
+import { CustomStatusBar, PostHeader } from '../../components';
+import { Colors, Constants, Strings } from '../../config';
+import { strings } from '../../i18n';
+import {
+  selectChosenPostID,
+  selectCommentLoading,
+  selectPostInfo,
+} from '../../reducers/PostsReducer';
 
 class PostInfo extends Component {
   state = {
     commentText: '',
-  }
+  };
+
   render() {
     const { commentText } = this.state;
     const { postInfo } = this.props;
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <SafeAreaView style={{
+        flex: 1,
+        backgroundColor: 'white',
+      }}
+      >
         <PostHeader onBackPress={() => this.props.navigation.navigate('Main')} />
         <CustomStatusBar />
         <KeyboardAwareScrollView
@@ -69,7 +76,7 @@ class PostInfo extends Component {
                       >
                         ۲ ساعت
                         پیش
-                    </Text>
+                      </Text>
                       <Text />
                     </View>
                     <Thumbnail
@@ -133,18 +140,32 @@ class PostInfo extends Component {
                 </CardItem>
               </Card>
             </View>
-            <View style={{ flex: 4 }}>
-
-            </View>
-            <View style={{ backgroundColor: Colors.LIGHT_GRAY, flex: 1, justifyContent: 'flex-end', alignSelf: 'center', width: '100%', height: 46 }}>
+            <View style={{ flex: 4 }} />
+            <View style={{
+              backgroundColor: Colors.LIGHT_GRAY,
+              flex: 1,
+              justifyContent: 'flex-end',
+              alignSelf: 'center',
+              width: '100%',
+              height: 46,
+            }}
+            >
               <Item>
-                {this.props.sendCommentLoading ? <ActivityIndicator size="large" /> : this.renderSendIcon()}
+                {this.props.sendCommentLoading
+                  ? <ActivityIndicator size="large" /> : this.renderSendIcon()}
                 <Textarea
                   rowSpan={2}
                   placeholder={strings(Strings.COMMENT)}
                   style={{
-                    backgroundColor: 'white', textAlign: 'right', fontSize: Constants.ITEM_FONT_SIZE, width: '80%',
-                    borderRadius: Constants.TEXT_BOX_RADIUS, marginLeft: 8, marginRight: 16, marginTop: 8, marginBottom: 8
+                    backgroundColor: 'white',
+                    textAlign: 'right',
+                    fontSize: Constants.ITEM_FONT_SIZE,
+                    width: '80%',
+                    borderRadius: Constants.TEXT_BOX_RADIUS,
+                    marginLeft: 8,
+                    marginRight: 16,
+                    marginTop: 8,
+                    marginBottom: 8,
                   }}
                   value={commentText}
                   onChangeText={(commentText) => {
@@ -161,7 +182,14 @@ class PostInfo extends Component {
 
   renderSendIcon() {
     return (
-      <Button transparent style={{ justifyContent: 'flex-end', alignSelf: 'center' }} onPress={this.sendComment}>
+      <Button
+        transparent
+        style={{
+          justifyContent: 'flex-end',
+          alignSelf: 'center',
+        }}
+        onPress={() => this.sendComment()}
+      >
         <Icon name="send" type="FontAwesome" style={{ color: Colors.ACCENT }} />
       </Button>
     );
@@ -172,7 +200,6 @@ class PostInfo extends Component {
     commentOnPost(postId, this.state.commentText);
   }
 }
-
 
 const mapStateToProps = state => ({
   postInfo: selectPostInfo(state),

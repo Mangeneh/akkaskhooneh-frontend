@@ -13,6 +13,7 @@ export const PostsActions = {
   GET_OTHERS_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_OTHERS_PHOTOS_NEXT_PAGE_SUCCESS',
   GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL: 'GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL',
   RESET_OTHERS_PHOTOS: 'RESET_OTHERS_PHOTOS',
+  CHOOSE_POST: 'CHOOSE_POST',
   GET_POST_INFO: 'FEED_GET_POST_INFO',
   GET_POST_INFO_SUCCESS: 'FEED_GET_POST_INFO_SUCCESS',
   GET_POST_INFO_FAIL: 'FEED_GET_POST_INFO_Fail',
@@ -24,16 +25,17 @@ export const PostsActions = {
   COMMENT_FAIL: 'COMMENT_FAIL',
 };
 
-export const changeSelectedPhotoForInfo = () => ({
-  type: PostsActions.CHANGE_SELECTED_POST,
-});
-
 export const resetSelfPhotos = () => ({
   type: PostsActions.RESET_SELF_PHOTOS,
 });
 
 export const resetHomePosts = () => ({
   type: PostsActions.RESET_HOME_POSTS,
+});
+
+export const choosePost = postID => ({
+  type: PostsActions.CHOOSE_POST,
+  payload: postID,
 });
 
 export const getSelfPhotosNextPage = photosNext => ({
@@ -72,10 +74,9 @@ export const sendLikeOrDislike = selectedPostID => ({
     request: {
       method: RequestMethods.POST,
       url: Server.LIKE_DISLIKE,
-      data:
-        {
-          post_id: selectedPostID,
-        },
+      data: {
+        post_id: selectedPostID,
+      },
     },
   },
 });

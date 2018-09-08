@@ -29,6 +29,7 @@ const INITIAL_STATE = {
   ...INITIAL_SELF_PHOTOS_STATE,
   ...INITIAL_HOME_POSTS_STATE,
   ...INITIAL_OTHERS_PHOTOS_STATE,
+  chosenPostID: 0,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -41,13 +42,14 @@ export default (state = INITIAL_STATE, action) => {
     RESET_HOME_POSTS,
     RESET_OTHERS_PHOTOS,
     RESET_SELF_PHOTOS,
-    CHANGE_SELECTED_POST,
     GET_POST_INFO,
     GET_POST_INFO_SUCCESS,
     GET_POST_INFO_FAIL,
     COMMENT,
     COMMENT_SUCCESS,
     COMMENT_FAIL,
+    CHOOSE_POST,
+    LIKE_OR_DISLIKE_SUCCESS,
   } = PostsActions;
   switch (action.type) {
     case COMMENT:
@@ -97,6 +99,24 @@ export default (state = INITIAL_STATE, action) => {
         selfPhotosTotalPages: action.payload.data.total_pages,
         selfPhotosIsLoading: false,
       };
+    case CHOOSE_POST:
+      return {
+        ...state,
+        chosenPostID: action.payload,
+      };
+    case LIKE_OR_DISLIKE_SUCCESS:
+      const chosenPost = state.homePosts.find(post => post.id === state.chosenPostID);
+      const chosenPostIndex = state.homePosts.indexOf(chosenPost);
+      const newLikes = chosenPost.likes + (action.payload.data.liked ? 1 : -1);
+      const newPost = {
+        ...chosenPost,
+        likes: newLikes,
+      };
+      const newHomePosts = [...state.homePosts.slice(0, chosenPostIndex), newPost, ...state.homePosts.slice(chosenPostIndex + 1)];
+      return {
+        ...state,
+        homePosts: newHomePosts,
+      };
     case RESET_SELF_PHOTOS:
       return { ...state, ...INITIAL_SELF_PHOTOS_STATE };
     case RESET_HOME_POSTS:
@@ -126,3 +146,5 @@ export const selectOthersPhotos = state => state.posts.othersPhotos;
 export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;
 export const selectOthersPhotosTotalPages = state => state.posts.othersPhotosTotalPages;
 export const selectOthersPhotosIsLoading = state => state.posts.othersPhotosIsLoading;
+
+export const selectChosenPostID = state => state.posts.chosenPostID;
