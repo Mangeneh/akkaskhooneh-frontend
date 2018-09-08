@@ -1,7 +1,7 @@
 import { Button, Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
-import Modal from 'react-native-modal';
+import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import {
   addPostToBoard,
@@ -48,15 +48,17 @@ class Home extends Component {
           onAddFriendsPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
           title={strings(Strings.APP_NAME)}
         />
-        {this.renderContent()}
         <Modal
-          isVisible={visibleModal}
-          onBackdropPress={() => this.setState({ visibleModal: false })}
-          onModalHide={() => this.setState({ newBoardName: '' })}
-          animationIn="zoomInDown"
-          animationOut="zoomOutUp"
-          animationInTiming={250}
-          animationOutTiming={250}
+          style={{
+            width: 300,
+            height: null,
+            borderRadius: 5,
+            justifyContent: 'center',
+          }}
+          position="center"
+          ref="modal"
+          backButtonClose
+          coverScreen
         >
           <AddBoardModal
             newBoardName={newBoardName}
@@ -65,6 +67,7 @@ class Home extends Component {
             onBoardNamePressed={selectedBoardID => this.addNewPostToBoard(selectedBoardID)}
           />
         </Modal>
+        {this.renderContent()}
       </View>
     );
   }
@@ -187,7 +190,7 @@ class Home extends Component {
   }
 
   showModal() {
-    this.setState({ visibleModal: true });
+    this.refs.modal.open();
   }
 
   onAddPress() {
@@ -231,7 +234,7 @@ class Home extends Component {
       })
       .catch((error) => {
       });
-    this.setState({ visibleModal: false });
+    this.refs.modal.close();
   }
 }
 
