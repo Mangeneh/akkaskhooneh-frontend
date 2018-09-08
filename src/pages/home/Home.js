@@ -102,8 +102,9 @@ class Home extends Component {
   }
 
   getSinglePostInfo(id) {
-    const { changeSelectedPostID } = this.props;
-    this.props.getPostInfo(id)
+    const { changeSelectedPostID, getPostInfo } = this.props;
+    choosePost(id);
+    getPostInfo(id)
       .then((response) => {
         changeSelectedPostID(id);
         NavigationService.navigate(Pages.POST_INFO_PAGE);
@@ -120,7 +121,8 @@ class Home extends Component {
 
   renderContent() {
     const { posts, postsIsLoading } = this.props;
-    return (posts.length === 0 && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
+    return (posts.length === 0
+    && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
   }
 
   updatePosts() {
