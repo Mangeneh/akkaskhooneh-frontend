@@ -3,5 +3,6 @@ export const Graphics = {
   BOX_ELEVATION: 1,
   BOX_FONT_SIZE: 14,
   POST_CARD_RADIUS: 8,
+  PHOTO_RADIUS: 5,
   TEXT_NORMAL_SIZE: 14,
 };

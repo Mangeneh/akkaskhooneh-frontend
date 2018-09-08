@@ -1,9 +1,6 @@
 import { Container, Tab, Tabs } from 'native-base';
 import React, { Component } from 'react';
-import {
-  ActivityIndicator, Dimensions, FlatList, StyleSheet, View,
-} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import {
   getSelfBoardsNextPage,
@@ -11,7 +8,9 @@ import {
   resetSelfBoards,
   resetSelfPhotos,
 } from '../../actions';
-import { Board, CustomStatusBar, ProfileHeader } from '../../components';
+import {
+  Board, CustomStatusBar, ProfileHeader, ProfilePageImageItem,
+} from '../../components';
 import { Colors, Pages, Strings } from '../../config';
 import { SelfProfileInfo } from '../../containers';
 import { strings } from '../../i18n';
@@ -30,8 +29,6 @@ import {
 } from '../../reducers/PostsReducer';
 import { selectSelfUsername } from '../../reducers/UserInfoReducer';
 
-const WIDTH = Dimensions.get('window').width;
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -44,11 +41,14 @@ class Profile extends Component {
   }
 
   render() {
+    const {
+      username, resetSelfBoards, getBoardsNextPage, boardsIsLoading, boards, postsIsLoading, resetSelfPhotos, getPhotosNextPage, photosIsLoading, photos,
+    } = this.props;
     return (
       <Container>
         <CustomStatusBar />
         <ProfileHeader
-          username={this.props.username}
+          username={username}
           onEditPress={() => this.onEditPress()}
           onSettingsPress={() => this.onSettingsPress()}
         />
@@ -67,7 +67,9 @@ class Profile extends Component {
             <SelfProfileInfo />
           </View>
           <Tabs
-            ref={(component) => { this.tabs = component; }}
+            ref={(component) => {
+              this.tabs = component;
+            }}
             tabBarUnderlineStyle={{ backgroundColor: Colors.ACCENT }}
             initialPage={1}
             locked
@@ -92,20 +94,20 @@ class Profile extends Component {
               >
                 <FlatList
                   onRefresh={() => {
-                    this.props.resetSelfBoards();
-                    this.props.getBoardsNextPage(1);
+                    resetSelfBoards();
+                    getBoardsNextPage(1);
                   }}
-                  refreshing={this.props.boardsIsLoading}
+                  refreshing={boardsIsLoading}
                   onEndReached={() => this.updateBoards()}
                   style={{
                     width: '100%',
                     marginTop: 8,
                   }}
                   keyExtractor={(item, index) => item.id.toString()}
-                  data={this.props.boards}
+                  data={boards}
                   renderItem={({ item, index }) => this.renderBoard(item, index)}
                 />
-                {(this.props.postsIsLoading) ? (<ActivityIndicator size="large" />) : <View />}
+                {(postsIsLoading) ? (<ActivityIndicator size="large" />) : <View />}
               </View>
             </Tab>
             <Tab
@@ -124,25 +126,25 @@ class Profile extends Component {
               <View style={{
                 backgroundColor: Colors.WHITE_BACK,
                 flex: 1,
+                paddingLeft: 8,
               }}
               >
                 <FlatList
                   onRefresh={() => {
-                    this.props.resetSelfPhotos();
-                    this.props.getPhotosNextPage(1);
+                    resetSelfPhotos();
+                    getPhotosNextPage(1);
                   }}
-                  refreshing={this.props.photosIsLoading}
+                  refreshing={photosIsLoading}
                   onEndReached={() => this.updatePhotos()}
                   style={{
-                    width: '100%',
+                    flex: 1,
                     marginTop: 8,
                   }}
                   numColumns={2}
                   keyExtractor={(item, index) => item.id}
-                  data={this.props.photos}
+                  data={photos}
                   renderItem={({ item, index }) => this.renderPhoto(item, index)}
                 />
-                {(this.props.photosIsLoading) ? (<ActivityIndicator size="large" />) : <View />}
               </View>
             </Tab>
           </Tabs>
@@ -153,28 +155,32 @@ class Profile extends Component {
 
   renderPhoto(item, index) {
     return (
-      <View style={index % 2 === 0 ? styles.evenPhoto : styles.oddPhoto}>
-        <FastImage
-          source={{ uri: item.picture }}
-          resizeMode={FastImage.resizeMode.contain}
-          style={{
-            width: WIDTH / 2 - 12,
-            height: WIDTH / 2 - 12,
-          }}
-        />
-      </View>
+      <ProfilePageImageItem
+        image={item}
+        onPress={image => this.showPostInfoPage(image)}
+      />
     );
   }
 
+  showPostInfoPage(image) {
+
+  }
+
   updatePhotos() {
-    if (this.props.photosNextPage <= this.props.photosTotalPages && !this.props.photosIsLoading) {
-      this.props.getPhotosNextPage(this.props.photosNextPage);
+    const {
+      photosNextPage, photosTotalPages, getPhotosNextPage, photosIsLoading,
+    } = this.props;
+    if (photosNextPage <= photosTotalPages && !photosIsLoading) {
+      getPhotosNextPage(photosNextPage);
     }
   }
 
   updateBoards() {
-    if (this.props.boardsNextPage <= this.props.boardsTotalPages && !this.props.boardsIsLoading) {
-      this.props.getBoardsNextPage(this.props.boardsNextPage);
+    const {
+      boardsNextPage, getBoardsNextPage, boardsTotalPages, boardsIsLoading,
+    } = this.props;
+    if (boardsNextPage <= boardsTotalPages && !boardsIsLoading) {
+      getBoardsNextPage(boardsNextPage);
     }
   }
 
@@ -196,25 +202,6 @@ class Profile extends Component {
     NavigationService.navigate(Pages.BOARDS_PAGE, { board: item });
   }
 }
-
-const styles = StyleSheet.create({
-  evenPhoto: {
-    justifyContent: 'flex-start',
-    marginRight: 4,
-    marginLeft: 8,
-    marginBottom: 8,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  oddPhoto: {
-    justifyContent: 'flex-start',
-    marginBottom: 8,
-    marginRight: 8,
-    marginLeft: 4,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-});
 
 const mapStateToProps = state => ({
   username: selectSelfUsername(state),
