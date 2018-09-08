@@ -17,4 +17,6 @@ export const Server = {
   DELETE_BOARD: '/social/deleteboard/',
   GET_POST_INFO: '/social/post/',
   LIKE_DISLIKE: '/social/like/',
+  GET_COMMENTS: '',
+  COMMENT: '/social/comments/', //post_id, content
 };

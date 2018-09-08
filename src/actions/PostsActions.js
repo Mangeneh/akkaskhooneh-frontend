@@ -19,6 +19,9 @@ export const PostsActions = {
   LIKE_OR_DISLIKE: 'LIKE_OR_DISLIKE',
   LIKE_OR_DISLIKE_SUCCESS: 'LIKE_OR_DISLIKE_SUCCESS',
   LIKE_OR_DISLIKE_FAIL: 'LIKE_OR_DISLIKE_FAIL',
+  COMMENT: 'COMMENT',
+  COMMENT_SUCCESS: 'COMMENT_SUCCESS',
+  COMMENT_FAIL: 'COMMENT_FAIL',
 };
 
 export const changeSelectedPhotoForInfo = () => ({
@@ -72,6 +75,21 @@ export const sendLikeOrDislike = selectedPostID => ({
       data:
         {
           post_id: selectedPostID,
+        },
+    },
+  },
+});
+
+export const sendComment = (selectedPostID, commentText) => ({
+  type: PostsActions.COMMENT,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.COMMENT,
+      data:
+        {
+          post_id: selectedPostID,
+          content: commentText,
         },
     },
   },

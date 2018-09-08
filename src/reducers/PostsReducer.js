@@ -15,6 +15,7 @@ const INITIAL_HOME_POSTS_STATE = {
   homePostsIsLoading: false,
   homePostInfo: {},
   postInfoIsLoading: false,
+  sendCommentLoading: false,
 };
 
 const INITIAL_OTHERS_PHOTOS_STATE = {
@@ -44,8 +45,21 @@ export default (state = INITIAL_STATE, action) => {
     GET_POST_INFO,
     GET_POST_INFO_SUCCESS,
     GET_POST_INFO_FAIL,
+    COMMENT,
+    COMMENT_SUCCESS,
+    COMMENT_FAIL,
   } = PostsActions;
   switch (action.type) {
+    case COMMENT:
+      return {
+        ...state,
+        sendCommentLoading: true,
+      };
+    case COMMENT_SUCCESS:
+      return {
+        ...state,
+        sendCommentLoading: false,
+      };
     case GET_POST_INFO:
       return {
         ...state,
@@ -106,6 +120,7 @@ export const selectHomePostsNextPage = state => state.posts.homePostsNextPage;
 export const selectHomePostsTotalPages = state => state.posts.homePostsTotalPages;
 export const selectHomePostsIsLoading = state => state.posts.homePostsIsLoading;
 export const selectPostInfo = state => state.posts.homePostInfo;
+export const selectCommentLoading = state => state.posts.sendCommentLoading;
 
 export const selectOthersPhotos = state => state.posts.othersPhotos;
 export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;

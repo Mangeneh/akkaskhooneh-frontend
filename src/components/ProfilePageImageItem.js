@@ -23,7 +23,7 @@ class ProfilePageImageItem extends Component {
           source={{
             uri: picture,
           }}
-          resizeMode={FastImage.resizeMode.center}
+          resizeMode={FastImage.resizeMode.content}
           style={{
             height: this.imageSize,
             width: this.imageSize,

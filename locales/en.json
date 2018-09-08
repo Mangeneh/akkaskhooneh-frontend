@@ -61,5 +61,6 @@
   "delete_board_success": "Board Successfully Deleted.",
   "yes": "Yes",
   "no": "No",
-  "show_post_info": "An Error Occured While Loading Post Info."
+  "show_post_info": "An Error Occured While Loading Post Info.",
+  "comment": "ُType your opinion."
 }

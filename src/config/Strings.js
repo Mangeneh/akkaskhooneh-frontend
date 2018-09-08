@@ -61,4 +61,5 @@ export const Strings = {
   YES: 'yes',
   NO: 'no',
   SHOW_POST_INFO: 'show_post_info',
+  COMMENT: 'comment',
 };
