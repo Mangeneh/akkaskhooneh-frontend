@@ -100,6 +100,7 @@ export default (state = INITIAL_STATE, action) => {
         selfPhotosIsLoading: false,
       };
     case CHOOSE_POST:
+      console.warn(action.payload);
       return {
         ...state,
         chosenPostID: action.payload,
