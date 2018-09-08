@@ -68,7 +68,11 @@ class BoardsPage extends Component {
             borderWidth: 0.5,
           }}
           >
-            <Button transparent style={styles.modalButton}>
+            <Button
+              transparent
+              style={styles.modalButton}
+              onPress={() => this.refs.modal.close()}
+            >
               <Body>
                 <Text style={styles.modalButtonText}>{strings(Strings.NO)}</Text>
               </Body>
@@ -78,7 +82,7 @@ class BoardsPage extends Component {
               backgroundColor: Colors.ICON,
             }}
             />
-            <Button transparent style={styles.modalButton}>
+            <Button transparent style={styles.modalButton} onPress={() => this.deleteBoard()}>
               <Body>
                 <Text style={styles.modalButtonText}>{strings(Strings.YES)}</Text>
               </Body>
