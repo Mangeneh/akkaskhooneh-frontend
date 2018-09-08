@@ -13,16 +13,14 @@ import {
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { connect } from 'react-redux';
 import { CustomStatusBar, PostHeader } from '../../components';
 import { Colors, Constants } from '../../config';
-import {
-  selectPostInfo,
-} from '../../reducers/PostsReducer';
-import { connect } from 'react-redux';
+import { selectPostInfo } from '../../reducers/PostsReducer';
 
 class PostInfo extends Component {
   render() {
-    const {postInfo} = this.props;
+    const { postInfo } = this.props;
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
@@ -51,7 +49,7 @@ class PostInfo extends Component {
                       paddingRight: 8,
                     }}
                     >
-                    {postInfo.username}
+                      {postInfo.username}
                     </Text>
                     <Text
                       note
@@ -60,7 +58,7 @@ class PostInfo extends Component {
                         paddingRight: 8,
                       }}
                     >
-۲ ساعت
+                      ۲ ساعت
                       پیش
                     </Text>
                     <Text />
@@ -90,7 +88,7 @@ class PostInfo extends Component {
                       textAlign: 'right',
                     }}
                     >
-                    {postInfo.caption}
+                      {postInfo.caption}
                     </Text>
                     <Text />
                   </Right>
@@ -99,7 +97,12 @@ class PostInfo extends Component {
               <CardItem>
                 <Left>
                   <Button transparent style={{ flexDirection: 'row' }}>
-                    <Icon name="heart-outlined" type="Entypo" style={{ color: Colors.BASE }} active={postInfo.is_liked?true:false}/>
+                    <Icon
+                      name="heart-outlined"
+                      type="Entypo"
+                      style={{ color: Colors.BASE }}
+                      active={!!postInfo.is_liked}
+                    />
                     <Text style={{ color: Colors.BASE }}>{postInfo.likes_count}</Text>
                   </Button>
                   <Button transparent style={{ flexDirection: 'row' }}>
@@ -113,7 +116,8 @@ class PostInfo extends Component {
                 <Right>
                   <Button
                     transparent
-                    style={{ flexDirection: 'row' }} >
+                    style={{ flexDirection: 'row' }}
+                  >
                     <Icon name="bookmark-o" type="FontAwesome" style={{ color: Colors.BASE }} />
                   </Button>
                 </Right>

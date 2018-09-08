@@ -11,7 +11,7 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Constants, Graphics } from '../config';
 
@@ -66,14 +66,14 @@ export default class Post extends Component {
         <TouchableOpacity onPress={this.props.onCommentOrPicPressed} activeOpacity={0.5}>
           <CardItem cardBody>
             <FastImage
-                source={{ uri: item.post_picture }}
-                style={{
-                  height: 200,
-                  width: null,
-                  flex: 1,
-                }}
-                resizeMode={FastImage.resizeMode.stretch}
-              />
+              source={{ uri: item.post_picture }}
+              style={{
+                height: 200,
+                width: null,
+                flex: 1,
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
           </CardItem>
         </TouchableOpacity>
         <CardItem>
@@ -94,7 +94,11 @@ export default class Post extends Component {
               <Icon name="heart-outlined" type="Entypo" style={styles.icon} />
               <Text style={styles.stats}>{item.likes}</Text>
             </Button>
-            <Button transparent style={{ flexDirection: 'row' }} onPress={this.props.onCommentOrPicPressed}>
+            <Button
+              transparent
+              style={{ flexDirection: 'row' }}
+              onPress={this.props.onCommentOrPicPressed}
+            >
               <Icon name="commenting-o" type="FontAwesome" style={styles.icon} />
               <Text style={styles.stats}>{item.comments}</Text>
             </Button>
@@ -108,7 +112,7 @@ export default class Post extends Component {
               style={{ flexDirection: 'row' }}
               onPress={saveButtonPressed}
             >
-              <Icon name="bookmark-o" type="FontAwesome" style={{ color: Colors.BASE }}/>
+              <Icon name="bookmark-o" type="FontAwesome" style={{ color: Colors.BASE }} />
             </Button>
           </Right>
         </CardItem>

@@ -7,11 +7,11 @@ import {
   addPostToBoard,
   createBoard,
   getHomePostsNextPage,
+  getPostInfo,
   getSelfBoardsNextPage,
   resetHomePosts,
   resetSelfBoards,
   selectedPostChanged,
-  getPostInfo,
   sendLikeOrDislike,
 } from '../../actions';
 import { HomeHeader } from '../../components';
@@ -29,7 +29,6 @@ import {
   selectHomePostsNextPage,
   selectHomePostsTotalPages,
 } from '../../reducers/PostsReducer';
-
 
 class Home extends Component {
   constructor(props) {
@@ -79,7 +78,9 @@ class Home extends Component {
           changeSelectedPostID(item.id);
         }}
         onLikePressed={() => this.likeOrDislike(item.id)}
-        onCommentOrPicPressed={() => { this.getSinglePostInfo(item.id); }}
+        onCommentOrPicPressed={() => {
+          this.getSinglePostInfo(item.id);
+        }}
         item={item}
       />
     );
