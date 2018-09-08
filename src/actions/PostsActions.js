@@ -69,7 +69,7 @@ export const sendLikeOrDislike = selectedPostID => ({
     request: {
       method: RequestMethods.POST,
       url: Server.LIKE_DISLIKE,
-      date:
+      data:
       {
         post_id: selectedPostID,
       },

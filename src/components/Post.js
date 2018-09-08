@@ -68,7 +68,7 @@ export default class Post extends Component {
             <FastImage
                 source={{ uri: item.post_picture }}
                 style={{
-                  height: 200,
+                  height: 250,
                   width: null,
                   flex: 1,
                 }}

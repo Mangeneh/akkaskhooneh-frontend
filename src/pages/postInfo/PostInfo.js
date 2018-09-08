@@ -19,6 +19,7 @@ import {
   selectPostInfo,
 } from '../../reducers/PostsReducer';
 import { connect } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 class PostInfo extends Component {
   render() {
@@ -71,7 +72,7 @@ class PostInfo extends Component {
                 </Right>
               </CardItem>
               <CardItem cardBody>
-                <Image
+                <FastImage
                   source={{ uri: postInfo.picture }}
                   style={{
                     height: 250,
@@ -99,7 +100,7 @@ class PostInfo extends Component {
               <CardItem>
                 <Left>
                   <Button transparent style={{ flexDirection: 'row' }}>
-                    <Icon name="heart-outlined" type="Entypo" style={{ color: Colors.BASE }} active={postInfo.is_liked?true:false}/>
+                    <Icon name={postInfo.is_liked?"heart":"heart-outlined"} type="Entypo" style={{ color: Colors.BASE }}/>
                     <Text style={{ color: Colors.BASE }}>{postInfo.likes_count}</Text>
                   </Button>
                   <Button transparent style={{ flexDirection: 'row' }}>
