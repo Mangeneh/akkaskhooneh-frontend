@@ -14,12 +14,12 @@ import NavigationService from './src/NavigationService';
 import {
   AddFriends,
   AddPostInfo,
-  PostInfo,
   BoardsPage,
   ChangePass,
   Login,
   Main,
   NewPost,
+  PostInfo,
   ProfileEdit,
   ProfileSettings,
   SignUp,
@@ -30,7 +30,7 @@ import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/act
 import rootReducer from './src/reducers';
 
 const client = axios.create({
-  baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000
+  baseURL: 'http://10.0.3.2:8000', // http://192.168.11.140
   responseType: 'json',
 });
 

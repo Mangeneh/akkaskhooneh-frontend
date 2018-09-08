@@ -50,6 +50,10 @@ export default (state = INITIAL_STATE, action) => {
     COMMENT_FAIL,
     CHOOSE_POST,
     LIKE_OR_DISLIKE_SUCCESS,
+    REFRESH_SELF_PHOTOS,
+    REFRESH_SELF_PHOTOS_SUCCESS,
+    REFRESH_HOME_POSTS,
+    REFRESH_HOME_POSTS_SUCCESS
   } = PostsActions;
   switch (action.type) {
     case COMMENT:
@@ -100,7 +104,6 @@ export default (state = INITIAL_STATE, action) => {
         selfPhotosIsLoading: false,
       };
     case CHOOSE_POST:
-      console.warn(action.payload);
       return {
         ...state,
         chosenPostID: action.payload,
@@ -117,6 +120,32 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         homePosts: newHomePosts,
+      };
+    case REFRESH_SELF_PHOTOS:
+      return {
+        ...state,
+        selfPhotosIsLoading: true,
+      };
+    case REFRESH_SELF_PHOTOS_SUCCESS:
+      return {
+        ...state,
+        selfPhotos: action.payload.data.results,
+        selfPhotosNextPage: 2,
+        selfPhotosTotalPages: action.payload.data.total_pages,
+        selfPhotosIsLoading: false,
+      };
+    case REFRESH_HOME_POSTS:
+      return {
+        ...state,
+        homePostsIsLoading: true,
+      };
+    case REFRESH_HOME_POSTS_SUCCESS:
+      return {
+        ...state,
+        homePosts: action.payload.data.results,
+        homePostsNextPage: 2,
+        homePostsTotalPages: action.payload.data.total_pages,
+        homePostsIsLoading: false,
       };
     case RESET_SELF_PHOTOS:
       return { ...state, ...INITIAL_SELF_PHOTOS_STATE };

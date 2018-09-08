@@ -23,6 +23,10 @@ export const PostsActions = {
   COMMENT: 'COMMENT',
   COMMENT_SUCCESS: 'COMMENT_SUCCESS',
   COMMENT_FAIL: 'COMMENT_FAIL',
+  REFRESH_SELF_PHOTOS: 'REFRESH_SELF_PHOTOS',
+  REFRESH_SELF_PHOTOS_SUCCESS: 'REFRESH_SELF_PHOTOS_SUCCESS',
+  REFRESH_HOME_POSTS: 'REFRESH_HOME_POSTS',
+  REFRESH_HOME_POSTS_SUCCESS: 'REFRESH_HOME_POSTS_SUCCESS',
 };
 
 export const resetSelfPhotos = () => ({
@@ -31,6 +35,26 @@ export const resetSelfPhotos = () => ({
 
 export const resetHomePosts = () => ({
   type: PostsActions.RESET_HOME_POSTS,
+});
+
+export const refreshSelfPhotos = () => ({
+  type: PostsActions.REFRESH_SELF_PHOTOS,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_SELF_PHOTOS_NEXT_PAGE}1`,
+    },
+  },
+});
+
+export const refreshHomePosts = () => ({
+  type: PostsActions.REFRESH_HOME_POSTS,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_HOME_POSTS_NEXT_PAGE}1`,
+    },
+  },
 });
 
 export const choosePost = postID => ({

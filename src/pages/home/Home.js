@@ -10,8 +10,8 @@ import {
   getHomePostsNextPage,
   getPostInfo,
   getSelfBoardsNextPage,
-  resetHomePosts,
-  resetSelfBoards,
+  refreshHomePosts,
+  refreshSelfBoards,
   selectedPostChanged,
   sendLikeOrDislike,
 } from '../../actions';
@@ -72,6 +72,67 @@ class Home extends Component {
     );
   }
 
+  renderNewUserFirstImpression() {
+    return (
+      <View style={{
+        flex: 1,
+        alignSelf: 'center',
+        justifyContent: 'center',
+      }}
+      >
+        <Text style={{
+          fontSize: Constants.TEXT_NORMAL_SIZE,
+          color: Colors.ICON,
+          marginBottom: 8,
+        }}
+        >
+          {strings(Strings.NEW_USER_FIRST_IMPRESSION)}
+        </Text>
+        <Button
+          style={{
+            backgroundColor: 'white',
+            alignSelf: 'center',
+          }}
+          onPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
+        >
+          <Text style={{
+            fontSize: Constants.TEXT_NORMAL_SIZE,
+            color: Colors.ICON,
+          }}
+          >
+            {strings(Strings.INVITE_FRIENDS)}
+          </Text>
+        </Button>
+      </View>
+    );
+  }
+
+  renderContent() {
+    const { posts, postsIsLoading } = this.props;
+    return (posts.length === 0
+    && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
+  }
+
+  renderFeed() {
+    const {
+      refreshHomePosts, postsIsLoading, posts,
+    } = this.props;
+    return (
+      <FlatList
+        onRefresh={() => refreshHomePosts()}
+        refreshing={postsIsLoading}
+        onEndReached={() => this.updatePosts()}
+        style={{
+          width: '100%',
+          marginTop: 8,
+        }}
+        keyExtractor={(item, index) => item.id.toString()}
+        data={posts}
+        renderItem={({ item, index }) => this.renderPost(item, index)}
+      />
+    );
+  }
+
   renderPost(item, index) {
     const { changeSelectedPostID } = this.props;
     return (
@@ -119,12 +180,6 @@ class Home extends Component {
       });
   }
 
-  renderContent() {
-    const { posts, postsIsLoading } = this.props;
-    return (posts.length === 0
-    && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
-  }
-
   updatePosts() {
     const {
       postsNextPage, postsTotalPages, postsIsLoading, getPostsNextPage,
@@ -132,64 +187,6 @@ class Home extends Component {
     if (postsNextPage <= postsTotalPages && !postsIsLoading) {
       getPostsNextPage(postsNextPage);
     }
-  }
-
-  renderNewUserFirstImpression() {
-    return (
-      <View style={{
-        flex: 1,
-        alignSelf: 'center',
-        justifyContent: 'center',
-      }}
-      >
-        <Text style={{
-          fontSize: Constants.TEXT_NORMAL_SIZE,
-          color: Colors.ICON,
-          marginBottom: 8,
-        }}
-        >
-          {strings(Strings.NEW_USER_FIRST_IMPRESSION)}
-        </Text>
-        <Button
-          style={{
-            backgroundColor: 'white',
-            alignSelf: 'center',
-          }}
-          onPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
-        >
-          <Text style={{
-            fontSize: Constants.TEXT_NORMAL_SIZE,
-            color: Colors.ICON,
-          }}
-          >
-            {strings(Strings.INVITE_FRIENDS)}
-          </Text>
-        </Button>
-      </View>
-    );
-  }
-
-  renderFeed() {
-    const {
-      resetHomePosts, getPostsNextPage, postsIsLoading, posts,
-    } = this.props;
-    return (
-      <FlatList
-        onRefresh={() => {
-          resetHomePosts();
-          getPostsNextPage(1);
-        }}
-        refreshing={postsIsLoading}
-        onEndReached={() => this.updatePosts()}
-        style={{
-          width: '100%',
-          marginTop: 8,
-        }}
-        keyExtractor={(item, index) => item.id.toString()}
-        data={posts}
-        renderItem={({ item, index }) => this.renderPost(item, index)}
-      />
-    );
   }
 
   showModal() {
@@ -229,13 +226,14 @@ class Home extends Component {
   }
 
   addNewPostToBoard(selectedBoardID) {
-    const { selectedPostID, addPostToBoard } = this.props;
+    const { selectedPostID, addPostToBoard, refreshSelfBoards } = this.props;
     addPostToBoard(selectedPostID, selectedBoardID)
       .then((response) => {
       })
       .catch((error) => {
       });
     this.refs.modal.close();
+    refreshSelfBoards();
   }
 }
 
@@ -249,9 +247,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  resetHomePosts: () => dispatch(resetHomePosts()),
+  refreshHomePosts: () => dispatch(refreshHomePosts()),
+  refreshSelfBoards: () => dispatch(refreshSelfBoards()),
   changeSelectedPostID: id => dispatch(selectedPostChanged(id)),
-  resetSelfBoards: () => dispatch(resetSelfBoards()),
   createBoard: newBoardName => dispatch(createBoard(newBoardName)),
   getPostsNextPage: postsNext => dispatch(getHomePostsNextPage(postsNext)),
   getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),

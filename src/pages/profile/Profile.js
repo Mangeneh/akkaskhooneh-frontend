@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import {
   getSelfBoardsNextPage,
   getSelfPhotosNextPage,
-  resetSelfBoards,
-  resetSelfPhotos,
+  refreshSelfBoards,
+  refreshSelfPhotos,
 } from '../../actions';
 import {
   Board, CustomStatusBar, ProfileHeader, ProfilePageImageItem,
@@ -42,7 +42,7 @@ class Profile extends Component {
 
   render() {
     const {
-      username, resetSelfBoards, getBoardsNextPage, boardsIsLoading, boards, postsIsLoading, resetSelfPhotos, getPhotosNextPage, photosIsLoading, photos,
+      username, refreshSelfPhotos, refreshSelfBoards, boardsIsLoading, boards, postsIsLoading, photosIsLoading, photos,
     } = this.props;
     return (
       <Container>
@@ -93,10 +93,7 @@ class Profile extends Component {
               }}
               >
                 <FlatList
-                  onRefresh={() => {
-                    resetSelfBoards();
-                    getBoardsNextPage(1);
-                  }}
+                  onRefresh={() => refreshSelfBoards()}
                   refreshing={boardsIsLoading}
                   onEndReached={() => this.updateBoards()}
                   style={{
@@ -130,10 +127,7 @@ class Profile extends Component {
               }}
               >
                 <FlatList
-                  onRefresh={() => {
-                    resetSelfPhotos();
-                    getPhotosNextPage(1);
-                  }}
+                  onRefresh={() => refreshSelfPhotos()}
                   refreshing={photosIsLoading}
                   onEndReached={() => this.updatePhotos()}
                   style={{
@@ -216,8 +210,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  resetSelfPhotos: () => dispatch(resetSelfPhotos()),
-  resetSelfBoards: () => dispatch(resetSelfBoards()),
+  refreshSelfPhotos: () => dispatch(refreshSelfPhotos()),
+  refreshSelfBoards: () => dispatch(refreshSelfBoards()),
   getPhotosNextPage: photosNext => dispatch(getSelfPhotosNextPage(photosNext)),
   getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
 });

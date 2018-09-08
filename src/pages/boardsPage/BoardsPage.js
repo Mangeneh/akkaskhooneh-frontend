@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
-import { deleteBoard, refreshBoards } from '../../actions';
+import { deleteBoard, refreshSelfBoards } from '../../actions';
 import { CustomStatusBar, SelfBoardsPageHeader } from '../../components';
 import { Colors, Strings } from '../../config';
 import { showFailiureToast, showSuccessToast } from '../../helpers';
@@ -195,7 +195,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getBoardsPhotosNextPage: (boardID, boardsPhotosNext) => dispatch(getBoardsPhotosNextPage(boardID, boardsPhotosNext)),
   deleteBoard: boardID => dispatch(deleteBoard(boardID)),
-  refreshBoards: () => dispatch(refreshBoards()),
+  refreshBoards: () => dispatch(refreshSelfBoards()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardsPage);

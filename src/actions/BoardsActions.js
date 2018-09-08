@@ -19,9 +19,9 @@ export const BoardsActions = {
   DELETE_BOARD: 'DELETE_BOARD',
   DELETE_BOARD_SUCCESS: 'DELETE_BOARD_SUCCESS',
   DELETE_BOARD_FAIL: 'DELETE_BOARD_FAIL',
-  REFRESH: 'REFRESH_BOARDS',
-  REFRESH_SUCCESS: 'REFRESH_BOARDS_SUCCESS',
-  REFRESH_FAIL: 'REFRESH_BOARDS_FAIL',
+  REFRESH_SELF_BOARDS: 'REFRESH_SELF_BOARDS',
+  REFRESH_SELF_BOARDS_SUCCESS: 'REFRESH_SELF_BOARDS_SUCCESS',
+  REFRESH_SELF_BOARDS_FAIL: 'REFRESH_SELF_BOARDS_FAIL',
 };
 
 export const resetSelfBoards = () => ({
@@ -33,8 +33,8 @@ export const selectedPostChanged = selectedPostID => ({
   payload: selectedPostID,
 });
 
-export const refreshBoards = () => ({
-  type: BoardsActions.REFRESH,
+export const refreshSelfBoards = () => ({
+  type: BoardsActions.REFRESH_SELF_BOARDS,
   payload: {
     request: {
       method: RequestMethods.GET,
