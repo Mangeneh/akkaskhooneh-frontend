@@ -13,6 +13,7 @@ export const PostsActions = {
   GET_OTHERS_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_OTHERS_PHOTOS_NEXT_PAGE_SUCCESS',
   GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL: 'GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL',
   RESET_OTHERS_PHOTOS: 'RESET_OTHERS_PHOTOS',
+  GET_POST_INFO: 'FEED_GET_POST_INFO',
 };
 
 export const resetSelfPhotos = () => ({
@@ -39,6 +40,16 @@ export const getHomePostsNextPage = postsNext => ({
     request: {
       method: RequestMethods.GET,
       url: `${Server.GET_HOME_POSTS_NEXT_PAGE}${postsNext}`,
+    },
+  },
+});
+
+export const getPostInfo = selectedPostID => ({
+  type: PostsActions.GET_POST_INFO,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_POST_INFO}${selectedPostID}/`,
     },
   },
 });

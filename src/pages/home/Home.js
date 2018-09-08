@@ -11,6 +11,7 @@ import {
   resetHomePosts,
   resetSelfBoards,
   selectedPostChanged,
+  getPostInfo,
 } from '../../actions';
 import { HomeHeader } from '../../components';
 import AddBoardModal from '../../components/AddBoardModal';
@@ -76,9 +77,19 @@ class Home extends Component {
           this.showModal();
           changeSelectedPostID(item.id);
         }}
+        onCommentOrPicPressed={() => { this.getSinglePostInfo(item.id); }}
         item={item}
       />
     );
+  }
+
+  getSinglePostInfo(id) {
+    this.props.getPostInfo(id)
+      .then((response) => {
+        NavigationService.navigate(Pages.POST_INFO_PAGE);
+      })
+      .catch((error) => {
+      });
   }
 
   renderContent() {
@@ -219,6 +230,7 @@ const mapDispatchToProps = dispatch => ({
   getPostsNextPage: postsNext => dispatch(getHomePostsNextPage(postsNext)),
   getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
   addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
+  getPostInfo: postID => dispatch(getPostInfo(postID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -26,6 +26,7 @@ class ImageItem extends Component {
             uri,
             priority,
           }}
+          resizeMode={FastImage.resizeMode.contain}
           style={{
             height: this.imageSize,
             width: this.imageSize,

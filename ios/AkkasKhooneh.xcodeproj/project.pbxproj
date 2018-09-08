@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -69,6 +70,7 @@
 		D33CF0762131864D00CFF368 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D33CF0742131864D00CFF368 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D369C48421355F55007FAC95 /* libReactNativeCameraKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D369C47D21355E3C007FAC95 /* libReactNativeCameraKit.a */; };
 		D381D5CF0D32438F8DCEB40C /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BEB8995F62C4CA8B07CFC1E /* FontAwesome5_Brands.ttf */; };
+		D3AC077D21438EB000508E0C /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AC077C21438E7E00508E0C /* libFastImage.a */; };
 		D3CBD630213672750051FCF3 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3CBD62F213672530051FCF3 /* libRCTCameraRoll.a */; };
 		D7270570C3EA49C28777F42E /* IRANSansWeb_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 243F39270B2E4A61ADA50A2D /* IRANSansWeb_Medium.ttf */; };
 		E376DADAF4FA437E98021AEA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86920F70726D40EF857F2B85 /* Entypo.ttf */; };
@@ -402,6 +404,13 @@
 			remoteGlobalIDString = 2646934E1CFB2A6B00F3A740;
 			remoteInfo = ReactNativeCameraKit;
 		};
+		D3AC077B21438E7E00508E0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3AC077621438E7D00508E0C /* FastImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A287971D1DE0C0A60081BDFA;
+			remoteInfo = FastImage;
+		};
 		D3ADA01121341390007D1CBD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22B35E8A8653442B8728476F /* RNCamera.xcodeproj */;
@@ -510,6 +519,7 @@
 		D33CF0702131864900CFF368 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33CF0742131864D00CFF368 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D369C45121355E3C007FAC95 /* ReactNativeCameraKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeCameraKit.xcodeproj; path = "../node_modules/react-native-camera-kit/ios/lib/ReactNativeCameraKit.xcodeproj"; sourceTree = "<group>"; };
+		D3AC077621438E7D00508E0C /* FastImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		D3CBD62A213672530051FCF3 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		D6579EA3DED543B486F1BD7F /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		DEEC53AAE5944A1187704D0E /* IRANSansWeb_Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansWeb_Bold.ttf; path = ../src/assets/fonts/IRANSansWeb_Bold.ttf; sourceTree = "<group>"; };
@@ -535,6 +545,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3AC077D21438EB000508E0C /* libFastImage.a in Frameworks */,
 				D314EE0B21401079006BFEE4 /* libRCTImageResizer.a in Frameworks */,
 				D3CBD630213672750051FCF3 /* libRCTCameraRoll.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -756,6 +767,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D3AC077621438E7D00508E0C /* FastImage.xcodeproj */,
 				D314EDD821401018006BFEE4 /* RCTImageResizer.xcodeproj */,
 				D3CBD62A213672530051FCF3 /* RCTCameraRoll.xcodeproj */,
 				D369C45121355E3C007FAC95 /* ReactNativeCameraKit.xcodeproj */,
@@ -921,6 +933,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D3AC077721438E7D00508E0C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3AC077C21438E7E00508E0C /* libFastImage.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D3ADA00E2134138F007D1CBD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1062,6 +1082,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = D3AC077721438E7D00508E0C /* Products */;
+					ProjectRef = D3AC077621438E7D00508E0C /* FastImage.xcodeproj */;
+				},
 				{
 					ProductGroup = D33CF066213185B100CFF368 /* Products */;
 					ProjectRef = 7E8DA445140F4B0F8A3E87AA /* imageCropPicker.xcodeproj */;
@@ -1464,6 +1488,13 @@
 			fileType = archive.ar;
 			path = libReactNativeCameraKit.a;
 			remoteRef = D369C47C21355E3C007FAC95 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3AC077C21438E7E00508E0C /* libFastImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFastImage.a;
+			remoteRef = D3AC077B21438E7E00508E0C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D3ADA01221341390007D1CBD /* libRNCamera.a */ = {

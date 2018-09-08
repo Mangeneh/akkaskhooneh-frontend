@@ -156,7 +156,7 @@ class Profile extends Component {
       <View style={index % 2 === 0 ? styles.evenPhoto : styles.oddPhoto}>
         <FastImage
           source={{ uri: item.picture }}
-          resizeMode={FastImage.resizeMode.center}
+          resizeMode={FastImage.resizeMode.contain}
           style={{
             width: WIDTH / 2 - 12,
             height: WIDTH / 2 - 12,

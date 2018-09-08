@@ -15,4 +15,5 @@ export const Server = {
   SEND_POST: '/social/create-new-post/',
   ADD_POST_TO_BOARD: '/social/addnewposttoboard/',
   DELETE_BOARD: '/social/deleteboard/',
+  GET_POST_INFO: '/social/post/'
 };

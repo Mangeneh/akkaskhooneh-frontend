@@ -9,7 +9,7 @@ I18n.fallbacks = true;
 
 I18n.translations = {
   fa,
-  en,
+  // en,
 };
 
 const currentLocale = I18n.currentLocale();

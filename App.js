@@ -14,6 +14,7 @@ import NavigationService from './src/NavigationService';
 import {
   AddFriends,
   AddPostInfo,
+  PostInfo,
   BoardsPage,
   ChangePass,
   Login,
@@ -104,6 +105,7 @@ const Inside = createStackNavigator({
   ProfileSettings,
   ChangePass,
   BoardsPage,
+  PostInfo,
 }, {
   initialRouteName: Pages.MAIN,
   navigationOptions: {
