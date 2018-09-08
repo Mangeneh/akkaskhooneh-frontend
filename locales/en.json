@@ -55,5 +55,10 @@
   "new_user_first_impression": "Invite Your Friends To AkkasKhooneh To See Their Posts.",
   "password_instruction": "Passwords must at least contain 6 characters.\nA combination of alphanumeric characters.",
   "resize_failed": "Could Not Resize Image.",
-  "no_photos": "No photos."
+  "no_photos": "No photos.",
+  "delete_board_inquiry": "Are You Sure You Want To Delete This Board?",
+  "delete_board_fail": "An Error Occurred While Deleting Board.",
+  "delete_board_success": "Board Successfully Deleted.",
+  "yes": "Yes",
+  "no": "No"
 }

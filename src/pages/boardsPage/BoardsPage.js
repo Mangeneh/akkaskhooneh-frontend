@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import {
-  ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, View,
+  ActivityIndicator,
+  Alert,
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { deleteBoard, refreshBoards } from '../../actions';
 import { CustomStatusBar, SelfBoardsPageHeader } from '../../components';
+import { Strings } from '../../config';
+import { showFailiureToast, showSuccessToast } from '../../helpers';
+import { strings } from '../../i18n';
 import { selectSelfUsername } from '../../reducers/UserInfoReducer';
 import { getBoardsPhotosNextPage } from './actions';
 import {
@@ -28,7 +38,7 @@ class BoardsPage extends Component {
         <SelfBoardsPageHeader
           boardName={this.props.navigation.getParam('board').name}
           onBackPress={() => this.props.navigation.goBack()}
-          onDeletPress={() => this.deleteBoard()}
+          onDeletePress={() => this.confirmDeleteBoard()}
           onAddPress={() => {
           }}
         />
@@ -76,8 +86,36 @@ class BoardsPage extends Component {
     }
   }
 
-  deleteBoard() {
+  confirmDeleteBoard() {
+    Alert.alert(
+      '',
+      strings(Strings.DELETE_BOARD_INQUIRY),
+      [
+        {
+          text: strings(Strings.NO),
+          style: 'cancel',
+        },
+        {
+          text: strings(Strings.YES),
+          onPress: () => this.deleteBoard(),
+        },
+      ],
+      { cancelable: true },
+    );
+  }
 
+  deleteBoard() {
+    const { navigation, deleteBoard, refreshBoards } = this.props;
+    const boardID = navigation.getParam('board').id;
+    deleteBoard(boardID)
+      .then((response) => {
+        refreshBoards();
+        showSuccessToast(strings(Strings.DELETE_BOARD_SUCCESS));
+        navigation.goBack();
+      })
+      .catch((error) => {
+        showFailiureToast(strings(Strings.DELETE_BOARD_FAIL));
+      });
   }
 }
 
@@ -110,6 +148,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getBoardsPhotosNextPage: (boardID, boardsPhotosNext) => dispatch(getBoardsPhotosNextPage(boardID, boardsPhotosNext)),
+  deleteBoard: boardID => dispatch(deleteBoard(boardID)),
+  refreshBoards: () => dispatch(refreshBoards()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardsPage);

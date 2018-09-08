@@ -28,6 +28,8 @@ export default (state = INITIAL_STATE, action) => {
     GET_SELF_BOARDS_NEXT_PAGE_SUCCESS,
     GET_SELF_BOARDS_NEXT_PAGE,
     GET_SELF_BOARDS_NEXT_PAGE_FAIL,
+    REFRESH,
+    REFRESH_SUCCESS,
   } = BoardsActions;
   switch (action.type) {
     case GET_SELF_BOARDS_NEXT_PAGE:
@@ -52,6 +54,19 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ...INITIAL_SELF_BOARDS_STATE,
+      };
+    case REFRESH:
+      return {
+        ...state,
+        selfBoardsIsLoading: true,
+      };
+    case REFRESH_SUCCESS:
+      return {
+        ...state,
+        selfBoards: action.payload.data.results,
+        selfBoardsTotalPages: action.payload.data.total_pages,
+        selfBoardsNextPage: 2,
+        selfBoardsIsLoading: false,
       };
     case GlobalActions.RESET_EVERYTHING:
       return INITIAL_STATE;
