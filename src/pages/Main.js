@@ -99,6 +99,8 @@ export default createMaterialTopTabNavigator(
       },
     }),
     tabBarComponent: BottomTabComponent,
+    lazy: true,
+    animationEnabled: false,
     tabBarPosition: 'bottom',
     initialRouteName: 'Home',
     backBehavior: 'none',
