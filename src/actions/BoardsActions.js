@@ -19,6 +19,9 @@ export const BoardsActions = {
   DELETE_BOARD: 'DELETE_BOARD',
   DELETE_BOARD_SUCCESS: 'DELETE_BOARD_SUCCESS',
   DELETE_BOARD_FAIL: 'DELETE_BOARD_FAIL',
+  REFRESH: 'REFRESH_BOARDS',
+  REFRESH_SUCCESS: 'REFRESH_BOARDS_SUCCESS',
+  REFRESH_FAIL: 'REFRESH_BOARDS_FAIL',
 };
 
 export const resetSelfBoards = () => ({
@@ -28,6 +31,16 @@ export const resetSelfBoards = () => ({
 export const selectedPostChanged = selectedPostID => ({
   type: BoardsActions.CHANGE_SELECTED_POST_ID,
   payload: selectedPostID,
+});
+
+export const refreshBoards = () => ({
+  type: BoardsActions.REFRESH,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_SELF_BOARDS_NEXT_PAGE}1`,
+    },
+  },
 });
 
 export const getSelfBoardsNextPage = boardsNext => ({
@@ -74,7 +87,7 @@ export const deleteBoard = boardID => ({
       method: RequestMethods.POST,
       url: Server.DELETE_BOARD,
       data: {
-        id: boardID,
+        board_id: boardID,
       },
     },
   },

@@ -55,4 +55,9 @@ export const Strings = {
   PASSWORD_INSTRUCTION: 'password_instruction',
   RESIZE_FAILED: 'resize_failed',
   NO_PHOTOS: 'no_photos',
+  DELETE_BOARD_FAIL: 'delete_board_fail',
+  DELETE_BOARD_SUCCESS: 'delete_board_success',
+  DELETE_BOARD_INQUIRY: 'delete_board_inquiry',
+  YES: 'yes',
+  NO: 'no',
 };
