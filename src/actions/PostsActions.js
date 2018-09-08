@@ -70,9 +70,9 @@ export const sendLikeOrDislike = selectedPostID => ({
       method: RequestMethods.POST,
       url: Server.LIKE_DISLIKE,
       data:
-      {
-        post_id: selectedPostID,
-      },
+        {
+          post_id: selectedPostID,
+        },
     },
   },
 });

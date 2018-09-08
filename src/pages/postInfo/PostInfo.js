@@ -11,7 +11,8 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { CustomStatusBar, PostHeader } from '../../components';
@@ -76,6 +77,7 @@ class PostInfo extends Component {
                     width: null,
                     flex: 1,
                   }}
+                  resizeMode={FastImage.resizeMode.stretch}
                 />
               </CardItem>
               <CardItem>
@@ -97,7 +99,11 @@ class PostInfo extends Component {
               <CardItem>
                 <Left>
                   <Button transparent style={{ flexDirection: 'row' }}>
-                    <Icon name={postInfo.is_liked?"heart":"heart-outlined"} type="Entypo" style={{ color: postInfo.is_liked ? 'red' : Colors.BASE }}/>
+                    <Icon
+                      name={postInfo.is_liked ? 'heart' : 'heart-outlined'}
+                      type="Entypo"
+                      style={{ color: postInfo.is_liked ? 'red' : Colors.BASE }}
+                    />
                     <Text style={{ color: Colors.BASE }}>{postInfo.likes_count}</Text>
                   </Button>
                   <Button transparent style={{ flexDirection: 'row' }}>

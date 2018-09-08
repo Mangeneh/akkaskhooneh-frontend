@@ -66,14 +66,14 @@ export default class Post extends Component {
         <TouchableOpacity onPress={this.props.onCommentOrPicPressed} activeOpacity={0.5}>
           <CardItem cardBody>
             <FastImage
-                source={{ uri: item.post_picture }}
-                style={{
-                  height: 250,
-                  width: null,
-                  flex: 1,
-                }}
-                resizeMode={FastImage.resizeMode.stretch}
-              />
+              source={{ uri: item.post_picture }}
+              style={{
+                height: 250,
+                width: null,
+                flex: 1,
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
           </CardItem>
         </TouchableOpacity>
         <CardItem>
