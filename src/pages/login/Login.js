@@ -1,7 +1,8 @@
+import LottieView from 'lottie-react-native';
 import { Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Avatar, SocialIcon } from 'react-native-elements';
+import { SocialIcon } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { accessTokenSet, refreshTokenSet, userUpdated } from '../../actions/UserInfoActions';
@@ -12,7 +13,7 @@ import {
   PasswordTextBox,
 } from '../../components';
 import {
-  Addresses, Colors, Fonts, PageModes, Strings,
+  Colors, Fonts, PageModes, Strings,
 } from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import { strings } from '../../i18n';
@@ -26,6 +27,17 @@ import {
 } from './actions';
 
 class Login extends Component {
+  componentDidMount() {
+    this.animation.play(0, 106);
+    this.interval = setInterval(() => {
+      this.animation.play(0, 106);
+    }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   render() {
     const {
       error, email, password, changeEmail, changePassword, resetEmail, resetPassword,
@@ -100,14 +112,13 @@ class Login extends Component {
         justifyContent: 'center',
       }}
       >
-        <Avatar
-          large
-          rounded
-          containerStyle={{
-            marginBottom: 12,
-            alignSelf: 'center',
+        <LottieView
+          ref={(animation) => {
+            this.animation = animation;
           }}
-          source={{ uri: Addresses.LOGO }}
+          source={require('../../assets/animations/foto_icon_')}
+          loop={false}
+          style={{ width: 300 }}
         />
         <Text style={styles.text}>{strings('app_name')}</Text>
       </View>

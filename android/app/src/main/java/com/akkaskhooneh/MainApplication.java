@@ -3,6 +3,7 @@ package com.akkaskhooneh;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LottiePackage(),
             new FastImageViewPackage(),
             new ImageResizerPackage(),
             new RNGooglePlacesPackage(),

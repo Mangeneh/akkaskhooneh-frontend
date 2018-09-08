@@ -18,6 +18,10 @@ target 'AkkasKhooneh' do
 
     pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
 
+    pod 'lottie-ios', :path => '../node_modules/lottie-ios'
+
+    pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
   end
 
   target 'AkkasKhoonehTests' do
