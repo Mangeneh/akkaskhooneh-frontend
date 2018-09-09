@@ -24,12 +24,11 @@ import CommentComponent from '../../components/CommentComponent';
 import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
 import {
-  selectChosenPostID,
   selectComments,
   selectCommentsIsLoading,
   selectCommentsNextPage,
-  selectCommentsSendLoading,
   selectCommentsTotalPages,
+  selectIsSendingComment,
   selectPostInfo,
 } from '../../reducers/PostsReducer';
 
@@ -42,7 +41,7 @@ class PostInfo extends Component {
   }
 
   componentWillMount() {
-    this.props.refreshComments(this.props.postId)
+    this.props.refreshComments()
       .then((response) => {
 
       })
@@ -53,7 +52,9 @@ class PostInfo extends Component {
 
   render() {
     const { commentText } = this.state;
-    const { postInfo, navigation, sendCommentLoading } = this.props;
+    const {
+      postInfo, navigation, sendCommentLoading, isSendingComment,
+    } = this.props;
     return (
       <SafeAreaView style={{
         flex: 1,
@@ -177,7 +178,7 @@ class PostInfo extends Component {
             }}
             >
               <Item>
-                {sendCommentLoading
+                {isSendingComment
                   ? (
                     <ActivityIndicator
                       size="large"
@@ -198,7 +199,7 @@ class PostInfo extends Component {
                     width: '80%',
                     borderRadius: Constants.TEXT_BOX_RADIUS,
                     marginLeft: 8,
-                    marginRight: this.props.sendCommentLoading ? 8 : 16,
+                    marginRight: isSendingComment ? 8 : 16,
                     marginTop: 8,
                     marginBottom: 8,
                   }}
@@ -217,11 +218,11 @@ class PostInfo extends Component {
 
   renderCommentsList() {
     const {
-      refreshComments, commentsIsLoading, comments, postId,
+      refreshComments, commentsIsLoading, comments,
     } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshComments(postId)}
+        onRefresh={() => refreshComments()}
         refreshing={commentsIsLoading}
         onEndReached={() => this.updateComments()}
         style={{
@@ -243,10 +244,10 @@ class PostInfo extends Component {
 
   updateComments() {
     const {
-      postId, commentsNextPage, commentsTotalPages, commentsIsLoading, getCommentsNextPage,
+      commentsNextPage, commentsTotalPages, commentsIsLoading, getCommentsNextPage,
     } = this.props;
     if (commentsNextPage <= commentsTotalPages && !commentsIsLoading) {
-      getCommentsNextPage(postId, commentsNextPage)
+      getCommentsNextPage(commentsNextPage)
         .then((response) => {
         })
         .catch((error) => {
@@ -270,8 +271,8 @@ class PostInfo extends Component {
   }
 
   sendComment() {
-    const { commentOnPost, postId } = this.props;
-    commentOnPost(postId, this.state.commentText)
+    const { commentOnPost } = this.props;
+    commentOnPost(this.state.commentText)
       .then((response) => {
       })
       .catch((error) => {
@@ -283,8 +284,7 @@ const mapStateToProps = (state, ownProps) => {
   const postID = ownProps.navigation.getParam('postID');
   return ({
     postInfo: selectPostInfo(state, postID),
-    sendCommentLoading: selectCommentsSendLoading(state, postID),
-    postId: selectChosenPostID(state),
+    isSendingComment: selectIsSendingComment(state, postID),
     comments: selectComments(state, postID),
     commentsNextPage: selectCommentsNextPage(state, postID),
     commentsTotalPages: selectCommentsTotalPages(state, postID),
@@ -292,10 +292,13 @@ const mapStateToProps = (state, ownProps) => {
   });
 };
 
-const mapDispatchToProps = dispatch => ({
-  commentOnPost: (id, content) => dispatch(sendComment(id, content)),
-  refreshComments: id => dispatch(refreshComments(id)),
-  getCommentsNextPage: (id, commentsNext) => dispatch(getCommentsNextPage(id, commentsNext)),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const postID = ownProps.navigation.getParam('postID');
+  return ({
+    commentOnPost: content => dispatch(sendComment(postID, content)),
+    refreshComments: () => dispatch(refreshComments(postID)),
+    getCommentsNextPage: commentsNext => dispatch(getCommentsNextPage(postID, commentsNext)),
+  });
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostInfo);

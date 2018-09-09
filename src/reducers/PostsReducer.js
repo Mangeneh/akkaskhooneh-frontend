@@ -29,7 +29,7 @@ const INITIAL_OPEN_POST_STATE = {
   commentsNextPage: 1,
   commentsTotalPages: 1,
   commentsIsLoading: false,
-  sendCommentLoading: false,
+  isSendingComment: false,
 };
 
 const INITIAL_STATE = {
@@ -128,17 +128,16 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         [postField]: {
           ...state[postField],
-          sendCommentLoading: true,
+          isSendingComment: true,
         },
       };
     }
     case COMMENT_SUCCESS: {
-      const postField = createPostBadge(action.payload.postID);
-      return {
+      const postField = createPostBadge(action.meta.previousAction.payload.postID);      return {
         ...state,
         [postField]: {
           ...state[postField],
-          sendCommentLoading: false,
+          isSendingComment: false,
         },
       };
     }
@@ -263,8 +262,8 @@ export const selectComments = (state, postID) => state.posts[createPostBadge(pos
 export const selectCommentsNextPage = (state, postID) => state.posts[createPostBadge(postID)].commentsNextPage;
 export const selectCommentsTotalPages = (state, postID) => state.posts[createPostBadge(postID)].commentsTotalPages;
 export const selectCommentsIsLoading = (state, postID) => state.posts[createPostBadge(postID)].commentsIsLoading;
+export const selectIsSendingComment = (state, postID) => state.posts[createPostBadge(postID)].isSendingComment;
 
-export const selectCommentsSendLoading = state => state.posts.sendCommentLoading;
 export const selectOthersPhotos = state => state.posts.othersPhotos;
 export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;
 export const selectOthersPhotosTotalPages = state => state.posts.othersPhotosTotalPages;

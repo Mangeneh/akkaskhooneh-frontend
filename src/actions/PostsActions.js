@@ -158,7 +158,7 @@ export const sendComment = (selectedPostID, commentText) => ({
           post_id: selectedPostID,
           content: commentText,
         },
-      postID: selectedPostID,
     },
+    postID: selectedPostID,
   },
 });
