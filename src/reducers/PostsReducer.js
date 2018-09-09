@@ -13,8 +13,6 @@ const INITIAL_HOME_POSTS_STATE = {
   homePostsNextPage: 1,
   homePostsTotalPages: 1,
   homePostsIsLoading: false,
-  homePostInfo: {},
-  postInfoIsLoading: false,
 };
 
 const INITIAL_OTHERS_PHOTOS_STATE = {
@@ -25,99 +23,61 @@ const INITIAL_OTHERS_PHOTOS_STATE = {
 };
 
 const INITIAL_OPEN_POST_STATE = {
-  sendCommentLoading: false,
+  postInfo: {},
+  postInfoIsLoading: false,
   comments: [],
   commentsNextPage: 1,
   commentsTotalPages: 1,
   commentsIsLoading: false,
+  sendCommentLoading: false,
 };
 
 const INITIAL_STATE = {
   ...INITIAL_SELF_PHOTOS_STATE,
   ...INITIAL_HOME_POSTS_STATE,
-  ...INITIAL_OTHERS_PHOTOS_STATE,
-  ...INITIAL_OPEN_POST_STATE,
   chosenPostID: 0,
+  chosenProfileUsername: '',
 };
-
 
 export default (state = INITIAL_STATE, action) => {
   const {
     GET_HOME_POSTS_NEXT_PAGE,
+    GET_HOME_POSTS_NEXT_PAGE_FAIL,
     GET_HOME_POSTS_NEXT_PAGE_SUCCESS,
+    //
     GET_SELF_PHOTOS_NEXT_PAGE,
-    GET_SELF_PHOTOS_NEXT_PAGE_FAIL,
     GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS,
+    GET_SELF_PHOTOS_NEXT_PAGE_FAIL,
+    //
     GET_OPEN_POST_COMMENTS_NEXT_PAGE,
     GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
     GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL,
+    //
+    RESET_SELF_PHOTOS,
     RESET_HOME_POSTS,
     RESET_OTHERS_PHOTOS,
-    RESET_SELF_PHOTOS,
+    //
     GET_POST_INFO,
     GET_POST_INFO_SUCCESS,
     GET_POST_INFO_FAIL,
+    //
     COMMENT,
     COMMENT_SUCCESS,
     COMMENT_FAIL,
+    //
     CHOOSE_POST,
     LIKE_OR_DISLIKE_SUCCESS,
+    //
     REFRESH_SELF_PHOTOS,
     REFRESH_SELF_PHOTOS_SUCCESS,
+    //
     REFRESH_HOME_POSTS,
     REFRESH_HOME_POSTS_SUCCESS,
+    //
     REFRESH_OPEN_POST_COMMENTS,
     REFRESH_OPEN_POST_COMMENTS_SUCCESS,
   } = PostsActions;
   switch (action.type) {
-    case COMMENT:
-      return {
-        ...state,
-        sendCommentLoading: true,
-      };
-    case COMMENT_SUCCESS:
-      return {
-        ...state,
-        sendCommentLoading: false,
-      };
-    case GET_POST_INFO:
-      return {
-        ...state,
-        postInfoIsLoading: true,
-      };
-    case GET_POST_INFO_SUCCESS:
-      return {
-        ...state,
-        homePostInfo: action.payload.data,
-        postInfoIsLoading: false,
-      };
-    case REFRESH_OPEN_POST_COMMENTS:
-      return {
-        ...state,
-        commentsIsLoading: true,
-      };
-    case REFRESH_OPEN_POST_COMMENTS_SUCCESS:
-      console.warn(action.payload.data.results);
-      return {
-        ...state,
-        comments: action.payload.data.results,
-        commentsNextPage: 2,
-        commentsTotalPages: action.payload.data.total_pages,
-        commentsIsLoading: false,
-      };
-    case GET_OPEN_POST_COMMENTS_NEXT_PAGE:
-      return {
-        ...state,
-        commentsIsLoading: true,
-      };
-    case GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS:
-      return {
-        ...state,
-        comments: state.comments.concat(action.payload.data.results),
-        commentsNextPage: state.commentsNextPage + 1,
-        commentsTotalPages: action.payload.data.total_pages,
-        commentsIsLoading: false,
-      };
     case GET_HOME_POSTS_NEXT_PAGE:
       return {
         ...state,
@@ -144,12 +104,96 @@ export default (state = INITIAL_STATE, action) => {
         selfPhotosTotalPages: action.payload.data.total_pages,
         selfPhotosIsLoading: false,
       };
+    case GET_POST_INFO: {
+      const postField = createPostBadge(action.payload.postID);
+      return {
+        ...state,
+        [postField]: INITIAL_OPEN_POST_STATE,
+      };
+    }
+    case GET_POST_INFO_SUCCESS: {
+      const postField = createPostBadge(action.meta.previousAction.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          postInfo: action.payload.data,
+          postInfoIsLoading: false,
+        },
+      };
+    }
+    case COMMENT: {
+      const postField = createPostBadge(action.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          sendCommentLoading: true,
+        },
+      };
+    }
+    case COMMENT_SUCCESS: {
+      const postField = createPostBadge(action.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          sendCommentLoading: false,
+        },
+      };
+    }
+    case REFRESH_OPEN_POST_COMMENTS: {
+      const postField = createPostBadge(action.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          commentsIsLoading: true,
+        },
+      };
+    }
+    case REFRESH_OPEN_POST_COMMENTS_SUCCESS: {
+      const postField = createPostBadge(action.meta.previousAction.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          comments: action.payload.data.results,
+          commentsNextPage: 2,
+          commentsTotalPages: action.payload.data.total_pages,
+          commentsIsLoading: false,
+        },
+      };
+    }
+    case GET_OPEN_POST_COMMENTS_NEXT_PAGE: {
+      const postField = createPostBadge(action.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          commentsIsLoading: true,
+        },
+      };
+    }
+    case GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: {
+      const postField = createPostBadge(action.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          comments: state.comments.concat(action.payload.data.results),
+          commentsNextPage: state.commentsNextPage + 1,
+          commentsTotalPages: action.payload.data.total_pages,
+          commentsIsLoading: false,
+        },
+      };
+    }
     case CHOOSE_POST:
       return {
         ...state,
         chosenPostID: action.payload,
       };
-    case LIKE_OR_DISLIKE_SUCCESS:
+    case LIKE_OR_DISLIKE_SUCCESS: {
       const chosenPost = state.homePosts.find(post => post.id === state.chosenPostID);
       const chosenPostIndex = state.homePosts.indexOf(chosenPost);
       const newLikes = chosenPost.likes + (action.payload.data.liked ? 1 : -1);
@@ -162,6 +206,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         homePosts: newHomePosts,
       };
+    }
     case REFRESH_SELF_PHOTOS:
       return {
         ...state,
@@ -201,6 +246,8 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
+const createPostBadge = postID => `post${postID}`;
+
 export const selectSelfPhotos = state => state.posts.selfPhotos;
 export const selectSelfPhotosNextPage = state => state.posts.selfPhotosNextPage;
 export const selectSelfPhotosTotalPages = state => state.posts.selfPhotosTotalPages;
@@ -210,17 +257,17 @@ export const selectHomePosts = state => state.posts.homePosts;
 export const selectHomePostsNextPage = state => state.posts.homePostsNextPage;
 export const selectHomePostsTotalPages = state => state.posts.homePostsTotalPages;
 export const selectHomePostsIsLoading = state => state.posts.homePostsIsLoading;
-export const selectPostInfo = state => state.posts.homePostInfo;
 
+export const selectPostInfo = (state, postID) => state.posts[createPostBadge(postID)].postInfo;
+export const selectComments = (state, postID) => state.posts[createPostBadge(postID)].comments;
+export const selectCommentsNextPage = (state, postID) => state.posts[createPostBadge(postID)].commentsNextPage;
+export const selectCommentsTotalPages = (state, postID) => state.posts[createPostBadge(postID)].commentsTotalPages;
+export const selectCommentsIsLoading = (state, postID) => state.posts[createPostBadge(postID)].commentsIsLoading;
+
+export const selectCommentsSendLoading = state => state.posts.sendCommentLoading;
 export const selectOthersPhotos = state => state.posts.othersPhotos;
 export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;
 export const selectOthersPhotosTotalPages = state => state.posts.othersPhotosTotalPages;
+
 export const selectOthersPhotosIsLoading = state => state.posts.othersPhotosIsLoading;
-
 export const selectChosenPostID = state => state.posts.chosenPostID;
-
-export const selectCommentsSendLoading = state => state.posts.sendCommentLoading;
-export const selectComments = state => state.posts.comments;
-export const selectCommentsNextPage = state => state.posts.commentsNextPage;
-export const selectCommentsTotalPages = state => state.posts.commentsTotalPages;
-export const selectCommentsIsLoading = state => state.posts.commentsIsLoading;
