@@ -24,6 +24,7 @@ import {
   ProfileSettings,
   SignUp,
   SignUpComplete,
+  AddPostToBoard,
 } from './src/pages';
 import { Actions as SignUpActions } from './src/pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
@@ -97,6 +98,16 @@ const NewPostStack = createStackNavigator({
   },
 });
 
+const BoardsStack = createStackNavigator({
+  BoardsPage,
+  AddPostToBoard,
+}, {
+  initialRouteName: Pages.BOARDS_PAGE,
+  navigationOptions: {
+    header: null,
+  },
+});
+
 const Inside = createStackNavigator({
   Main,
   NewPostStack,
@@ -104,7 +115,7 @@ const Inside = createStackNavigator({
   ProfileEdit,
   ProfileSettings,
   ChangePass,
-  BoardsPage,
+  BoardsStack,
   PostInfo,
 }, {
   initialRouteName: Pages.MAIN,

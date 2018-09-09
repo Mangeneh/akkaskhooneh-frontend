@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { getSelfPhotosNextPage, refreshSelfPhotos } from '../../actions';
+import { AddPostToBoardHeader, ProfilePageImageItem, CustomStatusBar } from '../../components';
+import { Colors } from '../../config';
 import {
   selectSelfPhotos,
   selectSelfPhotosIsLoading,
@@ -10,29 +12,50 @@ import {
 } from '../../reducers/PostsReducer';
 
 class AddPostToBoard extends Component {
+  state = {
+    selectedUri: '',
+  };
+
   render() {
     const {
-      resetSelfPhotos, getPhotosNextPage, photosIsLoading, photos,
+      refreshSelfPhotos, photosIsLoading, photos, navigation,
     } = this.props;
     return (
-      <View>
-        <FlatList
-          onRefresh={() => {
-            resetSelfPhotos();
-            getPhotosNextPage(1);
-          }}
-          refreshing={photosIsLoading}
-          onEndReached={() => this.updatePhotos()}
-          style={{
-            flex: 1,
-            marginTop: 8,
-          }}
-          numColumns={2}
-          keyExtractor={(item, index) => item.id}
-          data={photos}
-          renderItem={({ item, index }) => this.renderPhoto(item, index)}
-        />
+      <View style={{ flex: 1 }}>
+        <CustomStatusBar />
+        <AddPostToBoardHeader onClosePress={() => navigation.goBack()} />
+        <View style={{
+          backgroundColor: Colors.WHITE_BACK,
+          flex: 1,
+          paddingLeft: 8,
+        }}
+        >
+          <CustomStatusBar />
+          <FlatList
+            onRefresh={() => refreshSelfPhotos()}
+            refreshing={photosIsLoading}
+            onEndReached={() => this.updatePhotos()}
+            style={{
+              flex: 1,
+              marginTop: 8,
+            }}
+            numColumns={2}
+            keyExtractor={(item, index) => item.id}
+            data={photos}
+            renderItem={({ item, index }) => this.renderPhoto(item, index)}
+          />
+        </View>
       </View>
+    );
+  }
+
+  renderPhoto(item, index) {
+    return (
+      <ProfilePageImageItem
+        image={item}
+        onPress={(image) => {
+        }}
+      />
     );
   }
 
@@ -46,6 +69,23 @@ class AddPostToBoard extends Component {
   }
 }
 
+
+const styles = StyleSheet.create({
+  marker: {
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    backgroundColor: 'transparent',
+    color: 'white',
+  },
+  imageContainer: {
+    marginBottom: 4,
+    marginRight: 4,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+});
+
 const mapStateToProps = state => ({
   photos: selectSelfPhotos(state),
   photosNextPage: selectSelfPhotosNextPage(state),
@@ -58,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
   refreshSelfPhotos: () => dispatch(refreshSelfPhotos()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)();
+export default connect(mapStateToProps, mapDispatchToProps)(AddPostToBoard);

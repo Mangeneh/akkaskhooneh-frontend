@@ -156,6 +156,12 @@ class Profile extends Component {
     );
   }
 
+  renderBoard(item, index) {
+    return (
+      <Board board={item} onAllPress={() => this.showBoardDetails(item)} />
+    );
+  }
+
   showPostInfoPage(image) {
 
   }
@@ -176,12 +182,6 @@ class Profile extends Component {
     if (boardsNextPage <= boardsTotalPages && !boardsIsLoading) {
       getBoardsNextPage(boardsNextPage);
     }
-  }
-
-  renderBoard(item, index) {
-    return (
-      <Board board={item} onAllPress={() => this.showBoardDetails(item)} />
-    );
   }
 
   onEditPress() {

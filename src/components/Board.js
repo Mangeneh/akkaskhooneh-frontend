@@ -9,6 +9,7 @@ import { strings } from '../i18n';
 export default class Board extends Component {
   render() {
     const { name, last_pics, count } = this.props.board;
+    const { onAllPress } = this.props;
     return (
       <View style={{ marginTop: 4 }}>
         <View style={{
@@ -22,7 +23,7 @@ export default class Board extends Component {
               alignItems: 'flex-start',
               marginLeft: 8,
             }}
-            onPress={this.props.onAllPress}
+            onPress={onAllPress}
           >
             <Text style={{
               fontSize: Constants.ITEM_FONT_SIZE,
