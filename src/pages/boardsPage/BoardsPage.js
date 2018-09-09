@@ -147,7 +147,7 @@ class BoardsPage extends Component {
   }
 
   addSelfPostsToBoard() {
-    NavigationService.navigate(Pages.ADD_POST_TO_BOARD);
+    NavigationService.navigate(Pages.ADD_POST_TO_BOARD, { boardID: this.props.navigation.getParam('board').id });
   }
 }
 
