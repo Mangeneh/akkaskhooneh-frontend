@@ -209,6 +209,7 @@ class PostInfo extends Component {
     const {
       refreshComments, commentsIsLoading, comments, postId,
     } = this.props;
+    console.warn(comments);
     return (
       <FlatList
         onRefresh={() => refreshComments(postId)}
@@ -227,7 +228,11 @@ class PostInfo extends Component {
 
   renderComment() {
     return (
-      <CommentComponent />
+      <View>
+        <CommentComponent />
+        <CommentComponent />
+        <CommentComponent />
+      </View>
     );
   }
 

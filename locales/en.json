@@ -63,5 +63,6 @@
   "no": "No",
   "show_post_info": "An Error Occured While Loading Post Info.",
   "comment": "ُType your opinion.",
-  "your-photos": "Shared Photos"
+  "your-photos": "Shared Photos",
+  "search_user_or_tag" : "Search Tags or Users."
 }

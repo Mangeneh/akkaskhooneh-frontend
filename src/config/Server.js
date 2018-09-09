@@ -18,5 +18,6 @@ export const Server = {
   GET_POST_INFO: '/social/post/',
   LIKE_DISLIKE: '/social/like/',
   COMMENT: '/social/comment/', 
-  GET_COMMENTS_LIST: '/social/comment/'
+  GET_COMMENTS_LIST: '/social/comment/',
+  GET_SEARCH_PHOTOS: '/social/tophashtag/?page=',
 };

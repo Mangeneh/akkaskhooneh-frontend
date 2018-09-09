@@ -7,50 +7,51 @@ import { Colors, Pages } from '../config';
 import Home from './home/Home';
 import Profile from './profile/Profile';
 import Search from './search/Search';
+import Notification from './notification/Notification';
 
 const profileStack = createStackNavigator({
   Profile,
 }, {
-  initialRouteName: Pages.PROFILE,
-  navigationOptions: {
-    header: null,
-  },
-  transitionConfig: () => ({
-    transitionSpec: {
-      easing: Easing.out(Easing.poly(5)),
-      timing: Animated.timing,
+    initialRouteName: Pages.PROFILE,
+    navigationOptions: {
+      header: null,
     },
-    screenInterpolator: (sceneProps) => {
-      const { layout, position, scene } = sceneProps;
-      const { index } = scene;
+    transitionConfig: () => ({
+      transitionSpec: {
+        easing: Easing.out(Easing.poly(5)),
+        timing: Animated.timing,
+      },
+      screenInterpolator: (sceneProps) => {
+        const { layout, position, scene } = sceneProps;
+        const { index } = scene;
 
-      const height = layout.initHeight;
-      const translateY = position.interpolate({
-        inputRange: [index - 1, index, index + 1],
-        outputRange: [height, 0, 0],
-      });
+        const height = layout.initHeight;
+        const translateY = position.interpolate({
+          inputRange: [index - 1, index, index + 1],
+          outputRange: [height, 0, 0],
+        });
 
-      const opacity = position.interpolate({
-        inputRange: [index - 1, index - 0.99, index + 1],
-        outputRange: [0, 1, 1],
-      });
+        const opacity = position.interpolate({
+          inputRange: [index - 1, index - 0.99, index + 1],
+          outputRange: [0, 1, 1],
+        });
 
-      return {
-        opacity,
-        transform: [{ translateY }],
-      };
-    },
-  }),
-});
+        return {
+          opacity,
+          transform: [{ translateY }],
+        };
+      },
+    }),
+  });
 
 const homeStack = createStackNavigator({
   Home,
 }, {
-  initialRouteName: Pages.HOME,
-  navigationOptions: {
-    header: null,
-  },
-});
+    initialRouteName: Pages.HOME,
+    navigationOptions: {
+      header: null,
+    },
+  });
 
 homeStack.navigationOptions = ({ navigation }) => ({
   tabBarVisible: navigation.state.index === 0,
@@ -58,11 +59,11 @@ homeStack.navigationOptions = ({ navigation }) => ({
 
 export default createMaterialTopTabNavigator(
   {
-    Profile: { screen: profileStack },
-    NotificationCenter: { screen: Search },
-    Nothing: { screen: Search },
-    Search: { screen: Search },
     Home: { screen: homeStack },
+    Search: { screen: Search },
+    Nothing: { screen: Notification },
+    NotificationCenter: { screen: Notification },
+    Profile: { screen: profileStack },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -100,6 +101,7 @@ export default createMaterialTopTabNavigator(
     }),
     tabBarComponent: BottomTabComponent,
     lazy: true,
+    header: null,
     animationEnabled: false,
     tabBarPosition: 'bottom',
     initialRouteName: 'Home',

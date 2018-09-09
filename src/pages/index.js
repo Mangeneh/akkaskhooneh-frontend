@@ -14,6 +14,7 @@ import Search from './search/Search';
 import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
 import AddPostToBoard from './addPostToBoard/AddPostToBoard';
+import Notification from './notification/Notification';
 
 export {
   Login,
@@ -32,4 +33,5 @@ export {
   BoardsPage,
   PostInfo,
   AddPostToBoard,
+  Notification,
 };

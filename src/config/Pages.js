@@ -16,4 +16,5 @@ export const Pages = {
   BOARDS_STACK: 'BoardsStack',
   BOARDS_PAGE: 'BoardsPage',
   ADD_POST_TO_BOARD: 'AddPostToBoard',
+  SEARCH: 'Search',
 };
