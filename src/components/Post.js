@@ -11,11 +11,11 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View, Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Constants, Graphics } from '../config';
 
-const WIDTH  = Dimensions.get('window').width;
+const WIDTH = Dimensions.get('window').width;
 
 export default class Post extends Component {
   render() {
@@ -76,7 +76,7 @@ export default class Post extends Component {
                 width: null,
                 flex: 1,
               }}
-              resizeMode={FastImage.resizeMode.center}
+              resizeMode={Platform.OS ===  "ios" ? FastImage.resizeMode.contain: FastImage.resizeMode.center}
             />
           </CardItem>
         </TouchableOpacity>

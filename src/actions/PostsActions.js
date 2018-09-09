@@ -27,6 +27,11 @@ export const PostsActions = {
   REFRESH_SELF_PHOTOS_SUCCESS: 'REFRESH_SELF_PHOTOS_SUCCESS',
   REFRESH_HOME_POSTS: 'REFRESH_HOME_POSTS',
   REFRESH_HOME_POSTS_SUCCESS: 'REFRESH_HOME_POSTS_SUCCESS',
+  REFRESH_OPEN_POST_COMMENTS: 'REFRESH_OPEN_POST_COMMENTS',
+  REFRESH_OPEN_POST_COMMENTS_SUCCESS: 'REFRESH_OPEN_POST_COMMENTS_SUCCESS',
+  GET_OPEN_POST_COMMENTS_NEXT_PAGE: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE',
+  GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS',
+  GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL',
 };
 
 export const resetSelfPhotos = () => ({
@@ -35,6 +40,16 @@ export const resetSelfPhotos = () => ({
 
 export const resetHomePosts = () => ({
   type: PostsActions.RESET_HOME_POSTS,
+});
+
+export const refreshComments = postId => ({
+  type: PostsActions.REFRESH_OPEN_POST_COMMENTS,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_COMMENTS_LIST}${postId}/?page=1`,
+    },
+  },
 });
 
 export const refreshSelfPhotos = () => ({
@@ -78,6 +93,16 @@ export const getHomePostsNextPage = postsNext => ({
     request: {
       method: RequestMethods.GET,
       url: `${Server.GET_HOME_POSTS_NEXT_PAGE}${postsNext}`,
+    },
+  },
+});
+
+export const getCommentsNextPage = (postId, commentsNext) => ({
+  type: PostsActions.GET_OPEN_POST_COMMENTS_NEXT_PAGE,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_COMMENTS_LIST}${postId}/?page=${commentsNext}`,
     },
   },
 });

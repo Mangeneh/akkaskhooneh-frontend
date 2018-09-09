@@ -171,6 +171,7 @@ class Home extends Component {
         NavigationService.navigate(Pages.POST_INFO_PAGE);
       })
       .catch((error) => {
+        console.warn(error);
         Toast.show({
           text: strings(Strings.SHOW_POST_INFO),
           textStyle: { textAlign: 'center' },
