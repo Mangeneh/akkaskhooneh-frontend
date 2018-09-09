@@ -11,9 +11,11 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Constants, Graphics } from '../config';
+
+const WIDTH  = Dimensions.get('window').width;
 
 export default class Post extends Component {
   render() {
@@ -70,11 +72,11 @@ export default class Post extends Component {
             <FastImage
               source={{ uri: item.post_picture }}
               style={{
-                height: 250,
+                height: WIDTH - 128,
                 width: null,
                 flex: 1,
               }}
-              resizeMode={FastImage.resizeMode.stretch}
+              resizeMode={FastImage.resizeMode.center}
             />
           </CardItem>
         </TouchableOpacity>

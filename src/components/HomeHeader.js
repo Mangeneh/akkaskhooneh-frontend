@@ -9,7 +9,7 @@ import { selectHomePostsIsLoading } from '../reducers/PostsReducer';
 
 class HomeHeader extends Component {
   render() {
-    const { onAddFriendsPress, postsIsLoading, title } = this.props;
+    const { onAddFriendsPress, title } = this.props;
     return (
       <Header androidStatusBarColor={Colors.BASE} style={{ backgroundColor: Colors.BASE }}>
         <Left style={{
@@ -35,10 +35,19 @@ class HomeHeader extends Component {
           marginRight: 16,
         }}
         >
-          {(postsIsLoading) ? <ActivityIndicator size="large" /> : <View />}
+          {this.renderLoader()}
         </Right>
       </Header>
     );
+  }
+
+  renderLoader() {
+    const { postsIsLoading } = this.props;
+    return <View />;
+    if (postsIsLoading) {
+      return <ActivityIndicator size="large" />;
+    }
+    return <View />;
   }
 }
 
