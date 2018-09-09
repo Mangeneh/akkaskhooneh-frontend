@@ -15,7 +15,6 @@ const INITIAL_HOME_POSTS_STATE = {
   homePostsIsLoading: false,
   homePostInfo: {},
   postInfoIsLoading: false,
-  sendCommentLoading: false,
 };
 
 const INITIAL_OTHERS_PHOTOS_STATE = {
@@ -25,12 +24,22 @@ const INITIAL_OTHERS_PHOTOS_STATE = {
   othersPhotosIsLoading: false,
 };
 
+const INITIAL_OPEN_POST_STATE = {
+  sendCommentLoading: false,
+  comments: [],
+  commentsNextPage: 1,
+  commentsTotalPages: 1,
+  commentsIsLoading: false,
+};
+
 const INITIAL_STATE = {
   ...INITIAL_SELF_PHOTOS_STATE,
   ...INITIAL_HOME_POSTS_STATE,
   ...INITIAL_OTHERS_PHOTOS_STATE,
+  ...INITIAL_OPEN_POST_STATE,
   chosenPostID: 0,
 };
+
 
 export default (state = INITIAL_STATE, action) => {
   const {
@@ -39,6 +48,9 @@ export default (state = INITIAL_STATE, action) => {
     GET_SELF_PHOTOS_NEXT_PAGE,
     GET_SELF_PHOTOS_NEXT_PAGE_FAIL,
     GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS,
+    GET_OPEN_POST_COMMENTS_NEXT_PAGE,
+    GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
+    GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL,
     RESET_HOME_POSTS,
     RESET_OTHERS_PHOTOS,
     RESET_SELF_PHOTOS,
@@ -53,7 +65,8 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_SELF_PHOTOS,
     REFRESH_SELF_PHOTOS_SUCCESS,
     REFRESH_HOME_POSTS,
-    REFRESH_HOME_POSTS_SUCCESS
+    REFRESH_HOME_POSTS_SUCCESS,
+    REFRESH_OPEN_POST_COMMENTS,
   } = PostsActions;
   switch (action.type) {
     case COMMENT:
@@ -76,6 +89,18 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         homePostInfo: action.payload.data,
         postInfoIsLoading: false,
+      };
+    case GET_OPEN_POST_COMMENTS_NEXT_PAGE:
+      return {
+        ...state,
+        commentsIsLoading: true,
+      };
+    case GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS:
+      return {
+        comments: state.comments.concat(action.payload.data.results),
+        commentsNextPage: state.commentsNextPage + 1,
+        commentsTotalPages: action.payload.data.total_pages,
+        commentsIsLoading: false,
       };
     case GET_HOME_POSTS_NEXT_PAGE:
       return {
@@ -170,7 +195,6 @@ export const selectHomePostsNextPage = state => state.posts.homePostsNextPage;
 export const selectHomePostsTotalPages = state => state.posts.homePostsTotalPages;
 export const selectHomePostsIsLoading = state => state.posts.homePostsIsLoading;
 export const selectPostInfo = state => state.posts.homePostInfo;
-export const selectCommentLoading = state => state.posts.sendCommentLoading;
 
 export const selectOthersPhotos = state => state.posts.othersPhotos;
 export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;
@@ -178,3 +202,9 @@ export const selectOthersPhotosTotalPages = state => state.posts.othersPhotosTot
 export const selectOthersPhotosIsLoading = state => state.posts.othersPhotosIsLoading;
 
 export const selectChosenPostID = state => state.posts.chosenPostID;
+
+export const selectCommentsSendLoading = state => state.posts.sendCommentLoading;
+export const selectComments = state => state.posts.comments;
+export const selectCommentsNextPage = state => state.posts.commentsNextPage;
+export const selectCommentsTotalPages = state => state.posts.commentsTotalPages;
+export const selectCommentsIsLoading = state => state.posts.commentsIsLoading;

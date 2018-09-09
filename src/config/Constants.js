@@ -9,4 +9,5 @@ export const Constants = {
   TEXT_BOX_ELEVATION: 1,
   IMAGE_SIZE: 1080,
   POST_CARD_RADIUS: 8,
+  COMMENT_THUMBNAIL_RADIUS: 20,
 };

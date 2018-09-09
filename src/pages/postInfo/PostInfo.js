@@ -12,25 +12,38 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { ActivityIndicator, SafeAreaView, View } from 'react-native';
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  View,
+  FlatList,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { sendComment } from '../../actions';
+import { sendComment, refreshComments, getCommentsNextPage } from '../../actions';
 import { CustomStatusBar, PostHeader } from '../../components';
 import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
 import {
   selectChosenPostID,
-  selectCommentLoading,
+  selectCommentsSendLoading,
   selectPostInfo,
+  selectComments,
+  selectCommentsNextPage,
+  selectCommentsTotalPages,
+  selectCommentsIsLoading,
 } from '../../reducers/PostsReducer';
+import CommentComponent from '../../components/CommentComponent';
 
 class PostInfo extends Component {
-  state = {
-    commentText: '',
-  };
-
+  constructor(props) {
+    super(props);
+    this.updateComments();
+    this.state = {
+      commentText: '',
+    };
+  }
   render() {
     const { commentText } = this.state;
     const { postInfo } = this.props;
@@ -47,7 +60,7 @@ class PostInfo extends Component {
           contentContainerStyle={{ flexGrow: 1 }}
         >
           <View style={{ flex: 1 }}>
-            <View style={{ flex: 4 }}>
+            <View style={{ flex: 4, marginBottom: 0 }}>
               <Card>
                 <CardItem>
                   <Left />
@@ -140,7 +153,9 @@ class PostInfo extends Component {
                 </CardItem>
               </Card>
             </View>
-            <View style={{ flex: 4 }} />
+            <View style={{ flex: 4 }}>
+              {this.renderCommentsList()}
+            </View>
             <View style={{
               backgroundColor: Colors.LIGHT_GRAY,
               flex: 1,
@@ -180,6 +195,47 @@ class PostInfo extends Component {
     );
   }
 
+  renderCommentsList() {
+    const {
+      refreshComments, commentsIsLoading, comments,
+    } = this.props;
+    return (
+      <FlatList
+        onRefresh={() => refreshComments()}
+        refreshing={commentsIsLoading}
+        onEndReached={() => this.updateComments()}
+        style={{
+          width: '100%',
+          marginTop: 8,
+        }}
+        keyExtractor={(item, index) => item.id.toString()}
+        data={comments}
+        renderItem={({ item, index }) => this.renderComment(item, index)}
+      />
+    );
+  }
+
+  renderComment() {
+    return (
+      <CommentComponent />
+    );
+  }
+
+  updateComments() {
+    const {
+      postId, commentsNextPage, commentsTotalPages, commentsIsLoading, getCommentsNextPage,
+    } = this.props;
+    if (commentsNextPage <= commentsTotalPages && !commentsIsLoading) {
+      getCommentsNextPage(postId, commentsNextPage)
+        .then((response) => {
+          console.warn('SUCCESS');
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    }
+  }
+
   renderSendIcon() {
     return (
       <Button
@@ -209,12 +265,18 @@ class PostInfo extends Component {
 
 const mapStateToProps = state => ({
   postInfo: selectPostInfo(state),
-  sendCommentLoading: selectCommentLoading(state),
+  sendCommentLoading: selectCommentsSendLoading(state),
   postId: selectChosenPostID(state),
+  comments: selectComments(state),
+  commentsNextPage: selectCommentsNextPage(state),
+  commentsTotalPages: selectCommentsTotalPages(state),
+  commentsIsLoading: selectCommentsIsLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   commentOnPost: (id, content) => dispatch(sendComment(id, content)),
+  refreshComments: () => dispatch(refreshComments()),
+  getCommentsNextPage: (id, commentsNext) => dispatch(getCommentsNextPage(id, commentsNext)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostInfo);
