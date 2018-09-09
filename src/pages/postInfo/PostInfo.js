@@ -53,14 +53,14 @@ class PostInfo extends Component {
 
   render() {
     const { commentText } = this.state;
-    const { postInfo } = this.props;
+    const { postInfo, navigation, sendCommentLoading } = this.props;
     return (
       <SafeAreaView style={{
         flex: 1,
         backgroundColor: 'white',
       }}
       >
-        <PostHeader onBackPress={() => this.props.navigation.navigate('Main')} />
+        <PostHeader onBackPress={() => navigation.navigate('Main')} />
         <CustomStatusBar />
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
@@ -177,7 +177,7 @@ class PostInfo extends Component {
             }}
             >
               <Item>
-                {this.props.sendCommentLoading
+                {sendCommentLoading
                   ? (
                     <ActivityIndicator
                       size="large"
@@ -219,7 +219,6 @@ class PostInfo extends Component {
     const {
       refreshComments, commentsIsLoading, comments, postId,
     } = this.props;
-    console.warn(comments);
     return (
       <FlatList
         onRefresh={() => refreshComments(postId)}
@@ -229,20 +228,16 @@ class PostInfo extends Component {
           width: '100%',
           marginTop: 8,
         }}
-        keyExtractor={(item, index) => item.id}
+        keyExtractor={(item, index) => index.toString()}
         data={comments}
         renderItem={({ item, index }) => this.renderComment(item, index)}
       />
     );
   }
 
-  renderComment() {
+  renderComment(item, index) {
     return (
-      <View>
-        <CommentComponent />
-        <CommentComponent />
-        <CommentComponent />
-      </View>
+      <CommentComponent comment={item} />
     );
   }
 
@@ -253,10 +248,8 @@ class PostInfo extends Component {
     if (commentsNextPage <= commentsTotalPages && !commentsIsLoading) {
       getCommentsNextPage(postId, commentsNextPage)
         .then((response) => {
-          console.warn('SUCCESS');
         })
         .catch((error) => {
-          console.warn(error);
         });
     }
   }
@@ -280,10 +273,8 @@ class PostInfo extends Component {
     const { commentOnPost, postId } = this.props;
     commentOnPost(postId, this.state.commentText)
       .then((response) => {
-        console.warn('SUCCESS');
       })
       .catch((error) => {
-        console.warn(error);
       });
   }
 }

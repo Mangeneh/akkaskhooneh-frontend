@@ -5,4 +5,5 @@ export const Graphics = {
   POST_CARD_RADIUS: 8,
   PHOTO_RADIUS: 5,
   TEXT_NORMAL_SIZE: 14,
+  COMMENTS_TEXT_SIZE:10,
 };

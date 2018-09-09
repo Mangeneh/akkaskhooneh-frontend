@@ -14,6 +14,7 @@ import NavigationService from './src/NavigationService';
 import {
   AddFriends,
   AddPostInfo,
+  AddPostToBoard,
   BoardsPage,
   ChangePass,
   Login,
@@ -24,11 +25,11 @@ import {
   ProfileSettings,
   SignUp,
   SignUpComplete,
-  AddPostToBoard,
 } from './src/pages';
 import { Actions as SignUpActions } from './src/pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
 import rootReducer from './src/reducers';
+import { selectAccessToken, selectRefreshToken } from './src/reducers/UserInfoReducer';
 
 const client = axios.create({
   baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000
@@ -59,11 +60,11 @@ const store = createStore(
               return response;
             },
             error({ getState, dispatch, getSourceAction }, error) {
-              if (error.status === 401) {
-                return dispatch(accessTokenUpdated(getState.userInfo.refreshToken))
+              if (error.response.status === 401) {
+                return dispatch(accessTokenUpdated(selectRefreshToken(getState())))
                   .then(() => {
                     // eslint-disable-next-line no-param-reassign
-                    error.headers.authorization = `Bearer ${getState().userInfo.accessToken}`;
+                    error.config.headers.authorization = `Bearer ${selectAccessToken(getState())}`;
                     return axios(error.config);
                   });
               }
