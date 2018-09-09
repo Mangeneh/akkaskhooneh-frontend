@@ -1,129 +1,119 @@
+import {
+  Header, Icon, Input, Item,
+} from 'native-base';
 import React, { Component } from 'react';
-import Masonry from 'react-native-masonry';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
-import { FlatList } from 'react-native';
-import { View, Item, Icon, Input, Content, Header, Container, Image } from 'native-base';
-import { CustomStatusBar, BackHeader } from '../../components';
-import {
-  Colors, Constants, Pages, Strings,
-} from '../../config';
+import { CustomStatusBar } from '../../components';
+import TagMasonry from '../../components/TagMasonry';
+import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
+import { getSearchTopTagsNextPage, refreshSearchTopTags } from './actions';
 import {
-  selectSearchPhotos,
-  selectSearchPhotosNextPage,
-  selectSearchPhotosTotalPages,
-  selectSearchPhotosIsLoading,
+  selectSearchTopTags,
+  selectSearchTopTagsIsLoading,
+  selectSearchTopTagsNextPage,
+  selectSearchTopTagsTotalPages,
 } from './reducer';
-import { refreshSearchPhotos, getSearchPhotosNextPage } from './actions';
 
 class Search extends Component {
-  static navigationOptions = {
-    header: null,
-    headerMode: 'none',
-  }
-
   state = {
     items: [],
   };
 
   componentWillMount() {
-    this.props.refreshSearchPhotos()
+    this.props.refreshSearchTopTags()
       .then((response) => {
-        console.warn(response);
+        console.log(response);
       })
       .catch((error) => {
-        console.warn(error);
+
       });
   }
 
   render() {
     return (
-      <Container>
+      <View>
         <CustomStatusBar />
-        <Header style={{ backgroundColor: Colors.BASE }}>
-          <Item
-            rounded
-            style={{
-              alignSelf: 'center',
-              borderRadius: Constants.TEXT_BOX_RADIUS,
-              backgroundColor: 'white',
-            }}
-          >
-            <Input
-              placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
-              style={{
-                textAlign: 'right',
-                fontSize: Constants.ITEM_FONT_SIZE,
-                height: 20,
-              }}
-            />
-            <Icon name="ios-search" style={{ color: Colors.BASE }} />
-          </Item>
-        </Header>
-        <Content>
-          {this.renderPostsList()}
-          <Masonry
-            sorted// optional - Default: false
-            columns={2} // optional - Default: 2
-            bricks={this.state.items}
-          />
-        </Content>
-      </Container>
+        {this.renderHeader()}
+        {this.rendertopTagsList()}
+      </View>
     );
   }
 
-  renderPostsList() {
+  renderHeader() {
+    return (
+      <Header style={{ backgroundColor: Colors.BASE }}>
+        <Item
+          rounded
+          style={{
+            alignSelf: 'center',
+            borderRadius: Constants.TEXT_BOX_RADIUS,
+            backgroundColor: 'white',
+          }}
+        >
+          <Input
+            placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
+            style={{
+              textAlign: 'right',
+              fontSize: Constants.ITEM_FONT_SIZE,
+              height: 20,
+            }}
+          />
+          <Icon name="ios-search" style={{ color: Colors.BASE }} />
+        </Item>
+      </Header>
+    );
+  }
+
+  rendertopTagsList() {
     const {
-      refreshSearchPhotos, postsIsLoading, posts,
+      refreshSearchTopTags, topTagsIsLoading, topTags,
     } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshSearchPhotos()}
-        refreshing={postsIsLoading}
-        onEndReached={() => this.updatePosts()}
+        onRefresh={() => refreshSearchTopTags()}
+        refreshing={topTagsIsLoading}
+        onEndReached={() => this.updateTopTags()}
         style={{
           width: '100%',
           marginTop: 8,
         }}
         keyExtractor={(item, index) => item.id}
-        data={posts}
-        renderItem={({ item, index }) => this.renderPost(item, index)}
+        data={topTags}
+        renderItem={({ item, index }) => this.renderBrick(item, index)}
       />
     );
   }
 
-  renderPost(item, index) {
-    const items = [...this.state.items, `uri: ${item.picture}`];
-    this.setState({ items });
-    console.warn(this.state.items);
-  }
-
-  updatePosts() {
+  updateTopTags() {
     const {
-      postsNextPage, postsTotalPages, postsIsLoading, getSearchPhotosNextPage,
+      topTagsNextPage, topTagsTotalPages, topTagsIsLoading, getSearchTopTagsNextPage,
     } = this.props;
-    if (postsNextPage <= postsTotalPages && !postsIsLoading) {
-      getSearchPhotosNextPage(postsNextPage)
+    if (topTagsNextPage <= topTagsTotalPages && !topTagsIsLoading) {
+      getSearchTopTagsNextPage(topTagsNextPage)
         .then((response) => {
-          console.warn('SUCCESS');
         })
         .catch((error) => {
-          console.warn(error);
         });
     }
+  }
+
+  renderBrick(item, index) {
+    return <TagMasonry tag={item} />;
   }
 }
 
 const mapStateToProps = state => ({
-  posts: selectSearchPhotos(state),
-  postsNextPage: selectSearchPhotosNextPage(state),
-  postsTotalPages: selectSearchPhotosTotalPages(state),
-  postsIsLoading: selectSearchPhotosIsLoading(state),
+  topTags: selectSearchTopTags(state),
+  topTagsNextPage: selectSearchTopTagsNextPage(state),
+  topTagsTotalPages: selectSearchTopTagsTotalPages(state),
+  topTagsIsLoading: selectSearchTopTagsIsLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  refreshSearchPhotos: () => dispatch(refreshSearchPhotos()),
-  getSearchPhotosNextPage: postsNext => dispatch(getSearchPhotosNextPage(postsNext)),
+  refreshSearchTopTags: () => dispatch(refreshSearchTopTags()),
+  getSearchTopTagsNextPage: topTagsNext => dispatch(getSearchTopTagsNextPage(topTagsNext)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

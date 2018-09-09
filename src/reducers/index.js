@@ -5,6 +5,7 @@ import ChangePassPageReducer from '../pages/changePass/reducer';
 import HomeReducer from '../pages/home/reducer';
 import LoginPageReducer from '../pages/login/reducer';
 import ProfileEditPageReducer from '../pages/profileEdit/reducer';
+import SearchPageReducer from '../pages/search/reducer';
 import SignUpPageReducer from '../pages/signUp/reducer';
 import SignUpCompletePageReducer from '../pages/signUpComplete/reducer';
 import BoardsReducer from './BoardsReducer';
@@ -23,4 +24,5 @@ export default combineReducers({
   boards: BoardsReducer,
   homePage: HomeReducer,
   boardsPage: BoardsPageReducer,
+  searchPage: SearchPageReducer,
 });
