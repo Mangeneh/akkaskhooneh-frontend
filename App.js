@@ -6,6 +6,10 @@ import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import axiosMiddleware from 'redux-axios-middleware';
+import { persistReducer, persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import storage from 'redux-persist/lib/storage';
 import getTheme from './native-base-theme/components';
 import commonColor from './native-base-theme/variables/commonColor';
 import { accessTokenUpdated } from './src/actions/UserInfoActions';
@@ -31,15 +35,24 @@ import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/act
 import rootReducer from './src/reducers';
 import { selectAccessToken, selectRefreshToken } from './src/reducers/UserInfoReducer';
 
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 
 const client = axios.create({
-  baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000
+  // baseURL: 'http://192.168.11.140',
+  baseURL: 'http://10.0.3.2:8000',
   responseType: 'json',
 });
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  stateReconciler: autoMergeLevel2,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = createStore(
-  rootReducer,
+  persistedReducer,
   {},
   applyMiddleware(
     axiosMiddleware(client, {
@@ -79,6 +92,8 @@ const store = createStore(
     }),
   ),
 );
+
+export const persistor = persistStore(store);
 
 const AuthStack = createStackNavigator({
   Login,
@@ -131,7 +146,7 @@ const RootStack = createSwitchNavigator({
   AuthStack,
   Inside,
 }, {
-  initialRouteName: Pages.AUTH_STACK,
+  initialRouteName: selectAccessToken(store.getState()) ? Pages.INSIDE : Pages.AUTH_STACK,
   navigationOptions: {
     header: null,
   },
@@ -140,16 +155,18 @@ const RootStack = createSwitchNavigator({
 export default class App extends Component {
   render() {
     return (
-      <Root>
-        <Provider store={store}>
-          <StyleProvider style={getTheme(commonColor)}>
-            <RootStack ref={(navigatorRef) => {
-              NavigationService.setTopLevelNavigator(navigatorRef);
-            }}
-            />
-          </StyleProvider>
-        </Provider>
-      </Root>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Root>
+            <StyleProvider style={getTheme(commonColor)}>
+              <RootStack ref={(navigatorRef) => {
+                NavigationService.setTopLevelNavigator(navigatorRef);
+              }}
+              />
+            </StyleProvider>
+          </Root>
+        </PersistGate>
+      </Provider>
     );
   }
 }
