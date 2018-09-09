@@ -30,6 +30,8 @@ import { Actions as SignUpActions } from './src/pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
 import rootReducer from './src/reducers';
 
+console.disableYellowBox = true;
+
 const client = axios.create({
   baseURL: 'http://192.168.11.140', // http://10.0.3.2:8000
   responseType: 'json',

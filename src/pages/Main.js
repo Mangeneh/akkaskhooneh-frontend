@@ -13,9 +13,7 @@ const profileStack = createStackNavigator({
   Profile,
 }, {
     initialRouteName: Pages.PROFILE,
-    navigationOptions: {
-      header: null,
-    },
+    headerMode: 'none',
     transitionConfig: () => ({
       transitionSpec: {
         easing: Easing.out(Easing.poly(5)),
@@ -48,9 +46,7 @@ const homeStack = createStackNavigator({
   Home,
 }, {
     initialRouteName: Pages.HOME,
-    navigationOptions: {
-      header: null,
-    },
+    headerMode: "none",
   });
 
 homeStack.navigationOptions = ({ navigation }) => ({
@@ -101,7 +97,6 @@ export default createMaterialTopTabNavigator(
     }),
     tabBarComponent: BottomTabComponent,
     lazy: true,
-    header: null,
     animationEnabled: false,
     tabBarPosition: 'bottom',
     initialRouteName: 'Home',

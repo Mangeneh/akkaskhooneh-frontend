@@ -43,8 +43,8 @@ export default (state = INITIAL_STATE, action) => {
     case GET_SEARCH_PHOTOS_NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        searchPhotos: state.comments.concat(action.payload.data.results),
-        searchPhotosNextPage: state.commentsNextPage + 1,
+        searchPhotos: state.searchPhotos.concat(action.payload.data.results),
+        searchPhotosNextPage: state.searchPhotosNextPage + 1,
         searchPhotosTotalPages: action.payload.data.total_pages,
         searchPhotosIsLoading: false,
       };
