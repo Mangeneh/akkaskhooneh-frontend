@@ -13,28 +13,25 @@ import {
 } from 'native-base';
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
-  SafeAreaView,
-  View,
-  FlatList,
+  ActivityIndicator, FlatList, SafeAreaView, View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { sendComment, refreshComments, getCommentsNextPage } from '../../actions';
+import { getCommentsNextPage, refreshComments, sendComment } from '../../actions';
 import { CustomStatusBar, PostHeader } from '../../components';
+import CommentComponent from '../../components/CommentComponent';
 import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
 import {
   selectChosenPostID,
-  selectCommentsSendLoading,
-  selectPostInfo,
   selectComments,
-  selectCommentsNextPage,
-  selectCommentsTotalPages,
   selectCommentsIsLoading,
+  selectCommentsNextPage,
+  selectCommentsSendLoading,
+  selectCommentsTotalPages,
+  selectPostInfo,
 } from '../../reducers/PostsReducer';
-import CommentComponent from '../../components/CommentComponent';
 
 class PostInfo extends Component {
   constructor(props) {
@@ -47,10 +44,10 @@ class PostInfo extends Component {
   componentWillMount() {
     this.props.refreshComments(this.props.postId)
       .then((response) => {
-        console.warn(response);
+
       })
       .catch((error) => {
-        console.warn(error);
+
       });
   }
 
@@ -70,7 +67,11 @@ class PostInfo extends Component {
           contentContainerStyle={{ flexGrow: 1 }}
         >
           <View style={{ flex: 1 }}>
-            <View style={{ flex: 4, marginBottom: 0 }}>
+            <View style={{
+              flex: 4,
+              marginBottom: 0,
+            }}
+            >
               <Card>
                 <CardItem>
                   <Left />
@@ -177,7 +178,16 @@ class PostInfo extends Component {
             >
               <Item>
                 {this.props.sendCommentLoading
-                  ? <ActivityIndicator size="large" style={{ marginLeft: 12, marginRight: 8 }} color={Colors.ACCENT} /> : this.renderSendIcon()}
+                  ? (
+                    <ActivityIndicator
+                      size="large"
+                      style={{
+                        marginLeft: 12,
+                        marginRight: 8,
+                      }}
+                      color={Colors.ACCENT}
+                    />
+                  ) : this.renderSendIcon()}
                 <Textarea
                   rowSpan={2}
                   placeholder={strings(Strings.COMMENT)}
@@ -273,15 +283,18 @@ class PostInfo extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  postInfo: selectPostInfo(state),
-  sendCommentLoading: selectCommentsSendLoading(state),
-  postId: selectChosenPostID(state),
-  comments: selectComments(state),
-  commentsNextPage: selectCommentsNextPage(state),
-  commentsTotalPages: selectCommentsTotalPages(state),
-  commentsIsLoading: selectCommentsIsLoading(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const postID = ownProps.navigation.getParam('postID');
+  return ({
+    postInfo: selectPostInfo(state, postID),
+    sendCommentLoading: selectCommentsSendLoading(state, postID),
+    postId: selectChosenPostID(state),
+    comments: selectComments(state, postID),
+    commentsNextPage: selectCommentsNextPage(state, postID),
+    commentsTotalPages: selectCommentsTotalPages(state, postID),
+    commentsIsLoading: selectCommentsIsLoading(state, postID),
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   commentOnPost: (id, content) => dispatch(sendComment(id, content)),

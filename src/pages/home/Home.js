@@ -163,15 +163,16 @@ class Home extends Component {
   }
 
   getSinglePostInfo(id) {
-    const { changeSelectedPostID, getPostInfo, choosePost } = this.props;
+    const {
+      changeSelectedPostID, getPostInfo, choosePost, navigation,
+    } = this.props;
     choosePost(id);
     getPostInfo(id)
       .then((response) => {
         changeSelectedPostID(id);
-        NavigationService.navigate(Pages.POST_INFO_PAGE);
+        navigation.push(Pages.POST_INFO_PAGE, { postID: id });
       })
       .catch((error) => {
-        console.warn(error);
         Toast.show({
           text: strings(Strings.SHOW_POST_INFO),
           textStyle: { textAlign: 'center' },
