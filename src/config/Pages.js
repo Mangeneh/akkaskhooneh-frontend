@@ -12,6 +12,8 @@ export const Pages = {
   MAIN: 'Main',
   AUTH_STACK: 'AuthStack',
   HOME: 'Home',
-  BOARDS_PAGE: 'BoardsPage',
   POST_INFO_PAGE: 'PostInfo',
+  BOARDS_STACK: 'BoardsStack',
+  BOARDS_PAGE: 'BoardsPage',
+  ADD_POST_TO_BOARD: 'AddPostToBoard',
 };

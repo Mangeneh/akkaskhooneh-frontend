@@ -13,6 +13,7 @@ import ProfileSettings from './profileSettings/ProfileSettings';
 import Search from './search/Search';
 import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
+import AddPostToBoard from './addPostToBoard/AddPostToBoard';
 
 export {
   Login,
@@ -30,4 +31,5 @@ export {
   Search,
   BoardsPage,
   PostInfo,
+  AddPostToBoard,
 };

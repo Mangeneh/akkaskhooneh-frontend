@@ -1,3 +1,4 @@
+import AddPostToBoardHeader from './AddPostToBoardHeader';
 import BackHeader from './BackHeader';
 import Board from './Board';
 import CameraRollPicker from './CameraRollPicker/CameraRollPicker';
@@ -32,4 +33,5 @@ export {
   PostHeader,
   CameraRollPicker,
   ProfilePageImageItem,
+  AddPostToBoardHeader,
 };

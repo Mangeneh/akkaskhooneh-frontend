@@ -12,9 +12,9 @@ import CustomStatusBar from './CustomStatusBar';
 
 class BottomTabComponent extends Component {
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isLoading) {
-      this.animation.play();
-    }
+    // if (nextProps.isLoading) {
+    //   this.animation.play();
+    // }
   }
 
   render() {
@@ -50,6 +50,7 @@ class BottomTabComponent extends Component {
 
   renderLoadingBar() {
     const { isLoading } = this.props;
+    return null;
     return (
       <LottieView
         ref={(animation) => {

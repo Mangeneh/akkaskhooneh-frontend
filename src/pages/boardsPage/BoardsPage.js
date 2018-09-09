@@ -7,9 +7,10 @@ import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import { deleteBoard, refreshSelfBoards } from '../../actions';
 import { CustomStatusBar, SelfBoardsPageHeader } from '../../components';
-import { Colors, Strings } from '../../config';
+import { Colors, Pages, Strings } from '../../config';
 import { showFailiureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
+import NavigationService from '../../NavigationService';
 import { selectSelfUsername } from '../../reducers/UserInfoReducer';
 import { getBoardsPhotosNextPage } from './actions';
 import {
@@ -25,24 +26,18 @@ class BoardsPage extends Component {
   constructor(props) {
     super(props);
     this.updatePhotos();
-    this.state = {
-      isOpen: false,
-      isDisabled: false,
-      swipeToClose: true,
-      sliderValue: 0.3,
-    };
   }
 
   render() {
+    const { navigation, boardsPhotos, boardsIsLoading } = this.props;
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
         <SelfBoardsPageHeader
-          boardName={this.props.navigation.getParam('board').name}
-          onBackPress={() => this.props.navigation.goBack()}
+          boardName={navigation.getParam('board').name}
+          onBackPress={() => navigation.navigate(Pages.MAIN)}
           onDeletePress={() => this.confirmDeleteBoard()}
-          onAddPress={() => {
-          }}
+          onAddPress={() => this.addSelfPostsToBoard()}
         />
         <Modal
           style={{
@@ -89,7 +84,7 @@ class BoardsPage extends Component {
             </Button>
           </View>
         </Modal>
-        {(this.props.boardsIsLoading) ? (<ActivityIndicator size="large" />)
+        {(boardsIsLoading) ? (<ActivityIndicator size="large" />)
           : (
             <FlatList
               onEndReached={() => this.updatePhotos()}
@@ -99,7 +94,7 @@ class BoardsPage extends Component {
               }}
               numColumns={2}
               keyExtractor={(item, index) => item.id.toString()}
-              data={this.props.boardsPhotos}
+              data={boardsPhotos}
               renderItem={({ item, index }) => this.renderPhoto(item, index)}
             />
           )
@@ -149,6 +144,10 @@ class BoardsPage extends Component {
       .catch((error) => {
         showFailiureToast(strings(Strings.DELETE_BOARD_FAIL));
       });
+  }
+
+  addSelfPostsToBoard() {
+    NavigationService.navigate(Pages.ADD_POST_TO_BOARD);
   }
 }
 

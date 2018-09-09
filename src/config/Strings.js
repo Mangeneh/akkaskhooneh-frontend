@@ -62,4 +62,5 @@ export const Strings = {
   NO: 'no',
   SHOW_POST_INFO: 'show_post_info',
   COMMENT: 'comment',
+  YOUR_PHOTOS: 'your-photos',
 };
