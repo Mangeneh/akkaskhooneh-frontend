@@ -28,6 +28,7 @@ export const PostsActions = {
   REFRESH_HOME_POSTS: 'REFRESH_HOME_POSTS',
   REFRESH_HOME_POSTS_SUCCESS: 'REFRESH_HOME_POSTS_SUCCESS',
   REFRESH_OPEN_POST_COMMENTS: 'REFRESH_OPEN_POST_COMMENTS',
+  REFRESH_OPEN_POST_COMMENTS_SUCCESS: 'REFRESH_OPEN_POST_COMMENTS_SUCCESS',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL',
@@ -41,8 +42,14 @@ export const resetHomePosts = () => ({
   type: PostsActions.RESET_HOME_POSTS,
 });
 
-export const refreshComments = () => ({
+export const refreshComments = postId => ({
   type: PostsActions.REFRESH_OPEN_POST_COMMENTS,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_COMMENTS_LIST}${postId}/?page=1`,
+    },
+  },
 });
 
 export const refreshSelfPhotos = () => ({

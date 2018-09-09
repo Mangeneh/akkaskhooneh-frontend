@@ -67,6 +67,7 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_HOME_POSTS,
     REFRESH_HOME_POSTS_SUCCESS,
     REFRESH_OPEN_POST_COMMENTS,
+    REFRESH_OPEN_POST_COMMENTS_SUCCESS,
   } = PostsActions;
   switch (action.type) {
     case COMMENT:
@@ -90,6 +91,20 @@ export default (state = INITIAL_STATE, action) => {
         homePostInfo: action.payload.data,
         postInfoIsLoading: false,
       };
+    case REFRESH_OPEN_POST_COMMENTS:
+      return {
+        ...state,
+        commentsIsLoading: true,
+      };
+    case REFRESH_OPEN_POST_COMMENTS_SUCCESS:
+      console.warn(action.payload.data.results);
+      return {
+        ...state,
+        comments: action.payload.data.results,
+        commentsNextPage: 2,
+        commentsTotalPages: action.payload.data.total_pages,
+        commentsIsLoading: false,
+      };
     case GET_OPEN_POST_COMMENTS_NEXT_PAGE:
       return {
         ...state,
@@ -97,6 +112,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     case GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS:
       return {
+        ...state,
         comments: state.comments.concat(action.payload.data.results),
         commentsNextPage: state.commentsNextPage + 1,
         commentsTotalPages: action.payload.data.total_pages,

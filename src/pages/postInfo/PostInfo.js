@@ -39,11 +39,21 @@ import CommentComponent from '../../components/CommentComponent';
 class PostInfo extends Component {
   constructor(props) {
     super(props);
-    this.updateComments();
     this.state = {
       commentText: '',
     };
   }
+
+  componentWillMount() {
+    this.props.refreshComments(this.props.postId)
+      .then((response) => {
+        console.warn(response);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  }
+
   render() {
     const { commentText } = this.state;
     const { postInfo } = this.props;
@@ -197,18 +207,18 @@ class PostInfo extends Component {
 
   renderCommentsList() {
     const {
-      refreshComments, commentsIsLoading, comments,
+      refreshComments, commentsIsLoading, comments, postId,
     } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshComments()}
+        onRefresh={() => refreshComments(postId)}
         refreshing={commentsIsLoading}
         onEndReached={() => this.updateComments()}
         style={{
           width: '100%',
           marginTop: 8,
         }}
-        keyExtractor={(item, index) => item.id.toString()}
+        keyExtractor={(item, index) => item.id}
         data={comments}
         renderItem={({ item, index }) => this.renderComment(item, index)}
       />
@@ -275,7 +285,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   commentOnPost: (id, content) => dispatch(sendComment(id, content)),
-  refreshComments: () => dispatch(refreshComments()),
+  refreshComments: id => dispatch(refreshComments(id)),
   getCommentsNextPage: (id, commentsNext) => dispatch(getCommentsNextPage(id, commentsNext)),
 });
 
