@@ -1,53 +1,30 @@
 import React from 'react';
-import { Animated, Easing } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import BottomTabComponent from '../components/BottomTabComponent';
 import { Colors, Pages } from '../config';
 import Home from './home/Home';
+import Notification from './notification/Notification';
 import Profile from './profile/Profile';
 import Search from './search/Search';
-import Notification from './notification/Notification';
 
 const profileStack = createStackNavigator({
   Profile,
 }, {
-    initialRouteName: Pages.PROFILE,
-    headerMode: 'none',
-    transitionConfig: () => ({
-      transitionSpec: {
-        easing: Easing.out(Easing.poly(5)),
-        timing: Animated.timing,
-      },
-      screenInterpolator: (sceneProps) => {
-        const { layout, position, scene } = sceneProps;
-        const { index } = scene;
+  initialRouteName: Pages.PROFILE,
+  headerMode: 'none',
+});
 
-        const height = layout.initHeight;
-        const translateY = position.interpolate({
-          inputRange: [index - 1, index, index + 1],
-          outputRange: [height, 0, 0],
-        });
-
-        const opacity = position.interpolate({
-          inputRange: [index - 1, index - 0.99, index + 1],
-          outputRange: [0, 1, 1],
-        });
-
-        return {
-          opacity,
-          transform: [{ translateY }],
-        };
-      },
-    }),
-  });
+profileStack.navigationOptions = ({ navigation }) => ({
+  tabBarVisible: navigation.state.index === 0,
+});
 
 const homeStack = createStackNavigator({
   Home,
 }, {
-    initialRouteName: Pages.HOME,
-    headerMode: "none",
-  });
+  initialRouteName: Pages.HOME,
+  headerMode: 'none',
+});
 
 homeStack.navigationOptions = ({ navigation }) => ({
   tabBarVisible: navigation.state.index === 0,
@@ -79,7 +56,7 @@ export default createMaterialTopTabNavigator(
         }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <Icon name={iconName} size={24} style={{ color: Colors.ICON }} />;
+        return <Icon name={iconName} size={24} style={{ color: Colors.ICON }}/>;
       },
       /**
        * tabBarOnPress
