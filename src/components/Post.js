@@ -95,7 +95,7 @@ export default class Post extends Component {
         <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
           <Left>
             <Button transparent style={{ flexDirection: 'row' }} onPress={onLikePressed}>
-              <Icon name="heart-outlined" type="Entypo" style={styles.icon} />
+              <Icon name={item.is_liked ? 'heart' : 'heart-outlined'} type="Entypo" style={{ color: item.is_liked ? 'red' : Colors.BASE }} />
               <Text style={styles.stats}>{item.likes}</Text>
             </Button>
             <Button

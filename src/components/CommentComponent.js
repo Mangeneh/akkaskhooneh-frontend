@@ -33,7 +33,7 @@ export default class CommentComponent extends Component {
             </Text>
           </View>
           <View style={{ justifyContent: 'flex-end' }}>
-            <Text style={{ fontSize: Graphics.COMMENTS_TEXT_SIZE }}>{comment.comment}</Text>
+            <Text style={{ fontSize: Graphics.COMMENTS_TEXT_SIZE, textAlign: 'right', paddingRight: 8 }}>{comment.comment}</Text>
           </View>
         </View>
         <Thumbnail

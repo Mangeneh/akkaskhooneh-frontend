@@ -199,6 +199,7 @@ export default (state = INITIAL_STATE, action) => {
       const newPost = {
         ...chosenPost,
         likes: newLikes,
+        is_liked: action.payload.data.liked,
       };
       const newHomePosts = [...state.homePosts.slice(0, chosenPostIndex), newPost, ...state.homePosts.slice(chosenPostIndex + 1)];
       return {
