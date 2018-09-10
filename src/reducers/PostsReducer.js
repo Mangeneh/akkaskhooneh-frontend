@@ -222,6 +222,7 @@ export default (state = INITIAL_STATE, action) => {
         homePosts: newHomePosts,
       };
     }
+
     case REFRESH_SELF_PHOTOS:
       return {
         ...state,
@@ -262,6 +263,7 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 const createPostBadge = postID => `post${postID}`;
+const createTagBadge = tagID => `tag${tagID}`;
 
 export const selectSelfPhotos = state => state.posts.selfPhotos;
 export const selectSelfPhotosNextPage = state => state.posts.selfPhotosNextPage;

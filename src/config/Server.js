@@ -20,5 +20,5 @@ export const Server = {
   COMMENT: '/social/comment/',
   GET_COMMENTS_LIST: '/social/comment/',
   GET_SEARCH_TOP_TAGS: '/social/tophashtag/?page=',
-  GET_TAG_POSTS: '/social/tags/',
+  GET_TAGS_POSTS: '/social/tags/',
 };
