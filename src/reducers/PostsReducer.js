@@ -76,7 +76,9 @@ export default (state = INITIAL_STATE, action) => {
     //
     REFRESH_OPEN_POST_COMMENTS,
     REFRESH_OPEN_POST_COMMENTS_SUCCESS,
+    REFRESH_OPEN_POST_COMMENTS_FAIL,
   } = PostsActions;
+  console.log(action);
   switch (action.type) {
     case GET_HOME_POSTS_NEXT_PAGE:
       return {
@@ -175,6 +177,16 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
+    case REFRESH_OPEN_POST_COMMENTS_FAIL: {
+      const postField = createPostBadge(action.meta.previousAction.payload.postID);
+      return {
+        ...state,
+        [postField]: {
+          ...state[postField],
+          commentsIsLoading: false,
+        },
+      };
+    }
     case GET_OPEN_POST_COMMENTS_NEXT_PAGE: {
       const postField = createPostBadge(action.payload.postID);
       return {
@@ -186,13 +198,13 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     case GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: {
-      const postField = createPostBadge(action.payload.postID);
+      const postField = createPostBadge(action.meta.previousAction.payload.postID);
       return {
         ...state,
         [postField]: {
           ...state[postField],
-          comments: state.comments.concat(action.payload.data.results),
-          commentsNextPage: state.commentsNextPage + 1,
+          comments: state[postField].comments.concat(action.payload.data.results),
+          commentsNextPage: state[postField].commentsNextPage + 1,
           commentsTotalPages: action.payload.data.total_pages,
           commentsIsLoading: false,
         },

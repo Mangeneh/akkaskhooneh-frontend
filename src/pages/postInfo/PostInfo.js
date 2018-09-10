@@ -87,7 +87,7 @@ class PostInfo extends Component {
 
   renderInputBox() {
     const { commentText } = this.state;
-    const { navigation, sendCommentLoading, isSendingComment } = this.props;
+    const { isSendingComment } = this.props;
     return (
       <View
         style={{
@@ -110,7 +110,7 @@ class PostInfo extends Component {
             this.renderSendIcon()
           )}
           <Textarea
-            rowSpan={1}
+            rowSpan={2}
             placeholder={strings(Strings.COMMENT)}
             style={{
               backgroundColor: 'white',
@@ -229,6 +229,7 @@ class PostInfo extends Component {
 
   renderCommentsList() {
     const { refreshComments, commentsIsLoading, comments } = this.props;
+    console.log(this.props);
     return (
       <FlatList
         onRefresh={() => refreshComments()}
