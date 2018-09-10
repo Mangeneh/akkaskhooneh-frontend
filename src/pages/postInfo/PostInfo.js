@@ -49,15 +49,15 @@ class PostInfo extends Component {
 				<CustomStatusBar />
 				<KeyboardAwareScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flexGrow: 1 }}>
 					<View style={{ flex: 1 }}>
-						<ScrollView>
-							<View
-								style={{
-									flex: 4,
-									marginBottom: 0,
-								}}
-							>
-								{this.renderCard()}
-							</View>
+          <ScrollView>
+						<View
+							style={{
+								flex: 4,
+								marginBottom: 0,
+							}}
+						>
+							{this.renderCard()}
+						</View>
 							<View style={{ flex: 4 }}>{this.renderCommentsList()}</View>
 						</ScrollView>
 
