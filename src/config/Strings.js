@@ -68,4 +68,5 @@ export const Strings = {
   COMMENT_NOTIFICATION: 'comment_notification',
   FOLLOW_NOTIFICATION: 'follow_notification',
   COMMENT_FAILED: 'comment_failed',
+  ADD: 'add',
 };

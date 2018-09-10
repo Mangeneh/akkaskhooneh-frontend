@@ -2,6 +2,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { Colors } from '../config';
 import { extractTagName, extractTagPictureUri } from '../helpers';
 
 const WIDTH = Dimensions.get('window').width;
@@ -82,7 +83,6 @@ export default class TagMasonry extends Component {
 
   renderBrick(tag, style) {
     return (
-
       <FastImage
         source={{
           uri: extractTagPictureUri(tag),
@@ -90,7 +90,7 @@ export default class TagMasonry extends Component {
         resizeMode={FastImage.resizeMode.cover}
         style={style}
       >
-        <View>
+        <View color={{ backgroundColor: Colors.ICON }}>
           <Text style={{
             color: 'white',
             alignSelf: 'center',
@@ -99,6 +99,7 @@ export default class TagMasonry extends Component {
             {`#${extractTagName(tag)}`}
           </Text>
         </View>
+        <View pointerEvents="none" style={styles.overlay} />
       </FastImage>
     );
   }
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: 12,
     marginBottom: 8,
+    borderRadius: 5,
     justifyContent: 'center',
   },
   rightHalf: {
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginRight: 12,
     marginBottom: 8,
+    borderRadius: 5,
     justifyContent: 'center',
   },
   leftHalf: {
@@ -126,6 +129,7 @@ const styles = StyleSheet.create({
     width: (WIDTH - 32) / 2,
     marginLeft: 12,
     marginBottom: 8,
+    borderRadius: 5,
     justifyContent: 'center',
   },
   quarter: {
@@ -133,6 +137,16 @@ const styles = StyleSheet.create({
     width: (WIDTH - 32) / 2,
     marginLeft: 12,
     marginBottom: 8,
+    borderRadius: 5,
     justifyContent: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: 5,
+    backgroundColor: 'rgba(0,0,0,0.25)',
   },
 });

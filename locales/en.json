@@ -68,5 +68,6 @@
   "like_notification": " liked your post.",
   "comment_notification": " commented on your post.",
   "follow_notification" : " started following you.",
-  "comment_failed": "Sending comment failed."
+  "comment_failed": "Sending comment failed.",
+  "add": "Add"
 }
