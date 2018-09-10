@@ -45,6 +45,7 @@ class Search extends Component {
     return (
       <View>
         <CustomStatusBar />
+        {this.renderHeader()}
         {this.rendertopTagsList()}
       </View>
     );
@@ -52,7 +53,7 @@ class Search extends Component {
 
   renderHeader() {
     return (
-      <Header style={{ backgroundColor: Colors.BASE }}>
+      <Header searchBar style={{ backgroundColor: Colors.BASE }}>
         <Item
           rounded
           style={{

@@ -1,4 +1,6 @@
-import { Body, Button, Icon, Text, } from 'native-base';
+import {
+  Body, Button, Icon, Text,
+} from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -25,15 +27,15 @@ class AddPostToBoard extends Component {
     } = this.props;
     return (
       <View style={{ flex: 1 }}>
-        <CustomStatusBar/>
-        <AddPostToBoardHeader onClosePress={() => navigation.goBack()}/>
+        <CustomStatusBar />
+        <AddPostToBoardHeader onClosePress={() => navigation.goBack()} />
         <View style={{
           backgroundColor: Colors.WHITE_BACK,
           flex: 1,
           paddingLeft: 8,
         }}
         >
-          <CustomStatusBar/>
+          <CustomStatusBar />
           <FlatList
             onRefresh={() => refreshSelfPhotos()}
             refreshing={photosIsLoading}
@@ -101,7 +103,7 @@ class AddPostToBoard extends Component {
             }}
           >
             <Body>
-            <Text style={{ color: 'white' }}>{strings(Strings.NEXT)}</Text>
+              <Text style={{ color: 'white' }}>{strings(Strings.ADD)}</Text>
             </Body>
           </Button>
         </View>
