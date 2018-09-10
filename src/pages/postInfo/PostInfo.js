@@ -48,7 +48,7 @@ class PostInfo extends Component {
 				<CustomStatusBar />
 				{/* <KeyboardAwareScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flexGrow: 1 }}> */}
 					<View style={{ flex: 1 }}>
-						<ScrollView>
+						<ScrollView style ={{flexGrow :1}}>
 							<View
 								style={{
 									flex: 4,
@@ -59,7 +59,7 @@ class PostInfo extends Component {
 							</View>
 							<View style={{ flex: 4 }}>{this.renderCommentsList()}</View>
 						</ScrollView>
-						{this.renderInputBox()}
+              {this.renderInputBox()}
 					</View>
 				{/* </KeyboardAwareScrollView> */}
 			</SafeAreaView>
@@ -72,14 +72,9 @@ class PostInfo extends Component {
     return (
       <View
 			style={{
-				position: 'absolute',
 				backgroundColor: Colors.LIGHT_GRAY,
-				flex: 1,
-				justifyContent: 'flex-end',
 				alignSelf: 'center',
-				width: '100%',
-				height: null,
-				bottom: 0,
+        width: '100%',
 			}}
 		>
 			<Item>
