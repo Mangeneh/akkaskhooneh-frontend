@@ -16,10 +16,10 @@ export default class CommentComponent extends Component {
 			>
 				<View style={{ flexDirection: 'column', justifyContent: 'flex-end' }}>
 					<View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View>{this.renderTime()}</View>
 						<View>{this.renderUsername()}</View>
-						<View>{this.renderTime()}</View>
 					</View>
-					<View style={{marginLeft: 4}}>{this.renderCaption()}</View>
+					<View style={{marginLeft: 40}}>{this.renderCaption()}</View>
 				</View>
 				  {this.renderProfilePic()}
 			</View>
