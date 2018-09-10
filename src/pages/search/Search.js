@@ -24,25 +24,27 @@ class Search extends Component {
   componentWillMount() {
     this.props.refreshSearchTopTags()
       .then((response) => {
+        console.log(response);
       })
       .catch((error) => {
       });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { topTags } = nextProps;
+    const topTags = nextProps.topTags.slice();
     const newTags = [];
     while (topTags.length > 0) {
-      newTags.push(topTags.splice(0, 4));
+      newTags.push(topTags.splice(0, 5));
     }
     this.setState({ topTags: newTags });
   }
 
   render() {
+    console.log('in render');
+    console.log(this.props);
     return (
       <View>
         <CustomStatusBar />
-        {/*{this.renderHeader()}*/}
         {this.rendertopTagsList()}
       </View>
     );
@@ -75,7 +77,7 @@ class Search extends Component {
 
   rendertopTagsList() {
     const {
-      refreshSearchTopTags, topTagsIsLoading, topTags,
+      refreshSearchTopTags, topTagsIsLoading,
     } = this.props;
     return (
       <FlatList

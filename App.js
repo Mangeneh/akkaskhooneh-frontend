@@ -87,10 +87,7 @@ export default class App extends Component {
         <PersistGate loading={null} persistor={persistor}>
           <Root>
             <StyleProvider style={getTheme(commonColor)}>
-              <RootStack ref={(navigatorRef) => {
-                NavigationService.setTopLevelNavigator(navigatorRef);
-              }}
-              />
+              <RootStack />
             </StyleProvider>
           </Root>
         </PersistGate>

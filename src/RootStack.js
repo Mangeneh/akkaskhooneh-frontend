@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Pages } from './config';
+import NavigationService from './NavigationService';
 import AddFriends from './pages/addFriends/AddFriends';
 import AddPostInfo from './pages/addPostInfo/AddPostInfo';
 import AddPostToBoard from './pages/addPostToBoard/AddPostToBoard';
@@ -76,7 +77,12 @@ class RootStack extends Component {
         header: null,
       },
     });
-    return <App />;
+    return (
+      <App ref={(navigatorRef) => {
+        NavigationService.setTopLevelNavigator(navigatorRef);
+      }}
+      />
+    );
   }
 }
 

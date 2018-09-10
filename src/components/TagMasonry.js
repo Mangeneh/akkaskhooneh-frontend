@@ -20,7 +20,10 @@ export default class TagMasonry extends Component {
         component = this.renderTriple(tags);
         break;
       case 4:
-        component = this.renderFullBlock(tags);
+        component = this.renderQuad(tags);
+        break;
+      case 5:
+        component = this.renderQuint(tags);
         break;
     }
     return (
@@ -39,21 +42,39 @@ export default class TagMasonry extends Component {
     );
   }
 
-  renderTriple(tags) {
+  renderDoubleHalf(tags) {
     return (
-      <View style={{ flexDirection: 'row' }}>
-        {this.renderHalfBrick(tags[2])}
-        {this.renderDouble(tags)}
+      <View>
+        {this.renderQuarterBrick(tags[0])}
+        {this.renderQuarterBrick(tags[1])}
       </View>
     );
   }
 
-  renderFullBlock(tags) {
+  renderTriple(tags) {
+    return (
+      <View style={{ flexDirection: 'row' }}>
+        {this.renderDoubleHalf(tags)}
+        {this.renderHalfBrick(tags[2])}
+      </View>
+    );
+  }
+
+  renderQuad(tags) {
     return (
       <View>
-        {this.renderFullBrick(tags[0])}
-        {this.renderQuarterBrick(tags[1])}
-        {this.renderQuarterBrick(tags[2])}
+        {this.renderFullBrick(tags[3])}
+        {this.renderTriple(tags)}
+      </View>
+    );
+  }
+
+  renderQuint(tags) {
+    return (
+      <View>
+        {this.renderFullBrick(tags[3])}
+        {this.renderTriple(tags)}
+        {this.renderFullBrick(tags[4])}
       </View>
     );
   }
@@ -64,7 +85,7 @@ export default class TagMasonry extends Component {
         source={{
           uri: extractTagPictureUri(tag),
         }}
-        resizeMode={FastImage.resizeMode.stretch}
+        resizeMode={FastImage.resizeMode.cover}
         style={styles.full}
       />
     );
@@ -98,20 +119,23 @@ export default class TagMasonry extends Component {
 const styles = StyleSheet.create({
   full: {
     height: 100,
-    width: WIDTH - 32,
-    marginLeft: 16,
-    marginRight: 16,
+    width: null,
+    marginLeft: 12,
+    marginRight: 12,
+    marginBottom: 8,
   },
   half: {
     height: 150,
     width: (WIDTH - 32) / 2,
-    marginLeft: 16,
-    marginRight: 16,
+    marginLeft: 12,
+    marginRight: 12,
+    marginBottom: 8,
   },
   quarter: {
-    height: 75,
+    height: 70,
     width: (WIDTH - 32) / 2,
-    marginLeft: 16,
-    marginRight: 16,
+    marginLeft: 12,
+    marginRight: 0,
+    marginBottom: 8,
   },
 });
