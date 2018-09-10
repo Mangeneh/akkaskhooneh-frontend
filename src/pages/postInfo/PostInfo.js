@@ -1,4 +1,17 @@
-import { Body, Button, Card, CardItem, Icon, Item, Left, Right, Text, Textarea, Thumbnail, Footer, Toast } from 'native-base';
+import {
+  Body,
+  Button,
+  Card,
+  CardItem,
+  Icon,
+  Item,
+  Left,
+  Right,
+  Text,
+  Textarea,
+  Thumbnail,
+  Toast,
+} from 'native-base';
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
@@ -43,82 +56,82 @@ class PostInfo extends Component {
       });
   }
 
-	render() {
-		const { navigation } = this.props;
-		return (
-			<SafeAreaView
-				style={{
-					flex: 1,
-					backgroundColor: 'white',
-				}}
-			>
-				<PostHeader onBackPress={() => navigation.navigate('Main')} />
-				<CustomStatusBar />
-				<View style={{ flex: 1 }}>
-					<ScrollView style={{ flexGrow: 1 }}>
-						<View
-							style={{
-								flex: 4,
-								marginBottom: 0,
-							}}
-						>
-							{this.renderCard()}
-						</View>
-						<View style={{ flex: 4 }}>{this.renderCommentsList()}</View>
-					</ScrollView>
-					{this.renderInputBox()}
-				</View>
-			</SafeAreaView>
-		);
-	}
+  render() {
+    const { navigation } = this.props;
+    return (
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+        }}
+      >
+        <PostHeader onBackPress={() => navigation.navigate('Main')} />
+        <CustomStatusBar />
+        <View style={{ flex: 1 }}>
+          <ScrollView style={{ flexGrow: 1 }}>
+            <View
+              style={{
+                flex: 4,
+                marginBottom: 0,
+              }}
+            >
+              {this.renderCard()}
+            </View>
+            <View style={{ flex: 4 }}>{this.renderCommentsList()}</View>
+          </ScrollView>
+          {this.renderInputBox()}
+        </View>
+      </SafeAreaView>
+    );
+  }
 
-	renderInputBox() {
-		const { commentText } = this.state;
-		const { navigation, sendCommentLoading, isSendingComment } = this.props;
-		return (
-			<View
-				style={{
-					backgroundColor: Colors.LIGHT_GRAY,
-					alignSelf: 'center',
-					width: '100%',
-				}}
-			>
-				<Item>
-					{isSendingComment ? (
-						<ActivityIndicator
-							size="large"
-							style={{
-								marginLeft: 12,
-								marginRight: 8,
-							}}
-							color={Colors.ACCENT}
-						/>
-					) : (
-						this.renderSendIcon()
-					)}
-					<Textarea
-						rowSpan={1}
-						placeholder={strings(Strings.COMMENT)}
-						style={{
-							backgroundColor: 'white',
-							textAlign: 'right',
-							fontSize: Constants.ITEM_FONT_SIZE,
-							width: '80%',
-							borderRadius: Constants.TEXT_BOX_RADIUS,
-							marginLeft: 8,
-							marginRight: isSendingComment ? 8 : 16,
-							marginTop: 8,
-							marginBottom: 8,
-						}}
-						value={commentText}
-						onChangeText={commentText => {
-							this.setState({ commentText });
-						}}
-					/>
-				</Item>
-			</View>
-		);
-	}
+  renderInputBox() {
+    const { commentText } = this.state;
+    const { navigation, sendCommentLoading, isSendingComment } = this.props;
+    return (
+      <View
+        style={{
+          backgroundColor: Colors.LIGHT_GRAY,
+          alignSelf: 'center',
+          width: '100%',
+        }}
+      >
+        <Item>
+          {isSendingComment ? (
+            <ActivityIndicator
+              size="large"
+              style={{
+                marginLeft: 12,
+                marginRight: 8,
+              }}
+              color={Colors.ACCENT}
+            />
+          ) : (
+            this.renderSendIcon()
+          )}
+          <Textarea
+            rowSpan={1}
+            placeholder={strings(Strings.COMMENT)}
+            style={{
+              backgroundColor: 'white',
+              textAlign: 'right',
+              fontSize: Constants.ITEM_FONT_SIZE,
+              width: '80%',
+              borderRadius: Constants.TEXT_BOX_RADIUS,
+              marginLeft: 8,
+              marginRight: isSendingComment ? 8 : 16,
+              marginTop: 8,
+              marginBottom: 8,
+            }}
+            value={commentText}
+            onChangeText={(commentText) => {
+              this.setState({ commentText });
+            }}
+          />
+        </Item>
+      </View>
+    );
+  }
 
   renderCard() {
     const { postInfo } = this.props;
@@ -264,26 +277,26 @@ class PostInfo extends Component {
     );
   }
 
-	sendComment() {
-		const { commentOnPost } = this.props;
-		if (this.state.commentText !== '') {
-			commentOnPost(this.state.commentText)
-				.then(response => {
-					this.setState({ commentText: '' });
-					this.props
-						.refreshComments()
-				})
-				.catch(error => {
-          this.setState({ commentText: '' })
-					Toast.show({
-						text: strings(Strings.COMMENT_FAILED),
-						textStyle: { textAlign: 'center' },
-						position: 'bottom',
-						type: 'danger',
-					});
-				});
-		}
-	}
+  sendComment() {
+    const { commentOnPost } = this.props;
+    if (this.state.commentText !== '') {
+      commentOnPost(this.state.commentText)
+        .then((response) => {
+          this.setState({ commentText: '' });
+          this.props
+            .refreshComments();
+        })
+        .catch((error) => {
+          this.setState({ commentText: '' });
+          Toast.show({
+            text: strings(Strings.COMMENT_FAILED),
+            textStyle: { textAlign: 'center' },
+            position: 'bottom',
+            type: 'danger',
+          });
+        });
+    }
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -307,7 +320,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PostInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(PostInfo);
