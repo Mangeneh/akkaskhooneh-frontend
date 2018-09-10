@@ -1,7 +1,8 @@
+import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { extractTagPictureUri } from '../helpers';
+import { extractTagName, extractTagPictureUri } from '../helpers';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -11,7 +12,7 @@ export default class TagMasonry extends Component {
     let component;
     switch (tags.length) {
       case 1:
-        component = this.renderFullBrick(tags[0]);
+        component = this.renderBrick(tags[0], styles.full);
         break;
       case 2:
         component = this.renderDouble(tags);
@@ -36,8 +37,8 @@ export default class TagMasonry extends Component {
   renderDouble(tags) {
     return (
       <View style={{ flexDirection: 'row' }}>
-        {this.renderHalfBrick(tags[0])}
-        {this.renderHalfBrick(tags[1])}
+        {this.renderBrick(tags[1], styles.leftHalf)}
+        {this.renderBrick(tags[0], styles.rightHalf)}
       </View>
     );
   }
@@ -45,8 +46,8 @@ export default class TagMasonry extends Component {
   renderDoubleHalf(tags) {
     return (
       <View>
-        {this.renderQuarterBrick(tags[0])}
-        {this.renderQuarterBrick(tags[1])}
+        {this.renderBrick(tags[0], styles.quarter)}
+        {this.renderBrick(tags[1], styles.quarter)}
       </View>
     );
   }
@@ -55,7 +56,7 @@ export default class TagMasonry extends Component {
     return (
       <View style={{ flexDirection: 'row' }}>
         {this.renderDoubleHalf(tags)}
-        {this.renderHalfBrick(tags[2])}
+        {this.renderBrick(tags[2], styles.rightHalf)}
       </View>
     );
   }
@@ -63,7 +64,7 @@ export default class TagMasonry extends Component {
   renderQuad(tags) {
     return (
       <View>
-        {this.renderFullBrick(tags[3])}
+        {this.renderBrick(tags[3], styles.full)}
         {this.renderTriple(tags)}
       </View>
     );
@@ -72,46 +73,33 @@ export default class TagMasonry extends Component {
   renderQuint(tags) {
     return (
       <View>
-        {this.renderFullBrick(tags[3])}
+        {this.renderBrick(tags[3], styles.full)}
         {this.renderTriple(tags)}
-        {this.renderFullBrick(tags[4])}
+        {this.renderBrick(tags[4], styles.full)}
       </View>
     );
   }
 
-  renderFullBrick(tag) {
+  renderBrick(tag, style) {
     return (
+
       <FastImage
         source={{
           uri: extractTagPictureUri(tag),
         }}
         resizeMode={FastImage.resizeMode.cover}
-        style={styles.full}
-      />
-    );
-  }
-
-  renderHalfBrick(tag) {
-    return (
-      <FastImage
-        source={{
-          uri: extractTagPictureUri(tag),
-        }}
-        resizeMode={FastImage.resizeMode.stretch}
-        style={styles.half}
-      />
-    );
-  }
-
-  renderQuarterBrick(tag) {
-    return (
-      <FastImage
-        source={{
-          uri: extractTagPictureUri(tag),
-        }}
-        resizeMode={FastImage.resizeMode.stretch}
-        style={styles.quarter}
-      />
+        style={style}
+      >
+        <View>
+          <Text style={{
+            color: 'white',
+            alignSelf: 'center',
+          }}
+          >
+            {`#${extractTagName(tag)}`}
+          </Text>
+        </View>
+      </FastImage>
     );
   }
 }
@@ -123,19 +111,28 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: 12,
     marginBottom: 8,
+    justifyContent: 'center',
   },
-  half: {
+  rightHalf: {
+    height: 150,
+    width: (WIDTH - 32) / 2,
+    marginLeft: 8,
+    marginRight: 12,
+    marginBottom: 8,
+    justifyContent: 'center',
+  },
+  leftHalf: {
     height: 150,
     width: (WIDTH - 32) / 2,
     marginLeft: 12,
-    marginRight: 12,
     marginBottom: 8,
+    justifyContent: 'center',
   },
   quarter: {
     height: 70,
     width: (WIDTH - 32) / 2,
     marginLeft: 12,
-    marginRight: 0,
     marginBottom: 8,
+    justifyContent: 'center',
   },
 });
