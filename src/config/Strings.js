@@ -64,4 +64,8 @@ export const Strings = {
   COMMENT: 'comment',
   YOUR_PHOTOS: 'your-photos',
   SEARCH_USER_OR_PIC: 'search_user_or_pic',
+  LIKE_NOTIFICATION: 'like_notification',
+  COMMENT_NOTIFICATION: 'comment_notification',
+  FOLLOW_NOTIFICATION: 'follow_notification',
+  COMMENT_FAILED: 'comment_failed',
 };

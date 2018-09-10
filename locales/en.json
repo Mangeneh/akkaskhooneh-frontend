@@ -64,5 +64,9 @@
   "show_post_info": "An Error Occured While Loading Post Info.",
   "comment": "ُType your opinion.",
   "your-photos": "Shared Photos",
-  "search_user_or_tag" : "Search Tags or Users."
+  "search_user_or_tag" : "Search Tags or Users.",
+  "like_notification": " liked your post.",
+  "comment_notification": " commented on your post.",
+  "follow_notification" : " started following you.",
+  "comment_failed": "Sending comment failed."
 }
