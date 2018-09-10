@@ -5,6 +5,7 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Colors, Strings } from '../config';
 import { strings } from '../i18n';
+import CustomStatusBar from './CustomStatusBar';
 
 export default props => (
   <View>
@@ -13,6 +14,7 @@ export default props => (
       style={{ backgroundColor: Colors.BASE }}
       hasTabs
     >
+      <CustomStatusBar />
       <Left style={{
         flex: 1,
         marginLeft: 16,

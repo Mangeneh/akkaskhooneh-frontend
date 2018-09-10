@@ -46,7 +46,6 @@ class Profile extends Component {
     } = this.props;
     return (
       <Container>
-        <CustomStatusBar />
         <ProfileHeader
           username={username}
           onEditPress={() => this.onEditPress()}
