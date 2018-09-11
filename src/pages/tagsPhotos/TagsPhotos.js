@@ -5,6 +5,7 @@ import { getTagsPhotosNextPage, refreshTagsPhotos } from '../../actions';
 import { BackHeader, CustomStatusBar } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import { Pages } from '../../config';
+import { extractTagName } from '../../helpers';
 import {
   selectTagsPhotos,
   selectTagsPhotosIsLoading,
@@ -22,10 +23,11 @@ class TagsPhotos extends Component {
     const {
       refreshTagsPhotos, tagsPhotosIsLoading, tagsPhotos, navigation,
     } = this.props;
+    const tagName = navigation.getParam('tagName');
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
-        <BackHeader onBackPress={() => navigation.goBack()} />
+        <BackHeader title={`#${extractTagName(tagName)}`} onBackPress={() => navigation.goBack()} />
         <PostsPhotoList
           data={tagsPhotos}
           onRefresh={() => refreshTagsPhotos()}

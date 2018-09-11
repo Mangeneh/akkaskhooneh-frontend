@@ -49,7 +49,6 @@ export default class PostsPhotoList extends Component {
     const { onPhotoPress } = this.props;
     const uri = extractPostPictureUri(item);
     const postID = extractPostID(item);
-    console.log(item);
     return (uri ? (
       <TouchableOpacity
         style={styles.imageContainer}

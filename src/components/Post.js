@@ -17,11 +17,13 @@ import {
 import FastImage from 'react-native-fast-image';
 import { Colors, Constants, Graphics } from '../config';
 import {
-  extractCaption, extractCommentsCount,
+  extractCaption,
+  extractCommentsCount,
   extractIsLiked,
   extractLikesCount,
   extractOwnerUsername,
-  extractPostPictureUri, extractProfilePictureUri,
+  extractPostPictureUri,
+  extractProfilePictureUri,
 } from '../helpers';
 
 const WIDTH = Dimensions.get('window').width;
@@ -31,7 +33,6 @@ export default class Post extends Component {
     const {
       saveButtonPressed, item, onCommentOrPicPressed, onLikePressed,
     } = this.props;
-    console.log(item);
     return (
       <Card style={{
         borderRadius: Graphics.POST_CARD_RADIUS,
