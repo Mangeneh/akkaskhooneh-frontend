@@ -31,7 +31,7 @@ export const refreshSearchFollowings = (text, username) => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_FOLLOWINGS}${username}/?search=${text}&?page=1`,
+      url: `${Server.GET_SEARCH_FOLLOWINGS}${username}/?search=${text}&page=1`,
     },
   },
 });
@@ -41,7 +41,7 @@ export const getSearchFollowings = (text, followingsNext, username) => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_FOLLOWINGS}${username}/?search=${text}&?page=${followingsNext}`,
+      url: `${Server.GET_SEARCH_FOLLOWINGS}${username}/?search=${text}&page=${followingsNext}`,
     },
   },
 });
@@ -56,7 +56,7 @@ export const refreshSearchFollowers = (text, username)  => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_FOLLOWERS}${username}/?search=${text}&?page=1`,
+      url: `${Server.GET_SEARCH_FOLLOWERS}${username}/?search=${text}&page=1`,
     },
   },
 });
@@ -66,7 +66,7 @@ export const getSearchFollowers = (text, followersNext, username) => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_FOLLOWERS}${username}/?search=${text}&?page=${followersNext}`,
+      url: `${Server.GET_SEARCH_FOLLOWERS}${username}/?search=${text}&page=${followersNext}`,
     },
   },
 });
