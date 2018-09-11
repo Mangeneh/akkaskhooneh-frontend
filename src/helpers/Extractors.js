@@ -22,7 +22,7 @@ export function extractPostPictureUriFromPost(post) {
 }
 
 export function extractPostPictureUriFromPhoto(photo) {
-  return photo.uri;
+  return photo.picture;
 }
 
 export function extractPostIDFromPost(post) {
@@ -31,4 +31,12 @@ export function extractPostIDFromPost(post) {
 
 export function extractPostIDFromPhoto(photo) {
   return photo.id;
+}
+
+export function extractProfilePictureUriFromPost(post) {
+  return post.profile_picture;
+}
+
+export function extractCaptionFromPost(post) {
+  return post.caption;
 }

@@ -1,6 +1,8 @@
 import { Text } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View, TouchableOpacity } from 'react-native';
+import {
+  Dimensions, StyleSheet, TouchableOpacity, View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Pages } from '../config';
 import { extractTagID, extractTagName, extractTagPictureUri } from '../helpers';

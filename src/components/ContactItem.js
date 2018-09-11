@@ -1,9 +1,8 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
-import { Constants, Graphics } from '../config';
+import { Constants } from '../config';
 
 export default class ContactItem extends Component {
-
   render() {
     return (
       <View

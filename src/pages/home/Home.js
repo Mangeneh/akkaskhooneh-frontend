@@ -18,9 +18,7 @@ import {
 import { HomeHeader } from '../../components';
 import AddBoardModal from '../../components/AddBoardModal';
 import Post from '../../components/Post';
-import {
-  Colors, Constants, Pages, Strings,
-} from '../../config';
+import { Colors, Constants, Pages, Strings, } from '../../config';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
 import { selectSelectedPostID } from '../../reducers/BoardsReducer';
@@ -143,7 +141,7 @@ class Home extends Component {
         }}
         onLikePressed={() => this.likeOrDislike(item.id)}
         onCommentOrPicPressed={() => {
-          this.getSinglePostInfo(item.id);
+          this.onCommentOrPicPressed(item.id);
         }}
         item={item}
       />
@@ -162,9 +160,9 @@ class Home extends Component {
       });
   }
 
-  getSinglePostInfo(id) {
+  onCommentOrPicPressed(id) {
     const {
-      changeSelectedPostID, getPostInfo, choosePost, navigation,
+      changeSelectedPostID, navigation,
     } = this.props;
     changeSelectedPostID(id);
     navigation.push(Pages.POST_INFO_PAGE, { postID: id });

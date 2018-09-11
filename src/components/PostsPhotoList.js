@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View, } from 'react-native';
+import {
+  Dimensions, FlatList, StyleSheet, TouchableOpacity, View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Graphics } from '../config';
 import {
@@ -49,7 +51,7 @@ export default class PostsPhotoList extends Component {
     const { post, onPhotoPress } = this.props;
     const uri = post ? extractPostPictureUriFromPost(item) : extractPostPictureUriFromPhoto(item);
     const postID = post ? extractPostIDFromPost(item) : extractPostIDFromPhoto(item);
-    return (
+    return (uri ? (
       <TouchableOpacity
         style={styles.imageContainer}
         onPress={() => onPhotoPress(postID)}
@@ -64,7 +66,7 @@ export default class PostsPhotoList extends Component {
             width: this.imageSize,
           }}
         />
-      </TouchableOpacity>
+      </TouchableOpacity>) : null
     );
   }
 }
