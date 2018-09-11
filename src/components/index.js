@@ -17,6 +17,7 @@ import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import SpinnerButton from './SpinnerButton';
 import Tags from './Tags';
 import ContactItem from './ContactItem';
+import TagItem from './TagItem';
 
 export {
   EmailTextBox,
@@ -38,4 +39,5 @@ export {
   AddPostToBoardHeader,
   ContactItem,
   PostsPhotoList,
+  TagItem,
 };

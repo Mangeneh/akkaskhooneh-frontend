@@ -36,6 +36,8 @@ export default (state = INITIAL_STATE, action) => {
         REFRESH_SEARCH_TAGS,
         REFRESH_SEARCH_USERS_SUCCESS,
         REFRESH_SEARCH_USERS_FAIL,
+        REFRESH_SEARCH_TAGS_SUCCESS,
+        REFRESH_SEARCH_TAGS_FAIL,
         START_NEW_SEARCH,
     } = SearchUserOrTagActions;
     switch (action.type) {
@@ -106,6 +108,19 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 searchTagsIsLoading: true,
             };
+        case REFRESH_SEARCH_TAGS_SUCCESS:
+            return {
+                ...state,
+                searchTags: action.payload.data.results,
+                searchTagsNextPage: state.searchTagsNextPage + 1,
+                searchTagsTotalPages: action.payload.data.total_pages,
+                searchTagsIsLoading: false,
+            };
+        case REFRESH_SEARCH_TAGS_FAIL:
+            return {
+                ...state,
+                searchTagsIsLoading: false,
+            };   
         case RESET_SEARCH_TAGS:
             return { ...state, ...INITIAL_SEARCH_TAGS_STATE };
         case GlobalActions.RESET_EVERYTHING:

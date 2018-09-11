@@ -4,7 +4,7 @@ import {
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
-import { CustomStatusBar, ContactItem } from '../../components';
+import { CustomStatusBar, ContactItem, TagItem } from '../../components';
 import TagMasonry from '../../components/TagMasonry';
 import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
@@ -49,6 +49,14 @@ class SearchUserOrTag extends Component {
                             tabStyle={{ backgroundColor: 'white' }}
                             activeTabStyle={{ backgroundColor: 'white' }}
                         >
+                            <View style={{
+                                backgroundColor: Colors.WHITE_BACK,
+                                flex: 1,
+                                width : '100%',
+                                paddingLeft: 8,
+                            }}>
+                                {this.renderTags()}
+                            </View>
                         </Tab>
                         <Tab
                             heading={strings(Strings.USERS)}
@@ -178,7 +186,7 @@ class SearchUserOrTag extends Component {
     }
 
     renderTag(item, index) {
-        return <ContactItem tag={item} />;
+        return <TagItem tag={item} />;
     }
 
     updateTags(text) {

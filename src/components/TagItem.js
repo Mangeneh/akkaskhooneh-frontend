@@ -2,7 +2,7 @@ import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
 import { Constants, Graphics } from '../config';
 
-export default class ContactItem extends Component {
+export default class TagItem extends Component {
 
   render() {
     return (
@@ -15,18 +15,12 @@ export default class ContactItem extends Component {
           borderRadius: Constants.POST_CARD_RADIUS,
         }}
       >
-        <View style={{
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-        }}
-        >
           <View style={{
-            justifyContent: 'flex-end',
+            justifyContent: 'flex-start',
+            alignContent: 'center' ,
           }}
           >
-            <View>{this.renderUsername()}</View>
-          </View>
-          <View style={{ marginLeft: 40 }}>{this.renderName()}</View>
+            <View>{this.renderName()}</View>
         </View>
         {this.renderPicture()}
       </View>
@@ -43,7 +37,7 @@ export default class ContactItem extends Component {
           height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
           borderRadius: Constants.CONTACT_THUMBNAIL_RADIUS,
         }}
-        source={{ uri: tag.profile_picture }}
+        source={{ uri: tag.picture }}
       />
     );
   }
@@ -58,7 +52,7 @@ export default class ContactItem extends Component {
           paddingRight: 8,
         }}
       >
-        {tag.username}
+        {tag.name}
       </Text>
     );
   }
