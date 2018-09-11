@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import {
-  Dimensions, FlatList, StyleSheet, TouchableOpacity, View,
-} from 'react-native';
+import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View, } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Colors, Graphics, Pages } from '../config';
+import { Colors, Graphics } from '../config';
 import {
   extractPostIDFromPhoto,
   extractPostIDFromPost,
   extractPostPictureUriFromPhoto,
   extractPostPictureUriFromPost,
 } from '../helpers';
-import NavigationService from '../NavigationService';
 
 export default class PostsPhotoList extends Component {
   componentWillMount() {
@@ -49,13 +46,13 @@ export default class PostsPhotoList extends Component {
   }
 
   renderPostPhoto(item, index) {
-    const { post } = this.props;
+    const { post, onPhotoPress } = this.props;
     const uri = post ? extractPostPictureUriFromPost(item) : extractPostPictureUriFromPhoto(item);
     const postID = post ? extractPostIDFromPost(item) : extractPostIDFromPhoto(item);
     return (
       <TouchableOpacity
         style={styles.imageContainer}
-        onPress={() => this.onPhotoPress(postID)}
+        onPress={() => onPhotoPress(postID)}
       >
         <FastImage
           source={{
@@ -69,10 +66,6 @@ export default class PostsPhotoList extends Component {
         />
       </TouchableOpacity>
     );
-  }
-
-  onPhotoPress(postID) {
-    NavigationService.navigate(Pages.POST_INFO_PAGE, { postID });
   }
 }
 

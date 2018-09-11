@@ -25,7 +25,7 @@ const INITIAL_OTHERS_PHOTOS_STATE = {
 
 const INITIAL_OPEN_POST_STATE = {
   postInfo: {},
-  postInfoIsLoading: false,
+  postInfoIsLoading: true,
   comments: [],
   commentsNextPage: 1,
   commentsTotalPages: 1,
@@ -127,7 +127,9 @@ export default (state = INITIAL_STATE, action) => {
       const postField = createPostBadge(action.payload.postID);
       return {
         ...state,
-        [postField]: { ...INITIAL_OPEN_POST_STATE, ...state[postField] },
+        [postField]: {
+          ...INITIAL_OPEN_POST_STATE, ...state[postField],
+        },
       };
     }
     case GET_POST_INFO_SUCCESS: {
@@ -364,6 +366,7 @@ const getPostProperty = (state, postID) => {
   return INITIAL_OPEN_POST_STATE;
 };
 export const selectPostInfo = (state, postID) => getPostProperty(state, postID).postInfo;
+export const selectPostInfoIsLoading = (state, postID) => getPostProperty(state, postID).postInfoIsLoading;
 export const selectComments = (state, postID) => getPostProperty(state, postID).comments;
 export const selectCommentsNextPage = (state, postID) => getPostProperty(state, postID).commentsNextPage;
 export const selectCommentsTotalPages = (state, postID) => getPostProperty(state, postID).commentsTotalPages;
