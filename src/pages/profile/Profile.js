@@ -124,7 +124,6 @@ class Profile extends Component {
                 refreshing={photosIsLoading}
                 onEndReached={() => this.updatePhotos()}
                 onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
-                post={false}
               />
             </Tab>
           </Tabs>

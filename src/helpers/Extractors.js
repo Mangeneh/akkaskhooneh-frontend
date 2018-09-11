@@ -1,8 +1,7 @@
 import { Platform } from 'react-native';
 
 export function extractImageSource(image) {
-  const imageSource = Platform.OS === 'ios' ? image.sourceURL : image.path;
-  return imageSource;
+  return Platform.OS === 'ios' ? image.sourceURL : image.path;
 }
 
 export function extractTagPictureUri(tag) {
@@ -17,26 +16,35 @@ export function extractTagID(tag) {
   return tag.tag_id;
 }
 
-export function extractPostPictureUriFromPost(post) {
+export function extractPostPictureUri(post) {
   return post.post_picture;
 }
 
-export function extractPostPictureUriFromPhoto(photo) {
-  return photo.picture;
-}
-
-export function extractPostIDFromPost(post) {
+export function extractPostID(post) {
   return post.id;
 }
 
-export function extractPostIDFromPhoto(photo) {
-  return photo.id;
-}
-
-export function extractProfilePictureUriFromPost(post) {
+export function extractProfilePictureUri(post) {
   return post.profile_picture;
 }
 
-export function extractCaptionFromPost(post) {
+export function extractOwnerUsername(post) {
+  return post.owner_username;
+}
+
+export function extractCaption(post) {
   return post.caption;
 }
+
+export function extractLikesCount(post) {
+  return post.likes_count;
+}
+
+export function extractIsLiked(post) {
+  return post.is_liked;
+}
+
+export function extractCommentsCount(post) {
+  return post.comments_count;
+}
+

@@ -17,9 +17,13 @@ import {
 import FastImage from 'react-native-fast-image';
 import { Colors, Constants, Graphics } from '../config';
 import {
-  extractCaptionFromPost,
-  extractPostPictureUriFromPost,
-  extractProfilePictureUriFromPost
+  extractCaption,
+  extractCommentsCount,
+  extractIsLiked,
+  extractLikesCount,
+  extractOwnerUsername,
+  extractPostPictureUri,
+  extractProfilePictureUri,
 } from '../helpers';
 
 const WIDTH = Dimensions.get('window').width;
@@ -29,7 +33,6 @@ export default class Post extends Component {
     const {
       saveButtonPressed, item, onCommentOrPicPressed, onLikePressed,
     } = this.props;
-    console.log(item);
     return (
       <Card style={{
         borderRadius: Graphics.POST_CARD_RADIUS,
@@ -58,7 +61,7 @@ export default class Post extends Component {
                 paddingRight: 8,
               }}
               >
-                {item.owner_username}
+                {extractOwnerUsername(item)}
               </Text>
               <Text
                 note
@@ -72,13 +75,13 @@ export default class Post extends Component {
               </Text>
               <Text />
             </View>
-            <Thumbnail source={{ uri: extractProfilePictureUriFromPost(item) }} />
+            <Thumbnail source={{ uri: extractProfilePictureUri(item) }} />
           </Right>
         </CardItem>
         <TouchableOpacity onPress={onCommentOrPicPressed} activeOpacity={0.5}>
           <CardItem cardBody>
             <FastImage
-              source={{ uri: extractPostPictureUriFromPost(item) }}
+              source={{ uri: extractPostPictureUri(item) }}
               style={{
                 height: WIDTH - 128,
                 width: null,
@@ -95,7 +98,7 @@ export default class Post extends Component {
               textAlign: 'right',
             }}
             >
-              {extractCaptionFromPost(item)}
+              {extractCaption(item)}
             </Text>
             <Text />
           </Item>
@@ -103,8 +106,12 @@ export default class Post extends Component {
         <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
           <Left>
             <Button transparent style={{ flexDirection: 'row' }} onPress={onLikePressed}>
-              <Icon name={item.is_liked ? 'heart' : 'heart-outlined'} type="Entypo" style={{ color: item.is_liked ? 'red' : Colors.BASE }} />
-              <Text style={styles.stats}>{item.likes}</Text>
+              <Icon
+                name={extractIsLiked(item) ? 'heart' : 'heart-outlined'}
+                type="Entypo"
+                style={{ color: extractIsLiked(item) ? 'red' : Colors.BASE }}
+              />
+              <Text style={styles.stats}>{extractLikesCount(item)}</Text>
             </Button>
             <Button
               transparent
@@ -112,7 +119,7 @@ export default class Post extends Component {
               onPress={onCommentOrPicPressed}
             >
               <Icon name="commenting-o" type="FontAwesome" style={styles.icon} />
-              <Text style={styles.stats}>{item.comments}</Text>
+              <Text style={styles.stats}>{extractCommentsCount(item)}</Text>
             </Button>
             <Button transparent style={{ flexDirection: 'row' }}>
               <Icon name="share-2" type="Feather" style={styles.icon} />

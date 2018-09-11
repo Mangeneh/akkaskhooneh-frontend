@@ -18,7 +18,9 @@ import {
 import { HomeHeader } from '../../components';
 import AddBoardModal from '../../components/AddBoardModal';
 import Post from '../../components/Post';
-import { Colors, Constants, Pages, Strings, } from '../../config';
+import {
+  Colors, Constants, Pages, Strings,
+} from '../../config';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
 import { selectSelectedPostID } from '../../reducers/BoardsReducer';

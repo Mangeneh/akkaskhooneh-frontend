@@ -87,7 +87,10 @@ export default class TagMasonry extends Component {
   renderBrick(tag, style) {
     return (
       <TouchableOpacity
-        onPress={() => NavigationService.navigate(Pages.TAGS_PHOTOS, { tagID: extractTagID(tag) })}
+        onPress={() => NavigationService.navigate(Pages.TAGS_PHOTOS, {
+          tagID: extractTagID(tag),
+          tagName: extractTagName(tag),
+        })}
       >
         <FastImage
           source={{
