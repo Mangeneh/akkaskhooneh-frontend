@@ -123,7 +123,7 @@ class SearchUserOrTag extends Component {
             value={searchText}
             onChangeText={(searchText) => {
               this.setState({ searchText });
-              this.props.refreshSearchUsers(searchText)
+              this.props.refreshSearchUsers(searchText);
               this.props.refreshSearchTags(searchText)
                 .then((response) => {
                 })

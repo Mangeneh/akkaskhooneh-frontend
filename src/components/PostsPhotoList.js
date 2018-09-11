@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Dimensions, FlatList, StyleSheet, TouchableOpacity, View,
-} from 'react-native';
+import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View, } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Graphics } from '../config';
 import {
@@ -52,21 +50,21 @@ export default class PostsPhotoList extends Component {
     const uri = post ? extractPostPictureUriFromPost(item) : extractPostPictureUriFromPhoto(item);
     const postID = post ? extractPostIDFromPost(item) : extractPostIDFromPhoto(item);
     return (uri ? (
-      <TouchableOpacity
-        style={styles.imageContainer}
-        onPress={() => onPhotoPress(postID)}
-      >
-        <FastImage
-          source={{
-            uri,
-          }}
-          resizeMode={FastImage.resizeMode.content}
-          style={{
-            height: this.imageSize,
-            width: this.imageSize,
-          }}
-        />
-      </TouchableOpacity>) : null
+        <TouchableOpacity
+          style={styles.imageContainer}
+          onPress={() => onPhotoPress(postID)}
+        >
+          <FastImage
+            source={{
+              uri,
+            }}
+            resizeMode={FastImage.resizeMode.content}
+            style={{
+              height: this.imageSize,
+              width: this.imageSize,
+            }}
+          />
+        </TouchableOpacity>) : null
     );
   }
 }
