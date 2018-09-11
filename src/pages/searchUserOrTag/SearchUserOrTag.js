@@ -31,6 +31,8 @@ class SearchUserOrTag extends Component {
     this.state = {
       searchText: '',
     };
+    this.updateUsers(this.state.searchText);
+    this.updateTags(this.state.searchText);
   }
 
   render() {
@@ -104,13 +106,17 @@ class SearchUserOrTag extends Component {
   renderHeader() {
     const { searchText } = this.state;
     return (
-      <Header searchBar style={{ backgroundColor: Colors.BASE }}>
+      <Header
+        androidStatusBarColor={Colors.BASE}
+        searchBar
+        style={{ backgroundColor: Colors.BASE }}
+      >
+        <CustomStatusBar />
         <Item
           rounded
           style={{
             alignSelf: 'center',
             borderRadius: Constants.TEXT_BOX_RADIUS,
-            backgroundColor: 'white',
           }}
         >
           <Input
@@ -118,7 +124,6 @@ class SearchUserOrTag extends Component {
             style={{
               textAlign: 'right',
               fontSize: Constants.ITEM_FONT_SIZE,
-              height: 20,
             }}
             value={searchText}
             onChangeText={(searchText) => {

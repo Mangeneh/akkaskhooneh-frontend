@@ -6,8 +6,11 @@ import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar } from '../../components';
 import TagMasonry from '../../components/TagMasonry';
-import { Colors, Constants, Strings, Pages } from '../../config';
+import {
+  Colors, Constants, Graphics, Pages, Strings,
+} from '../../config';
 import { strings } from '../../i18n';
+import NavigationService from '../../NavigationService';
 import { getSearchTopTagsNextPage, refreshSearchTopTags } from './actions';
 import {
   selectSearchTopTags,
@@ -15,7 +18,6 @@ import {
   selectSearchTopTagsNextPage,
   selectSearchTopTagsTotalPages,
 } from './reducer';
-import NavigationService from '../../NavigationService';
 
 class Search extends Component {
   state = {
@@ -51,13 +53,17 @@ class Search extends Component {
 
   renderHeader() {
     return (
-      <Header searchBar style={{ backgroundColor: Colors.BASE }}>
+      <Header
+        androidStatusBarColor={Colors.BASE}
+        searchBar
+        style={{ backgroundColor: Colors.BASE }}
+      >
+        <CustomStatusBar />
         <Item
           rounded
           style={{
             alignSelf: 'center',
-            borderRadius: Constants.TEXT_BOX_RADIUS,
-            backgroundColor: 'white',
+            borderRadius: Graphics.SEARCH_BOX_RADIUS,
           }}
         >
           <Input
@@ -66,7 +72,6 @@ class Search extends Component {
             style={{
               textAlign: 'right',
               fontSize: Constants.ITEM_FONT_SIZE,
-              height: 20,
             }}
           />
           <Icon name="ios-search" style={{ color: Colors.BASE }} />
@@ -88,7 +93,7 @@ class Search extends Component {
           width: '100%',
           marginTop: 8,
         }}
-        keyExtractor={(item, index) => item.id}
+        keyExtractor={(item, index) => index.toString()}
         data={this.state.topTags}
         renderItem={({ item, index }) => this.renderBrick(item, index)}
       />
