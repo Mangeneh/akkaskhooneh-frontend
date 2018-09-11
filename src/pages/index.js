@@ -13,9 +13,9 @@ import Profile from './profile/Profile';
 import ProfileEdit from './profileEdit/ProfileEdit';
 import ProfileSettings from './profileSettings/ProfileSettings';
 import Search from './search/Search';
+import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
-import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 import TagsPhotos from './tagsPhotos/TagsPhotos';
 
 export {

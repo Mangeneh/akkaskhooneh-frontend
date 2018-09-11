@@ -102,10 +102,14 @@ class SearchUserOrTag extends Component {
                             this.setState({ searchText })
                             this.props.refreshSearchUsers(searchText)
                             .then((response) => {
-                                console.warn(response);
                             })
                             .catch((error) => {
-                                console.warn(error);
+                                Toast.show({
+                                    text: strings(Strings.SEARCH_FAIL),
+                                    textStyle: { textAlign: 'center' },
+                                    position: 'bottom',
+                                    type: 'danger',
+                                  });
                             });
                         }}
                     />
@@ -118,7 +122,6 @@ class SearchUserOrTag extends Component {
     renderUsers() {
         const { searchText } = this.state;
         const { refreshSearchUsers, searchUsersIsLoading, searchUsers } = this.props;
-        console.warn(searchUsers)
         return (
             <FlatList
                 onRefresh={() => refreshSearchUsers(searchText)}

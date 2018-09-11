@@ -23,7 +23,9 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
-import { getCommentsNextPage, refreshComments, sendComment } from '../../actions';
+import {
+  getCommentsNextPage, getPostInfo, refreshComments, sendComment,
+} from '../../actions';
 import { CustomStatusBar, PostHeader } from '../../components';
 import CommentComponent from '../../components/CommentComponent';
 import { Colors, Constants, Strings } from '../../config';
@@ -35,6 +37,7 @@ import {
   selectCommentsTotalPages,
   selectIsSendingComment,
   selectPostInfo,
+  selectPostInfoIsLoading,
 } from '../../reducers/PostsReducer';
 
 const WIDTH = Dimensions.get('window').width;
@@ -48,16 +51,13 @@ class PostInfo extends Component {
   }
 
   componentWillMount() {
-    this.props
-      .refreshComments()
-      .then((response) => {
-      })
-      .catch((error) => {
-      });
+    const { refreshComments, getPostInfo } = this.props;
+    getPostInfo();
+    refreshComments();
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, postInfoIsLoading } = this.props;
     return (
       <SafeAreaView
         style={{
@@ -75,7 +75,7 @@ class PostInfo extends Component {
                 marginBottom: 0,
               }}
             >
-              {this.renderCard()}
+              {!postInfoIsLoading ? this.renderCard() : null}
             </View>
             <View style={{ flex: 4 }}>{this.renderCommentsList()}</View>
           </ScrollView>
@@ -135,6 +135,7 @@ class PostInfo extends Component {
 
   renderCard() {
     const { postInfo } = this.props;
+    console.log(this.props);
     return (
       <Card>
         <CardItem>
@@ -229,12 +230,13 @@ class PostInfo extends Component {
 
   renderCommentsList() {
     const { refreshComments, commentsIsLoading, comments } = this.props;
-    console.log(this.props);
     return (
       <FlatList
         onRefresh={() => refreshComments()}
         refreshing={commentsIsLoading}
-        onEndReached={() => { this.updateComments(); }}
+        onEndReached={() => {
+          this.updateComments();
+        }}
         style={{
           width: '100%',
           marginTop: 8,
@@ -279,13 +281,12 @@ class PostInfo extends Component {
   }
 
   sendComment() {
-    const { commentOnPost } = this.props;
+    const { commentOnPost, refreshComments } = this.props;
     if (this.state.commentText !== '') {
       commentOnPost(this.state.commentText)
         .then((response) => {
           this.setState({ commentText: '' });
-          this.props
-            .refreshComments();
+          refreshComments();
         })
         .catch((error) => {
           this.setState({ commentText: '' });
@@ -304,6 +305,7 @@ const mapStateToProps = (state, ownProps) => {
   const postID = ownProps.navigation.getParam('postID');
   return {
     postInfo: selectPostInfo(state, postID),
+    postInfoIsLoading: selectPostInfoIsLoading(state, postID),
     isSendingComment: selectIsSendingComment(state, postID),
     comments: selectComments(state, postID),
     commentsNextPage: selectCommentsNextPage(state, postID),
@@ -315,6 +317,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const postID = ownProps.navigation.getParam('postID');
   return {
+    getPostInfo: () => dispatch(getPostInfo(postID)),
     commentOnPost: content => dispatch(sendComment(postID, content)),
     refreshComments: () => dispatch(refreshComments(postID)),
     getCommentsNextPage: commentsNext => dispatch(getCommentsNextPage(postID, commentsNext)),

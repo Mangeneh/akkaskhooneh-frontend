@@ -166,20 +166,8 @@ class Home extends Component {
     const {
       changeSelectedPostID, getPostInfo, choosePost, navigation,
     } = this.props;
-    choosePost(id);
-    getPostInfo(id)
-      .then((response) => {
-        changeSelectedPostID(id);
-        navigation.push(Pages.POST_INFO_PAGE, { postID: id });
-      })
-      .catch((error) => {
-        Toast.show({
-          text: strings(Strings.SHOW_POST_INFO),
-          textStyle: { textAlign: 'center' },
-          position: 'bottom',
-          type: 'danger',
-        });
-      });
+    changeSelectedPostID(id);
+    navigation.push(Pages.POST_INFO_PAGE, { postID: id });
   }
 
   updatePosts() {
