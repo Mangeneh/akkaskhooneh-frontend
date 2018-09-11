@@ -31,8 +31,8 @@ class SearchUserOrTag extends Component {
     this.state = {
       searchText: '',
     };
-    this.updateUsers(this.state.searchText);
-    this.updateTags(this.state.searchText);
+    this.updateUsers('');
+    this.updateTags('');
   }
 
   render() {
@@ -131,6 +131,7 @@ class SearchUserOrTag extends Component {
               this.props.refreshSearchUsers(searchText);
               this.props.refreshSearchTags(searchText)
                 .then((response) => {
+console.warn(response)
                 })
                 .catch((error) => {
                   Toast.show({
@@ -156,7 +157,7 @@ class SearchUserOrTag extends Component {
         onRefresh={() => refreshSearchUsers(searchText)}
         refreshing={searchUsersIsLoading}
         onEndReached={() => {
-          this.updateUsers();
+          this.updateUsers(searchText);
         }}
         style={{
           width: '100%',
@@ -197,7 +198,7 @@ class SearchUserOrTag extends Component {
         onRefresh={() => refreshSearchTags(searchText)}
         refreshing={searchTagsIsLoading}
         onEndReached={() => {
-          this.updateTags();
+          this.updateTags(searchText);
         }}
         style={{
           width: '100%',

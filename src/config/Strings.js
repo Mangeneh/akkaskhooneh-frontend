@@ -71,4 +71,7 @@ export const Strings = {
   ADD: 'add',
   USERS: 'users',
   SEARCH_FAIL: 'search_fail',
+  FOLLOWERS: "followers",
+  FOLLOWINGS: "followings",
+  SEARCH_USER: "search_user",
 };

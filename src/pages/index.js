@@ -17,6 +17,7 @@ import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
 import TagsPhotos from './tagsPhotos/TagsPhotos';
+import ContactList from './contactListPage/ContactListPage'
 
 export {
   Login,
@@ -38,4 +39,5 @@ export {
   Notification,
   SearchUserOrTag,
   TagsPhotos,
+  ContactList
 };

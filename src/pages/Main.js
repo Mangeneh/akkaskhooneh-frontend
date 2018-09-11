@@ -8,9 +8,11 @@ import Notification from './notification/Notification';
 import Profile from './profile/Profile';
 import Search from './search/Search';
 import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
+import ContactList from './contactListPage/ContactListPage';
 
 const profileStack = createStackNavigator({
   Profile,
+  ContactList
 }, {
   initialRouteName: Pages.PROFILE,
   headerMode: 'none',

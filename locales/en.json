@@ -71,5 +71,8 @@
   "comment_failed": "Sending Comment Failed.",
   "add": "Add",
   "users": "Users",
-  "search_fail": "Search Failed."
+  "search_fail": "Search Failed.",
+  "followers": "Followers",
+  "followings": "Follownigs",
+  "search_user": "Search User"
 }
