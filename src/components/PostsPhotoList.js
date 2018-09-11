@@ -5,10 +5,8 @@ import {
 import FastImage from 'react-native-fast-image';
 import { Colors, Graphics } from '../config';
 import {
-  extractPostIDFromPhoto,
-  extractPostIDFromPost,
-  extractPostPictureUriFromPhoto,
-  extractPostPictureUriFromPost,
+  extractPostID,
+  extractPostPictureUri,
 } from '../helpers';
 
 export default class PostsPhotoList extends Component {
@@ -48,9 +46,10 @@ export default class PostsPhotoList extends Component {
   }
 
   renderPostPhoto(item, index) {
-    const { post, onPhotoPress } = this.props;
-    const uri = post ? extractPostPictureUriFromPost(item) : extractPostPictureUriFromPhoto(item);
-    const postID = post ? extractPostIDFromPost(item) : extractPostIDFromPhoto(item);
+    const { onPhotoPress } = this.props;
+    const uri = extractPostPictureUri(item);
+    const postID = extractPostID(item);
+    console.log(item);
     return (uri ? (
       <TouchableOpacity
         style={styles.imageContainer}

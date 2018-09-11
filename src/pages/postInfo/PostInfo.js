@@ -29,6 +29,14 @@ import {
 import { CustomStatusBar, PostHeader } from '../../components';
 import CommentComponent from '../../components/CommentComponent';
 import { Colors, Constants, Strings } from '../../config';
+import {
+  extractCaption,
+  extractCommentsCount,
+  extractIsLiked,
+  extractLikesCount,
+  extractOwnerUsername, extractPostPictureUri,
+  extractProfilePictureUri,
+} from '../../helpers';
 import { strings } from '../../i18n';
 import {
   selectComments,
@@ -155,7 +163,7 @@ class PostInfo extends Component {
                   paddingRight: 8,
                 }}
               >
-                {postInfo.username}
+                {extractOwnerUsername(postInfo)}
               </Text>
               <Text
                 note
@@ -168,12 +176,12 @@ class PostInfo extends Component {
               </Text>
               <Text />
             </View>
-            <Thumbnail source={{ uri: postInfo.profile_picture }} />
+            <Thumbnail source={{ uri: extractProfilePictureUri(postInfo) }} />
           </Right>
         </CardItem>
         <CardItem cardBody>
           <FastImage
-            source={{ uri: postInfo.picture }}
+            source={{ uri: extractPostPictureUri(postInfo) }}
             style={{
               height: WIDTH,
               width: WIDTH,
@@ -193,7 +201,7 @@ class PostInfo extends Component {
                   textAlign: 'right',
                 }}
               >
-                {postInfo.caption}
+                {extractCaption(postInfo)}
               </Text>
               <Text />
             </Right>
@@ -203,15 +211,15 @@ class PostInfo extends Component {
           <Left>
             <Button transparent style={{ flexDirection: 'row' }}>
               <Icon
-                name={postInfo.is_liked ? 'heart' : 'heart-outlined'}
+                name={extractIsLiked(postInfo) ? 'heart' : 'heart-outlined'}
                 type="Entypo"
-                style={{ color: postInfo.is_liked ? 'red' : Colors.BASE }}
+                style={{ color: extractIsLiked(postInfo) ? 'red' : Colors.BASE }}
               />
-              <Text style={{ color: Colors.BASE }}>{postInfo.likes_count}</Text>
+              <Text style={{ color: Colors.BASE }}>{extractLikesCount(postInfo)}</Text>
             </Button>
             <Button transparent style={{ flexDirection: 'row' }}>
               <Icon name="commenting-o" type="FontAwesome" style={{ color: Colors.BASE }} />
-              <Text style={{ color: Colors.BASE }}>{postInfo.comments_count}</Text>
+              <Text style={{ color: Colors.BASE }}>{extractCommentsCount(postInfo)}</Text>
             </Button>
             <Button transparent style={{ flexDirection: 'row' }}>
               <Icon name="share-2" type="Feather" style={{ color: Colors.BASE }} />

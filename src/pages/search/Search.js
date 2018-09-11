@@ -69,12 +69,25 @@ class Search extends Component {
           <Input
             placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
             onTouchStart={() => NavigationService.navigate(Pages.SEARCH_USER_OR_TAG)}
+            onPress={() => NavigationService.navigate(Pages.SEARCH_USER_OR_TAG)}
             style={{
               textAlign: 'right',
               fontSize: Constants.ITEM_FONT_SIZE,
             }}
           />
           <Icon name="ios-search" style={{ color: Colors.BASE }} />
+          <View
+            pointerEvents="none"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              borderRadius: 5,
+              backgroundColor: 'rgba(0,0,0,0.25)',
+            }}
+          />
         </Item>
       </Header>
     );

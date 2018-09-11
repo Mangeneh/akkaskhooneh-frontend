@@ -32,7 +32,6 @@ class TagsPhotos extends Component {
           refreshing={tagsPhotosIsLoading}
           onEndReached={() => this.updateTagsPhotos()}
           onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
-          post
         />
       </View>
     );
