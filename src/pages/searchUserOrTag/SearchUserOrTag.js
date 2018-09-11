@@ -31,8 +31,6 @@ class SearchUserOrTag extends Component {
     this.state = {
       searchText: '',
     };
-    this.updateUsers(this.state.searchText);
-    this.updateTags(this.state.searchText);
   }
 
   render() {
