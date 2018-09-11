@@ -109,6 +109,7 @@ class SearchUserOrTag extends Component {
                         onChangeText={(searchText) => {
                             this.setState({ searchText })
                             this.props.refreshSearchUsers(searchText)
+                            this.props.refreshSearchTags(searchText)
                             .then((response) => {
                             })
                             .catch((error) => {

@@ -16,7 +16,7 @@ export default class TagItem extends Component {
         }}
       >
           <View style={{
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             alignContent: 'center' ,
           }}
           >
