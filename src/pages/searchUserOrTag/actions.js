@@ -31,7 +31,7 @@ export const refreshSearchUsers = text => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_USERS}?search=${text}&?page=1`,
+      url: `${Server.GET_SEARCH_USERS_RESULTS}?search=${text}&?page=1`,
     },
   },
 });
@@ -41,7 +41,7 @@ export const getSearchUsers = (text, usersNext) => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_USERS}?search=${text}&?page=${usersNext}`,
+      url: `${Server.GET_SEARCH_USERS_RESULTS}?search=${text}&?page=${usersNext}`,
     },
   },
 });
@@ -56,7 +56,7 @@ export const refreshSearchTags = text => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_TAGS}?search=${text}&?page=1`,
+      url: `${Server.GET_SEARCH_TAGS_RESULTS}?search=${text}&?page=1`,
     },
   },
 });
@@ -66,7 +66,7 @@ export const getSearchTags = (text, tagsNext) => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_TAGS}?search=${text}&page=${tagsNext}`,
+      url: `${Server.GET_SEARCH_TAGS_RESULTS}?search=${text}&page=${tagsNext}`,
     },
   },
 });

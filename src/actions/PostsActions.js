@@ -123,7 +123,7 @@ export const getOthersPhotosNextPage = (photosNext, username) => ({
   },
 });
 
-export const refreshOthersPhotos = (username) => ({
+export const refreshOthersPhotos = username => ({
   type: PostsActions.REFRESH_OTHERS_PHOTOS,
   payload: {
     request: {

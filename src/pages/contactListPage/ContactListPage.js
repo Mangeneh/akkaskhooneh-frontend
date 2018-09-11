@@ -158,8 +158,8 @@ class ContactList extends Component {
     console.warn(searchFollowingsIsLoading);
     return (
       <FlatList
-        // onRefresh={() => refreshSearchFollowings(searchText)}
-        // refreshing={searchFollowingsIsLoading}
+        onRefresh={() => refreshSearchFollowings(searchText)}
+        refreshing={searchFollowingsIsLoading}
         onEndReached={() => {
           this.updateFollowings(searchText);
         }}
@@ -201,8 +201,8 @@ class ContactList extends Component {
     console.warn(searchFollowersIsLoading);
     return (
       <FlatList
-        // onRefresh={() => refreshSearchFollowers(searchText)}
-        // refreshing={searchFollowersIsLoading}
+        onRefresh={() => refreshSearchFollowers(searchText)}
+        refreshing={searchFollowersIsLoading}
         onEndReached={() => {
           this.updateFollowers(searchText);
         }}
