@@ -62,7 +62,7 @@ class Search extends Component {
         >
           <Input
             placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
-            onChangeText={() => NavigationService.navigate(Pages.SEARCH_USER_OR_TAG)}
+            onTouchStart={() => NavigationService.navigate(Pages.SEARCH_USER_OR_TAG)}
             style={{
               textAlign: 'right',
               fontSize: Constants.ITEM_FONT_SIZE,
