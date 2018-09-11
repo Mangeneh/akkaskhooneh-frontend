@@ -25,7 +25,6 @@ class Search extends Component {
   componentWillMount() {
     this.props.refreshSearchTopTags()
       .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
       });
@@ -41,8 +40,6 @@ class Search extends Component {
   }
 
   render() {
-    console.log('in render');
-    console.log(this.props);
     return (
       <View>
         <CustomStatusBar />

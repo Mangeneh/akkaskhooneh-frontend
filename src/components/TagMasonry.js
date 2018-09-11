@@ -1,9 +1,10 @@
 import { Text } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Colors } from '../config';
-import { extractTagName, extractTagPictureUri } from '../helpers';
+import { Colors, Pages } from '../config';
+import { extractTagID, extractTagName, extractTagPictureUri } from '../helpers';
+import NavigationService from '../NavigationService';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -83,24 +84,28 @@ export default class TagMasonry extends Component {
 
   renderBrick(tag, style) {
     return (
-      <FastImage
-        source={{
-          uri: extractTagPictureUri(tag),
-        }}
-        resizeMode={FastImage.resizeMode.cover}
-        style={style}
+      <TouchableOpacity
+        onPress={() => NavigationService.navigate(Pages.TAGS_PHOTOS, { tagID: extractTagID(tag) })}
       >
-        <View color={{ backgroundColor: Colors.ICON }}>
-          <Text style={{
-            color: 'white',
-            alignSelf: 'center',
+        <FastImage
+          source={{
+            uri: extractTagPictureUri(tag),
           }}
-          >
-            {`#${extractTagName(tag)}`}
-          </Text>
-        </View>
-        <View pointerEvents="none" style={styles.overlay} />
-      </FastImage>
+          resizeMode={FastImage.resizeMode.cover}
+          style={style}
+        >
+          <View color={{ backgroundColor: Colors.ICON }}>
+            <Text style={{
+              color: 'white',
+              alignSelf: 'center',
+            }}
+            >
+              {`#${extractTagName(tag)}`}
+            </Text>
+          </View>
+          <View pointerEvents="none" style={styles.overlay} />
+        </FastImage>
+      </TouchableOpacity>
     );
   }
 }

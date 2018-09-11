@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "form-data": "latest",
     "immer": "^1.6.0",
+    "lodash": "^4.17.10",
     "lottie-react-native": "^2.5.8",
     "native-base": "^2.8.0",
     "prop-types": "latest",

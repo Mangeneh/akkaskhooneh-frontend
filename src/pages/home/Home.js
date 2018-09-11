@@ -210,7 +210,7 @@ class Home extends Component {
 
   onCreateBoardFail(error) {
     Toast.show({
-      text: strings(Strings.CREATE_NEW_BOARD_FAIL),
+      text: Strings.CREATE_NEW_BOARD_FAIL,
       textStyle: { textAlign: 'center' },
       position: 'bottom',
       type: 'danger',

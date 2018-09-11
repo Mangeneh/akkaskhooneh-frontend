@@ -10,6 +10,7 @@ import HomeHeader from './HomeHeader';
 import PasswordInstruction from './PasswordInstruction';
 import PasswordTextBox from './PasswordTextBox';
 import PostHeader from './PostHeader';
+import PostsPhotoList from './PostsPhotoList';
 import ProfileHeader from './ProfileHeader';
 import ProfilePageImageItem from './ProfilePageImageItem';
 import SelfBoardsPageHeader from './SelfBoardsPageHeader';
@@ -36,4 +37,5 @@ export {
   ProfilePageImageItem,
   AddPostToBoardHeader,
   ContactItem,
+  PostsPhotoList,
 };

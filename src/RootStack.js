@@ -3,19 +3,22 @@ import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Pages } from './config';
 import NavigationService from './NavigationService';
-import AddFriends from './pages/addFriends/AddFriends';
-import AddPostInfo from './pages/addPostInfo/AddPostInfo';
-import AddPostToBoard from './pages/addPostToBoard/AddPostToBoard';
-import BoardsPage from './pages/boardsPage/BoardsPage';
-import ChangePass from './pages/changePass/ChangePass';
-import Login from './pages/login/Login';
-import Main from './pages/Main';
-import NewPost from './pages/newPost/NewPost';
-import PostInfo from './pages/postInfo/PostInfo';
-import ProfileEdit from './pages/profileEdit/ProfileEdit';
-import ProfileSettings from './pages/profileSettings/ProfileSettings';
-import SignUp from './pages/signUp/SignUp';
-import SignUpComplete from './pages/signUpComplete/SignUpComplete';
+import {
+  AddFriends,
+  AddPostInfo,
+  AddPostToBoard,
+  BoardsPage,
+  ChangePass,
+  Login,
+  Main,
+  NewPost,
+  PostInfo,
+  ProfileEdit,
+  ProfileSettings,
+  SignUp,
+  SignUpComplete,
+  TagsPhotos,
+} from './pages';
 import { selectAccessToken } from './reducers/UserInfoReducer';
 
 const AuthStack = createStackNavigator({
@@ -58,6 +61,7 @@ const Inside = createStackNavigator({
   ChangePass,
   BoardsStack,
   PostInfo,
+  TagsPhotos,
 }, {
   initialRouteName: Pages.MAIN,
   navigationOptions: {

@@ -20,6 +20,7 @@ export const Server = {
   COMMENT: '/social/comment/',
   GET_COMMENTS_LIST: '/social/comment/',
   GET_SEARCH_TOP_TAGS: '/social/tophashtag/?page=',
+  GET_TAGS_PHOTOS_NEXT_PAGE: '/social/tag/',
   GET_TAGS_POSTS: '/social/tags/',
   GET_SEARCH_USERS: '/social/search/user/',
   GET_SEARCH_TAGS: '/social/search/tags/',

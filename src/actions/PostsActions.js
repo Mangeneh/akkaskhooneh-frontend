@@ -42,13 +42,17 @@ export const PostsActions = {
   REFRESH_OPEN_POST_COMMENTS_SUCCESS: 'REFRESH_OPEN_POST_COMMENTS_SUCCESS',
   REFRESH_OPEN_POST_COMMENTS_FAIL: 'REFRESH_OPEN_POST_COMMENTS_FAIL',
   //
+  REFRESH_TAGS_POSTS: 'REFRESH_TAGS_POSTS',
+  REFRESH_TAGS_POSTS_SUCCESS: 'REFRESH_TAGS_POSTS_SUCCESS',
+  REFRESH_TAGS_POSTS_FAIL: 'REFRESH_TAGS_POSTS_FAIL',
+  //
   GET_OPEN_POST_COMMENTS_NEXT_PAGE: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL',
   //
-  GET_TAGS_POSTS: 'GET_TAGS_POSTS',
-  GET_TAGS_POSTS_SUCCESS: 'GET_TAGS_POSTS_SUCCESS',
-  GET_TAGS_POSTS_FAIL: 'GET_TAGS_POSTS_FAIL',
+  GET_TAGS_PHOTOS_NEXT_PAGE: 'GET_TAGS_PHOTOS_NEXT_PAGE',
+  GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS',
+  GET_TAGS_PHOTOS_NEXT_PAGE_FAIL: 'GET_TAGS_PHOTOS_NEXT_PAGE_FAIL',
 };
 
 export const resetSelfPhotos = () => ({
@@ -123,6 +127,28 @@ export const getCommentsNextPage = (postID, commentsNext) => ({
       url: `${Server.GET_COMMENTS_LIST}${postID}/?page=${commentsNext}`,
     },
     postID,
+  },
+});
+
+export const getTagsPhotosNextPage = (tagID, tagsNext) => ({
+  type: PostsActions.GET_TAGS_PHOTOS_NEXT_PAGE,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_TAGS_PHOTOS_NEXT_PAGE}${tagID}/?page=${tagsNext}`,
+    },
+    tagID,
+  },
+});
+
+export const refreshTagsPhotos = tagID => ({
+  type: PostsActions.REFRESH_TAGS_POSTS,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_TAGS_PHOTOS_NEXT_PAGE}${tagID}/?page=1`,
+    },
+    tagID,
   },
 });
 

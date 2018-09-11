@@ -19,4 +19,5 @@ export const Pages = {
   SEARCH: 'Search',
   INSIDE: 'Inside',
   SEARCH_USER_OR_TAG: 'SearchUserOrTag',
+  TAGS_PHOTOS: 'TagsPhotos',
 };

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import GlobalActions from '../actions';
 import { PostsActions } from '../actions/PostsActions';
 
@@ -32,11 +33,17 @@ const INITIAL_OPEN_POST_STATE = {
   isSendingComment: false,
 };
 
+const INITIAL_TAGS_PHOTOS_STATE = {
+  tagsPhotos: [],
+  tagsPhotosNextPage: 1,
+  tagsPhotosTotalPages: 1,
+  tagsPhotosIsLoading: false,
+};
+
 const INITIAL_STATE = {
   ...INITIAL_SELF_PHOTOS_STATE,
   ...INITIAL_HOME_POSTS_STATE,
   chosenPostID: 0,
-  chosenProfileUsername: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -73,12 +80,20 @@ export default (state = INITIAL_STATE, action) => {
     //
     REFRESH_HOME_POSTS,
     REFRESH_HOME_POSTS_SUCCESS,
+    REFRESH_HOME_POSTS_FAIL,
     //
     REFRESH_OPEN_POST_COMMENTS,
     REFRESH_OPEN_POST_COMMENTS_SUCCESS,
     REFRESH_OPEN_POST_COMMENTS_FAIL,
+    //
+    REFRESH_TAGS_POSTS,
+    REFRESH_TAGS_POSTS_SUCCESS,
+    REFRESH_TAGS_POSTS_FAIL,
+    //
+    GET_TAGS_PHOTOS_NEXT_PAGE,
+    GET_TAGS_PHOTOS_NEXT_PAGE_FAIL,
+    GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS,
   } = PostsActions;
-  console.log(action);
   switch (action.type) {
     case GET_HOME_POSTS_NEXT_PAGE:
       return {
@@ -93,6 +108,7 @@ export default (state = INITIAL_STATE, action) => {
         homePostsTotalPages: action.payload.data.total_pages,
         homePostsIsLoading: false,
       };
+    //
     case GET_SELF_PHOTOS_NEXT_PAGE:
       return {
         ...state,
@@ -106,11 +122,12 @@ export default (state = INITIAL_STATE, action) => {
         selfPhotosTotalPages: action.payload.data.total_pages,
         selfPhotosIsLoading: false,
       };
+    //
     case GET_POST_INFO: {
       const postField = createPostBadge(action.payload.postID);
       return {
         ...state,
-        [postField]: INITIAL_OPEN_POST_STATE,
+        [postField]: { ...INITIAL_OPEN_POST_STATE, ...state[postField] },
       };
     }
     case GET_POST_INFO_SUCCESS: {
@@ -124,6 +141,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
+    //
     case COMMENT: {
       const postField = createPostBadge(action.payload.postID);
       return {
@@ -154,6 +172,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
+    //
     case REFRESH_OPEN_POST_COMMENTS: {
       const postField = createPostBadge(action.payload.postID);
       return {
@@ -187,6 +206,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
+    //
     case GET_OPEN_POST_COMMENTS_NEXT_PAGE: {
       const postField = createPostBadge(action.payload.postID);
       return {
@@ -210,11 +230,13 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
+    //
     case CHOOSE_POST:
       return {
         ...state,
         chosenPostID: action.payload,
       };
+    //
     case LIKE_OR_DISLIKE_SUCCESS: {
       const chosenPost = state.homePosts.find(post => post.id === state.chosenPostID);
       const chosenPostIndex = state.homePosts.indexOf(chosenPost);
@@ -234,7 +256,51 @@ export default (state = INITIAL_STATE, action) => {
         homePosts: newHomePosts,
       };
     }
-
+    // Tags
+    case GET_TAGS_PHOTOS_NEXT_PAGE: {
+      const tagField = createTagBadge(action.payload.tagID);
+      return {
+        ...state,
+        [tagField]: {
+          ...state[tagField],
+          tagsPhotosIsLoading: true,
+        },
+      };
+    }
+    case GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS: {
+      const tagField = createTagBadge(action.meta.previousAction.payload.tagID);
+      return {
+        ...state,
+        [tagField]: {
+          ...state[tagField],
+          tagsPhotos: state[tagField].tagsPhotos.concat(action.payload.data.results),
+          tagsPhotosNextPage: state[tagField].tagsPhotosNextPage + 1,
+          tagsPhotosTotalPages: action.payload.data.total_pages,
+          tagsPhotosIsLoading: false,
+        },
+      };
+    }
+    case REFRESH_TAGS_POSTS: {
+      const tagField = createTagBadge(action.payload.tagID);
+      return {
+        ...state,
+        [tagField]: { ...INITIAL_TAGS_PHOTOS_STATE, ...state[tagField] },
+      };
+    }
+    case REFRESH_TAGS_POSTS_SUCCESS: {
+      const tagField = createTagBadge(action.meta.previousAction.payload.tagID);
+      return {
+        ...state,
+        [tagField]: {
+          ...state[tagField],
+          tagsPhotos: action.payload.data.results,
+          tagsPhotosNextPage: 2,
+          tagsPhotosTotalPages: action.payload.data.total_pages,
+          tagsPhotosIsLoading: false,
+        },
+      };
+    }
+    //
     case REFRESH_SELF_PHOTOS:
       return {
         ...state,
@@ -248,6 +314,7 @@ export default (state = INITIAL_STATE, action) => {
         selfPhotosTotalPages: action.payload.data.total_pages,
         selfPhotosIsLoading: false,
       };
+    //
     case REFRESH_HOME_POSTS:
       return {
         ...state,
@@ -261,6 +328,7 @@ export default (state = INITIAL_STATE, action) => {
         homePostsTotalPages: action.payload.data.total_pages,
         homePostsIsLoading: false,
       };
+    //
     case RESET_SELF_PHOTOS:
       return { ...state, ...INITIAL_SELF_PHOTOS_STATE };
     case RESET_HOME_POSTS:
@@ -287,12 +355,33 @@ export const selectHomePostsNextPage = state => state.posts.homePostsNextPage;
 export const selectHomePostsTotalPages = state => state.posts.homePostsTotalPages;
 export const selectHomePostsIsLoading = state => state.posts.homePostsIsLoading;
 
-export const selectPostInfo = (state, postID) => state.posts[createPostBadge(postID)].postInfo;
-export const selectComments = (state, postID) => state.posts[createPostBadge(postID)].comments;
-export const selectCommentsNextPage = (state, postID) => state.posts[createPostBadge(postID)].commentsNextPage;
-export const selectCommentsTotalPages = (state, postID) => state.posts[createPostBadge(postID)].commentsTotalPages;
-export const selectCommentsIsLoading = (state, postID) => state.posts[createPostBadge(postID)].commentsIsLoading;
-export const selectIsSendingComment = (state, postID) => state.posts[createPostBadge(postID)].isSendingComment;
+const checkPostProperty = (state, postID) => _.has(state.posts, createPostBadge(postID));
+const getPostProperty = (state, postID) => {
+  const postProperty = createPostBadge(postID);
+  if (checkPostProperty(state, postID)) {
+    return state.posts[postProperty];
+  }
+  return INITIAL_OPEN_POST_STATE;
+};
+export const selectPostInfo = (state, postID) => getPostProperty(state, postID).postInfo;
+export const selectComments = (state, postID) => getPostProperty(state, postID).comments;
+export const selectCommentsNextPage = (state, postID) => getPostProperty(state, postID).commentsNextPage;
+export const selectCommentsTotalPages = (state, postID) => getPostProperty(state, postID).commentsTotalPages;
+export const selectCommentsIsLoading = (state, postID) => getPostProperty(state, postID).commentsIsLoading;
+export const selectIsSendingComment = (state, postID) => getPostProperty(state, postID).isSendingComment;
+
+const checkTagProperty = (state, tagID) => _.has(state.posts, createTagBadge(tagID));
+const getTagProperty = (state, tagID) => {
+  const tagProperty = createTagBadge(tagID);
+  if (checkTagProperty(state, tagID)) {
+    return state.posts[tagProperty];
+  }
+  return INITIAL_TAGS_PHOTOS_STATE;
+};
+export const selectTagsPhotos = (state, tagID) => getTagProperty(state, tagID).tagsPhotos;
+export const selectTagsPhotosNextPage = (state, tagID) => getTagProperty(state, tagID).tagsPhotosNextPage;
+export const selectTagsPhotosTotalPages = (state, tagID) => getTagProperty(state, tagID).tagsPhotosTotalPages;
+export const selectTagsPhotosIsLoading = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsLoading;
 
 export const selectOthersPhotos = state => state.posts.othersPhotos;
 export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;
