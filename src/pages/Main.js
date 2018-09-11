@@ -3,16 +3,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import BottomTabComponent from '../components/BottomTabComponent';
 import { Colors, Pages } from '../config';
+import ContactList from './contactListPage/ContactListPage';
 import Home from './home/Home';
 import Notification from './notification/Notification';
 import Profile from './profile/Profile';
 import Search from './search/Search';
 import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
-import ContactList from './contactListPage/ContactListPage';
 
 const profileStack = createStackNavigator({
   Profile,
-  ContactList
+  ContactList,
 }, {
   initialRouteName: Pages.PROFILE,
   headerMode: 'none',
@@ -71,7 +71,7 @@ export default createMaterialTopTabNavigator(
         }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <Icon name={iconName} size={24} style={{ color: Colors.ICON }}/>;
+        return <Icon name={iconName} size={24} style={{ color: Colors.ICON }} />;
       },
       /**
        * tabBarOnPress

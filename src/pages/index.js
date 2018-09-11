@@ -3,6 +3,7 @@ import AddPostInfo from './addPostInfo/AddPostInfo';
 import AddPostToBoard from './addPostToBoard/AddPostToBoard';
 import BoardsPage from './boardsPage/BoardsPage';
 import ChangePass from './changePass/ChangePass';
+import ContactList from './contactListPage/ContactListPage';
 import Home from './home/Home';
 import Login from './login/Login';
 import Main from './Main';
@@ -17,7 +18,6 @@ import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
 import TagsPhotos from './tagsPhotos/TagsPhotos';
-import ContactList from './contactListPage/ContactListPage'
 
 export {
   Login,
@@ -39,5 +39,5 @@ export {
   Notification,
   SearchUserOrTag,
   TagsPhotos,
-  ContactList
+  ContactList,
 };
