@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { Constants, Graphics } from '../config';
 
 export default class ContactItem extends Component {
+
   render() {
     return (
       <View
         style={{
-          marginBottom: 8,
+          marginBottom: 12,
           marginRight: 4,
           flexDirection: 'row',
           justifyContent: 'flex-end',
@@ -38,9 +39,9 @@ export default class ContactItem extends Component {
       <Thumbnail
         style={{
           alignSelf: 'center',
-          width: Constants.COMMENT_THUMBNAIL_RADIUS * 2,
-          height: Constants.COMMENT_THUMBNAIL_RADIUS * 2,
-          borderRadius: Constants.COMMENT_THUMBNAIL_RADIUS,
+          width: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
+          height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
+          borderRadius: Constants.CONTACT_THUMBNAIL_RADIUS,
         }}
         source={{ uri: user.profile_picture }}
       />
@@ -52,7 +53,7 @@ export default class ContactItem extends Component {
     return (
       <Text
         style={{
-          fontSize: Constants.POST_NAME_FONT_SIZE,
+          fontSize: Constants.USER_NAME_FONT_SIZE,
           textAlign: 'right',
           paddingRight: 8,
         }}
@@ -69,7 +70,7 @@ export default class ContactItem extends Component {
         note
         style={{
           textAlign: 'right',
-          fontSize: Constants.POST_TIME_FONT_SIZE,
+          fontSize: Constants.FULL_NAME_FONT_SIZE,
           paddingRight: 8,
         }}
       >

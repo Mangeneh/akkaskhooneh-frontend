@@ -17,17 +17,17 @@ class SearchUserOrTag extends Component {
         this.state = {
             searchText: '',
         }
-        // this.updateUsers();
-        // this.updateTags();
+        this.updateUsers(this.state.searchText);
+        this.updateTags(this.state.searchText);
     }
     render() {
         return (
-            <View>
+            <View style={{flex:1}}>
                 <View>
                     <CustomStatusBar />
                     {this.renderHeader()}
                 </View>
-                <View>
+                <View style={{flex:1}}>
                     <Tabs
                         ref={(component) => {
                             this.tabs = component;
@@ -66,6 +66,7 @@ class SearchUserOrTag extends Component {
                             <View style={{
                                 backgroundColor: Colors.WHITE_BACK,
                                 flex: 1,
+                                width : '100%',
                                 paddingLeft: 8,
                             }}>
                                 {this.renderUsers()}
@@ -99,8 +100,13 @@ class SearchUserOrTag extends Component {
                         value={searchText}
                         onChangeText={(searchText) => {
                             this.setState({ searchText })
-                            this.props.startNewSearch();
-                            this.updateUsers(searchText);
+                            this.props.refreshSearchUsers(searchText)
+                            .then((response) => {
+                                console.warn(response);
+                            })
+                            .catch((error) => {
+                                console.warn(error);
+                            });
                         }}
                     />
                     <Icon name="ios-search" style={{ color: Colors.BASE }} />
@@ -120,6 +126,7 @@ class SearchUserOrTag extends Component {
                 onEndReached={() => { this.updateUsers(); }}
                 style={{
                     width: '100%',
+                    flex:1,
                     marginTop: 8,
                 }}
                 keyExtractor={(item, index) => index.toString()}
@@ -130,10 +137,7 @@ class SearchUserOrTag extends Component {
     }
 
     renderUser(item, index) {
-        console.warn(item);
-        return (
-            <ContactItem user={item} />
-        );
+        return <ContactItem user={item} />;
     }
 
     updateUsers(text) {
@@ -143,10 +147,10 @@ class SearchUserOrTag extends Component {
         if (searchUsersNextPage <= searchUsersTotalPages && !searchUsersIsLoading) {
             getSearchUsersNextPage(text, searchUsersNextPage)
                 .then((response) => {
-                    console.warn(response);
+                    // console.warn(response);
                 })
                 .catch((error) => {
-                    console.warn(error);
+                    // console.warn(error);
                 });
         }
     }
@@ -171,7 +175,7 @@ class SearchUserOrTag extends Component {
     }
 
     renderTag(item, index) {
-        return <CommentComponent comment={item} />;
+        return <ContactItem tag={item} />;
     }
 
     updateTags(text) {

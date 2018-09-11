@@ -71,4 +71,5 @@ export const Strings = {
   ADD: 'add',
   USERS: 'users',
   TAGS: 'tags',
+  SEARCH_FAIL: 'search_fail',
 };
