@@ -8,7 +8,7 @@ import {
   refreshSelfBoards,
   refreshSelfPhotos,
 } from '../../actions';
-import { Board, ProfileHeader, ProfilePageImageItem } from '../../components';
+import { Board, ProfileHeader } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import { Colors, Pages, Strings } from '../../config';
 import { SelfProfileInfo } from '../../containers';

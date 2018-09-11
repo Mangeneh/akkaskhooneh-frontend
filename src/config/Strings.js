@@ -70,6 +70,5 @@ export const Strings = {
   COMMENT_FAILED: 'comment_failed',
   ADD: 'add',
   USERS: 'users',
-  TAGS: 'tags',
   SEARCH_FAIL: 'search_fail',
 };
