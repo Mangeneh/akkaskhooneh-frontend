@@ -131,7 +131,7 @@ class SearchUserOrTag extends Component {
 
     renderUser(item, index) {
         console.warn(item);
-        return <ContactItem user={item} />;
+        return (<ContactItem user={item} />);
     }
 
     updateUsers(text) {
