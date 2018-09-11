@@ -1,9 +1,8 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
-import { Constants, Graphics } from '../config';
+import { Constants } from '../config';
 
 export default class TagItem extends Component {
-
   render() {
     return (
       <View
@@ -15,12 +14,12 @@ export default class TagItem extends Component {
           borderRadius: Constants.POST_CARD_RADIUS,
         }}
       >
-          <View style={{
-            justifyContent: 'center',
-            alignContent: 'center' ,
-          }}
-          >
-            <View>{this.renderName()}</View>
+        <View style={{
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
+        >
+          <View>{this.renderName()}</View>
         </View>
         {this.renderPicture()}
       </View>

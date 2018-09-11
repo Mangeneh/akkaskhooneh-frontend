@@ -2,6 +2,7 @@ import AddPostToBoardHeader from './AddPostToBoardHeader';
 import BackHeader from './BackHeader';
 import Board from './Board';
 import CameraRollPicker from './CameraRollPicker/CameraRollPicker';
+import ContactItem from './ContactItem';
 import CustomLongTextBox from './CustomLongTextBox';
 import CustomStatusBar from './CustomStatusBar';
 import EmailTextBox from './EmailTextBox';
@@ -15,9 +16,8 @@ import ProfileHeader from './ProfileHeader';
 import ProfilePageImageItem from './ProfilePageImageItem';
 import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import SpinnerButton from './SpinnerButton';
-import Tags from './Tags';
-import ContactItem from './ContactItem';
 import TagItem from './TagItem';
+import Tags from './Tags';
 
 export {
   EmailTextBox,

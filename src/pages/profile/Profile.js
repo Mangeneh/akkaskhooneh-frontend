@@ -8,9 +8,8 @@ import {
   refreshSelfBoards,
   refreshSelfPhotos,
 } from '../../actions';
-import {
-  Board, CustomStatusBar, ProfileHeader, ProfilePageImageItem,
-} from '../../components';
+import { Board, ProfileHeader, ProfilePageImageItem } from '../../components';
+import PostsPhotoList from '../../components/PostsPhotoList';
 import { Colors, Pages, Strings } from '../../config';
 import { SelfProfileInfo } from '../../containers';
 import { strings } from '../../i18n';
@@ -42,7 +41,7 @@ class Profile extends Component {
 
   render() {
     const {
-      username, refreshSelfPhotos, refreshSelfBoards, boardsIsLoading, boards, postsIsLoading, photosIsLoading, photos,
+      username, refreshSelfPhotos, refreshSelfBoards, boardsIsLoading, boards, postsIsLoading, photosIsLoading, photos, navigation,
     } = this.props;
     return (
       <Container>
@@ -119,26 +118,14 @@ class Profile extends Component {
               activeTabStyle={{ backgroundColor: 'white' }}
               tabStyle={{ backgroundColor: 'white' }}
             >
-              <View style={{
-                backgroundColor: Colors.WHITE_BACK,
-                flex: 1,
-                paddingLeft: 8,
-              }}
-              >
-                <FlatList
-                  onRefresh={() => refreshSelfPhotos()}
-                  refreshing={photosIsLoading}
-                  onEndReached={() => this.updatePhotos()}
-                  style={{
-                    flex: 1,
-                    marginTop: 8,
-                  }}
-                  numColumns={2}
-                  keyExtractor={(item, index) => item.id}
-                  data={photos}
-                  renderItem={({ item, index }) => this.renderPhoto(item, index)}
-                />
-              </View>
+              <PostsPhotoList
+                data={photos}
+                onRefresh={() => refreshSelfPhotos()}
+                refreshing={photosIsLoading}
+                onEndReached={() => this.updatePhotos()}
+                onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
+                post={false}
+              />
             </Tab>
           </Tabs>
         </View>
@@ -146,23 +133,10 @@ class Profile extends Component {
     );
   }
 
-  renderPhoto(item, index) {
-    return (
-      <ProfilePageImageItem
-        image={item}
-        onPress={image => this.showPostInfoPage(image)}
-      />
-    );
-  }
-
   renderBoard(item, index) {
     return (
       <Board board={item} onAllPress={() => this.showBoardDetails(item)} />
     );
-  }
-
-  showPostInfoPage(image) {
-
   }
 
   updatePhotos() {

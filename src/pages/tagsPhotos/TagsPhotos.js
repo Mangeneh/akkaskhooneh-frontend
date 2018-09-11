@@ -5,7 +5,6 @@ import { getTagsPhotosNextPage, refreshTagsPhotos } from '../../actions';
 import { BackHeader, CustomStatusBar } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import { Pages } from '../../config';
-import NavigationService from '../../NavigationService';
 import {
   selectTagsPhotos,
   selectTagsPhotosIsLoading,
@@ -32,7 +31,7 @@ class TagsPhotos extends Component {
           onRefresh={() => refreshTagsPhotos()}
           refreshing={tagsPhotosIsLoading}
           onEndReached={() => this.updateTagsPhotos()}
-          onPhotoPress={postID => NavigationService.navigate(Pages.POST_INFO_PAGE, { postID })}
+          onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
           post
         />
       </View>

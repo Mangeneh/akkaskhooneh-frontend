@@ -16,6 +16,11 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Constants, Graphics } from '../config';
+import {
+  extractCaptionFromPost,
+  extractPostPictureUriFromPost,
+  extractProfilePictureUriFromPost
+} from '../helpers';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -24,6 +29,7 @@ export default class Post extends Component {
     const {
       saveButtonPressed, item, onCommentOrPicPressed, onLikePressed,
     } = this.props;
+    console.log(item);
     return (
       <Card style={{
         borderRadius: Graphics.POST_CARD_RADIUS,
@@ -66,13 +72,13 @@ export default class Post extends Component {
               </Text>
               <Text />
             </View>
-            <Thumbnail source={{ uri: item.profile_picture }} />
+            <Thumbnail source={{ uri: extractProfilePictureUriFromPost(item) }} />
           </Right>
         </CardItem>
         <TouchableOpacity onPress={onCommentOrPicPressed} activeOpacity={0.5}>
           <CardItem cardBody>
             <FastImage
-              source={{ uri: item.post_picture }}
+              source={{ uri: extractPostPictureUriFromPost(item) }}
               style={{
                 height: WIDTH - 128,
                 width: null,
@@ -89,7 +95,7 @@ export default class Post extends Component {
               textAlign: 'right',
             }}
             >
-              {item.caption}
+              {extractCaptionFromPost(item)}
             </Text>
             <Text />
           </Item>

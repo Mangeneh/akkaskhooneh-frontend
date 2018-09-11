@@ -135,7 +135,6 @@ class PostInfo extends Component {
 
   renderCard() {
     const { postInfo } = this.props;
-    console.log(this.props);
     return (
       <Card>
         <CardItem>
