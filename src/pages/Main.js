@@ -7,6 +7,7 @@ import Home from './home/Home';
 import Notification from './notification/Notification';
 import Profile from './profile/Profile';
 import Search from './search/Search';
+import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 
 const profileStack = createStackNavigator({
   Profile,
@@ -30,10 +31,22 @@ homeStack.navigationOptions = ({ navigation }) => ({
   tabBarVisible: navigation.state.index === 0,
 });
 
+const searchStack = createStackNavigator({
+  Search,
+  SearchUserOrTag,
+}, {
+  initialRouteName: Pages.SEARCH,
+  headerMode: 'none',
+});
+
+homeStack.navigationOptions = ({ navigation }) => ({
+  tabBarVisible: navigation.state.index === 0,
+});
+
 export default createMaterialTopTabNavigator(
   {
     Home: { screen: homeStack },
-    Search: { screen: Search },
+    Search: { screen: searchStack },
     Nothing: { screen: Notification },
     NotificationCenter: { screen: Notification },
     Profile: { screen: profileStack },

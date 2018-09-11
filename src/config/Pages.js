@@ -18,4 +18,5 @@ export const Pages = {
   ADD_POST_TO_BOARD: 'AddPostToBoard',
   SEARCH: 'Search',
   INSIDE: 'Inside',
+  SEARCH_USER_OR_TAG: 'SearchUserOrTag',
 };

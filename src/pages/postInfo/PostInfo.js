@@ -233,7 +233,7 @@ class PostInfo extends Component {
       <FlatList
         onRefresh={() => refreshComments()}
         refreshing={commentsIsLoading}
-        onEndReached={() => this.updateComments()}
+        onEndReached={() => { console.warn('HERE'); this.updateComments(); }}
         style={{
           width: '100%',
           marginTop: 8,
@@ -256,8 +256,10 @@ class PostInfo extends Component {
     if (commentsNextPage <= commentsTotalPages && !commentsIsLoading) {
       getCommentsNextPage(commentsNextPage)
         .then((response) => {
+          console.warn('YESSSS')
         })
         .catch((error) => {
+          console.warn('NO')
         });
     }
   }

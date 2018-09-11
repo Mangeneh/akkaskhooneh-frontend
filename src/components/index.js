@@ -15,6 +15,7 @@ import ProfilePageImageItem from './ProfilePageImageItem';
 import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import SpinnerButton from './SpinnerButton';
 import Tags from './Tags';
+import ContactItem from './ContactItem';
 
 export {
   EmailTextBox,
@@ -34,4 +35,5 @@ export {
   CameraRollPicker,
   ProfilePageImageItem,
   AddPostToBoardHeader,
+  ContactItem,
 };

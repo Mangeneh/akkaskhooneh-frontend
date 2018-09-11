@@ -15,6 +15,7 @@ import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
 import AddPostToBoard from './addPostToBoard/AddPostToBoard';
 import Notification from './notification/Notification';
+import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 
 export {
   Login,
@@ -34,4 +35,5 @@ export {
   PostInfo,
   AddPostToBoard,
   Notification,
+  SearchUserOrTag,
 };

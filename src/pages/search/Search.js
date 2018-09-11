@@ -6,7 +6,7 @@ import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar } from '../../components';
 import TagMasonry from '../../components/TagMasonry';
-import { Colors, Constants, Strings } from '../../config';
+import { Colors, Constants, Strings, Pages } from '../../config';
 import { strings } from '../../i18n';
 import { getSearchTopTagsNextPage, refreshSearchTopTags } from './actions';
 import {
@@ -15,6 +15,7 @@ import {
   selectSearchTopTagsNextPage,
   selectSearchTopTagsTotalPages,
 } from './reducer';
+import NavigationService from '../../NavigationService';
 
 class Search extends Component {
   state = {
@@ -64,6 +65,7 @@ class Search extends Component {
         >
           <Input
             placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
+            onChangeText={() => NavigationService.navigate(Pages.SEARCH_USER_OR_TAG)}
             style={{
               textAlign: 'right',
               fontSize: Constants.ITEM_FONT_SIZE,

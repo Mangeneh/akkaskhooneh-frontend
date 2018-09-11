@@ -38,7 +38,7 @@
   "photo_gallery": "گالری تصاویر",
   "caption": "توضیحات عکس",
   "location": "موقعیت",
-  "tags": "تگ ها:",
+  "tags": "تگ ها ",
   "next": "مرحله بعد",
   "invite_friends": "دعوت از دوستان",
   "search_contacts": "جستجوی مخاطب",
@@ -69,5 +69,6 @@
   "comment_notification": " روی این عکس شما نظر داد.",
   "follow_notification" : " شما را دنبال کرد.",
   "comment_failed" : "ارسال نظر با خطا مواجه شد.",
-  "add": "اضافه کن"
+  "add": "اضافه کن",
+  "users": "کاربرها"
 }

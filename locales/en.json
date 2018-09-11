@@ -38,7 +38,7 @@
   "photo_gallery": "Gallery",
   "caption": "Caption",
   "location": "Location",
-  "tags": "Tags:",
+  "tags": "Tags ",
   "next": "Next",
   "invite_friends": "Invite Friends",
   "search_contacts": "Search Contacts",
@@ -69,5 +69,6 @@
   "comment_notification": " commented on your post.",
   "follow_notification" : " started following you.",
   "comment_failed": "Sending comment failed.",
-  "add": "Add"
+  "add": "Add",
+  "users": "Users"
 }
