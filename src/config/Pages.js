@@ -20,4 +20,5 @@ export const Pages = {
   INSIDE: 'Inside',
   SEARCH_USER_OR_TAG: 'SearchUserOrTag',
   TAGS_PHOTOS: 'TagsPhotos',
+  CONTACT_LIST: 'ContactList',
 };

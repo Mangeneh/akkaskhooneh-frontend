@@ -62,7 +62,7 @@ class Profile extends Component {
             marginBottom: 8,
           }}
           >
-            <SelfProfileInfo />
+            <SelfProfileInfo onListPressed={() => this.onListPressed()}/>
           </View>
           <Tabs
             ref={(component) => {
@@ -154,6 +154,10 @@ class Profile extends Component {
     if (boardsNextPage <= boardsTotalPages && !boardsIsLoading) {
       getBoardsNextPage(boardsNextPage);
     }
+  }
+
+  onListPressed() {
+    this.props.navigation.push(Pages.CONTACT_LIST, {username: this.props.username})
   }
 
   onEditPress() {

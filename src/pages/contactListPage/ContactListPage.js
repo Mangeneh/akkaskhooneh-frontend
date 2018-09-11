@@ -34,8 +34,11 @@ import {
       this.state = {
         searchText: '',
       };
-      this.updateFollowings(this.state.searchText);
-      this.updateFollowers(this.state.searchText);
+    }
+
+    componentWillMount() {
+      this.updateFollowings('');
+      this.updateFollowers('');
     }
   
     render() {
@@ -108,7 +111,6 @@ import {
   
     renderHeader() {
       const { searchText } = this.state;
-      const { username } = this.props;
       return (
         <Header
           androidStatusBarColor={Colors.BASE}
@@ -132,9 +134,10 @@ import {
               value={searchText}
               onChangeText={(searchText) => {
                 this.setState({ searchText });
-                this.props.refreshSearchFollowings(searchText, username);
-                this.props.refreshSearchFollowers(searchText, username)
+                this.props.refreshSearchFollowings(searchText);
+                this.props.refreshSearchFollowers(searchText)
                   .then((response) => {
+                    console.warn(response)
                   })
                   .catch((error) => {
                     Toast.show({
@@ -154,11 +157,12 @@ import {
   
     renderFollowings() {
       const { searchText } = this.state;
-      const { refreshSearchFollowings, searchFollowingsIsLoading, searchFollowings, username } = this.props;
+      const { refreshSearchFollowings, searchFollowingsIsLoading, searchFollowings } = this.props;
+      console.warn(searchFollowingsIsLoading)
       return (
         <FlatList
-          onRefresh={() => refreshSearchFollowings(searchText, username)}
-          refreshing={searchFollowingsIsLoading}
+          // onRefresh={() => refreshSearchFollowings(searchText)}
+          // refreshing={searchFollowingsIsLoading}
           onEndReached={() => {
             this.updateFollowings(searchText);
           }}
@@ -174,16 +178,17 @@ import {
       );
     }
   
-    renderUFollowing(item, index) {
+    renderFollowing(item, index) {
+      console.warn('hey there')
       return <ContactItem user={item} />;
     }
   
     updateFollowings(text) {
       const {
-        searchFollowingsNextPage, searchFollowingsTotalPages, searchFollowingsIsLoading, getSearchFollowingsNextPage, username
+        searchFollowingsNextPage, searchFollowingsTotalPages, searchFollowingsIsLoading, getSearchFollowingsNextPage
       } = this.props;
       if (searchFollowingsNextPage <= searchFollowingsTotalPages && !searchFollowingsIsLoading) {
-        getSearchFollowingsNextPage(text, searchFollowingsNextPage, username)
+        getSearchFollowingsNextPage(text, searchFollowingsNextPage)
           .then((response) => {
             // console.warn(response);
           })
@@ -195,11 +200,12 @@ import {
   
     renderFollowers() {
       const { searchText } = this.state;
-      const { refreshSearchFollowers, searchFollowersIsLoading, searchFollowers, username } = this.props;
+      const { refreshSearchFollowers, searchFollowersIsLoading, searchFollowers } = this.props;
+      console.warn(searchFollowersIsLoading)
       return (
         <FlatList
-          onRefresh={() => refreshSearchFollowers(searchText, username)}
-          refreshing={searchFollowersIsLoading}
+          // onRefresh={() => refreshSearchFollowers(searchText)}
+          // refreshing={searchFollowersIsLoading}
           onEndReached={() => {
             this.updateFollowers(searchText);
           }}
@@ -220,10 +226,10 @@ import {
   
     updateFollowers(text) {
       const {
-        searchFollowersNextPage, searchFollowersTotalPages, searchFollowersIsLoading, getSearchFollowersNextPage, username
+        searchFollowersNextPage, searchFollowersTotalPages, searchFollowersIsLoading, getSearchFollowersNextPage
       } = this.props;
       if (searchFollowersNextPage <= searchFollowersTotalPages && !searchFollowersIsLoading) {
-        getSearchFollowersNextPage(text, searchFollowersNextPage, username)
+        getSearchFollowersNextPage(text, searchFollowersNextPage)
           .then((response) => {
           })
           .catch((error) => {
@@ -241,16 +247,17 @@ import {
     searchFollowersNextPage: selectSearchFollowersNextPage(state),
     searchFollowersTotalPages: selectSearchFollowersTotalPages(state),
     searchFollowersIsLoading: selectSearchFollowersIsLoading(state),
-    selfUsername: selectSelfUsername(state),
   });
   
-  const mapDispatchToProps = dispatch => ({
-    refreshSearchFollowings: (text, username) => dispatch(refreshSearchFollowings(text, username)),
-    getSearchFollowingsNextPage: (text, followingsNext, username) => dispatch(getSearchFollowings(text, followingsNext, username)),
-    refreshSearchFollowers: (text, username) => dispatch(refreshSearchFollowers(text, username)),
-    getSearchFollowersNextPage: (text, followersNext, username) => dispatch(getSearchFollowers(text, followersNext, username)),
+  const mapDispatchToProps = (dispatch,ownProps) => {
+    const username = ownProps.navigation.getParam('username');
+    return{
+    refreshSearchFollowings: text => dispatch(refreshSearchFollowings(text, username)),
+    getSearchFollowingsNextPage: (text, followingsNext) => dispatch(getSearchFollowings(text, followingsNext, username)),
+    refreshSearchFollowers: text => dispatch(refreshSearchFollowers(text, username)),
+    getSearchFollowersNextPage: (text, followersNext) => dispatch(getSearchFollowers(text, followersNext, username)),
     startNewSearch: () => dispatch(startNewSearch()),
-  });
+  }};
   
   export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
   

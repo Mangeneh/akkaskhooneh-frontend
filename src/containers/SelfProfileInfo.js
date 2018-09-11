@@ -16,7 +16,7 @@ import {
 class SelfProfileInfo extends Component {
   render() {
     const {
-      bio, fullName, followers, followings,
+      bio, fullName, followers, followings, onListPressed
     } = this.props;
     return (
       <View style={{
@@ -33,7 +33,7 @@ class SelfProfileInfo extends Component {
             alignItems: 'flex-start',
           }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onListPressed}>
               <Text style={{
                 marginRight: 16,
                 fontSize: 12,
@@ -43,7 +43,7 @@ class SelfProfileInfo extends Component {
                 {strings(Strings.NUM_OF_FOLLOWINGS, { number: followings })}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onListPressed}>
               <Text style={{
                 fontSize: 12,
                 color: Colors.ICON,

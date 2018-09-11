@@ -6,6 +6,7 @@ const INITIAL_SEARCH_FOLLOWINGS_STATE = {
   searchFollowingsNextPage: 1,
   searchFollowingsTotalPages: 1,
   searchFollowingsIsLoading: false,
+  // searchFollowingsIsRefreshing: true,
 };
 
 const INITIAL_SEARCH_FOLLOWERS_STATE = {
@@ -13,13 +14,12 @@ const INITIAL_SEARCH_FOLLOWERS_STATE = {
   searchFollowersNextPage: 1,
   searchFollowersTotalPages: 1,
   searchFollowersIsLoading: false,
+  // searchFollowersIsRefreshing: true, 
 };
 
 const INITIAL_STATE = {
   ...INITIAL_SEARCH_FOLLOWINGS_STATE,
   ...INITIAL_SEARCH_FOLLOWERS_STATE,
-  chosenPostID: 0,
-  chosenProfileUsername: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -134,11 +134,10 @@ export const selectSearchFollowings = state => state.search.searchFollowings;
 export const selectSearchFollowingsNextPage = state => state.search.searchFollowingsNextPage;
 export const selectSearchFollowingsTotalPages = state => state.search.searchFollowingsTotalPages;
 export const selectSearchFollowingsIsLoading = state => state.search.searchFollowingsIsLoading;
+export const selectSearchFollowingsIsRefreshing = state => state.search.searchFollowingsIsRefreshing;
 
 export const selectSearchFollowers = state => state.search.searchFollowers;
 export const selectSearchFollowersNextPage = state => state.search.searchFollowersNextPage;
 export const selectSearchFollowersTotalPages = state => state.search.searchFollowersTotalPages;
 export const selectSearchFollowersIsLoading = state => state.search.searchFollowersIsLoading;
-
-export const selectOthersPhotosIsLoading = state => state.search.othersPhotosIsLoading;
-export const selectChosenPostID = state => state.search.chosenPostID;
+export const selectSearchFollowersIsRefreshing = state => state.search.searchFollowersIsRefreshing;
