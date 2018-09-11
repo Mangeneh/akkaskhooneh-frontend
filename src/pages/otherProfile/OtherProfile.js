@@ -10,7 +10,7 @@ import {
 } from '../../actions';
 import { Board, ProfileHeader } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
-import { Colors, Pages, Strings } from '../../config';
+import { Colors, Pages, Parameters, Strings } from '../../config';
 import { SelfProfileInfo } from '../../containers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
@@ -62,7 +62,7 @@ class Profile extends Component {
             marginBottom: 8,
           }}
           >
-            <SelfProfileInfo onListPressed={() => this.onListPressed()} />
+            <SelfProfileInfo/>
           </View>
           <Tabs
             ref={(component) => {
@@ -102,7 +102,7 @@ class Profile extends Component {
                   data={boards}
                   renderItem={({ item, index }) => this.renderBoard(item, index)}
                 />
-                {(postsIsLoading) ? (<ActivityIndicator size="large" />) : <View />}
+                {(postsIsLoading) ? (<ActivityIndicator size="large"/>) : <View/>}
               </View>
             </Tab>
             <Tab
@@ -134,7 +134,7 @@ class Profile extends Component {
 
   renderBoard(item, index) {
     return (
-      <Board board={item} onAllPress={() => this.showBoardDetails(item)} />
+      <Board board={item} onAllPress={() => this.showBoardDetails(item)}/>
     );
   }
 
@@ -154,10 +154,6 @@ class Profile extends Component {
     if (boardsNextPage <= boardsTotalPages && !boardsIsLoading) {
       getBoardsNextPage(boardsNextPage);
     }
-  }
-
-  onListPressed() {
-    this.props.navigation.push(Pages.CONTACT_LIST, { username: this.props.username });
   }
 
   onEditPress() {
@@ -185,11 +181,14 @@ const mapStateToProps = state => ({
   boardsIsLoading: selectSelfBoardsIsLoading(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  refreshSelfPhotos: () => dispatch(refreshSelfPhotos()),
-  refreshSelfBoards: () => dispatch(refreshSelfBoards()),
-  getPhotosNextPage: photosNext => dispatch(getSelfPhotosNextPage(photosNext)),
-  getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  return {
+    r: () => dispatch(refreshSelfPhotos()),
+    refreshSelfBoards: () => dispatch(refreshSelfBoards()),
+    getPhotosNextPage: photosNext => dispatch(getSelfPhotosNextPage(photosNext)),
+    getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

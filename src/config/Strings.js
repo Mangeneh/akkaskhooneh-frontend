@@ -74,4 +74,7 @@ export const Strings = {
   FOLLOWERS: 'followers',
   FOLLOWINGS: 'followings',
   SEARCH_USER: 'search_user',
+  FOLLOWED: 'following',
+  FOLLOW: 'follow',
+  REQUESTED: 'requested',
 };

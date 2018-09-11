@@ -34,6 +34,10 @@ export const PostsActions = {
   REFRESH_SELF_PHOTOS_SUCCESS: 'REFRESH_SELF_PHOTOS_SUCCESS',
   REFRESH_SELF_PHOTOS_FAIL: 'REFRESH_SELF_PHOTOS_FAIL',
   //
+  REFRESH_OTHERS_PHOTOS: 'REFRESH_OTHERS_PHOTOS',
+  REFRESH_OTHERS_PHOTOS_SUCCESS: 'REFRESH_OTHERS_PHOTOS_SUCCESS',
+  REFRESH_OTHERS_PHOTOS_FAIL: 'REFRESH_OTHERS_PHOTOS_FAIL',
+  //
   REFRESH_HOME_POSTS: 'REFRESH_HOME_POSTS',
   REFRESH_HOME_POSTS_SUCCESS: 'REFRESH_HOME_POSTS_SUCCESS',
   REFRESH_HOME_POSTS_FAIL: 'REFRESH_HOME_POSTS_FAIL',
@@ -105,6 +109,26 @@ export const getSelfPhotosNextPage = photosNext => ({
     request: {
       method: RequestMethods.GET,
       url: `${Server.GET_SELF_PHOTOS_NEXT_PAGE}${photosNext}`,
+    },
+  },
+});
+
+export const getOthersPhotosNextPage = (photosNext, username) => ({
+  type: PostsActions.GET_OTHERS_PHOTOS_NEXT_PAGE,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_OTHERS_PHOTOS_NEXT_PAGE}${username}/?page=${photosNext}`,
+    },
+  },
+});
+
+export const refreshOthersPhotos = (username) => ({
+  type: PostsActions.REFRESH_OTHERS_PHOTOS,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_OTHERS_PHOTOS_NEXT_PAGE}${username}/?page=1`,
     },
   },
 });

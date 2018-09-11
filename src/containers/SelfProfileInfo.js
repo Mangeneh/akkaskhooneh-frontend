@@ -16,7 +16,7 @@ import {
 class SelfProfileInfo extends Component {
   render() {
     const {
-      bio, fullName, followers, followings, onListPressed
+      bio, fullName, followers, followings, onListPressed,
     } = this.props;
     return (
       <View style={{

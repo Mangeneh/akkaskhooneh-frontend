@@ -14,7 +14,7 @@ const INITIAL_SEARCH_FOLLOWERS_STATE = {
   searchFollowersNextPage: 1,
   searchFollowersTotalPages: 1,
   searchFollowersIsLoading: false,
-  // searchFollowersIsRefreshing: true, 
+  // searchFollowersIsRefreshing: true,
 };
 
 const INITIAL_STATE = {

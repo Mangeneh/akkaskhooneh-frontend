@@ -1,6 +1,6 @@
 import { RequestMethods, Server } from '../../config';
 
-export const SearchUserOrTagActions = {
+export const SearchContactActions = {
   GET_SEARCH_FOLLOWINGS_NEXT_PAGE: 'GET_SEARCH_FOLLOWINGS_NEXT_PAGE',
   GET_SEARCH_FOLLOWINGS_NEXT_PAGE_SUCCESS: 'GET_SEARCH_FOLLOWINGS_NEXT_PAGE_SUCCESS',
   GET_SEARCH_FOLLOWINGS_NEXT_PAGE_FAIL: 'GET_SEARCH_FOLLOWINGS_NEXT_PAGE_FAIL',
@@ -19,15 +19,15 @@ export const SearchUserOrTagActions = {
 };
 
 export const resetSearchFollowings = () => ({
-  type: SearchUserOrTagActions.RESET_SEARCH_FOLLOWINGS,
+  type: SearchContactActions.RESET_SEARCH_FOLLOWINGS,
 });
 
 export const startNewSearch = () => ({
-  type: SearchUserOrTagActions.START_NEW_SEARCH,
+  type: SearchContactActions.START_NEW_SEARCH,
 });
 
 export const refreshSearchFollowings = (text, username) => ({
-  type: SearchUserOrTagActions.REFRESH_SEARCH_FOLLOWINGS,
+  type: SearchContactActions.REFRESH_SEARCH_FOLLOWINGS,
   payload: {
     request: {
       method: RequestMethods.GET,
@@ -37,7 +37,7 @@ export const refreshSearchFollowings = (text, username) => ({
 });
 
 export const getSearchFollowings = (text, followingsNext, username) => ({
-  type: SearchUserOrTagActions.GET_SEARCH_FOLLOWINGS_NEXT_PAGE,
+  type: SearchContactActions.GET_SEARCH_FOLLOWINGS_NEXT_PAGE,
   payload: {
     request: {
       method: RequestMethods.GET,
@@ -47,12 +47,12 @@ export const getSearchFollowings = (text, followingsNext, username) => ({
 });
 
 export const resetSearchFollowers = () => ({
-  type: SearchUserOrTagActions.RESET_SEARCH_FOLLOWERS,
+  type: SearchContactActions.RESET_SEARCH_FOLLOWERS,
 });
 
 
-export const refreshSearchFollowers = (text, username)  => ({
-  type: SearchUserOrTagActions.REFRESH_SEARCH_FOLLOWERS,
+export const refreshSearchFollowers = (text, username) => ({
+  type: SearchContactActions.REFRESH_SEARCH_FOLLOWERS,
   payload: {
     request: {
       method: RequestMethods.GET,
@@ -62,7 +62,7 @@ export const refreshSearchFollowers = (text, username)  => ({
 });
 
 export const getSearchFollowers = (text, followersNext, username) => ({
-  type: SearchUserOrTagActions.GET_SEARCH_FOLLOWERS_NEXT_PAGE,
+  type: SearchContactActions.GET_SEARCH_FOLLOWERS_NEXT_PAGE,
   payload: {
     request: {
       method: RequestMethods.GET,

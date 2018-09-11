@@ -75,4 +75,7 @@
   "followers": "دنبال کننده ها" ,
   "followings": "دنبال شونده ها",
   "search_user":"جستجوی کاربر",
+  "follow": "دنبال کن",
+  "following": "دنبال شده",
+  "requested": "در انتظار"
 }

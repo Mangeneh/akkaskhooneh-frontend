@@ -8,3 +8,5 @@ export * from './Addresses';
 export * from './RequestMethods';
 export * from './Pages';
 export * from './Graphics';
+export * from './FollowModes';
+export * from './Parameters';
