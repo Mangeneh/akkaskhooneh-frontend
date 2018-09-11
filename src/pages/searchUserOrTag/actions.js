@@ -66,7 +66,7 @@ export const getSearchTags = (text, tagsNext) => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_SEARCH_TAGS}?search=${text}&?page=${tagsNext}`,
+      url: `${Server.GET_SEARCH_TAGS}?search=${text}&page=${tagsNext}`,
     },
   },
 });

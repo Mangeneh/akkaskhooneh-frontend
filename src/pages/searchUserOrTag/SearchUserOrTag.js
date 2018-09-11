@@ -35,6 +35,10 @@ class SearchUserOrTag extends Component {
     this.updateTags('');
   }
 
+  componentDidMount() {
+    setTimeout(this.tabs.goToPage.bind(this.tabs, 1));
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -68,7 +72,6 @@ class SearchUserOrTag extends Component {
                 backgroundColor: Colors.WHITE_BACK,
                 flex: 1,
                 width: '100%',
-                paddingLeft: 8,
               }}
               >
                 {this.renderTags()}
@@ -91,7 +94,6 @@ class SearchUserOrTag extends Component {
                 backgroundColor: Colors.WHITE_BACK,
                 flex: 1,
                 width: '100%',
-                paddingLeft: 8,
               }}
               >
                 {this.renderUsers()}
@@ -131,7 +133,7 @@ class SearchUserOrTag extends Component {
               this.props.refreshSearchUsers(searchText);
               this.props.refreshSearchTags(searchText)
                 .then((response) => {
-console.warn(response)
+                  console.warn(response);
                 })
                 .catch((error) => {
                   Toast.show({
@@ -220,7 +222,7 @@ console.warn(response)
       searchTagsNextPage, searchTagsTotalPages, searchTagsIsLoading, getSearchTagsNextPage,
     } = this.props;
     if (searchTagsNextPage <= searchTagsTotalPages && !searchTagsIsLoading) {
-      getSearchTagsNextPage(text, getSearchTagsNextPage)
+      getSearchTagsNextPage(text, searchTagsNextPage)
         .then((response) => {
         })
         .catch((error) => {

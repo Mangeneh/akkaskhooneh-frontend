@@ -18,8 +18,6 @@ const INITIAL_SEARCH_TAGS_STATE = {
 const INITIAL_STATE = {
   ...INITIAL_SEARCH_USERS_STATE,
   ...INITIAL_SEARCH_TAGS_STATE,
-  chosenPostID: 0,
-  chosenProfileUsername: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -40,6 +38,7 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_SEARCH_TAGS_FAIL,
     START_NEW_SEARCH,
   } = SearchUserOrTagActions;
+  console.log(action);
   switch (action.type) {
     case START_NEW_SEARCH:
       return {
@@ -112,7 +111,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         searchTags: action.payload.data.results,
-        searchTagsNextPage: state.searchTagsNextPage + 1,
+        searchTagsNextPage: 2,
         searchTagsTotalPages: action.payload.data.total_pages,
         searchTagsIsLoading: false,
       };
