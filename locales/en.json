@@ -77,5 +77,6 @@
   "search_user": "Search User",
   "follow": "Follow",
   "following": "Following",
-  "requested": "Requested"
+  "requested": "Requested",
+  "notifications": "Notifications"
 }

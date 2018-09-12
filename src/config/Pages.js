@@ -21,4 +21,5 @@ export const Pages = {
   SEARCH_USER_OR_TAG: 'SearchUserOrTag',
   TAGS_PHOTOS: 'TagsPhotos',
   CONTACT_LIST: 'ContactList',
+  NOTIFICATION: 'Notification',
 };

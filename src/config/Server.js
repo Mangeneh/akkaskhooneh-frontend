@@ -28,4 +28,5 @@ export const Server = {
   GET_SEARCH_TAGS: '/social/search/tags/',
   GET_SEARCH_FOLLOWERS: '/social/search/followers/',
   GET_SEARCH_FOLLOWINGS: '/social/search/following/',
+  GET_NOTIFICATIONS: '/social/notification/?page=',
 };

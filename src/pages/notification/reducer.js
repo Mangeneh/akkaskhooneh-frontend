@@ -1,7 +1,7 @@
 import GlobalActions from '../../actions';
 import { NotificationActions } from './actions';
 
-const INITIAL_NOTIFICATIONS = {
+const INITIAL_NOTIFICATIONS_STATE = {
   notifications: [],
   notificationsNextPage: 1,
   notificationsTotalPages: 1,
@@ -14,90 +14,59 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   const {
+    GET_NOTIFICATION_NEXT_PAGE,
+    GET_NOTIFICATION_NEXT_PAGE_SUCCESS,
+    GET_NOTIFICATION_NEXT_PAGE_FAIL,
+    RESET_NOTIFICATION,
+    REFRESH_NOTIFICATION,
+    REFRESH_NOTIFICATION_SUCCESS,
+    REFRESH_NOTIFICATION_FAIL,
+    START_NEW_SEARCH,
   } = NotificationActions;
   switch (action.type) {
     case START_NEW_SEARCH:
       return {
         ...state,
-        searchTagsNextPage: 1,
-        searchUsersNextPage: 1,
+        notificationsNextPage: 1,
       };
-    case GET_SEARCH_USERS_NEXT_PAGE:
+    case GET_NOTIFICATION_NEXT_PAGE:
       return {
         ...state,
-        searchUsersIsLoading: true,
+        notificationsIsLoading: true,
       };
-    case GET_SEARCH_USERS_NEXT_PAGE_SUCCESS:
+    case GET_NOTIFICATION_NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        searchUsers: state.searchUsers.concat(action.payload.data.results),
-        searchUsersNextPage: state.searchUsersNextPage + 1,
-        searchUsersTotalPages: action.payload.data.total_pages,
-        searchUsersIsLoading: false,
+        notifications: state.notifications.concat(action.payload.data.results),
+        notificationsNextPage: state.notificationsNextPage + 1,
+        notificationsTotalPages: action.payload.data.total_pages,
+        notificationsIsLoading: false,
       };
-    case GET_SEARCH_USERS_NEXT_PAGE_FAIL:
+    case GET_NOTIFICATION_NEXT_PAGE_FAIL:
       return {
         ...state,
-        searchUsersIsLoading: false,
+        notificationsIsLoading: false,
       };
-    case REFRESH_SEARCH_USERS:
+    case REFRESH_NOTIFICATION:
       return {
         ...state,
-        searchUsersIsLoading: true,
+        notificationsIsLoading: true,
       };
-    case REFRESH_SEARCH_USERS_SUCCESS:
+    case REFRESH_NOTIFICATION_SUCCESS:
       return {
         ...state,
-        searchUsers: action.payload.data.results,
-        searchUsersNextPage: state.searchUsersNextPage + 1,
-        searchUsersTotalPages: action.payload.data.total_pages,
-        searchUsersIsLoading: false,
+        notifications: action.payload.data.results,
+        notificationsNextPage: state.notificationsNextPage + 1,
+        notificationsTotalPages: action.payload.data.total_pages,
+        notificationsIsLoading: false,
       };
-    case REFRESH_SEARCH_USERS_FAIL:
+    case REFRESH_NOTIFICATION_FAIL:
       return {
         ...state,
-        searchUsersIsLoading: false,
+        notificationsIsLoading: false,
       };
-    case RESET_SEARCH_USERS:
-      return { ...state, ...INITIAL_SEARCH_USERS_STATE };
-    case GET_SEARCH_TAGS_NEXT_PAGE:
-      return {
-        ...state,
-        searchTagsIsLoading: true,
-      };
-    case GET_SEARCH_TAGS_NEXT_PAGE_SUCCESS:
-      return {
-        ...state,
-        searchTags: state.searchTags.concat(action.payload.data.results),
-        searchTagsNextPage: state.searchTagsNextPage + 1,
-        searchTagsTotalPages: action.payload.data.total_pages,
-        searchTagsIsLoading: false,
-      };
-    case GET_SEARCH_TAGS_NEXT_PAGE_FAIL:
-      return {
-        ...state,
-        searchTagsIsLoading: false,
-      };
-    case REFRESH_SEARCH_TAGS:
-      return {
-        ...state,
-        searchTagsIsLoading: true,
-      };
-    case REFRESH_SEARCH_TAGS_SUCCESS:
-      return {
-        ...state,
-        searchTags: action.payload.data.results,
-        searchTagsNextPage: 2,
-        searchTagsTotalPages: action.payload.data.total_pages,
-        searchTagsIsLoading: false,
-      };
-    case REFRESH_SEARCH_TAGS_FAIL:
-      return {
-        ...state,
-        searchTagsIsLoading: false,
-      };
-    case RESET_SEARCH_TAGS:
-      return { ...state, ...INITIAL_SEARCH_TAGS_STATE };
+    case RESET_NOTIFICATION:
+      return { ...state, ...INITIAL_NOTIFICATIONS_STATE };
     case GlobalActions.RESET_EVERYTHING:
       return INITIAL_STATE;
     default:
@@ -105,8 +74,8 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-export const selectNotifications = state => state.;
-export const selectNotificationsNextPage = state => state.;
-export const selectNotificationsTotalPages = state => state.;
-export const selectNotificationsIsLoading = state => state.;
+export const selectNotifications = state => state.notification.notifications;
+export const selectNotificationsNextPage = state => state.notification.notificationsNextPage;
+export const selectNotificationsTotalPages = state => state.notification.notificationsTotalPages;
+export const selectNotificationsIsLoading = state => state.notification.notificationsIsLoading;
 

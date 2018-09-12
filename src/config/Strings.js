@@ -77,4 +77,5 @@ export const Strings = {
   FOLLOWED: 'following',
   FOLLOW: 'follow',
   REQUESTED: 'requested',
+  NOTIFICATIONS: 'notifications',
 };
