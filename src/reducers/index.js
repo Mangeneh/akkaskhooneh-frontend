@@ -3,7 +3,6 @@ import AddPostInfoReducer from '../pages/addPostInfo/reducer';
 import ChangePassPageReducer from '../pages/changePass/reducer';
 import FollowListReducer from '../pages/contactListPage/reducer';
 import ForgotPasswordReducer from '../pages/forgotPassword/reducer';
-import HomeReducer from '../pages/home/reducer';
 import LoginPageReducer from '../pages/login/reducer';
 import NotificationReducer from '../pages/notification/reducer';
 import ProfileEditPageReducer from '../pages/profileEdit/reducer';
@@ -25,7 +24,6 @@ export default combineReducers({
   signUpCompletePage: SignUpCompletePageReducer,
   changePassPage: ChangePassPageReducer,
   addPostInfoPage: AddPostInfoReducer,
-  homePage: HomeReducer,
   searchPage: SearchPageReducer,
   search: SearchUserOrTagReducer,
   followList: FollowListReducer,
