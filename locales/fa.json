@@ -77,5 +77,9 @@
   "search_user":"جستجوی کاربر",
   "follow": "دنبال کن",
   "following": "دنبال شده",
-  "requested": "در انتظار"
+  "requested": "در انتظار",
+  "notifications": "اطلاعیه ها",
+  "forgot_password_enter_email": "اگر رمز عبور خود را فراموش کرده اید، در زیر ایمیل خود را وارد کنید.",
+  "non_existing_email": "ایمیل وارد شده موجود نیست.",
+  "send_forgot_link": "ارسال لینک بازیابی"
 }

@@ -77,4 +77,8 @@ export const Strings = {
   FOLLOWED: 'following',
   FOLLOW: 'follow',
   REQUESTED: 'requested',
+  NOTIFICATIONS: 'notifications',
+  FORGOT_PASSWORD_ENTER_EMAIL: 'forgot_password_enter_email',
+  NON_EXISTING_EMAIL: 'non_existing_email',
+  SEND_FORGOT_LINK: 'send_forgot_link',
 };

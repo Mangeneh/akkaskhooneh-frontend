@@ -7,7 +7,7 @@ export default class NotificationComponent extends Component {
 		return (
 			<View
 				style={{
-					marginBottom: 8,
+					marginBottom: 12,
 					marginRight: 4,
 					flexDirection: 'row',
 					justifyContent: 'flex-end',
@@ -18,7 +18,6 @@ export default class NotificationComponent extends Component {
 					<View>{this.renderMessage()}</View>
 					<View>{this.renderTime()}</View>
 				</View>
-				<View style={{ marginLeft: 40 }}>{this.renderCaption()}</View>
 				{this.renderPic()}
 			</View>
 		);
@@ -30,9 +29,9 @@ export default class NotificationComponent extends Component {
 			<Thumbnail
 				style={{
 					alignSelf: 'center',
-					width: Constants.COMMENT_THUMBNAIL_RADIUS * 2,
-					height: Constants.COMMENT_THUMBNAIL_RADIUS * 2,
-					borderRadius: Constants.COMMENT_THUMBNAIL_RADIUS,
+					width: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
+					height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
+					borderRadius: Constants.CONTACT_THUMBNAIL_RADIUS,
 				}}
 				source={{ uri: notification.profile_picture }}
 			/>
@@ -49,8 +48,7 @@ export default class NotificationComponent extends Component {
 					paddingRight: 8,
 				}}
 			>
-				`$
-				{notification.username}`
+				{notification.subject_user}
 			</Text>
 		);
 	}

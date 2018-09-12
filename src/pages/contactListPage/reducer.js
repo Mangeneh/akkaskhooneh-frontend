@@ -14,7 +14,7 @@ const INITIAL_SEARCH_FOLLOWERS_STATE = {
   searchFollowersNextPage: 1,
   searchFollowersTotalPages: 1,
   searchFollowersIsLoading: false,
-  // searchFollowersIsRefreshing: true,
+  // searchFollowersIsRefreshing: true, 
 };
 
 const INITIAL_STATE = {
@@ -55,7 +55,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_SEARCH_FOLLOWINGS_NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        searchFollowings: state.searcFollowings.concat(action.payload.data.results),
+        searchFollowings: state.searchFollowings.concat(action.payload.data.results),
         searchFollowingsNextPage: state.searchFollowingsNextPage + 1,
         searchFollowingsTotalPages: action.payload.data.total_pages,
         searchFollowingsIsLoading: false,
@@ -130,14 +130,14 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-export const selectSearchFollowings = state => state.search.searchFollowings;
-export const selectSearchFollowingsNextPage = state => state.search.searchFollowingsNextPage;
-export const selectSearchFollowingsTotalPages = state => state.search.searchFollowingsTotalPages;
-export const selectSearchFollowingsIsLoading = state => state.search.searchFollowingsIsLoading;
-export const selectSearchFollowingsIsRefreshing = state => state.search.searchFollowingsIsRefreshing;
+export const selectSearchFollowings = state => state.followList.searchFollowings;
+export const selectSearchFollowingsNextPage = state => state.followList.searchFollowingsNextPage;
+export const selectSearchFollowingsTotalPages = state => state.followList.searchFollowingsTotalPages;
+export const selectSearchFollowingsIsLoading = state => state.followList.searchFollowingsIsLoading;
+export const selectSearchFollowingsIsRefreshing = state => state.followList.searchFollowingsIsRefreshing;
 
-export const selectSearchFollowers = state => state.search.searchFollowers;
-export const selectSearchFollowersNextPage = state => state.search.searchFollowersNextPage;
-export const selectSearchFollowersTotalPages = state => state.search.searchFollowersTotalPages;
-export const selectSearchFollowersIsLoading = state => state.search.searchFollowersIsLoading;
-export const selectSearchFollowersIsRefreshing = state => state.search.searchFollowersIsRefreshing;
+export const selectSearchFollowers = state => state.followList.searchFollowers;
+export const selectSearchFollowersNextPage = state => state.followList.searchFollowersNextPage;
+export const selectSearchFollowersTotalPages = state => state.followList.searchFollowersTotalPages;
+export const selectSearchFollowersIsLoading = state => state.followList.searchFollowersIsLoading;
+export const selectSearchFollowersIsRefreshing = state => state.followList.searchFollowersIsRefreshing;

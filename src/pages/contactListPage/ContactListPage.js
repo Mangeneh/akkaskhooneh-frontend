@@ -155,7 +155,6 @@ class ContactList extends Component {
   renderFollowings() {
     const { searchText } = this.state;
     const { refreshSearchFollowings, searchFollowingsIsLoading, searchFollowings } = this.props;
-    console.warn(searchFollowingsIsLoading);
     return (
       <FlatList
         onRefresh={() => refreshSearchFollowings(searchText)}
@@ -176,7 +175,6 @@ class ContactList extends Component {
   }
 
   renderFollowing(item, index) {
-    console.warn('hey there');
     return <ContactItem user={item} />;
   }
 
@@ -198,7 +196,6 @@ class ContactList extends Component {
   renderFollowers() {
     const { searchText } = this.state;
     const { refreshSearchFollowers, searchFollowersIsLoading, searchFollowers } = this.props;
-    console.warn(searchFollowersIsLoading);
     return (
       <FlatList
         onRefresh={() => refreshSearchFollowers(searchText)}
