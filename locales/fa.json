@@ -65,7 +65,7 @@
   "comment": "نظر خودت رو بنویس.",
   "your-photos" : "عکس های اشتراکی شما",
   "search_user_or_pic": "جستجوی عکس یا کاربر",
-  "like_notification": "{{name}} عکس شما را پسندید.",
+  "like_notification": "کاربر {{name}} عکس شما را پسندید.",
   "comment_notification": " روی این عکس شما نظر داد.",
   "follow_notification" : " شما را دنبال کرد.",
   "comment_failed" : "ارسال نظر با خطا مواجه شد.",

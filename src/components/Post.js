@@ -15,6 +15,7 @@ import {
   Dimensions, Platform, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { withNavigation } from 'react-navigation';
 import { Colors, Constants, Graphics } from '../config';
 import {
   extractCaption,
@@ -28,7 +29,7 @@ import {
 
 const WIDTH = Dimensions.get('window').width;
 
-export default class Post extends Component {
+class Post extends Component {
   render() {
     const {
       saveButtonPressed, item, onCommentOrPicPressed, onLikePressed,
@@ -55,14 +56,16 @@ export default class Post extends Component {
           }}
           >
             <View style={{ flexDirection: 'column' }}>
-              <Text style={{
-                fontSize: Constants.POST_NAME_FONT_SIZE,
-                textAlign: 'right',
-                paddingRight: 8,
-              }}
-              >
-                {extractOwnerUsername(item)}
-              </Text>
+              <TouchableOpacity onPress={() => this.showProfile()}>
+                <Text style={{
+                  fontSize: Graphics.POST_OWNER_NAME_FONT_SIZE,
+                  textAlign: 'right',
+                  paddingRight: 8,
+                }}
+                >
+                  {extractOwnerUsername(item)}
+                </Text>
+              </TouchableOpacity>
               <Text
                 note
                 style={{
@@ -138,7 +141,13 @@ export default class Post extends Component {
       </Card>
     );
   }
+
+  showProfile() {
+
+  }
 }
+
+export default withNavigation(Post);
 
 const styles = StyleSheet.create({
   icon: { color: Colors.ICON },
