@@ -4,7 +4,7 @@ import {
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
-import { ContactItem, CustomStatusBar } from '../../components';
+import { NotificationComponent, CustomStatusBar } from '../../components';
 import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
 import {
@@ -93,7 +93,7 @@ class Notification extends Component {
   }
 
   renderNotification(item, index) {
-    return <ContactItem user={item} />;
+    return <NotificationComponent notification={item} />;
   }
 
   updateNotifications() {

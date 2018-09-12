@@ -18,6 +18,7 @@ import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import SpinnerButton from './SpinnerButton';
 import TagItem from './TagItem';
 import Tags from './Tags';
+import NotificationComponent from './NotificationComponent';
 
 export {
   EmailTextBox,
@@ -40,4 +41,5 @@ export {
   ContactItem,
   PostsPhotoList,
   TagItem,
+  NotificationComponent,
 };
