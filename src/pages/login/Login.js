@@ -13,7 +13,7 @@ import {
   PasswordTextBox,
 } from '../../components';
 import {
-  Colors, Fonts, PageModes, Strings,
+  Colors, Fonts, PageModes, Strings, Pages
 } from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import { strings } from '../../i18n';
@@ -25,6 +25,7 @@ import {
   resetEmail,
   resetPassword,
 } from './actions';
+import NavigationService from '../../NavigationService';
 
 class Login extends Component {
   componentDidMount() {
@@ -93,7 +94,7 @@ class Login extends Component {
                 text={strings(Strings.LOGIN)}
                 icon="login"
               />
-              <TouchableOpacity style={{ marginTop: 24 }}>
+              <TouchableOpacity style={{ marginTop: 24 }} onPress={() => NavigationService.navigate(Pages.FORGOT_PASSWORD)}>
                 <Text style={styles.text}>{strings(Strings.FORGOT_PASSWORD)}</Text>
               </TouchableOpacity>
             </View>

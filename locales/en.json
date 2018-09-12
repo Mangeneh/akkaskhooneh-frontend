@@ -78,5 +78,6 @@
   "follow": "Follow",
   "following": "Following",
   "requested": "Requested",
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+  "forgot_password_enter_email": "Enter your email here, if you've forgotten your current password."
 }

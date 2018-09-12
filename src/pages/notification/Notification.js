@@ -29,7 +29,7 @@ class Notification extends Component {
   }
 
   render() {
-    setTimeout(() => {this.setState({timePassed: true})}, 10000)
+    // setTimeout(() => {this.props.refreshNotifications()}, 10000)
     return (
       <View style={{ flex: 1 }}>
         <View>

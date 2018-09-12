@@ -18,6 +18,7 @@ import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
 import TagsPhotos from './tagsPhotos/TagsPhotos';
+import ForgotPassword from './forgotPassword/ForgotPassword'
 
 export {
   Login,
@@ -40,4 +41,5 @@ export {
   SearchUserOrTag,
   TagsPhotos,
   ContactList,
+  ForgotPassword,
 };

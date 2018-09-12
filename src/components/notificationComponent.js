@@ -18,7 +18,6 @@ export default class NotificationComponent extends Component {
 					<View>{this.renderMessage()}</View>
 					<View>{this.renderTime()}</View>
 				</View>
-				<View style={{ marginLeft: 40 }}>{this.renderCaption()}</View>
 				{this.renderPic()}
 			</View>
 		);
@@ -49,8 +48,7 @@ export default class NotificationComponent extends Component {
 					paddingRight: 8,
 				}}
 			>
-				`$
-				{notification.username}`
+				`${notification.subject_user}`
 			</Text>
 		);
 	}
