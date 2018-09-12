@@ -1,8 +1,13 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
-import { Constants, Graphics } from '../config';
+import { Constants, Strings } from '../config';
+import { strings } from '../i18n';
 
 export default class NotificationComponent extends Component {
+	state = {
+		text: '',
+	}
+
 	render() {
 		return (
 			<View
@@ -38,6 +43,22 @@ export default class NotificationComponent extends Component {
 		);
 	}
 
+	getMessageType() {
+		const { notification } = this.props;
+		switch (notification.notif_type) {
+			case 1:
+			  return (strings(Strings.LIKE_NOTIFICATION))
+			case 2:
+			  return (strings(Strings.FOLLOW_NOTIFICATION))
+			case 3:
+			  return(strings(Strings.FOLLOW_REQUEST_NOTIFICATION))
+			case 4:
+			  return (strings(Strings.COMMENT_NOTIFICATION))
+			default:
+			  return ('');
+		  }
+	}
+
 	renderMessage() {
 		const { notification } = this.props;
 		return (
@@ -48,7 +69,7 @@ export default class NotificationComponent extends Component {
 					paddingRight: 8,
 				}}
 			>
-				{notification.subject_user}
+				{`${notification.subject_user}${this.getMessageType()}`}
 			</Text>
 		);
 	}
