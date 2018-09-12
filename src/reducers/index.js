@@ -14,6 +14,7 @@ import UserInfoReducer from './UserInfoReducer';
 import SearchUserOrTagReducer from '../pages/searchUserOrTag/reducer';
 import FollowListReducer from '../pages/contactListPage/reducer';
 import NotificationReducer from '../pages/notification/reducer';
+import ForgotPasswordReducer from '../pages/forgotPassword/reducer'
 
 export default combineReducers({
   loginPage: LoginPageReducer,
@@ -30,5 +31,6 @@ export default combineReducers({
   searchPage: SearchPageReducer,
   search: SearchUserOrTagReducer,
   followList: FollowListReducer,
-  notification: NotificationReducer, 
+  notification: NotificationReducer,
+  forgotPass: ForgotPasswordReducer,
 });

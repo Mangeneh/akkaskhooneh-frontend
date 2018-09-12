@@ -79,5 +79,7 @@
   "following": "Following",
   "requested": "Requested",
   "notifications": "Notifications",
-  "forgot_password_enter_email": "Enter your email here, if you've forgotten your current password."
+  "forgot_password_enter_email": "Enter your email here, if you've forgotten your current password.",
+  "non_existing_email": "This email does not exist.",
+  "send_forgot_link": "Retrieve Your Password."
 }

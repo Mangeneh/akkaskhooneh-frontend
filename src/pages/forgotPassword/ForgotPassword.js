@@ -4,11 +4,12 @@ import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar, EmailTextBox } from '../../components';
-import { Colors, Strings, Constants } from '../../config';
+import { Colors, Strings, Constants, PageModes } from '../../config';
 import { strings } from '../../i18n';
 import {
-    sendEmailForForgotPassword
+    sendEmailForForgotPassword, emailChanged
 } from './actions';
+import { ForgotPasswordButton } from '../../containers';
 
 class ForgotPassword extends Component {
   state = {
@@ -16,6 +17,9 @@ class ForgotPassword extends Component {
   }
   render() {
     const {email} = this.state;
+    const {
+      error
+    } = this.props;
     return (
       <View style={{
         flex: 1,
@@ -45,7 +49,6 @@ class ForgotPassword extends Component {
             </View>
             <View style={{
               flex: 6,
-              // justifyContent: 'center',
               alignSelf: 'center',
               flexDirection: 'column',
             }}
@@ -56,13 +59,13 @@ class ForgotPassword extends Component {
               </View>
               <View>
                 <EmailTextBox
+                  error = {error}
                   placeholder={strings(Strings.EMAIL_ADDRESS)}
                   value={email}
-                  onChangeEmail={email => this.setState({email})}
+                  onChangeEmail={email => {this.setState({email : email.toLowerCase()}); this.props.validateEmail(email)}}
                 />
               </View>
             </View>
-
             <View style={{
               alignSelf: 'center',
               justifyContent: 'flex-start',
@@ -70,6 +73,11 @@ class ForgotPassword extends Component {
               flex: 1,
             }}
             >
+                <ForgotPasswordButton
+                  onPress={() => this.onSaveChangesPressed()}
+                  text={strings(Strings.SEND_FORGOT_LINK)}
+                  // icon="login"
+                />
             </View>
           </View>
         </KeyboardAwareScrollView>
@@ -81,43 +89,36 @@ class ForgotPassword extends Component {
     this.props.navigation.goBack();
   }
 
-//   onSaveChangesPressed() {
-//     const { previousPassword, newPassword } = this.props;
-//     this.props.changePassword(previousPassword, newPassword)
-//       .then((result) => {
-//         this.onSuccess();
-//       })
-//       .catch((error) => {
-//         this.onFail();
-//       });
-//   }
+  onSaveChangesPressed() {
+    const { email } = this.state;
+    this.props.sendEmailForForgotPassword(email)
+      .then((result) => {
+        console.warn(result)
+      })
+      .catch((error) => {
+        console.warn(error)
+        // this.onFail();
+      });
+  }
 
-//   onSuccess() {
-//     Toast.show({
-//       text: strings(Strings.CHANGE_PASS_SUCCESS),
-//       textStyle: { textAlign: 'center' },
-//       position: 'bottom',
-//       type: 'success',
-//       duration: 500,
-//       onClose: () => {
-//         this.props.navigation.goBack();
-//         this.props.reset();
-//       },
-//     });
-//   }
-
-//   onFail() {
-//     Toast.show({
-//       text: strings(Strings.CHANGE_PASS_FAIL),
-//       textStyle: { textAlign: 'center' },
-//       position: 'bottom',
-//       type: 'danger',
-//     });
-//   }
+  onFail() {
+    Toast.show({
+      text: strings(Strings.NON_EXISTING_EMAIL),
+      textStyle: { textAlign: 'center' },
+      position: 'bottom',
+      type: 'danger',
+    });
+  }
 }
+
+const mapStateToProps = state => ({
+  mode: state.forgotPass.mode,
+  error: state.forgotPass.mode === PageModes.ERROR,
+});
 
 const mapDispatchToProps = dispatch => ({
     sendEmailForForgotPassword: email => dispatch(sendEmailForForgotPassword(email)),
+    validateEmail: email => dispatch(emailChanged(email)),
 });
 
-export default connect(null, mapDispatchToProps)(ForgotPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
