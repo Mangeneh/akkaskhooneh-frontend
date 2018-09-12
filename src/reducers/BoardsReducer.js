@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import GlobalActions from '../actions';
-import { BoardsActions } from '../actions/BoardsActions';
+import { BoardsActions, UsersActions } from '../actions';
 
 const INITIAL_USER_BOARDS_STATE = {
   userBoards: [],
@@ -71,7 +70,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;

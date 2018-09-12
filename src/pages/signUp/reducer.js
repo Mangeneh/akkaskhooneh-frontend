@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkEmail, checkPassword } from '../../helpers/Validators';
 import { Actions } from './actions';
@@ -63,7 +63,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     case SIGN_UP_RESET:
       return INITIAL_STATE;
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;

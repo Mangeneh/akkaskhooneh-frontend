@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkEmail } from '../../helpers/Validators';
 import { Actions } from './actions';
@@ -16,10 +16,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         mode: validate(action.payload),
       };
+    case UsersActions.SIGN_OUT:
+      return INITIAL_STATE;
     default:
-        return state;
+      return state;
+  }
 };
-}
 
 function validate(email) {
   if (checkEmail(email)) {

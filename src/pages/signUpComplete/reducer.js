@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkUsername } from '../../helpers';
 import { Actions } from './actions';
@@ -67,7 +67,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     case SIGN_UP_COMPLETE_RESET:
       return INITIAL_STATE;
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;
