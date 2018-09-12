@@ -1,17 +1,11 @@
-import {
-  Header, Icon, Input, Item, Tab, Tabs, Toast, Body, Left, Right, Title
-} from 'native-base';
+import { Body, Header, Title } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
-import { NotificationComponent, CustomStatusBar } from '../../components';
-import { Colors, Constants, Strings } from '../../config';
+import { CustomStatusBar, NotificationComponent } from '../../components';
+import { Colors, Strings } from '../../config';
 import { strings } from '../../i18n';
-import {
-  getNotifications,
-  refreshNotifications,
-  startNewSearch,
-} from './actions';
+import { getNotifications, refreshNotifications, startNewSearch } from './actions';
 import {
   selectNotifications,
   selectNotificationsIsLoading,
@@ -37,15 +31,15 @@ class Notification extends Component {
           {this.renderHeader()}
         </View>
         <View style={{ flex: 1 }}>
-              <View style={{
-                backgroundColor: Colors.WHITE_BACK,
-                flex: 1,
-                width: '100%',
-                paddingLeft: 8,
-              }}
-              >
-                {this.renderNotifications()}
-              </View>
+          <View style={{
+            backgroundColor: Colors.WHITE_BACK,
+            flex: 1,
+            width: '100%',
+            paddingLeft: 8,
+          }}
+          >
+            {this.renderNotifications()}
+          </View>
         </View>
       </View>
     );
@@ -103,10 +97,8 @@ class Notification extends Component {
     if (notificationsNextPage <= notificationsTotalPages && !notificationsIsLoading) {
       getNotificationsNextPage(notificationsNextPage)
         .then((response) => {
-          console.warn(response);
         })
         .catch((error) => {
-          console.warn(error);
         });
     }
   }
@@ -119,12 +111,10 @@ const mapStateToProps = state => ({
   notificationsIsLoading: selectNotificationsIsLoading(state),
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    refreshNotifications: () => dispatch(refreshNotifications()),
-    getNotificationsNextPage: notificationsNext => dispatch(getNotifications(notificationsNext)),
-    startNewSearch: () => dispatch(startNewSearch()),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  refreshNotifications: () => dispatch(refreshNotifications()),
+  getNotificationsNextPage: notificationsNext => dispatch(getNotifications(notificationsNext)),
+  startNewSearch: () => dispatch(startNewSearch()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

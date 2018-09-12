@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { Actions } from './actions';
 
@@ -47,7 +47,7 @@ export default (state = INITIAL_STATE, action) => {
       return state;
     case CHANGE_PROFILE_PIC_FAIL:
       return state;
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;

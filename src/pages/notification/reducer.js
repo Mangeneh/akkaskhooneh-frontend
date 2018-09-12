@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { NotificationActions } from './actions';
 
 const INITIAL_NOTIFICATIONS_STATE = {
@@ -67,7 +67,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     case RESET_NOTIFICATION:
       return { ...state, ...INITIAL_NOTIFICATIONS_STATE };
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;
@@ -78,4 +78,3 @@ export const selectNotifications = state => state.notification.notifications;
 export const selectNotificationsNextPage = state => state.notification.notificationsNextPage;
 export const selectNotificationsTotalPages = state => state.notification.notificationsTotalPages;
 export const selectNotificationsIsLoading = state => state.notification.notificationsIsLoading;
-

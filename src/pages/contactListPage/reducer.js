@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { SearchContactActions } from './actions';
 
 const INITIAL_SEARCH_FOLLOWINGS_STATE = {
@@ -14,7 +14,7 @@ const INITIAL_SEARCH_FOLLOWERS_STATE = {
   searchFollowersNextPage: 1,
   searchFollowersTotalPages: 1,
   searchFollowersIsLoading: false,
-  // searchFollowersIsRefreshing: true, 
+  // searchFollowersIsRefreshing: true,
 };
 
 const INITIAL_STATE = {
@@ -123,7 +123,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     case RESET_SEARCH_FOLLOWERS:
       return { ...state, ...INITIAL_SEARCH_FOLLOWERS_STATE };
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;

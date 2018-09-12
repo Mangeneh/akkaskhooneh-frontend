@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { SearchedPostsActions } from './actions';
 
 const INITIAL_SEARCH_TOP_TAGS_STATE = {
@@ -50,7 +50,7 @@ export default (state = INITIAL_STATE, action) => {
         searchTopTagsTotalPages: action.payload.data.total_pages,
         searchTopTagsIsLoading: false,
       };
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;

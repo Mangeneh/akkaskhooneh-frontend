@@ -1,4 +1,4 @@
-import GlobalActions from '../../actions';
+import { UsersActions } from '../../actions';
 import { SearchUserOrTagActions } from './actions';
 
 const INITIAL_SEARCH_USERS_STATE = {
@@ -122,7 +122,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     case RESET_SEARCH_TAGS:
       return { ...state, ...INITIAL_SEARCH_TAGS_STATE };
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;

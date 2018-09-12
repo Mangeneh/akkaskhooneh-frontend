@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import GlobalActions from '../actions';
 import { UsersActions } from '../actions/UsersActions';
 
 const INITIAL_FOLLOWERS_FOLLOWINGS_STATE = {
@@ -39,7 +38,6 @@ export default (state = INITIAL_STATE, action) => {
     UPDATE_ACCESS_TOKEN_SUCCESS, UPDATE_USER_INFO_SUCCESS, SET_ACCESS_TOKEN, SET_REFRESH_TOKEN, SIGN_OUT,
     UPDATE_USER_INFO,
   } = UsersActions;
-  console.log(state);
   switch (action.type) {
     case UPDATE_USER_INFO: {
       const { username } = action.payload;
@@ -90,8 +88,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case SIGN_OUT:
-      return INITIAL_STATE;
-    case GlobalActions.RESET_EVERYTHING:
       return INITIAL_STATE;
     default:
       return state;

@@ -219,7 +219,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  boardName: state.homePage.boardName,
   posts: selectHomePosts(state),
   postsNextPage: selectHomePostsNextPage(state),
   postsTotalPages: selectHomePostsTotalPages(state),

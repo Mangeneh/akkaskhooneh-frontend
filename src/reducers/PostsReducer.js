@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import GlobalActions from '../actions';
-import { PostsActions } from '../actions/PostsActions';
+import { PostsActions, UsersActions } from '../actions';
 import { extractLikesCount } from '../helpers';
 
 const INITIAL_USER_PHOTOS_STATE = {
@@ -426,7 +425,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     //
-    case GlobalActions.RESET_EVERYTHING:
+    case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
       return state;
