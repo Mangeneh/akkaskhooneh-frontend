@@ -15,6 +15,7 @@ import { accessTokenUpdated } from './src/actions/UserInfoActions';
 import NavigationService from './src/NavigationService';
 import { Actions as SignUpActions } from './src/pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
+import { Actions as ForgotPasswordActions } from './src/pages/forgotPassword/actions';
 import rootReducer from './src/reducers';
 import { selectAccessToken, selectRefreshToken } from './src/reducers/UserInfoReducer';
 import RootStack from './src/RootStack';
@@ -46,7 +47,7 @@ const store = createStore(
           {
             success({ getState, dispatch, getSourceAction }, request) {
               const { type } = request.reduxSourceAction;
-              if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL) {
+              if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL || type === ForgotPasswordActions.FORGOT_PASSWORD) {
                 return request;
               }
               request.headers.authorization = `Bearer ${getState().userInfo.accessToken}`;
