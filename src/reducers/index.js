@@ -12,6 +12,7 @@ import BoardsReducer from './BoardsReducer';
 import PostsReducer from './PostsReducer';
 import UserInfoReducer from './UserInfoReducer';
 import SearchUserOrTagReducer from '../pages/searchUserOrTag/reducer';
+import FollowListReducer from '../pages/contactListPage/reducer'
 
 export default combineReducers({
   loginPage: LoginPageReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   boardsPage: BoardsPageReducer,
   searchPage: SearchPageReducer,
   search: SearchUserOrTagReducer,
+  followList: FollowListReducer,
 });
