@@ -11,13 +11,12 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
 import getTheme from './native-base-theme/components';
 import commonColor from './native-base-theme/variables/commonColor';
-import { accessTokenUpdated } from './src/actions/UserInfoActions';
-import NavigationService from './src/NavigationService';
+import { accessTokenUpdated } from './src/actions/UsersActions';
+import { Actions as ForgotPasswordActions } from './src/pages/forgotPassword/actions';
 import { Actions as SignUpActions } from './src/pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
-import { Actions as ForgotPasswordActions } from './src/pages/forgotPassword/actions';
 import rootReducer from './src/reducers';
-import { selectAccessToken, selectRefreshToken } from './src/reducers/UserInfoReducer';
+import { selectAccessToken, selectRefreshToken } from './src/reducers/UsersReducer';
 import RootStack from './src/RootStack';
 
 // console.disableYellowBox = true;
@@ -32,7 +31,7 @@ const persistConfig = {
   key: 'root',
   storage,
   stateReconciler: autoMergeLevel2,
-  whitelist: ['userInfo'],
+  whitelist: ['users'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -50,7 +49,7 @@ const store = createStore(
               if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL || type === ForgotPasswordActions.FORGOT_PASSWORD) {
                 return request;
               }
-              request.headers.authorization = `Bearer ${getState().userInfo.accessToken}`;
+              request.headers.authorization = `Bearer ${getState().users.self.accessToken}`;
               return request;
             },
           },

@@ -1,73 +1,76 @@
+import _ from 'lodash';
 import GlobalActions from '../actions';
 import { BoardsActions } from '../actions/BoardsActions';
 
-const INITIAL_SELF_BOARDS_STATE = {
-  selfBoards: [],
-  selfBoardsNextPage: 1,
-  selfBoardsTotalPages: 1,
-  selfBoardsIsLoading: false,
-  selectedPostID: 0,
+const INITIAL_USER_BOARDS_STATE = {
+  userBoards: [],
+  userBoardsNextPage: 1,
+  userBoardsTotalPages: 1,
+  userBoardsIsFirstFetch: true,
+  userBoardsIsRefreshing: false,
+  userBoardsIsLoading: false,
 };
 
-const INITIAL_OTHERS_BOARDS_STATE = {
-  othersBoards: [],
-  othersBoardsNextPage: 1,
-  othersBoardsTotalPages: 1,
-  othersBoardsIsLoading: false,
-};
-
-const INITIAL_STATE = {
-  ...INITIAL_SELF_BOARDS_STATE,
-  ...INITIAL_OTHERS_BOARDS_STATE,
-};
+const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
   const {
-    CHANGE_SELECTED_POST_ID,
-    RESET_SELF_BOARDS,
-    GET_SELF_BOARDS_NEXT_PAGE_SUCCESS,
-    GET_SELF_BOARDS_NEXT_PAGE,
-    GET_SELF_BOARDS_NEXT_PAGE_FAIL,
-    REFRESH_SELF_BOARDS,
-    REFRESH_SELF_BOARDS_SUCCESS,
+    GET_USER_BOARDS_NEXT_PAGE,
+    GET_USER_BOARDS_NEXT_PAGE_SUCCESS,
+    //
+    REFRESH_USER_BOARDS,
+    REFRESH_USER_BOARDS_SUCCESS,
+    //
   } = BoardsActions;
   switch (action.type) {
-    case GET_SELF_BOARDS_NEXT_PAGE:
+    case REFRESH_USER_BOARDS: {
+      const boardField = createBoardBadge(action.payload.boardID);
       return {
         ...state,
-        selfBoardsIsLoading: true,
+        [boardField]: {
+          ...INITIAL_USER_BOARDS_STATE,
+          ...state[boardField],
+          userBoardsIsRefreshing: true,
+        },
       };
-    case GET_SELF_BOARDS_NEXT_PAGE_SUCCESS:
+    }
+    case REFRESH_USER_BOARDS_SUCCESS: {
+      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
       return {
         ...state,
-        selfBoards: state.selfBoards.concat(action.payload.data.results),
-        selfBoardsTotalPages: action.payload.data.total_pages,
-        selfBoardsNextPage: state.selfBoardsNextPage + 1,
-        selfBoardsIsLoading: false,
+        [boardField]: {
+          ...state[boardField],
+          userBoards: action.payload.data.results,
+          userBoardsTotalPages: action.payload.data.total_pages,
+          userBoardsNextPage: 2,
+          userBoardsIsFirstFetch: false,
+          userBoardsIsRefreshing: false,
+        },
       };
-    case CHANGE_SELECTED_POST_ID:
+    }
+    case GET_USER_BOARDS_NEXT_PAGE: {
+      const boardField = createBoardBadge(action.payload.boardID);
       return {
         ...state,
-        selectedPostID: action.payload,
+        [boardField]: {
+          ...state[boardField],
+          userBoardsIsLoading: true,
+        },
       };
-    case RESET_SELF_BOARDS:
+    }
+    case GET_USER_BOARDS_NEXT_PAGE_SUCCESS: {
+      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
       return {
         ...state,
-        ...INITIAL_SELF_BOARDS_STATE,
+        [boardField]: {
+          ...state[boardField],
+          userBoards: state[boardField].concat(action.payload.data.results),
+          userBoardsTotalPages: action.payload.data.total_pages,
+          userBoardsNextPage: state[boardField].userBoardsNextPage + 1,
+          userBoardsIsLoading: false,
+        },
       };
-    case REFRESH_SELF_BOARDS:
-      return {
-        ...state,
-        selfBoardsIsLoading: true,
-      };
-    case REFRESH_SELF_BOARDS_SUCCESS:
-      return {
-        ...state,
-        selfBoards: action.payload.data.results,
-        selfBoardsTotalPages: action.payload.data.total_pages,
-        selfBoardsNextPage: 2,
-        selfBoardsIsLoading: false,
-      };
+    }
     case GlobalActions.RESET_EVERYTHING:
       return INITIAL_STATE;
     default:
@@ -75,8 +78,19 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-export const selectSelfBoards = state => state.boards.selfBoards;
-export const selectSelfBoardsTotalPages = state => state.boards.selfBoardsTotalPages;
-export const selectSelfBoardsNextPage = state => state.boards.selfBoardsNextPage;
-export const selectSelfBoardsIsLoading = state => state.boards.selfBoardsIsLoading;
-export const selectSelectedPostID = state => state.boards.selectedPostID;
+const createBoardBadge = boardID => `board${boardID}`;
+
+const checkBoardProperty = (state, boardID) => _.has(state.boards, createBoardBadge(boardID));
+const getBoardProperty = (state, boardID) => {
+  const boardProperty = createBoardBadge(boardID);
+  if (checkBoardProperty(state, boardID)) {
+    return state.boards[boardProperty];
+  }
+  return INITIAL_USER_BOARDS_STATE;
+};
+export const selectUserBoards = (state, boardID) => getBoardProperty(state, boardID).userBoards;
+export const selectUserBoardsTotalPages = (state, boardID) => getBoardProperty(state, boardID).userBoardsTotalPages;
+export const selectUserBoardsNextPage = (state, boardID) => getBoardProperty(state, boardID).userBoardsNextPage;
+export const selectUserBoardsIsRefreshing = (state, boardID) => getBoardProperty(state, boardID).userBoardsIsRefreshing;
+export const selectUserBoardsIsFirstFetch = (state, boardID) => getBoardProperty(state, boardID).userBoardsIsFirstFetch;
+export const selectUserBoardsIsLoading = (state, boardID) => getBoardProperty(state, boardID).userBoardsIsLoading;

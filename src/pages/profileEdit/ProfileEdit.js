@@ -8,7 +8,7 @@ import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { userUpdated } from '../../actions/UserInfoActions';
+import { updateUser } from '../../actions/UsersActions';
 import { BackHeader, CustomLongTextBox, CustomStatusBar } from '../../components';
 import { Colors, Constants, Strings } from '../../config';
 import SaveChangesButton from '../../containers/SaveChangesButton';
@@ -279,17 +279,17 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   mode: state.profileEditPage.mode,
-  usernameFromDB: state.userInfo.user.username,
-  emailFromDB: state.userInfo.user.email,
-  fullNameFromDB: state.userInfo.user.fullname,
-  bioFromDB: state.userInfo.user.bio,
-  imageSourceFromDB: state.userInfo.user.profile_picture,
+  usernameFromDB: state.users.user.username,
+  emailFromDB: state.users.user.email,
+  fullNameFromDB: state.users.user.fullname,
+  bioFromDB: state.users.user.bio,
+  imageSourceFromDB: state.users.user.profile_picture,
   image: state.profileEditPage.image,
 });
 
 const mapDispatchToProps = dispatch => ({
   normalize: () => dispatch(normalize()),
-  updateUser: () => dispatch(userUpdated()),
+  updateUser: () => dispatch(updateUser()),
   editProfile: (fullName, bio) => dispatch(editProfile(fullName, bio)),
   changeProfilePic: formData => dispatch(changeProfilePic(formData)),
 });

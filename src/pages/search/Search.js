@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar } from '../../components';
+import Loading from '../../components/Loading';
 import TagMasonry from '../../components/TagMasonry';
 import {
   Colors, Constants, Graphics, Pages, Strings,
@@ -14,7 +15,9 @@ import NavigationService from '../../NavigationService';
 import { getSearchTopTagsNextPage, refreshSearchTopTags } from './actions';
 import {
   selectSearchTopTags,
+  selectSearchTopTagsIsFirstFetch,
   selectSearchTopTagsIsLoading,
+  selectSearchTopTagsIsRefreshing,
   selectSearchTopTagsNextPage,
   selectSearchTopTagsTotalPages,
 } from './reducer';
@@ -25,11 +28,7 @@ class Search extends Component {
   };
 
   componentWillMount() {
-    this.props.refreshSearchTopTags()
-      .then((response) => {
-      })
-      .catch((error) => {
-      });
+    this.refreshTopTags();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,7 +45,7 @@ class Search extends Component {
       <View>
         <CustomStatusBar />
         {this.renderHeader()}
-        {this.rendertopTagsList()}
+        {this.renderTopTagsList()}
       </View>
     );
   }
@@ -81,31 +80,46 @@ class Search extends Component {
     );
   }
 
-  rendertopTagsList() {
+  renderTopTagsList() {
     const {
-      refreshSearchTopTags, topTagsIsLoading,
+      refreshSearchTopTags, topTagsIsRefreshing, topTagsIsFirstFetch,
     } = this.props;
-    return (
-      <FlatList
-        onRefresh={() => refreshSearchTopTags()}
-        refreshing={topTagsIsLoading}
-        onEndReached={() => this.updateTopTags()}
-        style={{
-          width: '100%',
-          marginTop: 8,
-        }}
-        keyExtractor={(item, index) => index.toString()}
-        data={this.state.topTags}
-        renderItem={({ item, index }) => this.renderBrick(item, index)}
-      />
+    return (!topTagsIsFirstFetch
+      ? (
+        <FlatList
+          onRefresh={() => refreshSearchTopTags()}
+          refreshing={topTagsIsRefreshing}
+          onEndReached={() => this.updateTopTags()}
+          style={{
+            width: '100%',
+            marginTop: 8,
+          }}
+          keyExtractor={(item, index) => index.toString()}
+          data={this.state.topTags}
+          renderItem={({ item, index }) => this.renderBrick(item, index)}
+        />
+      ) : <Loading />
     );
+  }
+
+  refreshTopTags() {
+    const {
+      topTagsIsLoading, topTagsIsRefreshing, refreshSearchTopTags,
+    } = this.props;
+    if (!topTagsIsLoading && !topTagsIsRefreshing) {
+      refreshSearchTopTags()
+        .then((response) => {
+        })
+        .catch((error) => {
+        });
+    }
   }
 
   updateTopTags() {
     const {
-      topTagsNextPage, topTagsTotalPages, topTagsIsLoading, getSearchTopTagsNextPage,
+      topTagsNextPage, topTagsTotalPages, topTagsIsLoading, getSearchTopTagsNextPage, topTagsIsRefreshing,
     } = this.props;
-    if (topTagsNextPage <= topTagsTotalPages && !topTagsIsLoading) {
+    if (topTagsNextPage <= topTagsTotalPages && !topTagsIsLoading && !topTagsIsRefreshing) {
       getSearchTopTagsNextPage(topTagsNextPage)
         .then((response) => {
         })
@@ -123,6 +137,8 @@ const mapStateToProps = state => ({
   topTags: selectSearchTopTags(state),
   topTagsNextPage: selectSearchTopTagsNextPage(state),
   topTagsTotalPages: selectSearchTopTagsTotalPages(state),
+  topTagsIsFirstFetch: selectSearchTopTagsIsFirstFetch(state),
+  topTagsIsRefreshing: selectSearchTopTagsIsRefreshing(state),
   topTagsIsLoading: selectSearchTopTagsIsLoading(state),
 });
 

@@ -1,20 +1,17 @@
 import { RequestMethods, Server } from '../config';
 
 export const PostsActions = {
-  GET_SELF_PHOTOS_NEXT_PAGE: 'GET_SELF_PHOTOS_NEXT_PAGE',
-  GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS',
-  GET_SELF_PHOTOS_NEXT_PAGE_FAIL: 'GET_SELF_PHOTOS_NEXT_PAGE_FAIL',
-  RESET_SELF_PHOTOS: 'RESET_SELF_PHOTOS',
+  GET_USER_PHOTOS_NEXT_PAGE: 'GET_SELF_PHOTOS_NEXT_PAGE',
+  GET_USER_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS',
+  GET_USER_PHOTOS_NEXT_PAGE_FAIL: 'GET_SELF_PHOTOS_NEXT_PAGE_FAIL',
+  //
+  REFRESH_USER_PHOTOS: 'REFRESH_USER_PHOTOS',
+  REFRESH_USER_PHOTOS_SUCCESS: 'REFRESH_USER_PHOTOS_SUCCESS',
+  REFRESH_USER_PHOTOS_FAIL: 'REFRESH_USER_PHOTOS_FAIL',
   //
   GET_HOME_POSTS_NEXT_PAGE: 'GET_HOME_POSTS_NEXT_PAGE',
   GET_HOME_POSTS_NEXT_PAGE_SUCCESS: 'GET_HOME_POSTS_NEXT_PAGE_SUCCESS',
   GET_HOME_POSTS_NEXT_PAGE_FAIL: 'GET_HOME_POSTS_NEXT_PAGE_FAIL',
-  RESET_HOME_POSTS: 'RESET_HOME_POSTS',
-  //
-  GET_OTHERS_PHOTOS_NEXT_PAGE: 'GET_OTHERS_PHOTOS_NEXT_PAGE',
-  GET_OTHERS_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_OTHERS_PHOTOS_NEXT_PAGE_SUCCESS',
-  GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL: 'GET_OTHERS_PHOTOS_NEXT_PAGE_FAIL',
-  RESET_OTHERS_PHOTOS: 'RESET_OTHERS_PHOTOS',
   //
   CHOOSE_POST: 'CHOOSE_POST',
   //
@@ -30,14 +27,6 @@ export const PostsActions = {
   COMMENT_SUCCESS: 'COMMENT_SUCCESS',
   COMMENT_FAIL: 'COMMENT_FAIL',
   //
-  REFRESH_SELF_PHOTOS: 'REFRESH_SELF_PHOTOS',
-  REFRESH_SELF_PHOTOS_SUCCESS: 'REFRESH_SELF_PHOTOS_SUCCESS',
-  REFRESH_SELF_PHOTOS_FAIL: 'REFRESH_SELF_PHOTOS_FAIL',
-  //
-  REFRESH_OTHERS_PHOTOS: 'REFRESH_OTHERS_PHOTOS',
-  REFRESH_OTHERS_PHOTOS_SUCCESS: 'REFRESH_OTHERS_PHOTOS_SUCCESS',
-  REFRESH_OTHERS_PHOTOS_FAIL: 'REFRESH_OTHERS_PHOTOS_FAIL',
-  //
   REFRESH_HOME_POSTS: 'REFRESH_HOME_POSTS',
   REFRESH_HOME_POSTS_SUCCESS: 'REFRESH_HOME_POSTS_SUCCESS',
   REFRESH_HOME_POSTS_FAIL: 'REFRESH_HOME_POSTS_FAIL',
@@ -46,9 +35,9 @@ export const PostsActions = {
   REFRESH_OPEN_POST_COMMENTS_SUCCESS: 'REFRESH_OPEN_POST_COMMENTS_SUCCESS',
   REFRESH_OPEN_POST_COMMENTS_FAIL: 'REFRESH_OPEN_POST_COMMENTS_FAIL',
   //
-  REFRESH_TAGS_POSTS: 'REFRESH_TAGS_POSTS',
-  REFRESH_TAGS_POSTS_SUCCESS: 'REFRESH_TAGS_POSTS_SUCCESS',
-  REFRESH_TAGS_POSTS_FAIL: 'REFRESH_TAGS_POSTS_FAIL',
+  REFRESH_TAGS_PHOTOS: 'REFRESH_TAGS_PHOTOS',
+  REFRESH_TAGS_PHOTOS_SUCCESS: 'REFRESH_TAGS_PHOTOS_SUCCESS',
+  REFRESH_TAGS_PHOTOS_FAIL: 'REFRESH_TAGS_PHOTOS_FAIL',
   //
   GET_OPEN_POST_COMMENTS_NEXT_PAGE: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS',
@@ -57,15 +46,45 @@ export const PostsActions = {
   GET_TAGS_PHOTOS_NEXT_PAGE: 'GET_TAGS_PHOTOS_NEXT_PAGE',
   GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS',
   GET_TAGS_PHOTOS_NEXT_PAGE_FAIL: 'GET_TAGS_PHOTOS_NEXT_PAGE_FAIL',
+  //
+  GET_BOARDS_PHOTOS_NEXT_PAGE: 'GET_BOARDS_PHOTOS_NEXT_PAGE',
+  GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS',
+  GET_BOARDS_PHOTOS_NEXT_PAGE_FAIL: 'GET_BOARDS_PHOTOS_NEXT_PAGE_FAIL',
+  //
+  REFRESH_BOARDS_PHOTOS: 'REFRESH_BOARDS_PHOTOS',
+  REFRESH_BOARDS_PHOTOS_SUCCESS: 'REFRESH_BOARDS_PHOTOS_SUCCESS',
+  REFRESH_BOARDS_PHOTOS_FAIL: 'REFRESH_BOARDS_PHOTOS_FAIL',
 };
 
-export const resetSelfPhotos = () => ({
-  type: PostsActions.RESET_SELF_PHOTOS,
-});
+export const getUserPhotosNextPage = (photosNext, username) => {
+  const url = username ? `${Server.GET_USER_PHOTOS_NEXT_PAGE}${username}/?page=${photosNext}`
+    : `${Server.GET_USER_PHOTOS_NEXT_PAGE}?page=${photosNext}`;
+  return {
+    type: PostsActions.GET_USER_PHOTOS_NEXT_PAGE,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
+    },
+  };
+};
 
-export const resetHomePosts = () => ({
-  type: PostsActions.RESET_HOME_POSTS,
-});
+export const refreshUserPhotos = (username) => {
+  const url = username ? `${Server.GET_USER_PHOTOS_NEXT_PAGE}${username}/?page=1`
+    : `${Server.GET_USER_PHOTOS_NEXT_PAGE}?page=1`;
+  return {
+    type: PostsActions.REFRESH_USER_PHOTOS,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
+    },
+  };
+};
 
 export const refreshComments = postID => ({
   type: PostsActions.REFRESH_OPEN_POST_COMMENTS,
@@ -78,57 +97,12 @@ export const refreshComments = postID => ({
   },
 });
 
-export const refreshSelfPhotos = () => ({
-  type: PostsActions.REFRESH_SELF_PHOTOS,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_SELF_PHOTOS_NEXT_PAGE}1`,
-    },
-  },
-});
-
 export const refreshHomePosts = () => ({
   type: PostsActions.REFRESH_HOME_POSTS,
   payload: {
     request: {
       method: RequestMethods.GET,
       url: `${Server.GET_HOME_POSTS_NEXT_PAGE}1`,
-    },
-  },
-});
-
-export const choosePost = postID => ({
-  type: PostsActions.CHOOSE_POST,
-  payload: postID,
-});
-
-export const getSelfPhotosNextPage = photosNext => ({
-  type: PostsActions.GET_SELF_PHOTOS_NEXT_PAGE,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_SELF_PHOTOS_NEXT_PAGE}${photosNext}`,
-    },
-  },
-});
-
-export const getOthersPhotosNextPage = (photosNext, username) => ({
-  type: PostsActions.GET_OTHERS_PHOTOS_NEXT_PAGE,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_OTHERS_PHOTOS_NEXT_PAGE}${username}/?page=${photosNext}`,
-    },
-  },
-});
-
-export const refreshOthersPhotos = username => ({
-  type: PostsActions.REFRESH_OTHERS_PHOTOS,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_OTHERS_PHOTOS_NEXT_PAGE}${username}/?page=1`,
     },
   },
 });
@@ -166,7 +140,7 @@ export const getTagsPhotosNextPage = (tagID, tagsNext) => ({
 });
 
 export const refreshTagsPhotos = tagID => ({
-  type: PostsActions.REFRESH_TAGS_POSTS,
+  type: PostsActions.REFRESH_TAGS_PHOTOS,
   payload: {
     request: {
       method: RequestMethods.GET,
@@ -176,32 +150,54 @@ export const refreshTagsPhotos = tagID => ({
   },
 });
 
-export const getPostInfo = selectedPostID => ({
+export const getBoardsPhotosNextPage = (boardID, boardsPhotosNext) => ({
+  type: PostsActions.GET_BOARDS_PHOTOS_NEXT_PAGE,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_BOARDS_DETAILS}${boardID}/?page=${boardsPhotosNext}`,
+    },
+    boardID,
+  },
+});
+
+export const refreshBoardsPhotos = boardID => ({
+  type: PostsActions.REFRESH_BOARDS_PHOTOS,
+  payload: {
+    request: {
+      method: RequestMethods.GET,
+      url: `${Server.GET_BOARDS_DETAILS}${boardID}/?page=1`,
+    },
+    boardID,
+  },
+});
+
+export const getPostInfo = postID => ({
   type: PostsActions.GET_POST_INFO,
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_POST_INFO}${selectedPostID}/`,
+      url: `${Server.GET_POST_INFO}${postID}/`,
     },
-    postID: selectedPostID,
+    postID,
   },
 });
 
-export const sendLikeOrDislike = selectedPostID => ({
+export const sendLikeOrDislike = postID => ({
   type: PostsActions.LIKE_OR_DISLIKE,
   payload: {
     request: {
       method: RequestMethods.POST,
       url: Server.LIKE_DISLIKE,
       data: {
-        post_id: selectedPostID,
+        post_id: postID,
       },
-      postID: selectedPostID,
     },
+    postID,
   },
 });
 
-export const sendComment = (selectedPostID, commentText) => ({
+export const sendComment = (postID, commentText) => ({
   type: PostsActions.COMMENT,
   payload: {
     request: {
@@ -209,10 +205,10 @@ export const sendComment = (selectedPostID, commentText) => ({
       url: Server.COMMENT,
       data:
         {
-          post_id: selectedPostID,
+          post_id: postID,
           content: commentText,
         },
     },
-    postID: selectedPostID,
+    postID,
   },
 });

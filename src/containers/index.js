@@ -1,7 +1,7 @@
 import ChangePassButton from './ChangePassButton';
 import LoginButton from './LoginButton';
 import SaveChangesButton from './SaveChangesButton';
-import SelfProfileInfo from './SelfProfileInfo';
+import ProfileInfo from './ProfileInfo';
 import SendPostButton from './SendPostButton';
 import SignUpButton from './SignUpButton';
 import SignUpCompleteButton from './SignUpCompleteButton';
@@ -12,7 +12,7 @@ export {
   ChangePassButton,
   LoginButton,
   SaveChangesButton,
-  SelfProfileInfo,
+  ProfileInfo,
   SendPostButton,
   SignUpButton,
   ForgotPasswordButton,

@@ -2,18 +2,19 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Colors, Strings } from '../config';
+import { Colors, Parameters, Strings } from '../config';
 import { strings } from '../i18n';
 import {
-  selectSelfBio,
-  selectSelfFullName,
-  selectSelfNumOfFollowers,
-  selectSelfNumOfFollowings,
-  selectSelfProfilePicture,
-} from '../reducers/UserInfoReducer';
+  selectBio,
+  selectFullName,
+  selectNumOfFollowers,
+  selectNumOfFollowings,
+  selectProfilePicture,
+} from '../reducers/UsersReducer';
 
-class SelfProfileInfo extends Component {
+class ProfileInfo extends Component {
   render() {
     const {
       bio, fullName, followers, followings, onListPressed,
@@ -91,13 +92,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  user: state.userInfo.user,
-  bio: selectSelfBio(state),
-  profilePicture: selectSelfProfilePicture(state),
-  fullName: selectSelfFullName(state),
-  followers: selectSelfNumOfFollowers(state),
-  followings: selectSelfNumOfFollowings(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  return {
+    bio: selectBio(state, username),
+    profilePicture: selectProfilePicture(state, username),
+    fullName: selectFullName(state, username),
+    followers: selectNumOfFollowers(state, username),
+    followings: selectNumOfFollowings(state, username),
+  };
+};
 
-export default connect(mapStateToProps, null)(SelfProfileInfo);
+export default withNavigation(connect(mapStateToProps, null)(ProfileInfo));

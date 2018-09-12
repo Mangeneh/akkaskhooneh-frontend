@@ -1,6 +1,7 @@
 import AddPostToBoardHeader from './AddPostToBoardHeader';
 import BackHeader from './BackHeader';
 import Board from './Board';
+import BoardsPageHeader from './BoardsPageHeader';
 import CameraRollPicker from './CameraRollPicker/CameraRollPicker';
 import ContactItem from './ContactItem';
 import CustomLongTextBox from './CustomLongTextBox';
@@ -8,17 +9,17 @@ import CustomStatusBar from './CustomStatusBar';
 import EmailTextBox from './EmailTextBox';
 import FullStatusBar from './FullStatusBar';
 import HomeHeader from './HomeHeader';
+import Loading from './Loading';
+import NotificationComponent from './NotificationComponent';
 import PasswordInstruction from './PasswordInstruction';
 import PasswordTextBox from './PasswordTextBox';
 import PostHeader from './PostHeader';
 import PostsPhotoList from './PostsPhotoList';
 import ProfileHeader from './ProfileHeader';
 import ProfilePageImageItem from './ProfilePageImageItem';
-import SelfBoardsPageHeader from './SelfBoardsPageHeader';
 import SpinnerButton from './SpinnerButton';
 import TagItem from './TagItem';
 import Tags from './Tags';
-import NotificationComponent from './NotificationComponent';
 
 export {
   EmailTextBox,
@@ -32,7 +33,7 @@ export {
   Tags,
   Board,
   HomeHeader,
-  SelfBoardsPageHeader,
+  BoardsPageHeader,
   PasswordInstruction,
   PostHeader,
   CameraRollPicker,
@@ -42,4 +43,5 @@ export {
   PostsPhotoList,
   TagItem,
   NotificationComponent,
+  Loading,
 };

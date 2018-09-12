@@ -1,5 +1,5 @@
 export * from './PostsActions';
-export * from './UserInfoActions';
+export * from './UsersActions';
 export * from './BoardsActions';
 
 const GlobalActions = {

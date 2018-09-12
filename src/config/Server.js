@@ -10,11 +10,9 @@ export const Server = {
   CHANGE_PROFILE_PIC: '/social/change-pic/',
   CHANGE_PASSWORD: '/auth/changepassword/',
   // Social - Posts
-  GET_SELF_PHOTOS_NEXT_PAGE: '/social/pictures/?page=',
-  GET_SELF_BOARDS_NEXT_PAGE: '/social/boards/?page=',
-  GET_OTHERS_PHOTOS_NEXT_PAGE: '/social/pictures/',
-  GET_OTHERS_BOARDS_NEXT_PAGE: '/social/boards/',
+  GET_BOARDS_NEXT_PAGE: '/social/boards/',
   GET_HOME_POSTS_NEXT_PAGE: '/social/feed/?page=',
+  GET_USER_PHOTOS_NEXT_PAGE: '/social/pictures/', // /social/pictures/${username}/?page=${nextPage}
   // Social - Boards
   CREATE_BOARD: '/social/create-new-board/',
   ADD_POST_TO_BOARD: '/social/addnewposttoboard/',
@@ -34,4 +32,6 @@ export const Server = {
   GET_SEARCH_TAGS_RESULTS: '/social/search/tags/',
   GET_SEARCH_FOLLOWERS_RESULTS: '/social/search/followers/',
   GET_SEARCH_FOLLOWINGS_RESULTS: '/social/search/following/',
+  GET_NOTIFICATIONS: '/social/notification/?page=',
+  FORGOT_PASSWORD: '/auth/forgotpassword/',
 };

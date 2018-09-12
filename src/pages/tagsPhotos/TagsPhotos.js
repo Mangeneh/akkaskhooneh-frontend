@@ -5,33 +5,34 @@ import { getTagsPhotosNextPage, refreshTagsPhotos } from '../../actions';
 import { BackHeader, CustomStatusBar } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import { Pages } from '../../config';
-import { extractTagName } from '../../helpers';
 import {
   selectTagsPhotos,
+  selectTagsPhotosIsFirstFetch,
   selectTagsPhotosIsLoading,
+  selectTagsPhotosIsRefreshing,
   selectTagsPhotosNextPage,
   selectTagsPhotosTotalPages,
 } from '../../reducers/PostsReducer';
 
 class TagsPhotos extends Component {
   componentWillMount() {
-    const { refreshTagsPhotos } = this.props;
-    refreshTagsPhotos();
+    this.refreshTagsPhotos();
   }
 
   render() {
     const {
-      refreshTagsPhotos, tagsPhotosIsLoading, tagsPhotos, navigation,
+      tagsPhotosIsRefreshing, tagsPhotos, tagsPhotosIsFirstFetch, navigation,
     } = this.props;
     const tagName = navigation.getParam('tagName');
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
-        <BackHeader title={`#${extractTagName(tagName)}`} onBackPress={() => navigation.goBack()} />
+        <BackHeader title={tagName} onBackPress={() => navigation.goBack()} />
         <PostsPhotoList
           data={tagsPhotos}
-          onRefresh={() => refreshTagsPhotos()}
-          refreshing={tagsPhotosIsLoading}
+          onRefresh={() => this.refreshTagsPhotos()}
+          refreshing={tagsPhotosIsRefreshing}
+          isFirstFetch={tagsPhotosIsFirstFetch}
           onEndReached={() => this.updateTagsPhotos()}
           onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
         />
@@ -39,9 +40,18 @@ class TagsPhotos extends Component {
     );
   }
 
+  refreshTagsPhotos() {
+    const {
+      tagsPhotosIsLoading, tagsPhotosIsRefreshing, refreshTagsPhotos,
+    } = this.props;
+    if (!tagsPhotosIsLoading && !tagsPhotosIsRefreshing) {
+      refreshTagsPhotos();
+    }
+  }
+
   updateTagsPhotos() {
     const {
-      tagsPhotosNextPage, tagsPhotosTotalPages, getTagsPhotosNextPage, tagsPhotosIsLoading,
+      tagsPhotosNextPage, tagsPhotosTotalPages, getTagsPhotosNextPage, tagsPhotosIsLoading, tagsPhotosIsRefreshing,
     } = this.props;
     if (tagsPhotosNextPage <= tagsPhotosTotalPages && !tagsPhotosIsLoading) {
       getTagsPhotosNextPage(tagsPhotosNextPage);
@@ -55,6 +65,8 @@ const mapStateToProps = (state, ownProps) => {
     tagsPhotos: selectTagsPhotos(state, tagID),
     tagsPhotosPage: selectTagsPhotosNextPage(state, tagID),
     tagsPhotosTotalPages: selectTagsPhotosTotalPages(state, tagID),
+    tagsPhotosIsFirstFetch: selectTagsPhotosIsFirstFetch(state, tagID),
+    tagsPhotosIsRefreshing: selectTagsPhotosIsRefreshing(state, tagID),
     tagsPhotosIsLoading: selectTagsPhotosIsLoading(state, tagID),
   };
 };

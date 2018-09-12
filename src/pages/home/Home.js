@@ -5,14 +5,12 @@ import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import {
   addPostToBoard,
-  choosePost,
   createBoard,
   getHomePostsNextPage,
   getPostInfo,
-  getSelfBoardsNextPage,
+  getUserBoardsNextPage,
   refreshHomePosts,
-  refreshSelfBoards,
-  selectedPostChanged,
+  refreshUserBoards,
   sendLikeOrDislike,
 } from '../../actions';
 import { HomeHeader } from '../../components';
@@ -23,7 +21,6 @@ import {
 } from '../../config';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
-import { selectSelectedPostID } from '../../reducers/BoardsReducer';
 import {
   selectHomePosts,
   selectHomePostsIsLoading,
@@ -134,12 +131,10 @@ class Home extends Component {
   }
 
   renderPost(item, index) {
-    const { changeSelectedPostID } = this.props;
     return (
       <Post
         saveButtonPressed={() => {
           this.showModal();
-          changeSelectedPostID(item.id);
         }}
         onLikePressed={() => this.likeOrDislike(item.id)}
         onCommentOrPicPressed={() => {
@@ -151,11 +146,10 @@ class Home extends Component {
   }
 
   likeOrDislike(id) {
-    const { sendLikeOrDislike, choosePost } = this.props;
-    choosePost(id);
+    const { sendLikeOrDislike } = this.props;
     sendLikeOrDislike(id)
       .then((response) => {
-
+        console.log(response);
       })
       .catch((error) => {
 
@@ -163,10 +157,7 @@ class Home extends Component {
   }
 
   onCommentOrPicPressed(id) {
-    const {
-      changeSelectedPostID, navigation,
-    } = this.props;
-    changeSelectedPostID(id);
+    const { navigation } = this.props;
     navigation.push(Pages.POST_INFO_PAGE, { postID: id });
   }
 
@@ -233,20 +224,17 @@ const mapStateToProps = state => ({
   postsNextPage: selectHomePostsNextPage(state),
   postsTotalPages: selectHomePostsTotalPages(state),
   postsIsLoading: selectHomePostsIsLoading(state),
-  selectedPostID: selectSelectedPostID(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   refreshHomePosts: () => dispatch(refreshHomePosts()),
-  refreshSelfBoards: () => dispatch(refreshSelfBoards()),
-  changeSelectedPostID: id => dispatch(selectedPostChanged(id)),
+  refreshSelfBoards: () => dispatch(refreshUserBoards()),
   createBoard: newBoardName => dispatch(createBoard(newBoardName)),
   getPostsNextPage: postsNext => dispatch(getHomePostsNextPage(postsNext)),
-  getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
+  getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
   addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
   getPostInfo: postID => dispatch(getPostInfo(postID)),
   sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
-  choosePost: postID => dispatch(choosePost(postID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

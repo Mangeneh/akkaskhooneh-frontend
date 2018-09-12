@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { globalReset } from '../../actions';
-import { reset } from '../../actions/UserInfoActions';
+import { reset } from '../../actions/UsersActions';
 import { BackHeader, CustomStatusBar } from '../../components';
 import {
   Colors, Constants, Pages, Strings,

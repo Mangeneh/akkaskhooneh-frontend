@@ -1,39 +1,38 @@
 import { Body, Button, Text } from 'native-base';
 import React, { Component } from 'react';
-import {
-  ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
-import { deleteBoard, refreshSelfBoards } from '../../actions';
-import { CustomStatusBar, SelfBoardsPageHeader } from '../../components';
+import { deleteBoard, refreshBoardsPhotos, refreshUserBoards } from '../../actions';
+import { getBoardsPhotosNextPage } from '../../actions/PostsActions';
+import { BoardsPageHeader, CustomStatusBar } from '../../components';
+import PostsPhotoList from '../../components/PostsPhotoList';
 import { Colors, Pages, Strings } from '../../config';
 import { showFailiureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
-import { selectSelfUsername } from '../../reducers/UserInfoReducer';
-import { getBoardsPhotosNextPage } from './actions';
 import {
   selectBoardsPhotos,
+  selectBoardsPhotosIsFirstFetch,
   selectBoardsPhotosIsLoading,
+  selectBoardsPhotosIsRefreshing,
   selectBoardsPhotosNextPage,
   selectBoardsPhotosTotalPages,
-} from './reducer';
-
-const WIDTH = Dimensions.get('window').width;
+} from '../../reducers/PostsReducer';
 
 class BoardsPage extends Component {
-  constructor(props) {
-    super(props);
-    this.updatePhotos();
+  componentWillMount() {
+    this.refreshPhotos();
   }
 
   render() {
-    const { navigation, boardsPhotos, boardsIsLoading } = this.props;
+    const {
+      navigation, boardsPhotos, boardsPhotosIsFirstFetch, boardsPhotosIsRefreshing,
+    } = this.props;
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
-        <SelfBoardsPageHeader
+        <BoardsPageHeader
           boardName={navigation.getParam('board').name}
           onBackPress={() => navigation.navigate(Pages.MAIN)}
           onDeletePress={() => this.confirmDeleteBoard()}
@@ -84,47 +83,34 @@ class BoardsPage extends Component {
             </Button>
           </View>
         </Modal>
-        {(boardsIsLoading) ? (<ActivityIndicator size="large" />)
-          : (
-            <FlatList
-              onEndReached={() => this.updatePhotos()}
-              style={{
-                width: '100%',
-                marginTop: 8,
-              }}
-              numColumns={2}
-              keyExtractor={(item, index) => item.id.toString()}
-              data={boardsPhotos}
-              renderItem={({ item, index }) => this.renderPhoto(item, index)}
-            />
-          )
-        }
-      </View>
-    );
-  }
-
-  renderPhoto(item, index) {
-    return (
-      <View style={index % 2 === 0 ? styles.evenPhoto : styles.oddPhoto}>
-        <Image
-          source={{ uri: item.picture }}
-          resizeMode="stretch"
-          style={{
-            width: WIDTH / 2 - 12,
-            height: WIDTH / 2 - 12,
-          }}
+        <PostsPhotoList
+          data={boardsPhotos}
+          onRefresh={() => this.refreshPhotos()}
+          refreshing={boardsPhotosIsRefreshing}
+          isFirstFetch={boardsPhotosIsFirstFetch}
+          onEndReached={() => this.updatePhotos()}
+          onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
         />
       </View>
     );
   }
 
+  refreshPhotos() {
+    const {
+      refreshBoardsPhotos, boardsPhotosIsLoading, boardsPhotosIsRefreshing,
+    } = this.props;
+    if (!boardsPhotosIsRefreshing && !boardsPhotosIsLoading) {
+      refreshBoardsPhotos();
+    }
+  }
+
   updatePhotos() {
     const {
-      boardsPhotosNextPage, boardsPhotosTotalPages, boardsPhotosIsLoading, getBoardsPhotosNextPage, navigation,
+      boardsPhotosNextPage, boardsPhotosTotalPages, boardsPhotosIsLoading, getBoardsPhotosNextPage, boardsPhotosIsRefreshing,
     } = this.props;
     if (boardsPhotosNextPage <= boardsPhotosTotalPages
-      && !boardsPhotosIsLoading) {
-      getBoardsPhotosNextPage(navigation.getParam('board').id, boardsPhotosNextPage);
+      && !boardsPhotosIsLoading && !boardsPhotosIsRefreshing) {
+      getBoardsPhotosNextPage(boardsPhotosNextPage);
     }
   }
 
@@ -134,8 +120,7 @@ class BoardsPage extends Component {
 
   deleteBoard() {
     const { navigation, deleteBoard, refreshBoards } = this.props;
-    const boardID = navigation.getParam('board').id;
-    deleteBoard(boardID)
+    deleteBoard()
       .then((response) => {
         refreshBoards();
         showSuccessToast(strings(Strings.DELETE_BOARD_SUCCESS));
@@ -165,36 +150,28 @@ const styles = StyleSheet.create({
   modalButtonText: {
     color: Colors.ICON,
   },
-  evenPhoto: {
-    justifyContent: 'flex-start',
-    marginRight: 4,
-    marginLeft: 8,
-    marginBottom: 8,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  oddPhoto: {
-    justifyContent: 'flex-start',
-    marginBottom: 8,
-    marginRight: 8,
-    marginLeft: 4,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
 });
 
-const mapStateToProps = state => ({
-  username: selectSelfUsername(state),
-  boardsPhotos: selectBoardsPhotos(state),
-  boardsPhotosNextPage: selectBoardsPhotosNextPage(state),
-  boardsPhotosTotalPages: selectBoardsPhotosTotalPages(state),
-  boardsPhotosIsLoading: selectBoardsPhotosIsLoading(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const boardID = ownProps.navigation.getParam('board').id;
+  return {
+    boardsPhotos: selectBoardsPhotos(state, boardID),
+    boardsPhotosNextPage: selectBoardsPhotosNextPage(state, boardID),
+    boardsPhotosTotalPages: selectBoardsPhotosTotalPages(state, boardID),
+    boardsPhotosIsRefreshing: selectBoardsPhotosIsRefreshing(state, boardID),
+    boardsPhotosIsFirstFetch: selectBoardsPhotosIsFirstFetch(state, boardID),
+    boardsPhotosIsLoading: selectBoardsPhotosIsLoading(state, boardID),
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  getBoardsPhotosNextPage: (boardID, boardsPhotosNext) => dispatch(getBoardsPhotosNextPage(boardID, boardsPhotosNext)),
-  deleteBoard: boardID => dispatch(deleteBoard(boardID)),
-  refreshBoards: () => dispatch(refreshSelfBoards()),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const boardID = ownProps.navigation.getParam('board').id;
+  return {
+    getBoardsPhotosNextPage: boardsPhotosNext => dispatch(getBoardsPhotosNextPage(boardID, boardsPhotosNext)),
+    refreshBoardsPhotos: () => dispatch(refreshBoardsPhotos(boardID)),
+    deleteBoard: () => dispatch(deleteBoard(boardID)),
+    refreshBoards: () => dispatch(refreshUserBoards()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardsPage);

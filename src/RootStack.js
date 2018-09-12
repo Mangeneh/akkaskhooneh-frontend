@@ -20,7 +20,7 @@ import {
   TagsPhotos,
   ForgotPassword,
 } from './pages';
-import { selectAccessToken } from './reducers/UserInfoReducer';
+import { selectAccessToken } from './reducers/UsersReducer';
 
 const AuthStack = createStackNavigator({
   Login,

@@ -1,34 +1,35 @@
 import _ from 'lodash';
 import GlobalActions from '../actions';
 import { PostsActions } from '../actions/PostsActions';
+import { extractLikesCount } from '../helpers';
 
-const INITIAL_SELF_PHOTOS_STATE = {
-  selfPhotos: [],
-  selfPhotosNextPage: 1,
-  selfPhotosTotalPages: 1,
-  selfPhotosIsLoading: false,
+const INITIAL_USER_PHOTOS_STATE = {
+  userPhotos: [],
+  userPhotosNextPage: 1,
+  userPhotosTotalPages: 1,
+  userPhotosIsFirstFetch: true,
+  userPhotosIsRefreshing: false,
+  userPhotosIsLoading: false,
 };
 
 const INITIAL_HOME_POSTS_STATE = {
   homePosts: [],
   homePostsNextPage: 1,
   homePostsTotalPages: 1,
+  homePostsIsFirstFetch: true,
+  homePostsIsRefreshing: false,
   homePostsIsLoading: false,
-};
-
-const INITIAL_OTHERS_PHOTOS_STATE = {
-  othersPhotos: [],
-  othersPhotosNextPage: 1,
-  othersPhotosTotalPages: 1,
-  othersPhotosIsLoading: false,
 };
 
 const INITIAL_OPEN_POST_STATE = {
   postInfo: {},
+  postInfoIsFirstFetch: true,
   postInfoIsLoading: true,
   comments: [],
   commentsNextPage: 1,
   commentsTotalPages: 1,
+  commentsIsFirstFetch: true,
+  commentsIsRefreshing: false,
   commentsIsLoading: false,
   isSendingComment: false,
 };
@@ -37,90 +38,157 @@ const INITIAL_TAGS_PHOTOS_STATE = {
   tagsPhotos: [],
   tagsPhotosNextPage: 1,
   tagsPhotosTotalPages: 1,
+  tagsPhotosIsFirstFetch: true,
+  tagsPhotosIsRefreshing: false,
   tagsPhotosIsLoading: false,
 };
 
+const INITIAL_BOARDS_PHOTOS_STATE = {
+  boardsPhotos: [],
+  boardsPhotosNextPage: 1,
+  boardsPhotosTotalPages: 1,
+  boardsPhotosIsFirstFetch: true,
+  boardsPhotosIsRefreshing: false,
+  boardsPhotosIsLoading: false,
+};
+
 const INITIAL_STATE = {
-  ...INITIAL_SELF_PHOTOS_STATE,
-  ...INITIAL_HOME_POSTS_STATE,
-  chosenPostID: 0,
+  home: INITIAL_HOME_POSTS_STATE,
 };
 
 export default (state = INITIAL_STATE, action) => {
   const {
-    GET_HOME_POSTS_NEXT_PAGE,
-    GET_HOME_POSTS_NEXT_PAGE_FAIL,
-    GET_HOME_POSTS_NEXT_PAGE_SUCCESS,
+    GET_USER_PHOTOS_NEXT_PAGE,
+    GET_USER_PHOTOS_NEXT_PAGE_SUCCESS,
     //
-    GET_SELF_PHOTOS_NEXT_PAGE,
-    GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS,
-    GET_SELF_PHOTOS_NEXT_PAGE_FAIL,
+    REFRESH_USER_PHOTOS,
+    REFRESH_USER_PHOTOS_SUCCESS,
+    //
+    GET_HOME_POSTS_NEXT_PAGE,
+    GET_HOME_POSTS_NEXT_PAGE_SUCCESS,
     //
     GET_OPEN_POST_COMMENTS_NEXT_PAGE,
     GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
-    GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL,
     //
-    RESET_SELF_PHOTOS,
-    RESET_HOME_POSTS,
-    RESET_OTHERS_PHOTOS,
+    GET_BOARDS_PHOTOS_NEXT_PAGE,
+    GET_BOARDS_PHOTOS_NEXT_PAGE_FAIL,
+    GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS,
+    //
+    REFRESH_BOARDS_PHOTOS,
+    REFRESH_BOARDS_PHOTOS_FAIL,
+    REFRESH_BOARDS_PHOTOS_SUCCESS,
     //
     GET_POST_INFO,
     GET_POST_INFO_SUCCESS,
-    GET_POST_INFO_FAIL,
     //
     COMMENT,
     COMMENT_SUCCESS,
     COMMENT_FAIL,
     //
-    CHOOSE_POST,
     LIKE_OR_DISLIKE_SUCCESS,
-    //
-    REFRESH_SELF_PHOTOS,
-    REFRESH_SELF_PHOTOS_SUCCESS,
     //
     REFRESH_HOME_POSTS,
     REFRESH_HOME_POSTS_SUCCESS,
-    REFRESH_HOME_POSTS_FAIL,
     //
     REFRESH_OPEN_POST_COMMENTS,
     REFRESH_OPEN_POST_COMMENTS_SUCCESS,
     REFRESH_OPEN_POST_COMMENTS_FAIL,
     //
-    REFRESH_TAGS_POSTS,
-    REFRESH_TAGS_POSTS_SUCCESS,
-    REFRESH_TAGS_POSTS_FAIL,
+    REFRESH_TAGS_PHOTOS,
+    REFRESH_TAGS_PHOTOS_SUCCESS,
     //
     GET_TAGS_PHOTOS_NEXT_PAGE,
-    GET_TAGS_PHOTOS_NEXT_PAGE_FAIL,
     GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS,
   } = PostsActions;
+  console.log(state);
   switch (action.type) {
+    case REFRESH_USER_PHOTOS: {
+      const usernameField = createUserBadge(action.payload.username);
+      return {
+        ...state,
+        [usernameField]: {
+          ...INITIAL_USER_PHOTOS_STATE,
+          ...state[usernameField],
+          userPhotosIsRefreshing: true,
+        },
+      };
+    }
+    case REFRESH_USER_PHOTOS_SUCCESS: {
+      const usernameField = createUserBadge(action.meta.previousAction.payload.username);
+      return {
+        ...state,
+        [usernameField]: {
+          ...state[usernameField],
+          userPhotos: action.payload.data.results,
+          userPhotosNextPage: 2,
+          userPhotosTotalPages: action.payload.data.total_pages,
+          userPhotosIsFirstFetch: false,
+          userPhotosIsRefreshing: false,
+        },
+      };
+    }
+    case GET_USER_PHOTOS_NEXT_PAGE: {
+      const usernameField = createUserBadge(action.payload.username);
+      return {
+        ...state,
+        [usernameField]: {
+          ...state[usernameField],
+          userPhotosIsLoading: true,
+        },
+      };
+    }
+    case GET_USER_PHOTOS_NEXT_PAGE_SUCCESS: {
+      const usernameField = createUserBadge(action.meta.previousAction.payload.username);
+      return {
+        ...state,
+        [usernameField]: {
+          ...state[usernameField],
+          userPhotos: state[usernameField].userPhotos.concat(action.payload.data.results),
+          userPhotosNextPage: state[usernameField].userPhotosNextPage + 1,
+          userPhotosTotalPages: action.payload.data.total_pages,
+          userPhotosIsLoading: false,
+        },
+      };
+    }
+    //
+    case REFRESH_HOME_POSTS:
+      return {
+        ...state,
+        home: {
+          ...state.home,
+          homePostsIsRefreshing: true,
+        },
+      };
+    case REFRESH_HOME_POSTS_SUCCESS:
+      return {
+        ...state,
+        home: {
+          ...state.home,
+          homePosts: action.payload.data.results,
+          homePostsNextPage: 2,
+          homePostsTotalPages: action.payload.data.total_pages,
+          homePostsIsFirstFetch: false,
+          homePostsIsRefreshing: false,
+        },
+      };
     case GET_HOME_POSTS_NEXT_PAGE:
       return {
         ...state,
-        homePostsIsLoading: true,
+        home: {
+          ...state.home,
+          homePostsIsLoading: true,
+        },
       };
     case GET_HOME_POSTS_NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        homePosts: state.homePosts.concat(action.payload.data.results),
-        homePostsNextPage: state.homePostsNextPage + 1,
-        homePostsTotalPages: action.payload.data.total_pages,
-        homePostsIsLoading: false,
-      };
-    //
-    case GET_SELF_PHOTOS_NEXT_PAGE:
-      return {
-        ...state,
-        selfPhotosIsLoading: true,
-      };
-    case GET_SELF_PHOTOS_NEXT_PAGE_SUCCESS:
-      return {
-        ...state,
-        selfPhotos: state.selfPhotos.concat(action.payload.data.results),
-        selfPhotosNextPage: state.selfPhotosNextPage + 1,
-        selfPhotosTotalPages: action.payload.data.total_pages,
-        selfPhotosIsLoading: false,
+        home: {
+          ...state.home,
+          homePosts: state.home.homePosts.concat(action.payload.data.results),
+          homePostsNextPage: state.home.homePostsNextPage + 1,
+          homePostsTotalPages: action.payload.data.total_pages,
+          homePostsIsLoading: false,
+        },
       };
     //
     case GET_POST_INFO: {
@@ -128,7 +196,9 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         [postField]: {
-          ...INITIAL_OPEN_POST_STATE, ...state[postField],
+          ...INITIAL_OPEN_POST_STATE,
+          ...state[postField],
+          postInfoIsLoading: true,
         },
       };
     }
@@ -139,6 +209,7 @@ export default (state = INITIAL_STATE, action) => {
         [postField]: {
           ...state[postField],
           postInfo: action.payload.data,
+          postInfoIsFirstFetch: false,
           postInfoIsLoading: false,
         },
       };
@@ -181,7 +252,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         [postField]: {
           ...state[postField],
-          commentsIsLoading: true,
+          commentsIsRefreshing: true,
         },
       };
     }
@@ -194,7 +265,8 @@ export default (state = INITIAL_STATE, action) => {
           comments: action.payload.data.results,
           commentsNextPage: 2,
           commentsTotalPages: action.payload.data.total_pages,
-          commentsIsLoading: false,
+          commentsIsFirstFetch: false,
+          commentsIsRefreshing: false,
         },
       };
     }
@@ -204,11 +276,10 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         [postField]: {
           ...state[postField],
-          commentsIsLoading: false,
+          commentsIsRefreshing: false,
         },
       };
     }
-    //
     case GET_OPEN_POST_COMMENTS_NEXT_PAGE: {
       const postField = createPostBadge(action.payload.postID);
       return {
@@ -233,29 +304,27 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     //
-    case CHOOSE_POST:
-      return {
-        ...state,
-        chosenPostID: action.payload,
-      };
-    //
     case LIKE_OR_DISLIKE_SUCCESS: {
-      const chosenPost = state.homePosts.find(post => post.id === state.chosenPostID);
-      const chosenPostIndex = state.homePosts.indexOf(chosenPost);
-      const newLikes = chosenPost.likes + (action.payload.data.liked ? 1 : -1);
+      const { postID } = action.meta.previousAction.payload;
+      const chosenPost = state.home.homePosts.find(post => post.id === postID);
+      const chosenPostIndex = state.home.homePosts.indexOf(chosenPost);
+      const newLikes = extractLikesCount(chosenPost) + (action.payload.data.liked ? 1 : -1);
       const newPost = {
         ...chosenPost,
-        likes: newLikes,
+        likes_count: newLikes,
         is_liked: action.payload.data.liked,
       };
       const newHomePosts = [
-        ...state.homePosts.slice(0, chosenPostIndex),
+        ...state.home.homePosts.slice(0, chosenPostIndex),
         newPost,
-        ...state.homePosts.slice(chosenPostIndex + 1),
+        ...state.home.homePosts.slice(chosenPostIndex + 1),
       ];
       return {
         ...state,
-        homePosts: newHomePosts,
+        home: {
+          ...state.home,
+          homePosts: newHomePosts,
+        },
       };
     }
     // Tags
@@ -282,14 +351,18 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    case REFRESH_TAGS_POSTS: {
+    case REFRESH_TAGS_PHOTOS: {
       const tagField = createTagBadge(action.payload.tagID);
       return {
         ...state,
-        [tagField]: { ...INITIAL_TAGS_PHOTOS_STATE, ...state[tagField] },
+        [tagField]: {
+          ...INITIAL_TAGS_PHOTOS_STATE,
+          ...state[tagField],
+          tagsPhotosIsRefreshing: true,
+        },
       };
     }
-    case REFRESH_TAGS_POSTS_SUCCESS: {
+    case REFRESH_TAGS_PHOTOS_SUCCESS: {
       const tagField = createTagBadge(action.meta.previousAction.payload.tagID);
       return {
         ...state,
@@ -298,45 +371,61 @@ export default (state = INITIAL_STATE, action) => {
           tagsPhotos: action.payload.data.results,
           tagsPhotosNextPage: 2,
           tagsPhotosTotalPages: action.payload.data.total_pages,
-          tagsPhotosIsLoading: false,
+          tagsPhotosIsFirstFetch: false,
+          tagsPhotosIsRefreshing: false,
         },
       };
     }
     //
-    case REFRESH_SELF_PHOTOS:
+    case REFRESH_BOARDS_PHOTOS: {
+      const boardField = createBoardBadge(action.payload.boardID);
       return {
         ...state,
-        selfPhotosIsLoading: true,
+        [boardField]: {
+          ...INITIAL_BOARDS_PHOTOS_STATE,
+          ...state[boardField],
+          boardsPhotosIsRefreshing: true,
+        },
       };
-    case REFRESH_SELF_PHOTOS_SUCCESS:
+    }
+    case REFRESH_BOARDS_PHOTOS_SUCCESS: {
+      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
       return {
         ...state,
-        selfPhotos: action.payload.data.results,
-        selfPhotosNextPage: 2,
-        selfPhotosTotalPages: action.payload.data.total_pages,
-        selfPhotosIsLoading: false,
+        [boardField]: {
+          ...state[boardField],
+          boardsPhotos: action.payload.data.results,
+          boardsPhotosNextPage: 2,
+          boardsPhotosTotalPages: action.payload.data.total_pages,
+          boardsPhotosIsFirstFetch: false,
+          boardsPhotosIsRefreshing: false,
+        },
       };
+    }
+    case GET_BOARDS_PHOTOS_NEXT_PAGE: {
+      const boardField = createBoardBadge(action.payload.boardID);
+      return {
+        ...state,
+        [boardField]: {
+          ...state[boardField],
+          boardsPhotosIsLoading: true,
+        },
+      };
+    }
+    case GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS: {
+      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
+      return {
+        ...state,
+        [boardField]: {
+          ...state[boardField],
+          boardsPhotos: state[boardField].boardsPhotos.concat(action.payload.data.results),
+          boardsPhotosNextPage: state[boardField].boardsPhotosNextPage + 1,
+          boardsPhotosTotalPages: action.payload.data.total_pages,
+          boardsPhotosIsLoading: false,
+        },
+      };
+    }
     //
-    case REFRESH_HOME_POSTS:
-      return {
-        ...state,
-        homePostsIsLoading: true,
-      };
-    case REFRESH_HOME_POSTS_SUCCESS:
-      return {
-        ...state,
-        homePosts: action.payload.data.results,
-        homePostsNextPage: 2,
-        homePostsTotalPages: action.payload.data.total_pages,
-        homePostsIsLoading: false,
-      };
-    //
-    case RESET_SELF_PHOTOS:
-      return { ...state, ...INITIAL_SELF_PHOTOS_STATE };
-    case RESET_HOME_POSTS:
-      return { ...state, ...INITIAL_HOME_POSTS_STATE };
-    case RESET_OTHERS_PHOTOS:
-      return { ...state, ...INITIAL_OTHERS_PHOTOS_STATE };
     case GlobalActions.RESET_EVERYTHING:
       return INITIAL_STATE;
     default:
@@ -344,18 +433,32 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
+const createUserBadge = username => username || 'self';
 const createPostBadge = postID => `post${postID}`;
 const createTagBadge = tagID => `tag${tagID}`;
+const createBoardBadge = boardID => `board${boardID}`;
 
-export const selectSelfPhotos = state => state.posts.selfPhotos;
-export const selectSelfPhotosNextPage = state => state.posts.selfPhotosNextPage;
-export const selectSelfPhotosTotalPages = state => state.posts.selfPhotosTotalPages;
-export const selectSelfPhotosIsLoading = state => state.posts.selfPhotosIsLoading;
+const checkUserProperty = (state, username) => _.has(state.posts, createUserBadge(username));
+const getUserProperty = (state, username) => {
+  const userProperty = createUserBadge(username);
+  if (checkUserProperty(state, username)) {
+    return state.posts[userProperty];
+  }
+  return INITIAL_USER_PHOTOS_STATE;
+};
+export const selectUserPhotos = (state, username) => getUserProperty(state, username).userPhotos;
+export const selectUserPhotosNextPage = (state, username) => getUserProperty(state, username).userPhotosNextPage;
+export const selectUserPhotosTotalPages = (state, username) => getUserProperty(state, username).userPhotosTotalPages;
+export const selectUserPhotosIsFirstFetch = (state, username) => getUserProperty(state, username).userPhotosIsFirstFetch;
+export const selectUserPhotosIsRefreshing = (state, username) => getUserProperty(state, username).userPhotosIsRefreshing;
+export const selectUserPhotosIsLoading = (state, username) => getUserProperty(state, username).userPhotosIsLoading;
 
-export const selectHomePosts = state => state.posts.homePosts;
-export const selectHomePostsNextPage = state => state.posts.homePostsNextPage;
-export const selectHomePostsTotalPages = state => state.posts.homePostsTotalPages;
-export const selectHomePostsIsLoading = state => state.posts.homePostsIsLoading;
+export const selectHomePosts = state => state.posts.home.homePosts;
+export const selectHomePostsNextPage = state => state.posts.home.homePostsNextPage;
+export const selectHomePostsTotalPages = state => state.posts.home.homePostsTotalPages;
+export const selectHomePostsIsRefreshing = state => state.posts.home.homePostsIsRefreshing;
+export const selectHomePostsIsFirstFetch = state => state.posts.home.homePostsIsFirstFetch;
+export const selectHomePostsIsLoading = state => state.posts.home.homePostsIsLoading;
 
 const checkPostProperty = (state, postID) => _.has(state.posts, createPostBadge(postID));
 const getPostProperty = (state, postID) => {
@@ -371,6 +474,8 @@ export const selectComments = (state, postID) => getPostProperty(state, postID).
 export const selectCommentsNextPage = (state, postID) => getPostProperty(state, postID).commentsNextPage;
 export const selectCommentsTotalPages = (state, postID) => getPostProperty(state, postID).commentsTotalPages;
 export const selectCommentsIsLoading = (state, postID) => getPostProperty(state, postID).commentsIsLoading;
+export const selectCommentsIsRefreshing = (state, postID) => getPostProperty(state, postID).commentsIsRefreshing;
+export const selectCommentsIsFirstFetch = (state, postID) => getPostProperty(state, postID).commentsIsFirstFetch;
 export const selectIsSendingComment = (state, postID) => getPostProperty(state, postID).isSendingComment;
 
 const checkTagProperty = (state, tagID) => _.has(state.posts, createTagBadge(tagID));
@@ -384,11 +489,21 @@ const getTagProperty = (state, tagID) => {
 export const selectTagsPhotos = (state, tagID) => getTagProperty(state, tagID).tagsPhotos;
 export const selectTagsPhotosNextPage = (state, tagID) => getTagProperty(state, tagID).tagsPhotosNextPage;
 export const selectTagsPhotosTotalPages = (state, tagID) => getTagProperty(state, tagID).tagsPhotosTotalPages;
+export const selectTagsPhotosIsRefreshing = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsRefreshing;
+export const selectTagsPhotosIsFirstFetch = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsFirstFetch;
 export const selectTagsPhotosIsLoading = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsLoading;
 
-export const selectOthersPhotos = state => state.posts.othersPhotos;
-export const selectOthersPhotosNextPage = state => state.posts.othersPhotosNextPage;
-export const selectOthersPhotosTotalPages = state => state.posts.othersPhotosTotalPages;
-
-export const selectOthersPhotosIsLoading = state => state.posts.othersPhotosIsLoading;
-export const selectChosenPostID = state => state.posts.chosenPostID;
+const checkBoardProperty = (state, boardID) => _.has(state.posts, createBoardBadge(boardID));
+const getBoardProperty = (state, boardID) => {
+  const boardProperty = createBoardBadge(boardID);
+  if (checkBoardProperty(state, boardID)) {
+    return state.posts[boardProperty];
+  }
+  return INITIAL_BOARDS_PHOTOS_STATE;
+};
+export const selectBoardsPhotos = (state, boardID) => getBoardProperty(state, boardID).boardsPhotos;
+export const selectBoardsPhotosTotalPages = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosTotalPages;
+export const selectBoardsPhotosNextPage = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosNextPage;
+export const selectBoardsPhotosIsRefreshing = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosIsRefreshing;
+export const selectBoardsPhotosIsFirstFetch = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosIsFirstFetch;
+export const selectBoardsPhotosIsLoading = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosIsLoading;

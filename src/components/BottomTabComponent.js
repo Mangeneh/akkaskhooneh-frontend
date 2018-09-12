@@ -6,8 +6,8 @@ import { MaterialTopTabBar } from 'react-navigation-tabs';
 import { connect } from 'react-redux';
 import { Colors, Pages } from '../config';
 import NavigationService from '../NavigationService';
-import { selectSelfBoardsIsLoading } from '../reducers/BoardsReducer';
-import { selectHomePostsIsLoading, selectSelfPhotosIsLoading } from '../reducers/PostsReducer';
+import { selectUserBoardsIsLoading } from '../reducers/BoardsReducer';
+import { selectHomePostsIsLoading, selectUserPhotosIsLoading } from '../reducers/PostsReducer';
 import CustomStatusBar from './CustomStatusBar';
 
 class BottomTabComponent extends Component {
@@ -71,8 +71,8 @@ class BottomTabComponent extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoading: selectSelfBoardsIsLoading(state)
-    || selectSelfPhotosIsLoading(state)
+  isLoading: selectUserBoardsIsLoading(state)
+    || selectUserPhotosIsLoading(state)
     || selectHomePostsIsLoading(state),
 });
 

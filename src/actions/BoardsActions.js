@@ -1,57 +1,56 @@
 import { RequestMethods, Server } from '../config';
 
 export const BoardsActions = {
-  GET_SELF_BOARDS_NEXT_PAGE: 'GET_SELF_BOARDS_NEXT_PAGE',
-  GET_SELF_BOARDS_NEXT_PAGE_SUCCESS: 'GET_SELF_BOARDS_NEXT_PAGE_SUCCESS',
-  GET_SELF_BOARDS_NEXT_PAGE_FAIL: 'GET_SELF_BOARDS_NEXT_PAGE_FAIL',
+  GET_USER_BOARDS_NEXT_PAGE: 'GET_USER_BOARDS_NEXT_PAGE',
+  GET_USER_BOARDS_NEXT_PAGE_SUCCESS: 'GET_USER_BOARDS_NEXT_PAGE_SUCCESS',
+  GET_USER_BOARDS_NEXT_PAGE_FAIL: 'GET_USER_BOARDS_NEXT_PAGE_FAIL',
+  //
   ADD_POST_TO_BOARD: 'ADD_POST_TO_BOARD',
   ADD_POST_TO_BOARD_SUCCESS: 'ADD_POST_TO_BOARD_SUCCESS',
   ADD_POST_TO_BOARD_FAIL: 'ADD_POST_TO_BOARD_FAIL',
-  RESET_SELF_BOARDS: 'RESET_SELF_BOARDS',
-  GET_OTHERS_BOARDS_NEXT_PAGE: 'GET_OTHERS_BOARDS_NEXT_PAGE',
-  GET_OTHERS_BOARDS_NEXT_PAGE_SUCCESS: 'GET_OTHERS_BOARDS_NEXT_PAGE_SUCCESS',
-  GET_OTHERS_BOARDS_NEXT_PAGE_FAIL: 'GET_OTHERS_BOARDS_NEXT_PAGE_FAIL',
-  RESET_OTHERS_BOARDS: 'RESET_OTHERS_BOARDS',
-  CHANGE_SELECTED_POST_ID: 'FEED_ADD_CHANGE_SELECTED_POST_ID',
-  CREATE_BOARD_FAIL: 'CREATE_BOARD_FAIL',
-  CREATE_BOARD_SUCCESS: 'CREATE_BOARD_SUCCESS',
+  //
   CREATE_BOARD: 'CREATE_BOARD',
+  CREATE_BOARD_SUCCESS: 'CREATE_BOARD_SUCCESS',
+  CREATE_BOARD_FAIL: 'CREATE_BOARD_FAIL',
+  //
   DELETE_BOARD: 'DELETE_BOARD',
   DELETE_BOARD_SUCCESS: 'DELETE_BOARD_SUCCESS',
   DELETE_BOARD_FAIL: 'DELETE_BOARD_FAIL',
-  REFRESH_SELF_BOARDS: 'REFRESH_SELF_BOARDS',
-  REFRESH_SELF_BOARDS_SUCCESS: 'REFRESH_SELF_BOARDS_SUCCESS',
-  REFRESH_SELF_BOARDS_FAIL: 'REFRESH_SELF_BOARDS_FAIL',
+  //
+  REFRESH_USER_BOARDS: 'REFRESH_USER_BOARDS',
+  REFRESH_USER_BOARDS_SUCCESS: 'REFRESH_USER_BOARDS_SUCCESS',
+  REFRESH_USER_BOARDS_FAIL: 'REFRESH_USER_BOARDS_FAIL',
 };
 
-export const resetSelfBoards = () => ({
-  type: BoardsActions.RESET_SELF_BOARDS,
-});
-
-export const selectedPostChanged = selectedPostID => ({
-  type: BoardsActions.CHANGE_SELECTED_POST_ID,
-  payload: selectedPostID,
-});
-
-export const refreshSelfBoards = () => ({
-  type: BoardsActions.REFRESH_SELF_BOARDS,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_SELF_BOARDS_NEXT_PAGE}1`,
+export const refreshUserBoards = (username) => {
+  const url = username ? `${Server.GET_BOARDS_NEXT_PAGE}${username}/?page=1`
+    : `${Server.GET_BOARDS_NEXT_PAGE}?page=1`;
+  return {
+    type: BoardsActions.REFRESH_USER_BOARDS,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
     },
-  },
-});
+  };
+};
 
-export const getSelfBoardsNextPage = boardsNext => ({
-  type: BoardsActions.GET_SELF_BOARDS_NEXT_PAGE,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_SELF_BOARDS_NEXT_PAGE}${boardsNext}`,
+export const getUserBoardsNextPage = (boardsNext, username) => {
+  const url = username ? `${Server.GET_BOARDS_NEXT_PAGE}${username}/?page=${boardsNext}`
+    : `${Server.GET_BOARDS_NEXT_PAGE}?page=1`;
+  return {
+    type: BoardsActions.GET_USER_BOARDS_NEXT_PAGE,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
     },
-  },
-});
+  };
+};
 
 export const addPostToBoard = (postID, boardID) => ({
   type: BoardsActions.ADD_POST_TO_BOARD,
@@ -63,6 +62,8 @@ export const addPostToBoard = (postID, boardID) => ({
         board_id: boardID,
         post_id: postID,
       },
+      postID,
+      boardID,
     },
   },
 });
@@ -89,6 +90,7 @@ export const deleteBoard = boardID => ({
       data: {
         board_id: boardID,
       },
+      boardID,
     },
   },
 });

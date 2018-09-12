@@ -4,15 +4,18 @@ import {
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import { addPostToBoard, getSelfPhotosNextPage, refreshSelfPhotos } from '../../actions';
+import { addPostToBoard, getUserPhotosNextPage, refreshUserPhotos } from '../../actions';
 import { AddPostToBoardHeader, CustomStatusBar, ProfilePageImageItem } from '../../components';
+import Loading from '../../components/Loading';
 import { Colors, Strings } from '../../config';
 import { strings } from '../../i18n';
 import {
-  selectSelfPhotos,
-  selectSelfPhotosIsLoading,
-  selectSelfPhotosNextPage,
-  selectSelfPhotosTotalPages,
+  selectUserPhotos,
+  selectUserPhotosIsFirstFetch,
+  selectUserPhotosIsLoading,
+  selectUserPhotosIsRefreshing,
+  selectUserPhotosNextPage,
+  selectUserPhotosTotalPages,
 } from '../../reducers/PostsReducer';
 
 class AddPostToBoard extends Component {
@@ -21,9 +24,13 @@ class AddPostToBoard extends Component {
     hasChosen: false,
   };
 
+  componentWillMount() {
+    this.refreshPhotos();
+  }
+
   render() {
     const {
-      refreshSelfPhotos, photosIsLoading, photos, navigation,
+      photosIsRefreshing, photos, photosIsFirstFetch, navigation,
     } = this.props;
     return (
       <View style={{ flex: 1 }}>
@@ -36,19 +43,22 @@ class AddPostToBoard extends Component {
         }}
         >
           <CustomStatusBar />
-          <FlatList
-            onRefresh={() => refreshSelfPhotos()}
-            refreshing={photosIsLoading}
-            onEndReached={() => this.updatePhotos()}
-            style={{
-              flex: 1,
-              marginTop: 8,
-            }}
-            numColumns={2}
-            keyExtractor={(item, index) => item.id}
-            data={photos}
-            renderItem={({ item, index }) => this.renderPhoto(item, index)}
-          />
+          {!photosIsFirstFetch
+            ? (
+              <FlatList
+                onRefresh={() => this.refreshPhotos()}
+                refreshing={photosIsRefreshing}
+                onEndReached={() => this.updatePhotos()}
+                style={{
+                  flex: 1,
+                  marginTop: 8,
+                }}
+                numColumns={2}
+                keyExtractor={(item, index) => item.id}
+                data={photos}
+                renderItem={({ item, index }) => this.renderPhoto(item, index)}
+              />
+            ) : <Loading />}
           {this.renderButton()}
         </View>
       </View>
@@ -127,16 +137,26 @@ class AddPostToBoard extends Component {
 
   updatePhotos() {
     const {
-      photosNextPage, photosTotalPages, getPhotosNextPage, photosIsLoading,
+      photosNextPage, photosTotalPages, getPhotosNextPage, photosIsLoading, photosIsRefreshing,
     } = this.props;
-    if (photosNextPage <= photosTotalPages && !photosIsLoading) {
+    if (photosNextPage <= photosTotalPages && !photosIsLoading && !photosIsRefreshing) {
       getPhotosNextPage(photosNextPage);
     }
   }
 
   onAddPress() {
-    this.props.addPostToBoard(this.state.selectedPostID, this.props.navigation.getParam('boardID'))
-      .then(response => this.props.navigation.goBack());
+    const { addPostToBoard, navigation } = this.props;
+    addPostToBoard(this.state.selectedPostID, navigation.getParam('boardID'))
+      .then(response => navigation.goBack());
+  }
+
+  refreshPhotos() {
+    const {
+      refreshPhotos, photosIsLoading, photosIsRefreshing,
+    } = this.props;
+    if (!photosIsLoading && !photosIsRefreshing) {
+      refreshPhotos();
+    }
   }
 }
 
@@ -151,15 +171,17 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  photos: selectSelfPhotos(state),
-  photosNextPage: selectSelfPhotosNextPage(state),
-  photosTotalPages: selectSelfPhotosTotalPages(state),
-  photosIsLoading: selectSelfPhotosIsLoading(state),
+  photos: selectUserPhotos(state),
+  photosNextPage: selectUserPhotosNextPage(state),
+  photosTotalPages: selectUserPhotosTotalPages(state),
+  photosIsRefreshing: selectUserPhotosIsRefreshing(state),
+  photosIsFirstFetch: selectUserPhotosIsFirstFetch(state),
+  photosIsLoading: selectUserPhotosIsLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPhotosNextPage: photosNext => dispatch(getSelfPhotosNextPage(photosNext)),
-  refreshSelfPhotos: () => dispatch(refreshSelfPhotos()),
+  getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext)),
+  refreshPhotos: () => dispatch(refreshUserPhotos()),
   addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
 });
 

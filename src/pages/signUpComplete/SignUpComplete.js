@@ -7,7 +7,7 @@ import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { accessTokenSet, refreshTokenSet, userUpdated } from '../../actions/UserInfoActions';
+import { accessTokenSet, refreshTokenSet, updateUser } from '../../actions/UsersActions';
 import { BackHeader, CustomLongTextBox, FullStatusBar } from '../../components';
 import {
   Addresses, Colors, Constants, Pages, Strings,
@@ -245,7 +245,7 @@ const mapDispatchToProps = dispatch => ({
   signUpUser: (email, password, username, fullname, bio) => dispatch(signUpUser(email, password, username, fullname, bio)),
   setRefreshToken: refreshToken => dispatch(refreshTokenSet(refreshToken)),
   setAccessToken: accessToken => dispatch(accessTokenSet(accessToken)),
-  updateUser: () => dispatch(userUpdated()),
+  updateUser: () => dispatch(updateUser()),
   reset: () => dispatch(reset()),
 });
 

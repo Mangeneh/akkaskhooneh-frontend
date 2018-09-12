@@ -3,36 +3,40 @@ import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import {
-  getSelfBoardsNextPage,
-  getSelfPhotosNextPage,
-  refreshSelfBoards,
-  refreshSelfPhotos,
+  getUserBoardsNextPage,
+  getUserPhotosNextPage,
+  refreshUserBoards,
+  refreshUserPhotos,
 } from '../../actions';
 import { Board, ProfileHeader } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
-import { Colors, Pages, Strings } from '../../config';
-import { SelfProfileInfo } from '../../containers';
+import {
+  Colors, Pages, Parameters, Strings,
+} from '../../config';
+import { ProfileInfo } from '../../containers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
 import {
-  selectSelfBoards,
-  selectSelfBoardsIsLoading,
-  selectSelfBoardsNextPage,
-  selectSelfBoardsTotalPages,
+  selectUserBoards,
+  selectUserBoardsIsFirstFetch,
+  selectUserBoardsIsLoading,
+  selectUserBoardsIsRefreshing,
+  selectUserBoardsNextPage,
+  selectUserBoardsTotalPages,
 } from '../../reducers/BoardsReducer';
 import {
-  selectSelfPhotos,
-  selectSelfPhotosIsLoading,
-  selectSelfPhotosNextPage,
-  selectSelfPhotosTotalPages,
+  selectUserPhotos,
+  selectUserPhotosIsFirstFetch,
+  selectUserPhotosIsLoading,
+  selectUserPhotosIsRefreshing,
+  selectUserPhotosNextPage,
+  selectUserPhotosTotalPages,
 } from '../../reducers/PostsReducer';
-import { selectSelfUsername } from '../../reducers/UserInfoReducer';
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.updatePhotos();
-    this.updateBoards();
+  componentWillMount() {
+    this.refreshBoards();
+    this.refreshPhotos();
   }
 
   componentDidMount() {
@@ -41,7 +45,7 @@ class Profile extends Component {
 
   render() {
     const {
-      username, refreshSelfPhotos, refreshSelfBoards, boardsIsLoading, boards, postsIsLoading, photosIsLoading, photos, navigation,
+      username, boardsIsRefreshing, boardsIsFirstFetch, boards, photosIsRefreshing, photosIsFirstFetch, photos, navigation,
     } = this.props;
     return (
       <Container>
@@ -62,7 +66,7 @@ class Profile extends Component {
             marginBottom: 8,
           }}
           >
-            <SelfProfileInfo onListPressed={() => this.onListPressed()} />
+            <ProfileInfo onListPressed={() => this.onListPressed()} />
           </View>
           <Tabs
             ref={(component) => {
@@ -90,19 +94,20 @@ class Profile extends Component {
                 flex: 1,
               }}
               >
-                <FlatList
-                  onRefresh={() => refreshSelfBoards()}
-                  refreshing={boardsIsLoading}
-                  onEndReached={() => this.updateBoards()}
-                  style={{
-                    width: '100%',
-                    marginTop: 8,
-                  }}
-                  keyExtractor={(item, index) => item.id.toString()}
-                  data={boards}
-                  renderItem={({ item, index }) => this.renderBoard(item, index)}
-                />
-                {(postsIsLoading) ? (<ActivityIndicator size="large" />) : <View />}
+                {(boardsIsFirstFetch) ? (<ActivityIndicator size="large" />) : (
+                  <FlatList
+                    onRefresh={() => this.refreshBoards()}
+                    refreshing={boardsIsRefreshing}
+                    onEndReached={() => this.updateBoards()}
+                    style={{
+                      width: '100%',
+                      marginTop: 8,
+                    }}
+                    keyExtractor={(item, index) => item.id.toString()}
+                    data={boards}
+                    renderItem={({ item, index }) => this.renderBoard(item, index)}
+                  />
+                )}
               </View>
             </Tab>
             <Tab
@@ -120,8 +125,9 @@ class Profile extends Component {
             >
               <PostsPhotoList
                 data={photos}
-                onRefresh={() => refreshSelfPhotos()}
-                refreshing={photosIsLoading}
+                onRefresh={() => this.refreshPhotos()}
+                refreshing={photosIsRefreshing}
+                isFirstFetch={photosIsFirstFetch}
                 onEndReached={() => this.updatePhotos()}
                 onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
               />
@@ -138,20 +144,38 @@ class Profile extends Component {
     );
   }
 
+  refreshPhotos() {
+    const {
+      refreshPhotos, photosIsLoading, photosIsRefreshing,
+    } = this.props;
+    if (!photosIsLoading && !photosIsRefreshing) {
+      refreshPhotos();
+    }
+  }
+
   updatePhotos() {
     const {
-      photosNextPage, photosTotalPages, getPhotosNextPage, photosIsLoading,
+      photosNextPage, photosTotalPages, getPhotosNextPage, photosIsLoading, photosIsRefreshing,
     } = this.props;
-    if (photosNextPage <= photosTotalPages && !photosIsLoading) {
+    if (photosNextPage <= photosTotalPages && !photosIsLoading && !photosIsRefreshing) {
       getPhotosNextPage(photosNextPage);
+    }
+  }
+
+  refreshBoards() {
+    const {
+      refreshBoards, boardsIsLoading, boardsIsRefreshing,
+    } = this.props;
+    if (!boardsIsLoading && !boardsIsRefreshing) {
+      refreshBoards();
     }
   }
 
   updateBoards() {
     const {
-      boardsNextPage, getBoardsNextPage, boardsTotalPages, boardsIsLoading,
+      boardsNextPage, getBoardsNextPage, boardsTotalPages, boardsIsLoading, boardsIsRefreshing,
     } = this.props;
-    if (boardsNextPage <= boardsTotalPages && !boardsIsLoading) {
+    if (boardsNextPage <= boardsTotalPages && !boardsIsLoading && !boardsIsRefreshing) {
       getBoardsNextPage(boardsNextPage);
     }
   }
@@ -173,23 +197,32 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  username: selectSelfUsername(state),
-  photos: selectSelfPhotos(state),
-  photosNextPage: selectSelfPhotosNextPage(state),
-  photosTotalPages: selectSelfPhotosTotalPages(state),
-  photosIsLoading: selectSelfPhotosIsLoading(state),
-  boards: selectSelfBoards(state),
-  boardsNextPage: selectSelfBoardsNextPage(state),
-  boardsTotalPages: selectSelfBoardsTotalPages(state),
-  boardsIsLoading: selectSelfBoardsIsLoading(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  return {
+    photos: selectUserPhotos(state, username),
+    photosNextPage: selectUserPhotosNextPage(state, username),
+    photosTotalPages: selectUserPhotosTotalPages(state, username),
+    photosIsFirstFetch: selectUserPhotosIsFirstFetch(state, username),
+    photosIsRefreshing: selectUserPhotosIsRefreshing(state, username),
+    photosIsLoading: selectUserPhotosIsLoading(state, username),
+    boards: selectUserBoards(state, username),
+    boardsNextPage: selectUserBoardsNextPage(state, username),
+    boardsTotalPages: selectUserBoardsTotalPages(state, username),
+    boardsIsFirstFetch: selectUserBoardsIsFirstFetch(state, username),
+    boardsIsRefreshing: selectUserBoardsIsRefreshing(state, username),
+    boardsIsLoading: selectUserBoardsIsLoading(state, username),
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  refreshSelfPhotos: () => dispatch(refreshSelfPhotos()),
-  refreshSelfBoards: () => dispatch(refreshSelfBoards()),
-  getPhotosNextPage: photosNext => dispatch(getSelfPhotosNextPage(photosNext)),
-  getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  return {
+    refreshPhotos: () => dispatch(refreshUserPhotos(username)),
+    refreshBoards: () => dispatch(refreshUserBoards(username)),
+    getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext, username)),
+    getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext, username)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

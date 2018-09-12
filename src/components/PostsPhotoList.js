@@ -4,10 +4,8 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Graphics } from '../config';
-import {
-  extractPostID,
-  extractPostPictureUri,
-} from '../helpers';
+import { extractPostID, extractPostPictureUri } from '../helpers';
+import Loading from './Loading';
 
 export default class PostsPhotoList extends Component {
   componentWillMount() {
@@ -19,29 +17,32 @@ export default class PostsPhotoList extends Component {
 
   render() {
     const {
-      data, onRefresh, refreshing, onEndReached,
+      data, onRefresh, refreshing, onEndReached, isFirstFetch,
     } = this.props;
     return (
-      <View style={{
-        backgroundColor: Colors.WHITE_BACK,
-        flex: 1,
-        paddingLeft: 8,
-      }}
-      >
-        <FlatList
-          onRefresh={() => onRefresh()}
-          refreshing={refreshing}
-          onEndReached={() => onEndReached()}
-          style={{
+      (!isFirstFetch
+        ? (
+          <View style={{
+            backgroundColor: Colors.WHITE_BACK,
             flex: 1,
-            marginTop: 8,
+            paddingLeft: 8,
           }}
-          numColumns={2}
-          keyExtractor={(item, index) => item.id}
-          data={data}
-          renderItem={({ item, index }) => this.renderPostPhoto(item, index)}
-        />
-      </View>
+          >
+            <FlatList
+              onRefresh={() => onRefresh()}
+              refreshing={refreshing}
+              onEndReached={() => onEndReached()}
+              style={{
+                flex: 1,
+                marginTop: 8,
+              }}
+              numColumns={2}
+              keyExtractor={(item, index) => item.id}
+              data={data}
+              renderItem={({ item, index }) => this.renderPostPhoto(item, index)}
+            />
+          </View>
+        ) : <Loading />)
     );
   }
 

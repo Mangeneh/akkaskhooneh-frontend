@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Graphics } from '../config';
+import { extractPostPictureUri } from '../helpers';
 
 class ProfilePageImageItem extends Component {
   componentWillMount() {
@@ -13,16 +14,14 @@ class ProfilePageImageItem extends Component {
 
   render() {
     const { image } = this.props;
-    const { picture, id } = image;
+    const uri = extractPostPictureUri(image);
     return (
       <TouchableOpacity
         style={styles.imageContainer}
         onPress={() => this.handlePress()}
       >
         <FastImage
-          source={{
-            uri: picture,
-          }}
+          source={{ uri }}
           resizeMode={FastImage.resizeMode.content}
           style={{
             height: this.imageSize,

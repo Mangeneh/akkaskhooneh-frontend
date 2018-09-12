@@ -47,4 +47,3 @@ export function extractIsLiked(post) {
 export function extractCommentsCount(post) {
   return post.comments_count;
 }
-

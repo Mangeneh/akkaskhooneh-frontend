@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SocialIcon } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { accessTokenSet, refreshTokenSet, userUpdated } from '../../actions/UserInfoActions';
+import { accessTokenSet, refreshTokenSet, updateUser } from '../../actions/UsersActions';
 import {
   CustomStatusBar,
   EmailTextBox,
@@ -239,7 +239,7 @@ const mapDispatchToProps = dispatch => ({
   loginUser: (email, password) => dispatch(loginUser(email, password)),
   setRefreshToken: refreshToken => dispatch(refreshTokenSet(refreshToken)),
   setAccessToken: accessToken => dispatch(accessTokenSet(accessToken)),
-  updateUser: () => dispatch(userUpdated()),
+  updateUser: () => dispatch(updateUser()),
   resetEmail: () => dispatch(resetEmail()),
   resetPassword: () => dispatch(resetPassword()),
   reset: () => dispatch(reset()),

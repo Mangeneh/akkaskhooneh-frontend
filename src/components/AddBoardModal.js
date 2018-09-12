@@ -6,14 +6,13 @@ import {
   ActivityIndicator, FlatList, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { getSelfBoardsNextPage } from '../actions';
+import { getUserBoardsNextPage } from '../actions';
 import { Colors, Constants, Strings } from '../config';
 import { strings } from '../i18n';
 import {
-  selectSelfBoards,
-  selectSelfBoardsIsLoading,
-  selectSelfBoardsNextPage,
-  selectSelfBoardsTotalPages,
+  selectUserBoards, selectUserBoardsIsLoading,
+  selectUserBoardsNextPage,
+  selectUserBoardsTotalPages
 } from '../reducers/BoardsReducer';
 
 class AddBoardModal extends Component {
@@ -149,14 +148,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  boards: selectSelfBoards(state),
-  boardsNextPage: selectSelfBoardsNextPage(state),
-  boardsTotalPages: selectSelfBoardsTotalPages(state),
-  boardsIsLoading: selectSelfBoardsIsLoading(state),
+  boards: selectUserBoards(state),
+  boardsNextPage: selectUserBoardsNextPage(state),
+  boardsTotalPages: selectUserBoardsTotalPages(state),
+  boardsIsLoading: selectUserBoardsIsLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  getBoardsNextPage: boardsNext => dispatch(getSelfBoardsNextPage(boardsNext)),
+  getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBoardModal);

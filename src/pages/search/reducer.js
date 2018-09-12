@@ -1,9 +1,12 @@
+import GlobalActions from '../../actions';
 import { SearchedPostsActions } from './actions';
 
 const INITIAL_SEARCH_TOP_TAGS_STATE = {
   searchTopTags: [],
   searchTopTagsNextPage: 1,
   searchTopTagsTotalPages: 1,
+  searchTopTagsIsFirstFetch: true,
+  searchTopTagsIsRefreshing: false,
   searchTopTagsIsLoading: false,
 };
 
@@ -23,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
     case REFRESH_SEARCH_TOP_TAGS:
       return {
         ...state,
-        searchTopTagsIsLoading: true,
+        searchTopTagsIsRefreshing: true,
       };
     case REFRESH_SEARCH_TOP_TAGS_SUCCESS:
       return {
@@ -31,7 +34,8 @@ export default (state = INITIAL_STATE, action) => {
         searchTopTags: action.payload.data.results,
         searchTopTagsNextPage: 2,
         searchTopTagsTotalPages: action.payload.data.total_pages,
-        searchTopTagsIsLoading: false,
+        searchTopTagsIsFirstFetch: false,
+        searchTopTagsIsRefreshing: false,
       };
     case GET_SEARCH_TOP_TAGS_NEXT_PAGE:
       return {
@@ -46,6 +50,8 @@ export default (state = INITIAL_STATE, action) => {
         searchTopTagsTotalPages: action.payload.data.total_pages,
         searchTopTagsIsLoading: false,
       };
+    case GlobalActions.RESET_EVERYTHING:
+      return INITIAL_STATE;
     default:
       return state;
   }
@@ -54,4 +60,6 @@ export default (state = INITIAL_STATE, action) => {
 export const selectSearchTopTags = state => state.searchPage.searchTopTags;
 export const selectSearchTopTagsNextPage = state => state.searchPage.searchTopTagsNextPage;
 export const selectSearchTopTagsTotalPages = state => state.searchPage.searchTopTagsTotalPages;
+export const selectSearchTopTagsIsRefreshing = state => state.searchPage.searchTopTagsIsRefreshing;
+export const selectSearchTopTagsIsFirstFetch = state => state.searchPage.searchTopTagsIsFirstFetch;
 export const selectSearchTopTagsIsLoading = state => state.searchPage.searchTopTagsIsLoading;
