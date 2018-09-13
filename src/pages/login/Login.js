@@ -203,7 +203,7 @@ class Login extends Component {
     setAccessToken(access);
     setRefreshToken(refresh);
     updateUser();
-    navigation.navigate('Main');
+    navigation.navigate(Pages.MAIN);
     reset();
   }
 

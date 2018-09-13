@@ -7,6 +7,7 @@ import {
   getUserPhotosNextPage,
   refreshUserBoards,
   refreshUserPhotos,
+  updateUser,
 } from '../../actions';
 import { Board, ProfileHeader } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
@@ -35,6 +36,7 @@ import {
 
 class Profile extends Component {
   componentWillMount() {
+    this.props.updateUser();
     this.refreshBoards();
     this.refreshPhotos();
   }
@@ -45,8 +47,9 @@ class Profile extends Component {
 
   render() {
     const {
-      username, boardsIsRefreshing, boardsIsFirstFetch, boards, photosIsRefreshing, photosIsFirstFetch, photos, navigation,
+      boardsIsRefreshing, boardsIsFirstFetch, boards, photosIsRefreshing, photosIsFirstFetch, photos, navigation,
     } = this.props;
+    const username = navigation.getParam(Parameters.USERNAME);
     return (
       <Container>
         <ProfileHeader
@@ -180,10 +183,6 @@ class Profile extends Component {
     }
   }
 
-  onListPressed() {
-    this.props.navigation.push(Pages.CONTACT_LIST, { username: this.props.username });
-  }
-
   onEditPress() {
     NavigationService.navigate(Pages.PROFILE_EDIT);
   }
@@ -218,6 +217,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const username = ownProps.navigation.getParam(Parameters.USERNAME);
   return {
+    updateUser: () => dispatch(updateUser(username)),
     refreshPhotos: () => dispatch(refreshUserPhotos(username)),
     refreshBoards: () => dispatch(refreshUserBoards(username)),
     getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext, username)),

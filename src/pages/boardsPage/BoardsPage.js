@@ -34,7 +34,7 @@ class BoardsPage extends Component {
         <CustomStatusBar />
         <BoardsPageHeader
           boardName={navigation.getParam('board').name}
-          onBackPress={() => navigation.navigate(Pages.MAIN)}
+          onBackPress={() => navigation.goBack()}
           onDeletePress={() => this.confirmDeleteBoard()}
           onAddPress={() => this.addSelfPostsToBoard()}
         />

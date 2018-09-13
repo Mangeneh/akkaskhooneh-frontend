@@ -16,7 +16,9 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { withNavigation } from 'react-navigation';
-import { Colors, Constants, Graphics } from '../config';
+import {
+  Colors, Constants, Graphics, Pages, Parameters,
+} from '../config';
 import {
   extractCaption,
   extractCommentsCount,
@@ -144,7 +146,8 @@ class Post extends Component {
   }
 
   showProfile() {
-
+    const { navigation, item } = this.props;
+    navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: extractOwnerUsername(item) });
   }
 }
 
