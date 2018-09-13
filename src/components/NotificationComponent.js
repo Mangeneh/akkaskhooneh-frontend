@@ -1,8 +1,8 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
 import { Constants, Strings } from '../config';
+import { timeDiff } from '../helpers/timeDiff';
 import { strings } from '../i18n';
-import {timeDiff} from '../helpers/timeDiff';
 
 export default class NotificationComponent extends Component {
   render() {
@@ -30,7 +30,7 @@ export default class NotificationComponent extends Component {
   }
 
   renderPic() {
-	const { notification } = this.props;
+    const { notification } = this.props;
     return (
       <Thumbnail
         style={{

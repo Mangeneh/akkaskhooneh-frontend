@@ -5,6 +5,8 @@ export const Server = {
   SIGN_UP_USER: '/auth/register/',
   UPDATE_USER: '/social/profile/',
   UPDATE_ACCESS_TOKEN: '/auth/token/refresh/',
+  FORGOT_PASSWORD: '/auth/forgotpassword/',
+  SEND_TOKEN: '/auth/forgotpassword/verify/',
   // Social - Profile
   EDIT_PROFILE: '/auth/editprofile/',
   CHANGE_PROFILE_PIC: '/social/change-pic/',
@@ -33,5 +35,4 @@ export const Server = {
   GET_SEARCH_FOLLOWERS_RESULTS: '/social/search/followers/',
   GET_SEARCH_FOLLOWINGS_RESULTS: '/social/search/following/',
   GET_NOTIFICATIONS: '/social/notification/?page=',
-  FORGOT_PASSWORD: '/auth/forgotpassword/',
 };

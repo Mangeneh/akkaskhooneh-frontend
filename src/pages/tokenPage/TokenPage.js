@@ -1,17 +1,16 @@
-import { Icon, Text, Toast } from 'native-base';
+import { Icon, Text, Toast, Input } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { BackHeader, CustomStatusBar, EmailTextBox } from '../../components';
-import { Colors, Constants, Strings, Pages } from '../../config';
-import { ForgotPasswordButton } from '../../containers';
+import { BackHeader, CustomStatusBar } from '../../components';
+import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
-import { emailChanged, sendEmailForForgotPassword } from './actions';
-import { selectError, selectMode } from './reducer';
-import NavigationService from '../../NavigationService';
+import CodeInput from 'react-native-confirmation-code-input';
+import { sendToken } from './actions';
 
-class ForgotPassword extends Component {
+
+class TokenPage extends Component {
   state = {
     email: '',
   };
@@ -59,21 +58,35 @@ class ForgotPassword extends Component {
                 <Text style={{
                   color: 'white',
                   fontSize: Constants.TEXT_NORMAL_SIZE,
+                  textAlign: 'center',
                   marginBottom: 20,
                 }}
                 >
-                  {strings(Strings.FORGOT_PASSWORD_ENTER_EMAIL)}
+                  {strings(Strings.ENTER_TOKEN)}
                 </Text>
               </View>
               <View>
-                <EmailTextBox
-                  error={error}
-                  placeholder={strings(Strings.EMAIL_ADDRESS)}
-                  value={email}
-                  onChangeEmail={(email) => {
-                    this.setState({ email: email.toLowerCase() });
-                    this.props.validateEmail(email);
-                  }}
+                <CodeInput
+                    // keyboardType="numeric"
+                    codeLength={6}
+                    className='border-circle'
+                    autoFocus={false}
+                    codeInputStyle={{ fontWeight: '800' }}
+                    onFulfill={(code) => this.props.sendToken(code)
+                        .then((result) => {
+                            console.warn(response)
+                        //   NavigationService.navigate(Pages.TOKEN_PAGE);
+                        })
+                        .catch((error) => {
+                            console.warn(error)
+                            Toast.show({
+                                text: strings(Strings.INVALID_TOKEN),
+                                textStyle: { textAlign: 'center' },
+                                position: 'bottom',
+                                type: 'danger',
+                              });
+                        })
+                    }
                 />
               </View>
             </View>
@@ -84,10 +97,6 @@ class ForgotPassword extends Component {
               flex: 1,
             }}
             >
-              <ForgotPasswordButton
-                onPress={() => this.onSaveChangesPressed()}
-                text={strings(Strings.SEND_FORGOT_LINK)}
-              />
             </View>
           </View>
         </KeyboardAwareScrollView>
@@ -98,36 +107,10 @@ class ForgotPassword extends Component {
   onBackPress() {
     this.props.navigation.goBack();
   }
-
-  onSaveChangesPressed() {
-    const { email } = this.state;
-    this.props.sendEmailForForgotPassword(email)
-      .then((result) => {
-        NavigationService.navigate(Pages.TOKEN_PAGE);
-      })
-      .catch((error) => {
-        this.onFail();
-      });
-  }
-
-  onFail() {
-    Toast.show({
-      text: strings(Strings.NON_EXISTING_EMAIL),
-      textStyle: { textAlign: 'center' },
-      position: 'bottom',
-      type: 'danger',
-    });
-  }
 }
 
-const mapStateToProps = state => ({
-  mode: selectMode(state),
-  error: selectError(state),
-});
-
 const mapDispatchToProps = dispatch => ({
-  sendEmailForForgotPassword: email => dispatch(sendEmailForForgotPassword(email)),
-  validateEmail: email => dispatch(emailChanged(email)),
+  sendToken: token => dispatch(sendToken(token)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
+export default connect(null, mapDispatchToProps)(TokenPage);

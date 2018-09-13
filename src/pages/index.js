@@ -19,6 +19,7 @@ import SignUp from './signUp/SignUp';
 import SignUpComplete from './signUpComplete/SignUpComplete';
 import TagsPhotos from './tagsPhotos/TagsPhotos';
 import ForgotPassword from './forgotPassword/ForgotPassword';
+import TokenPage from './tokenPage/TokenPage';
 
 export {
   Login,
@@ -42,4 +43,5 @@ export {
   TagsPhotos,
   ContactList,
   ForgotPassword,
+  TokenPage,
 };

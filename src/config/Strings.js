@@ -88,4 +88,6 @@ export const Strings = {
   DAY: 'day',
   MINUTE: 'minute',
   NOW: 'now',
+  ENTER_TOKEN: 'enter_token',
+  INVALID_TOKEN: 'invalid_token'
 };

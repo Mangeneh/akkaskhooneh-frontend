@@ -15,6 +15,7 @@ import { accessTokenUpdated } from './src/actions/UsersActions';
 import { Actions as ForgotPasswordActions } from './src/pages/forgotPassword/actions';
 import { Actions as SignUpActions } from './src/pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
+import { Actions as SendTokenActions } from './src/pages/tokenPage/actions';
 import rootReducer from './src/reducers';
 import { selectAccessToken, selectRefreshToken } from './src/reducers/UsersReducer';
 import RootStack from './src/RootStack';
@@ -46,10 +47,10 @@ const store = createStore(
           {
             success({ getState, dispatch, getSourceAction }, request) {
               const { type } = request.reduxSourceAction;
-              if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL || type === ForgotPasswordActions.FORGOT_PASSWORD) {
+              if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL || type === ForgotPasswordActions.FORGOT_PASSWORD || type === SendTokenActions.SEND_TOKEN) {
                 return request;
               }
-              request.headers.authorization = `Bearer ${getState().users.self.accessToken}`;
+              request.headers.authorization = `Bearer ${selectAccessToken(getState())}`;
               return request;
             },
           },

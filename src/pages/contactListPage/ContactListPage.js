@@ -4,26 +4,33 @@ import {
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
+import {
+  getFollowers,
+  getFollowings,
+  refreshFollowers,
+  refreshFollowings,
+  startNewSearch,
+} from '../../actions/UsersActions';
 import { ContactItem, CustomStatusBar } from '../../components';
-import { Colors, Constants, Strings } from '../../config';
+import Loading from '../../components/Loading';
+import {
+  Colors, Constants, Parameters, Strings,
+} from '../../config';
 import { strings } from '../../i18n';
 import {
-  getSearchFollowers,
-  getSearchFollowings,
-  refreshSearchFollowers,
-  refreshSearchFollowings,
-  startNewSearch,
-} from './actions';
-import {
-  selectSearchFollowers,
-  selectSearchFollowersIsLoading,
-  selectSearchFollowersNextPage,
-  selectSearchFollowersTotalPages,
-  selectSearchFollowings,
-  selectSearchFollowingsIsLoading,
-  selectSearchFollowingsNextPage,
-  selectSearchFollowingsTotalPages,
-} from './reducer';
+  selectFollowers,
+  selectFollowersIsFirstFetch,
+  selectFollowersIsLoading,
+  selectFollowersIsRefreshing,
+  selectFollowersNextPage,
+  selectFollowersTotalPages,
+  selectFollowings,
+  selectFollowingsIsFirstFetch,
+  selectFollowingsIsLoading,
+  selectFollowingsIsRefreshing,
+  selectFollowingsNextPage,
+  selectFollowingsTotalPages,
+} from '../../reducers/UsersReducer';
 
 class ContactList extends Component {
   constructor(props) {
@@ -34,11 +41,16 @@ class ContactList extends Component {
   }
 
   componentWillMount() {
-    this.updateFollowings('');
-    this.updateFollowers('');
+    this.refreshFollowings('');
+    this.refreshFollowers('');
+  }
+
+  componentDidMount() {
+    setTimeout(this.tabs.goToPage.bind(this.tabs, 1));
   }
 
   render() {
+    console.log(this.props);
     return (
       <View style={{ flex: 1 }}>
         <View>
@@ -108,6 +120,7 @@ class ContactList extends Component {
 
   renderHeader() {
     const { searchText } = this.state;
+    const { refreshFollowings, refreshFollowers } = this.props;
     return (
       <Header
         androidStatusBarColor={Colors.BASE}
@@ -131,19 +144,8 @@ class ContactList extends Component {
             value={searchText}
             onChangeText={(searchText) => {
               this.setState({ searchText });
-              this.props.refreshSearchFollowings(searchText);
-              this.props.refreshSearchFollowers(searchText)
-                .then((response) => {
-                  console.warn(response);
-                })
-                .catch((error) => {
-                  Toast.show({
-                    text: strings(Strings.SEARCH_FAIL),
-                    textStyle: { textAlign: 'center' },
-                    position: 'bottom',
-                    type: 'danger',
-                  });
-                });
+              this.refreshFollowings(searchText);
+              this.refreshFollowers(searchText);
             }}
           />
           <Icon name="ios-search" style={{ color: Colors.BASE }} />
@@ -154,102 +156,160 @@ class ContactList extends Component {
 
   renderFollowings() {
     const { searchText } = this.state;
-    const { refreshSearchFollowings, searchFollowingsIsLoading, searchFollowings } = this.props;
-    return (
-      <FlatList
-        onRefresh={() => refreshSearchFollowings(searchText)}
-        refreshing={searchFollowingsIsLoading}
-        onEndReached={() => {
-          this.updateFollowings(searchText);
-        }}
-        style={{
-          width: '100%',
-          flex: 1,
-          marginTop: 8,
-        }}
-        keyExtractor={(item, index) => index.toString()}
-        data={searchFollowings}
-        renderItem={({ item, index }) => this.renderFollowing(item, index)}
-      />
+    const {
+      refreshFollowings, followingsIsRefreshing, followings, followingsIsFirstFetch,
+    } = this.props;
+    return (!followingsIsFirstFetch
+      ? (
+        <FlatList
+          onRefresh={() => refreshFollowings(searchText)}
+          refreshing={followingsIsRefreshing}
+          onEndReached={() => {
+            this.updateFollowings(searchText);
+          }}
+          style={{
+            width: '100%',
+            flex: 1,
+            marginTop: 8,
+          }}
+          keyExtractor={(item, index) => index.toString()}
+          data={followings}
+          renderItem={({ item, index }) => this.renderFollowingItem(item, index)}
+        />
+      ) : <Loading />
     );
   }
 
-  renderFollowing(item, index) {
+  renderFollowingItem(item, index) {
     return <ContactItem user={item} />;
   }
 
   updateFollowings(text) {
     const {
-      searchFollowingsNextPage, searchFollowingsTotalPages, searchFollowingsIsLoading, getSearchFollowingsNextPage,
+      followingsNextPage, followingsTotalPages, followingsIsLoading, getFollowingsNextPage, followingsIsRefreshing,
     } = this.props;
-    if (searchFollowingsNextPage <= searchFollowingsTotalPages && !searchFollowingsIsLoading) {
-      getSearchFollowingsNextPage(text, searchFollowingsNextPage)
+    if (followingsNextPage <= followingsTotalPages && !followingsIsLoading
+      && !followingsIsRefreshing) {
+      getFollowingsNextPage(text, followingsNextPage)
         .then((response) => {
-          // console.warn(response);
+          console.log(response);
         })
         .catch((error) => {
-          // console.warn(error);
+          console.log(error);
+        });
+    }
+  }
+
+  refreshFollowings(text) {
+    const {
+      followingsIsLoading, refreshFollowings, followingsIsRefreshing,
+    } = this.props;
+    if (!followingsIsLoading && !followingsIsRefreshing) {
+      refreshFollowings(text)
+        .then((response) => {
+        })
+        .catch((error) => {
+          Toast.show({
+            text: strings(Strings.SEARCH_FAIL),
+            textStyle: { textAlign: 'center' },
+            position: 'bottom',
+            type: 'danger',
+          });
         });
     }
   }
 
   renderFollowers() {
     const { searchText } = this.state;
-    const { refreshSearchFollowers, searchFollowersIsLoading, searchFollowers } = this.props;
-    return (
-      <FlatList
-        onRefresh={() => refreshSearchFollowers(searchText)}
-        refreshing={searchFollowersIsLoading}
-        onEndReached={() => {
-          this.updateFollowers(searchText);
-        }}
-        style={{
-          width: '100%',
-          marginTop: 8,
-        }}
-        keyExtractor={(item, index) => index.toString()}
-        data={searchFollowers}
-        renderItem={({ item, index }) => this.renderFollower(item, index)}
-      />
+    const {
+      refreshFollowers, followersIsRefreshing, followers, followersIsFirstFetch,
+    } = this.props;
+    return (!followersIsFirstFetch
+      ? (
+        <FlatList
+          onRefresh={() => refreshFollowers(searchText)}
+          refreshing={followersIsRefreshing}
+          onEndReached={() => {
+            this.updateFollowers(searchText);
+          }}
+          style={{
+            width: '100%',
+            marginTop: 8,
+          }}
+          keyExtractor={(item, index) => index.toString()}
+          data={followers}
+          renderItem={({ item, index }) => this.renderFollowerItem(item, index)}
+        />
+      ) : <Loading />
     );
   }
 
-  renderFollower(item, index) {
+  renderFollowerItem(item, index) {
     return <ContactItem user={item} />;
   }
 
   updateFollowers(text) {
     const {
-      searchFollowersNextPage, searchFollowersTotalPages, searchFollowersIsLoading, getSearchFollowersNextPage,
+      followersNextPage, followersTotalPages, followersIsLoading, getFollowersNextPage, followersIsRefreshing,
     } = this.props;
-    if (searchFollowersNextPage <= searchFollowersTotalPages && !searchFollowersIsLoading) {
-      getSearchFollowersNextPage(text, searchFollowersNextPage)
+    if (followersNextPage <= followersTotalPages && !followersIsLoading
+      && !followersIsRefreshing) {
+      getFollowersNextPage(text, followersNextPage)
         .then((response) => {
         })
         .catch((error) => {
+          Toast.show({
+            text: strings(Strings.SEARCH_FAIL),
+            textStyle: { textAlign: 'center' },
+            position: 'bottom',
+            type: 'danger',
+          });
+        });
+    }
+  }
+
+  refreshFollowers(text) {
+    const {
+      followersIsLoading, followersIsRefreshing, refreshFollowers,
+    } = this.props;
+    if (!followersIsLoading && !followersIsRefreshing) {
+      refreshFollowers(text)
+        .then((response) => {
+        })
+        .catch((error) => {
+          Toast.show({
+            text: strings(Strings.SEARCH_FAIL),
+            textStyle: { textAlign: 'center' },
+            position: 'bottom',
+            type: 'danger',
+          });
         });
     }
   }
 }
 
 const mapStateToProps = state => ({
-  searchFollowings: selectSearchFollowings(state),
-  searchFollowingsNextPage: selectSearchFollowingsNextPage(state),
-  searchFollowingsTotalPages: selectSearchFollowingsTotalPages(state),
-  searchFollowingsIsLoading: selectSearchFollowingsIsLoading(state),
-  searchFollowers: selectSearchFollowers(state),
-  searchFollowersNextPage: selectSearchFollowersNextPage(state),
-  searchFollowersTotalPages: selectSearchFollowersTotalPages(state),
-  searchFollowersIsLoading: selectSearchFollowersIsLoading(state),
+  followings: selectFollowings(state),
+  followingsNextPage: selectFollowingsNextPage(state),
+  followingsTotalPages: selectFollowingsTotalPages(state),
+  followingsIsFirstFetch: selectFollowingsIsFirstFetch(state),
+  followingsIsRefreshing: selectFollowingsIsRefreshing(state),
+  followingsIsLoading: selectFollowingsIsLoading(state),
+  followers: selectFollowers(state),
+  followersNextPage: selectFollowersNextPage(state),
+  followersTotalPages: selectFollowersTotalPages(state),
+  followersIsFirstFetch: selectFollowersIsFirstFetch(state),
+  followersIsRefreshing: selectFollowersIsRefreshing(state),
+  followersIsLoading: selectFollowersIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const username = ownProps.navigation.getParam('username');
+  const username = ownProps.navigation.getParam(Parameters.USERNAME);
   return {
-    refreshSearchFollowings: text => dispatch(refreshSearchFollowings(text, username)),
-    getSearchFollowingsNextPage: (text, followingsNext) => dispatch(getSearchFollowings(text, followingsNext, username)),
-    refreshSearchFollowers: text => dispatch(refreshSearchFollowers(text, username)),
-    getSearchFollowersNextPage: (text, followersNext) => dispatch(getSearchFollowers(text, followersNext, username)),
+    refreshFollowings: text => dispatch(refreshFollowings(text, username)),
+    getFollowingsNextPage: (text, followingsNext) => dispatch(getFollowings(text, followingsNext, username)),
+    refreshFollowers: text => dispatch(refreshFollowers(text, username)),
+    getFollowersNextPage: (text, followersNext) => dispatch(getFollowers(text, followersNext, username)),
     startNewSearch: () => dispatch(startNewSearch()),
   };
 };

@@ -8,16 +8,7 @@ export const NotificationActions = {
   REFRESH_NOTIFICATION: 'REFRESH_NOTIFICATION',
   REFRESH_NOTIFICATION_SUCCESS: 'REFRESH_NOTIFICATION_SUCCESS',
   REFRESH_NOTIFICATION_FAIL: 'REFRESH_NOTIFICATION_FAIL',
-  START_NEW_SEARCH: 'START_NEW_SEARCH',
 };
-
-export const resetNotifications = () => ({
-  type: NotificationActions.RESET_NOTIFICATION,
-});
-
-export const startNewSearch = () => ({
-  type: NotificationActions.START_NEW_SEARCH,
-});
 
 export const refreshNotifications = () => ({
   type: NotificationActions.REFRESH_NOTIFICATION,
@@ -29,7 +20,7 @@ export const refreshNotifications = () => ({
   },
 });
 
-export const getNotifications = (notificationsNext) => ({
+export const getNotifications = notificationsNext => ({
   type: NotificationActions.GET_NOTIFICATION_NEXT_PAGE,
   payload: {
     request: {

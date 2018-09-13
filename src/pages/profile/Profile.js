@@ -66,7 +66,7 @@ class Profile extends Component {
             marginBottom: 8,
           }}
           >
-            <ProfileInfo onListPressed={() => this.onListPressed()} />
+            <ProfileInfo username={navigation.getParam(Parameters.USERNAME)} />
           </View>
           <Tabs
             ref={(component) => {

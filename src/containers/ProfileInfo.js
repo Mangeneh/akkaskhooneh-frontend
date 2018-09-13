@@ -4,7 +4,9 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Colors, Parameters, Strings } from '../config';
+import {
+  Colors, Pages, Parameters, Strings,
+} from '../config';
 import { strings } from '../i18n';
 import {
   selectBio,
@@ -17,7 +19,7 @@ import {
 class ProfileInfo extends Component {
   render() {
     const {
-      bio, fullName, followers, followings, onListPressed,
+      bio, fullName, followers, followings,
     } = this.props;
     return (
       <View style={{
@@ -34,7 +36,7 @@ class ProfileInfo extends Component {
             alignItems: 'flex-start',
           }}
           >
-            <TouchableOpacity onPress={onListPressed}>
+            <TouchableOpacity onPress={() => this.onSocialPress()}>
               <Text style={{
                 marginRight: 16,
                 fontSize: 12,
@@ -44,7 +46,7 @@ class ProfileInfo extends Component {
                 {strings(Strings.NUM_OF_FOLLOWINGS, { number: followings })}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onListPressed}>
+            <TouchableOpacity onPress={() => this.onSocialPress()}>
               <Text style={{
                 fontSize: 12,
                 color: Colors.ICON,
@@ -71,6 +73,11 @@ class ProfileInfo extends Component {
       />
     );
   }
+
+  onSocialPress() {
+    const { absoluteUsername } = this.props;
+    this.props.navigation.push(Pages.CONTACT_LIST, { [Parameters.USERNAME]: absoluteUsername });
+  }
 }
 
 const styles = StyleSheet.create({
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  const { username } = ownProps;
   return {
     bio: selectBio(state, username),
     profilePicture: selectProfilePicture(state, username),

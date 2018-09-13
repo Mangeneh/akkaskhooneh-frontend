@@ -8,6 +8,18 @@ export const UsersActions = {
   UPDATE_USER_INFO: 'UPDATE_USER_INFO',
   UPDATE_USER_INFO_SUCCESS: 'UPDATE_USER_INFO_SUCCESS',
   UPDATE_USER_INFO_FAIL: 'UPDATE_USER_INFO_FAIL',
+  GET_FOLLOWINGS_NEXT_PAGE: 'GET_FOLLOWINGS_NEXT_PAGE',
+  GET_FOLLOWINGS_NEXT_PAGE_SUCCESS: 'GET_FOLLOWINGS_NEXT_PAGE_SUCCESS',
+  GET_FOLLOWINGS_NEXT_PAGE_FAIL: 'GET_FOLLOWINGS_NEXT_PAGE_FAIL',
+  REFRESH_FOLLOWINGS: 'REFRESH_FOLLOWINGS',
+  REFRESH_FOLLOWINGS_SUCCESS: 'REFRESH_FOLLOWINGS_SUCCESS',
+  REFRESH_FOLLOWINGS_FAIL: 'REFRESH_FOLLOWINGS_FAIL',
+  GET_FOLLOWERS_NEXT_PAGE: 'GET_FOLLOWERS_NEXT_PAGE',
+  GET_FOLLOWERS_NEXT_PAGE_SUCCESS: 'GET_FOLLOWERS_NEXT_PAGE_SUCCESS',
+  GET_FOLLOWERS_NEXT_PAGE_FAIL: 'GET_FOLLOWERS_NEXT_PAGE_FAIL',
+  REFRESH_FOLLOWERS: 'REFRESH_FOLLOWERS',
+  REFRESH_FOLLOWERS_SUCCESS: 'REFRESH_FOLLOWERS_SUCCESS',
+  REFRESH_FOLLOWERS_FAIL: 'REFRESH_FOLLOWERS_FAIL',
   SIGN_OUT: 'SIGN_OUT',
 };
 
@@ -49,3 +61,67 @@ export const updateUser = (username) => {
     },
   };
 };
+
+export const refreshFollowings = (searchText, username) => {
+  const url = username ? `${Server.GET_SEARCH_FOLLOWINGS_RESULTS}${username}/?search=${searchText}&page=1`
+    : `${Server.GET_SEARCH_FOLLOWINGS_RESULTS}?search=${searchText}&page=1`;
+  return {
+    type: UsersActions.REFRESH_FOLLOWINGS,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
+    },
+  };
+};
+
+export const getFollowings = (searchText, followingsNext, username) => {
+  const url = username ? `${Server.GET_SEARCH_FOLLOWINGS_RESULTS}${username}/?search=${searchText}&page=${followingsNext}`
+    : `${Server.GET_SEARCH_FOLLOWINGS_RESULTS}?search=${searchText}&page=${followingsNext}`;
+  return {
+    type: UsersActions.GET_FOLLOWINGS_NEXT_PAGE,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
+    },
+  };
+};
+
+export const refreshFollowers = (searchText, username) => {
+  const url = username ? `${Server.GET_SEARCH_FOLLOWERS_RESULTS}${username}/?search=${searchText}&page=1`
+    : `${Server.GET_SEARCH_FOLLOWERS_RESULTS}?search=${searchText}&page=1`;
+  return {
+    type: UsersActions.REFRESH_FOLLOWERS,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
+    },
+  };
+};
+
+export const getFollowers = (searchText, followersNext, username) => {
+  const url = username ? `${Server.GET_SEARCH_FOLLOWERS_RESULTS}${username}/?search=${searchText}&page=${followersNext}`
+    : `${Server.GET_SEARCH_FOLLOWERS_RESULTS}?search=${searchText}&page=${followersNext}`;
+  return {
+    type: UsersActions.GET_FOLLOWERS_NEXT_PAGE,
+    payload: {
+      request: {
+        method: RequestMethods.GET,
+        url,
+      },
+      username,
+    },
+  };
+};
+
+export const startNewSearch = () => ({
+  type: UsersActions.START_NEW_SEARCH,
+});

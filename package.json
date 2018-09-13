@@ -10,6 +10,7 @@
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
     "axios": "^0.18.0",
+    "cleave.js": "^1.4.4",
     "form-data": "latest",
     "immer": "^1.6.0",
     "lodash": "^4.17.10",
@@ -22,6 +23,7 @@
     "react-native": "^0.55.4",
     "react-native-camera-kit": "^6.2.6",
     "react-native-camera-roll-picker": "^1.2.3",
+    "react-native-confirmation-code-input": "^1.0.4",
     "react-native-contacts": "^2.2.3",
     "react-native-elements": "^0.19.1",
     "react-native-fast-image": "^5.0.3",

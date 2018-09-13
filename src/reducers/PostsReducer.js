@@ -100,7 +100,6 @@ export default (state = INITIAL_STATE, action) => {
     GET_TAGS_PHOTOS_NEXT_PAGE,
     GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS,
   } = PostsActions;
-  console.log(state);
   switch (action.type) {
     case REFRESH_USER_PHOTOS: {
       const usernameField = createUserBadge(action.payload.username);

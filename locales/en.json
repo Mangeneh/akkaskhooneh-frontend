@@ -89,5 +89,7 @@
   "hour": "{{number}} hours ago",
   "minute": "{{number}} minutes ago",
   "day": "{{number}} days ago",
-  "now": "just now"
+  "now": "just now",
+  "enter_token": "Enter the 6-digit number, sent to your email.",
+  "invalid_token": "The token is not valid."
 }

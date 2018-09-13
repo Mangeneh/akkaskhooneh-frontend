@@ -19,6 +19,7 @@ import {
   SignUpComplete,
   TagsPhotos,
   ForgotPassword,
+  TokenPage,
 } from './pages';
 import { selectAccessToken } from './reducers/UsersReducer';
 
@@ -27,6 +28,7 @@ const AuthStack = createStackNavigator({
   SignUp,
   SignUpComplete,
   ForgotPassword,
+  TokenPage,
 }, {
   initialRouteName: Pages.LOGIN,
   navigationOptions: {
