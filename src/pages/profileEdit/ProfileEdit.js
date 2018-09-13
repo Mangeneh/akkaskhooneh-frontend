@@ -14,7 +14,15 @@ import { Colors, Constants, Strings } from '../../config';
 import SaveChangesButton from '../../containers/SaveChangesButton';
 import { extractImageSource } from '../../helpers';
 import { strings } from '../../i18n';
+import {
+  selectBio,
+  selectFullName,
+  selectProfilePicture,
+  selectSelfEmail,
+  selectUsername,
+} from '../../reducers/UsersReducer';
 import { changeProfilePic, editProfile, normalize } from './actions';
+import { selectImage, selectMode } from './reducer';
 
 class ProfileEdit extends Component {
   state = {
@@ -278,13 +286,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  mode: state.profileEditPage.mode,
-  usernameFromDB: state.users.user.username,
-  emailFromDB: state.users.user.email,
-  fullNameFromDB: state.users.user.fullname,
-  bioFromDB: state.users.user.bio,
-  imageSourceFromDB: state.users.user.profile_picture,
-  image: state.profileEditPage.image,
+  usernameFromDB: selectUsername(state),
+  emailFromDB: selectSelfEmail(state),
+  fullNameFromDB: selectFullName(state),
+  bioFromDB: selectBio(state),
+  imageSourceFromDB: selectProfilePicture(state),
+  mode: selectMode(state),
+  image: selectImage(state),
 });
 
 const mapDispatchToProps = dispatch => ({

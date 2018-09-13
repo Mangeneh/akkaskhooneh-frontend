@@ -1,10 +1,13 @@
 import { UsersActions } from '../../actions';
+import { selectNotificationPage } from '../../reducers';
 import { NotificationActions } from './actions';
 
 const INITIAL_NOTIFICATIONS_STATE = {
   notifications: [],
   notificationsNextPage: 1,
   notificationsTotalPages: 1,
+  notificationsIsFirstFetch: true,
+  notificationsIsRefreshing: false,
   notificationsIsLoading: false,
 };
 
@@ -50,7 +53,7 @@ export default (state = INITIAL_STATE, action) => {
     case REFRESH_NOTIFICATION:
       return {
         ...state,
-        notificationsIsLoading: true,
+        notificationsIsRefreshing: true,
       };
     case REFRESH_NOTIFICATION_SUCCESS:
       return {
@@ -58,12 +61,13 @@ export default (state = INITIAL_STATE, action) => {
         notifications: action.payload.data.results,
         notificationsNextPage: state.notificationsNextPage + 1,
         notificationsTotalPages: action.payload.data.total_pages,
-        notificationsIsLoading: false,
+        notificationsIsFirstFetch: false,
+        notificationsIsRefreshing: false,
       };
     case REFRESH_NOTIFICATION_FAIL:
       return {
         ...state,
-        notificationsIsLoading: false,
+        notificationsIsRefreshing: false,
       };
     case RESET_NOTIFICATION:
       return { ...state, ...INITIAL_NOTIFICATIONS_STATE };
@@ -74,7 +78,7 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-export const selectNotifications = state => state.notification.notifications;
-export const selectNotificationsNextPage = state => state.notification.notificationsNextPage;
-export const selectNotificationsTotalPages = state => state.notification.notificationsTotalPages;
-export const selectNotificationsIsLoading = state => state.notification.notificationsIsLoading;
+export const selectNotifications = state => selectNotificationPage(state).notifications;
+export const selectNotificationsNextPage = state => selectNotificationPage(state).notificationsNextPage;
+export const selectNotificationsTotalPages = state => selectNotificationPage(state).notificationsTotalPages;
+export const selectNotificationsIsLoading = state => selectNotificationPage(state).notificationsIsLoading;

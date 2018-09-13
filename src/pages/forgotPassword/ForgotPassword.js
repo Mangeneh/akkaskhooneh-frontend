@@ -1,24 +1,24 @@
-import { Icon, Toast, Text } from 'native-base';
+import { Icon, Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar, EmailTextBox } from '../../components';
-import { Colors, Strings, Constants, PageModes } from '../../config';
-import { strings } from '../../i18n';
-import {
-    sendEmailForForgotPassword, emailChanged
-} from './actions';
+import { Colors, Constants, Strings } from '../../config';
 import { ForgotPasswordButton } from '../../containers';
+import { strings } from '../../i18n';
+import { emailChanged, sendEmailForForgotPassword } from './actions';
+import { selectError, selectMode } from './reducer';
 
 class ForgotPassword extends Component {
   state = {
-      email: '',
-  }
+    email: '',
+  };
+
   render() {
-    const {email} = this.state;
+    const { email } = this.state;
     const {
-      error
+      error,
     } = this.props;
     return (
       <View style={{
@@ -55,14 +55,24 @@ class ForgotPassword extends Component {
             >
               >
               <View>
-                <Text style={{color: 'white', fontSize: Constants.TEXT_NORMAL_SIZE, marginBottom: 20}}>{strings(Strings.FORGOT_PASSWORD_ENTER_EMAIL)} </Text>
+                <Text style={{
+                  color: 'white',
+                  fontSize: Constants.TEXT_NORMAL_SIZE,
+                  marginBottom: 20,
+                }}
+                >
+                  {strings(Strings.FORGOT_PASSWORD_ENTER_EMAIL)}
+                </Text>
               </View>
               <View>
                 <EmailTextBox
-                  error = {error}
+                  error={error}
                   placeholder={strings(Strings.EMAIL_ADDRESS)}
                   value={email}
-                  onChangeEmail={email => {this.setState({email : email.toLowerCase()}); this.props.validateEmail(email)}}
+                  onChangeEmail={(email) => {
+                    this.setState({ email: email.toLowerCase() });
+                    this.props.validateEmail(email);
+                  }}
                 />
               </View>
             </View>
@@ -73,11 +83,10 @@ class ForgotPassword extends Component {
               flex: 1,
             }}
             >
-                <ForgotPasswordButton
-                  onPress={() => this.onSaveChangesPressed()}
-                  text={strings(Strings.SEND_FORGOT_LINK)}
-                  // icon="login"
-                />
+              <ForgotPasswordButton
+                onPress={() => this.onSaveChangesPressed()}
+                text={strings(Strings.SEND_FORGOT_LINK)}
+              />
             </View>
           </View>
         </KeyboardAwareScrollView>
@@ -93,11 +102,9 @@ class ForgotPassword extends Component {
     const { email } = this.state;
     this.props.sendEmailForForgotPassword(email)
       .then((result) => {
-        console.warn(result)
       })
       .catch((error) => {
-        console.warn(error)
-        // this.onFail();
+        this.onFail();
       });
   }
 
@@ -112,13 +119,13 @@ class ForgotPassword extends Component {
 }
 
 const mapStateToProps = state => ({
-  mode: state.forgotPass.mode,
-  error: state.forgotPass.mode === PageModes.ERROR,
+  mode: selectMode(state),
+  error: selectError(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-    sendEmailForForgotPassword: email => dispatch(sendEmailForForgotPassword(email)),
-    validateEmail: email => dispatch(emailChanged(email)),
+  sendEmailForForgotPassword: email => dispatch(sendEmailForForgotPassword(email)),
+  validateEmail: email => dispatch(emailChanged(email)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

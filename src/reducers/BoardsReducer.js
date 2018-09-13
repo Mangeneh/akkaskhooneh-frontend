@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { BoardsActions, UsersActions } from '../actions';
+import { selectBoards } from './index';
 
 const INITIAL_USER_BOARDS_STATE = {
   userBoards: [],
@@ -79,11 +80,11 @@ export default (state = INITIAL_STATE, action) => {
 
 const createBoardBadge = boardID => `board${boardID}`;
 
-const checkBoardProperty = (state, boardID) => _.has(state.boards, createBoardBadge(boardID));
+const checkBoardProperty = (state, boardID) => _.has(selectBoards(state), createBoardBadge(boardID));
 const getBoardProperty = (state, boardID) => {
   const boardProperty = createBoardBadge(boardID);
   if (checkBoardProperty(state, boardID)) {
-    return state.boards[boardProperty];
+    return selectBoards(state)[boardProperty];
   }
   return INITIAL_USER_BOARDS_STATE;
 };

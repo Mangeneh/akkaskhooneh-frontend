@@ -5,9 +5,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar, PasswordTextBox } from '../../components';
 import PasswordInstruction from '../../components/PasswordInstruction';
-import { Colors, PageModes, Strings } from '../../config';
+import { Colors, Strings } from '../../config';
 import ChangePassButton from '../../containers/ChangePassButton';
 import { strings } from '../../i18n';
+import { selectRepeatedPassword } from '../signUp/reducer';
 import {
   changePassword,
   newPasswordChanged,
@@ -15,6 +16,9 @@ import {
   repeatedPasswordChanged,
   reset,
 } from './actions';
+import {
+  selectError, selectMode, selectNewPassword, selectPreviousPassword,
+} from './reducer';
 
 class ChangePass extends Component {
   render() {
@@ -169,11 +173,11 @@ class ChangePass extends Component {
 }
 
 const mapStateToProps = state => ({
-  mode: state.changePassPage.mode,
-  previousPassword: state.changePassPage.previousPassword,
-  newPassword: state.changePassPage.newPassword,
-  repeatedPassword: state.changePassPage.repeatedPassword,
-  error: state.changePassPage.mode === PageModes.ERROR,
+  mode: selectMode(state),
+  previousPassword: selectPreviousPassword(state),
+  newPassword: selectNewPassword(state),
+  repeatedPassword: selectRepeatedPassword(state),
+  error: selectError(state),
 });
 
 const mapDispatchToProps = dispatch => ({

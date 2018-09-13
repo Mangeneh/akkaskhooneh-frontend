@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { CustomStatusBar, EmailTextBox, PasswordTextBox } from '../../components';
 import PasswordInstruction from '../../components/PasswordInstruction';
 import {
-  Addresses, Colors, Fonts, PageModes, Strings,
+  Addresses, Colors, Fonts, Strings,
 } from '../../config';
 import { SignUpButton } from '../../containers';
 import { strings } from '../../i18n';
@@ -19,6 +19,13 @@ import {
   resetEmail,
   validateEmail,
 } from './actions';
+import {
+  selectEmail,
+  selectError,
+  selectMode,
+  selectPassword,
+  selectRepeatedPassword,
+} from './reducer';
 
 class SignUp extends Component {
   render() {
@@ -218,11 +225,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  email: state.signUpPage.email.toLowerCase(),
-  password: state.signUpPage.password,
-  repeatedPassword: state.signUpPage.repeatedPassword,
-  mode: state.signUpPage.mode,
-  error: state.signUpPage.mode === PageModes.ERROR,
+  email: selectEmail(state)
+    .toLowerCase(),
+  password: selectPassword(state),
+  repeatedPassword: selectRepeatedPassword(state),
+  mode: selectMode(state),
+  error: selectError(state),
 });
 
 const mapDispatchToProps = dispatch => ({

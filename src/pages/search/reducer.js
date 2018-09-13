@@ -1,4 +1,5 @@
 import { UsersActions } from '../../actions';
+import { selectSearchPage } from '../../reducers';
 import { SearchedPostsActions } from './actions';
 
 const INITIAL_SEARCH_TOP_TAGS_STATE = {
@@ -57,9 +58,9 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-export const selectSearchTopTags = state => state.searchPage.searchTopTags;
-export const selectSearchTopTagsNextPage = state => state.searchPage.searchTopTagsNextPage;
-export const selectSearchTopTagsTotalPages = state => state.searchPage.searchTopTagsTotalPages;
-export const selectSearchTopTagsIsRefreshing = state => state.searchPage.searchTopTagsIsRefreshing;
-export const selectSearchTopTagsIsFirstFetch = state => state.searchPage.searchTopTagsIsFirstFetch;
-export const selectSearchTopTagsIsLoading = state => state.searchPage.searchTopTagsIsLoading;
+export const selectSearchTopTags = state => selectSearchPage(state).searchTopTags;
+export const selectSearchTopTagsNextPage = state => selectSearchPage(state).searchTopTagsNextPage;
+export const selectSearchTopTagsTotalPages = state => selectSearchPage(state).searchTopTagsTotalPages;
+export const selectSearchTopTagsIsRefreshing = state => selectSearchPage(state).searchTopTagsIsRefreshing;
+export const selectSearchTopTagsIsFirstFetch = state => selectSearchPage(state).searchTopTagsIsFirstFetch;
+export const selectSearchTopTagsIsLoading = state => selectSearchPage(state).searchTopTagsIsLoading;

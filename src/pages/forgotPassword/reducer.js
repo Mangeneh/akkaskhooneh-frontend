@@ -1,6 +1,7 @@
 import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkEmail } from '../../helpers/Validators';
+import { selectForgotPass } from '../../reducers';
 import { Actions } from './actions';
 
 const INITIAL_STATE = {
@@ -30,3 +31,5 @@ function validate(email) {
   return PageModes.DISABLED;
 }
 
+export const selectMode = state => selectForgotPass(state).mode;
+export const selectError = state => selectMode(state) === PageModes.ERROR;
