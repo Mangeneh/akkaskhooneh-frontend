@@ -23,6 +23,9 @@ import {
   signUpUser,
   usernameChanged,
 } from './actions';
+import {
+  selectBio, selectFullName, selectImage, selectMode, selectUsername,
+} from './reducer';
 
 class SignUpComplete extends Component {
   render() {
@@ -230,11 +233,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  username: state.signUpCompletePage.username,
-  bio: state.signUpCompletePage.bio,
-  fullName: state.signUpCompletePage.fullName,
-  mode: state.signUpCompletePage.mode,
-  image: state.signUpCompletePage.image,
+  username: selectUsername(state),
+  bio: selectBio(state),
+  fullName: selectFullName(state),
+  mode: selectMode(state),
+  image: selectImage(state),
 });
 
 const mapDispatchToProps = dispatch => ({

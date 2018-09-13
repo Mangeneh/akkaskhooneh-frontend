@@ -1,5 +1,6 @@
 import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
+import { selectProfileEditPage } from '../../reducers';
 import { Actions } from './actions';
 
 const INITIAL_STATE = {
@@ -53,3 +54,6 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const selectImage = state => selectProfileEditPage(state).image;
+export const selectMode = state => selectProfileEditPage(state).mode;

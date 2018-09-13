@@ -15,6 +15,7 @@ import {
 import SendPostButton from '../../containers/SendPostButton';
 import { strings } from '../../i18n';
 import { normalize, sendPost } from './actions';
+import { selectMode } from './reducer';
 
 class AddPostInfo extends Component {
   state = {
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  mode: state.addPostInfoPage.mode,
+  mode: selectMode(state),
 });
 
 const mapDispatchToProps = dispatch => ({

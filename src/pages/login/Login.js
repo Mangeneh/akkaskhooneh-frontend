@@ -1,4 +1,4 @@
-import LottieView from 'lottie-react-native';
+// import LottieView from 'lottie-react-native';
 import { Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -13,10 +13,11 @@ import {
   PasswordTextBox,
 } from '../../components';
 import {
-  Colors, Fonts, PageModes, Strings, Pages
+  Colors, Fonts, Pages, Strings,
 } from '../../config';
 import LoginButton from '../../containers/LoginButton';
 import { strings } from '../../i18n';
+import NavigationService from '../../NavigationService';
 import {
   emailChanged,
   loginUser,
@@ -25,7 +26,9 @@ import {
   resetEmail,
   resetPassword,
 } from './actions';
-import NavigationService from '../../NavigationService';
+import {
+  selectEmail, selectError, selectMode, selectPassword,
+} from './reducer';
 
 class Login extends Component {
   componentDidMount() {
@@ -94,7 +97,10 @@ class Login extends Component {
                 text={strings(Strings.LOGIN)}
                 icon="login"
               />
-              <TouchableOpacity style={{ marginTop: 24 }} onPress={() => NavigationService.navigate(Pages.FORGOT_PASSWORD)}>
+              <TouchableOpacity
+                style={{ marginTop: 24 }}
+                onPress={() => NavigationService.navigate(Pages.FORGOT_PASSWORD)}
+              >
                 <Text style={styles.text}>{strings(Strings.FORGOT_PASSWORD)}</Text>
               </TouchableOpacity>
             </View>
@@ -227,10 +233,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  email: state.loginPage.email.toLowerCase(),
-  password: state.loginPage.password,
-  mode: state.loginPage.mode,
-  error: state.loginPage.mode === PageModes.ERROR,
+  email: selectEmail(state)
+    .toLowerCase(),
+  password: selectPassword(state),
+  mode: selectMode(state),
+  error: selectError(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,4 +1,5 @@
 import { UsersActions } from '../../actions';
+import { selectSearch } from '../../reducers';
 import { SearchUserOrTagActions } from './actions';
 
 const INITIAL_SEARCH_USERS_STATE = {
@@ -38,7 +39,6 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_SEARCH_TAGS_FAIL,
     START_NEW_SEARCH,
   } = SearchUserOrTagActions;
-  console.log(action);
   switch (action.type) {
     case START_NEW_SEARCH:
       return {
@@ -129,15 +129,12 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-export const selectSearchUsers = state => state.search.searchUsers;
-export const selectSearchUsersNextPage = state => state.search.searchUsersNextPage;
-export const selectSearchUsersTotalPages = state => state.search.searchUsersTotalPages;
-export const selectSearchUsersIsLoading = state => state.search.searchUsersIsLoading;
+export const selectSearchUsers = state => selectSearch(state).searchUsers;
+export const selectSearchUsersNextPage = state => selectSearch(state).searchUsersNextPage;
+export const selectSearchUsersTotalPages = state => selectSearch(state).searchUsersTotalPages;
+export const selectSearchUsersIsLoading = state => selectSearch(state).searchUsersIsLoading;
 
-export const selectSearchTags = state => state.search.searchTags;
-export const selectSearchTagsNextPage = state => state.search.searchTagsNextPage;
-export const selectSearchTagsTotalPages = state => state.search.searchTagsTotalPages;
-export const selectSearchTagsIsLoading = state => state.search.searchTagsIsLoading;
-
-export const selectOthersPhotosIsLoading = state => state.search.othersPhotosIsLoading;
-export const selectChosenPostID = state => state.search.chosenPostID;
+export const selectSearchTags = state => selectSearch(state).searchTags;
+export const selectSearchTagsNextPage = state => selectSearch(state).searchTagsNextPage;
+export const selectSearchTagsTotalPages = state => selectSearch(state).searchTagsTotalPages;
+export const selectSearchTagsIsLoading = state => selectSearch(state).searchTagsIsLoading;

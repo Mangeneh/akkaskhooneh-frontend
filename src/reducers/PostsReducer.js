@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { PostsActions, UsersActions } from '../actions';
 import { extractLikesCount } from '../helpers';
+import { selectPosts } from './index';
 
 const INITIAL_USER_PHOTOS_STATE = {
   userPhotos: [],
@@ -432,16 +433,18 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
+const selectHome = state => selectPosts(state).home;
+
 const createUserBadge = username => username || 'self';
 const createPostBadge = postID => `post${postID}`;
 const createTagBadge = tagID => `tag${tagID}`;
 const createBoardBadge = boardID => `board${boardID}`;
 
-const checkUserProperty = (state, username) => _.has(state.posts, createUserBadge(username));
+const checkUserProperty = (state, username) => _.has(selectPosts(state), createUserBadge(username));
 const getUserProperty = (state, username) => {
   const userProperty = createUserBadge(username);
   if (checkUserProperty(state, username)) {
-    return state.posts[userProperty];
+    return selectPosts(state)[userProperty];
   }
   return INITIAL_USER_PHOTOS_STATE;
 };
@@ -452,18 +455,18 @@ export const selectUserPhotosIsFirstFetch = (state, username) => getUserProperty
 export const selectUserPhotosIsRefreshing = (state, username) => getUserProperty(state, username).userPhotosIsRefreshing;
 export const selectUserPhotosIsLoading = (state, username) => getUserProperty(state, username).userPhotosIsLoading;
 
-export const selectHomePosts = state => state.posts.home.homePosts;
-export const selectHomePostsNextPage = state => state.posts.home.homePostsNextPage;
-export const selectHomePostsTotalPages = state => state.posts.home.homePostsTotalPages;
-export const selectHomePostsIsRefreshing = state => state.posts.home.homePostsIsRefreshing;
-export const selectHomePostsIsFirstFetch = state => state.posts.home.homePostsIsFirstFetch;
-export const selectHomePostsIsLoading = state => state.posts.home.homePostsIsLoading;
+export const selectHomePosts = state => selectHome(state).homePosts;
+export const selectHomePostsNextPage = state => selectHome(state).homePostsNextPage;
+export const selectHomePostsTotalPages = state => selectHome(state).homePostsTotalPages;
+export const selectHomePostsIsRefreshing = state => selectHome(state).homePostsIsRefreshing;
+export const selectHomePostsIsFirstFetch = state => selectHome(state).homePostsIsFirstFetch;
+export const selectHomePostsIsLoading = state => selectHome(state).homePostsIsLoading;
 
-const checkPostProperty = (state, postID) => _.has(state.posts, createPostBadge(postID));
+const checkPostProperty = (state, postID) => _.has(selectPosts(state), createPostBadge(postID));
 const getPostProperty = (state, postID) => {
   const postProperty = createPostBadge(postID);
   if (checkPostProperty(state, postID)) {
-    return state.posts[postProperty];
+    return selectPosts(state)[postProperty];
   }
   return INITIAL_OPEN_POST_STATE;
 };
@@ -477,11 +480,11 @@ export const selectCommentsIsRefreshing = (state, postID) => getPostProperty(sta
 export const selectCommentsIsFirstFetch = (state, postID) => getPostProperty(state, postID).commentsIsFirstFetch;
 export const selectIsSendingComment = (state, postID) => getPostProperty(state, postID).isSendingComment;
 
-const checkTagProperty = (state, tagID) => _.has(state.posts, createTagBadge(tagID));
+const checkTagProperty = (state, tagID) => _.has(selectPosts(state), createTagBadge(tagID));
 const getTagProperty = (state, tagID) => {
   const tagProperty = createTagBadge(tagID);
   if (checkTagProperty(state, tagID)) {
-    return state.posts[tagProperty];
+    return selectPosts(state)[tagProperty];
   }
   return INITIAL_TAGS_PHOTOS_STATE;
 };
@@ -492,11 +495,11 @@ export const selectTagsPhotosIsRefreshing = (state, tagID) => getTagProperty(sta
 export const selectTagsPhotosIsFirstFetch = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsFirstFetch;
 export const selectTagsPhotosIsLoading = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsLoading;
 
-const checkBoardProperty = (state, boardID) => _.has(state.posts, createBoardBadge(boardID));
+const checkBoardProperty = (state, boardID) => _.has(selectPosts(state), createBoardBadge(boardID));
 const getBoardProperty = (state, boardID) => {
   const boardProperty = createBoardBadge(boardID);
   if (checkBoardProperty(state, boardID)) {
-    return state.posts[boardProperty];
+    return selectPosts(state)[boardProperty];
   }
   return INITIAL_BOARDS_PHOTOS_STATE;
 };

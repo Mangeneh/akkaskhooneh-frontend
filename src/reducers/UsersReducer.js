@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { UsersActions } from '../actions/UsersActions';
+import { selectUsers } from './index';
 
 const INITIAL_FOLLOWERS_FOLLOWINGS_STATE = {
   followers: [],
@@ -94,12 +95,14 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
+const selectSelf = state => selectUsers(state).self;
+
 const createUserBadge = username => username || 'self';
 
-const checkUserProperty = (state, username) => _.has(state.users, createUserBadge(username));
+const checkUserProperty = (state, username) => _.has(selectUsers(state), createUserBadge(username));
 const getUserProperty = (state, username) => {
   if (checkUserProperty(state, username)) {
-    return state.users[createUserBadge(username)];
+    return selectUsers(state)[createUserBadge(username)];
   }
   return INITIAL_OTHER_USER_STATE;
 };
@@ -110,6 +113,8 @@ export const selectNumOfFollowers = (state, username) => getUserProperty(state, 
 export const selectNumOfFollowings = (state, username) => getUserProperty(state, username).userInfo.following;
 export const selectProfilePicture = (state, username) => getUserProperty(state, username).userInfo.profile_picture;
 
-export const selectAccessToken = state => state.users.self.accessToken;
-export const selectRefreshToken = state => state.users.self.refreshToken;
-export const selectLastRefreshTime = state => state.users.self.lastRefreshTime;
+export const selectSelfEmail = state => selectSelf(state).userInfo.email;
+
+export const selectAccessToken = state => selectSelf(state).accessToken;
+export const selectRefreshToken = state => selectSelf(state).refreshToken;
+export const selectLastRefreshTime = state => selectSelf(state).lastRefreshTime;

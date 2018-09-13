@@ -19,9 +19,9 @@ export default combineReducers({
   users: UsersReducer,
   posts: PostsReducer,
   boards: BoardsReducer,
-  profileEditPage: ProfileEditPageReducer,
   signUpPage: SignUpPageReducer,
   signUpCompletePage: SignUpCompletePageReducer,
+  profileEditPage: ProfileEditPageReducer,
   changePassPage: ChangePassPageReducer,
   addPostInfoPage: AddPostInfoReducer,
   searchPage: SearchPageReducer,
@@ -30,3 +30,17 @@ export default combineReducers({
   notification: NotificationReducer,
   forgotPass: ForgotPasswordReducer,
 });
+
+export const selectLoginPage = state => state.loginPage;
+export const selectSignUpPage = state => state.signUpPage;
+export const selectSignUpCompletePage = state => state.signUpCompletePage;
+export const selectPosts = state => state.posts;
+export const selectUsers = state => state.users;
+export const selectBoards = state => state.boards;
+export const selectProfileEditPage = state => state.profileEditPage;
+export const selectChangePassPage = state => state.changePassPage;
+export const selectAddPostInfoPage = state => state.addPostInfoPage;
+export const selectSearchPage = state => state.searchPage;
+export const selectSearch = state => state.search;
+export const selectNotificationPage = state => state.notification;
+export const selectForgotPass = state => state.forgotPass;
