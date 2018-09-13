@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import com.wix.RNCameraKit.RNCameraKitPackage;
@@ -35,7 +34,6 @@ public class MainApplication extends Application implements ReactApplication {
             new LottiePackage(),
             new FastImageViewPackage(),
             new ImageResizerPackage(),
-            new RNGooglePlacesPackage(),
             new RNI18nPackage(),
             new ReactNativeContacts(),
             new RNCameraKitPackage(),

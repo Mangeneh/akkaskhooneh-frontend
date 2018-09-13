@@ -143,15 +143,6 @@ dependencies {
     compile project(':lottie-react-native')
     compile project(':react-native-fast-image')
     compile project(':react-native-image-resizer')
-    compile project(':react-native-google-places')
-    compile(project(':react-native-google-places')){
-            exclude group: 'com.google.android.gms', module: 'play-services-base'
-            exclude group: 'com.google.android.gms', module: 'play-services-places'
-            exclude group: 'com.google.android.gms', module: 'play-services-location'
-    }
-    compile 'com.google.android.gms:play-services-base:11.6.2'
-    compile 'com.google.android.gms:play-services-places:11.6.2'
-    compile 'com.google.android.gms:play-services-location:11.6.2'
     compile project(':react-native-i18n')
     compile project(':react-native-contacts')
     compile project(":rncamerakit")
