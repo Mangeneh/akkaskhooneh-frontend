@@ -6,6 +6,7 @@ import SendPostButton from './SendPostButton';
 import SignUpButton from './SignUpButton';
 import SignUpCompleteButton from './SignUpCompleteButton';
 import ForgotPasswordButton from './ForgotPasswordButton';
+import GetNewPassButton from './GetNewPassButton'
 
 export {
   SignUpCompleteButton,
@@ -16,4 +17,5 @@ export {
   SendPostButton,
   SignUpButton,
   ForgotPasswordButton,
+  GetNewPassButton,
 };

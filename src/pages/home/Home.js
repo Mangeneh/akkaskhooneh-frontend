@@ -149,7 +149,7 @@ class Home extends Component {
     const { sendLikeOrDislike } = this.props;
     sendLikeOrDislike(id)
       .then((response) => {
-        console.log(response);
+        
       })
       .catch((error) => {
 

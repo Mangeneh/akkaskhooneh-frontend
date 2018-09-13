@@ -54,7 +54,6 @@ class ForgotPassword extends Component {
               flexDirection: 'column',
             }}
             >
-              >
               <View>
                 <Text style={{
                   color: 'white',
@@ -106,13 +105,13 @@ class ForgotPassword extends Component {
         NavigationService.navigate(Pages.TOKEN_PAGE);
       })
       .catch((error) => {
-        this.onFail();
+        this.onFail(error);
       });
   }
 
-  onFail() {
+  onFail(error) {
     Toast.show({
-      text: strings(Strings.NON_EXISTING_EMAIL),
+      text: error.error.response.status === 404 ? strings(Strings.NON_EXISTING_EMAIL) :  strings(Strings.TOKEN_TIME),
       textStyle: { textAlign: 'center' },
       position: 'bottom',
       type: 'danger',

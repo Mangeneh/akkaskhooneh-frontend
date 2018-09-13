@@ -7,6 +7,7 @@ export const Server = {
   UPDATE_ACCESS_TOKEN: '/auth/token/refresh/',
   FORGOT_PASSWORD: '/auth/forgotpassword/',
   SEND_TOKEN: '/auth/forgotpassword/verify/',
+  GET_NEW_PASS: '/auth/forgotpassword/complete/',
   // Social - Profile
   EDIT_PROFILE: '/auth/editprofile/',
   CHANGE_PROFILE_PIC: '/social/change-pic/',

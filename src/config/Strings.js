@@ -89,5 +89,6 @@ export const Strings = {
   MINUTE: 'minute',
   NOW: 'now',
   ENTER_TOKEN: 'enter_token',
-  INVALID_TOKEN: 'invalid_token'
+  INVALID_TOKEN: 'invalid_token',
+  TOKEN_TIME: 'token_time'
 };

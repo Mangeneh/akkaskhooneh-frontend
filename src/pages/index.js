@@ -20,6 +20,7 @@ import SignUpComplete from './signUpComplete/SignUpComplete';
 import TagsPhotos from './tagsPhotos/TagsPhotos';
 import ForgotPassword from './forgotPassword/ForgotPassword';
 import TokenPage from './tokenPage/TokenPage';
+import GetNewPassword from './getNewPassword/GetNewPassword'
 
 export {
   Login,
@@ -44,4 +45,5 @@ export {
   ContactList,
   ForgotPassword,
   TokenPage,
+  GetNewPassword,
 };

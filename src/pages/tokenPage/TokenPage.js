@@ -4,19 +4,17 @@ import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar } from '../../components';
-import { Colors, Constants, Strings } from '../../config';
+import { Colors, Constants, Strings, Pages } from '../../config';
 import { strings } from '../../i18n';
 import CodeInput from 'react-native-confirmation-code-input';
 import { sendToken } from './actions';
-
+import NavigationService from '../../NavigationService';
 
 class TokenPage extends Component {
   state = {
-    email: '',
-  };
-
+    tokenCode: '',
+  }
   render() {
-    const { email } = this.state;
     const {
       error,
     } = this.props;
@@ -53,7 +51,6 @@ class TokenPage extends Component {
               flexDirection: 'column',
             }}
             >
-              >
               <View>
                 <Text style={{
                   color: 'white',
@@ -67,15 +64,16 @@ class TokenPage extends Component {
               </View>
               <View>
                 <CodeInput
-                    // keyboardType="numeric"
                     codeLength={6}
                     className='border-circle'
                     autoFocus={false}
                     codeInputStyle={{ fontWeight: '800' }}
-                    onFulfill={(code) => this.props.sendToken(code)
+                    onFulfill={(code) =>{this.props.sendToken(code)
                         .then((result) => {
-                            console.warn(response)
-                        //   NavigationService.navigate(Pages.TOKEN_PAGE);
+                            console.warn(result)
+                            NavigationService.navigate(Pages.GET_NEW_PASSWORD, {
+                                token: tokenCode,
+                            })
                         })
                         .catch((error) => {
                             console.warn(error)
@@ -86,7 +84,7 @@ class TokenPage extends Component {
                                 type: 'danger',
                               });
                         })
-                    }
+                    }}
                 />
               </View>
             </View>

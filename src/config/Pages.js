@@ -24,4 +24,5 @@ export const Pages = {
   NOTIFICATION: 'Notification',
   FORGOT_PASSWORD: 'ForgotPassword',
   TOKEN_PAGE: 'TokenPage',
+  GET_NEW_PASSWORD: 'GetNewPassword',
 };
