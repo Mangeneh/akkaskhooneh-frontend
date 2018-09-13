@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import AddPostInfoReducer from '../pages/addPostInfo/reducer';
 import ChangePassPageReducer from '../pages/changePass/reducer';
-import FollowListReducer from '../pages/contactListPage/reducer';
 import ForgotPasswordReducer from '../pages/forgotPassword/reducer';
 import LoginPageReducer from '../pages/login/reducer';
 import NotificationReducer from '../pages/notification/reducer';
@@ -26,7 +25,6 @@ export default combineReducers({
   addPostInfoPage: AddPostInfoReducer,
   searchPage: SearchPageReducer,
   search: SearchUserOrTagReducer,
-  followList: FollowListReducer,
   notification: NotificationReducer,
   forgotPass: ForgotPasswordReducer,
 });

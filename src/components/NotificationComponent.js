@@ -1,8 +1,8 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
 import { Constants, Strings } from '../config';
+import { timeDiff } from '../helpers/timeDiff';
 import { strings } from '../i18n';
-import {timeDiff} from '../helpers/timeDiff';
 
 export default class NotificationComponent extends Component {
   render() {
@@ -30,7 +30,7 @@ export default class NotificationComponent extends Component {
   }
 
   renderPic() {
-	const { notification } = this.props;
+    const { notification } = this.props;
     return (
       <Thumbnail
         style={{
@@ -38,7 +38,7 @@ export default class NotificationComponent extends Component {
           width: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
           height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
           borderRadius: Constants.CONTACT_THUMBNAIL_RADIUS,
-		}}
+        }}
         source={{ uri: (notification.notif_type === 1 || notification.notif_type === 4) ? notification.data.post_picture : notification.profile_picture }}
       />
     );

@@ -1,7 +1,7 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
 import { Constants, Graphics } from '../config';
-import {timeDiff} from '../helpers/timeDiff';
+import { timeDiff } from '../helpers/timeDiff';
 
 export default class CommentComponent extends Component {
   render() {

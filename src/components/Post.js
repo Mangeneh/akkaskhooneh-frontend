@@ -23,11 +23,11 @@ import {
   extractIsLiked,
   extractLikesCount,
   extractOwnerUsername,
+  extractPostDate,
   extractPostPictureUri,
   extractProfilePictureUri,
-  extractPostDate,
 } from '../helpers';
-import {timeDiff} from '../helpers/timeDiff';
+import { timeDiff } from '../helpers/timeDiff';
 
 const WIDTH = Dimensions.get('window').width;
 

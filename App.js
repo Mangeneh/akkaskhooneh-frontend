@@ -49,7 +49,7 @@ const store = createStore(
               if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL || type === ForgotPasswordActions.FORGOT_PASSWORD) {
                 return request;
               }
-              request.headers.authorization = `Bearer ${getState().users.self.accessToken}`;
+              request.headers.authorization = `Bearer ${selectAccessToken(getState())}`;
               return request;
             },
           },
