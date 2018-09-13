@@ -1,12 +1,11 @@
-import { Text } from 'native-base';
+import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import {
-  Colors, Pages, Parameters, Strings,
-} from '../config';
+import Loading from '../components/Loading';
+import { Colors, Pages, Parameters, Strings, } from '../config';
 import { strings } from '../i18n';
 import {
   selectBio,
@@ -14,12 +13,13 @@ import {
   selectNumOfFollowers,
   selectNumOfFollowings,
   selectProfilePicture,
+  selectUsername,
 } from '../reducers/UsersReducer';
 
 class ProfileInfo extends Component {
   render() {
     const {
-      bio, fullName, followers, followings,
+      bio, fullName, followers, followings, username, selfUsername,
     } = this.props;
     return (
       <View style={{
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   const { username } = ownProps;
   return {
+    selfUsername: selectUsername(state),
     bio: selectBio(state, username),
     profilePicture: selectProfilePicture(state, username),
     fullName: selectFullName(state, username),

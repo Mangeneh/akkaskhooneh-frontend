@@ -9,6 +9,7 @@ import {
   AddPostToBoard,
   BoardsPage,
   ChangePass,
+  ForgotPassword,
   Login,
   Main,
   NewPost,
@@ -18,8 +19,8 @@ import {
   SignUp,
   SignUpComplete,
   TagsPhotos,
-  ForgotPassword,
 } from './pages';
+import Profile from './pages/profile/Profile';
 import { selectAccessToken } from './reducers/UsersReducer';
 
 const AuthStack = createStackNavigator({
@@ -44,16 +45,6 @@ const NewPostStack = createStackNavigator({
   },
 });
 
-const BoardsStack = createStackNavigator({
-  BoardsPage,
-  AddPostToBoard,
-}, {
-  initialRouteName: Pages.BOARDS_PAGE,
-  navigationOptions: {
-    header: null,
-  },
-});
-
 const Inside = createStackNavigator({
   Main,
   NewPostStack,
@@ -61,9 +52,11 @@ const Inside = createStackNavigator({
   ProfileEdit,
   ProfileSettings,
   ChangePass,
-  BoardsStack,
+  BoardsPage,
+  AddPostToBoard,
   PostInfo,
   TagsPhotos,
+  OthersProfile: Profile,
 }, {
   initialRouteName: Pages.MAIN,
   navigationOptions: {

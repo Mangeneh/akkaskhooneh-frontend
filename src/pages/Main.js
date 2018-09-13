@@ -14,7 +14,7 @@ const profileStack = createStackNavigator({
   Profile,
   ContactList,
 }, {
-  initialRouteName: Pages.PROFILE,
+  initialRouteName: Pages.SELF_PROFILE,
   headerMode: 'none',
 });
 

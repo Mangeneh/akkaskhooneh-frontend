@@ -22,24 +22,25 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_USER_BOARDS_SUCCESS,
     //
   } = BoardsActions;
+  console.log(state);
   switch (action.type) {
     case REFRESH_USER_BOARDS: {
-      const boardField = createBoardBadge(action.payload.boardID);
+      const userField = createUserBadge(action.payload.username);
       return {
         ...state,
-        [boardField]: {
+        [userField]: {
           ...INITIAL_USER_BOARDS_STATE,
-          ...state[boardField],
+          ...state[userField],
           userBoardsIsRefreshing: true,
         },
       };
     }
     case REFRESH_USER_BOARDS_SUCCESS: {
-      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
+      const userField = createUserBadge(action.meta.previousAction.payload.username);
       return {
         ...state,
-        [boardField]: {
-          ...state[boardField],
+        [userField]: {
+          ...state[userField],
           userBoards: action.payload.data.results,
           userBoardsTotalPages: action.payload.data.total_pages,
           userBoardsNextPage: 2,
@@ -49,24 +50,24 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     case GET_USER_BOARDS_NEXT_PAGE: {
-      const boardField = createBoardBadge(action.payload.boardID);
+      const userField = createUserBadge(action.payload.username);
       return {
         ...state,
-        [boardField]: {
-          ...state[boardField],
+        [userField]: {
+          ...state[userField],
           userBoardsIsLoading: true,
         },
       };
     }
     case GET_USER_BOARDS_NEXT_PAGE_SUCCESS: {
-      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
+      const userField = createUserBadge(action.meta.previousAction.payload.username);
       return {
         ...state,
-        [boardField]: {
-          ...state[boardField],
-          userBoards: state[boardField].concat(action.payload.data.results),
+        [userField]: {
+          ...state[userField],
+          userBoards: state[userField].concat(action.payload.data.results),
           userBoardsTotalPages: action.payload.data.total_pages,
-          userBoardsNextPage: state[boardField].userBoardsNextPage + 1,
+          userBoardsNextPage: state[userField].userBoardsNextPage + 1,
           userBoardsIsLoading: false,
         },
       };
@@ -78,19 +79,19 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-const createBoardBadge = boardID => `board${boardID}`;
+const createUserBadge = username => username || 'me';
 
-const checkBoardProperty = (state, boardID) => _.has(selectBoards(state), createBoardBadge(boardID));
-const getBoardProperty = (state, boardID) => {
-  const boardProperty = createBoardBadge(boardID);
-  if (checkBoardProperty(state, boardID)) {
+const checkUserProperty = (state, username) => _.has(selectBoards(state), createUserBadge(username));
+const getUserProperty = (state, username) => {
+  const boardProperty = createUserBadge(username);
+  if (checkUserProperty(state, username)) {
     return selectBoards(state)[boardProperty];
   }
   return INITIAL_USER_BOARDS_STATE;
 };
-export const selectUserBoards = (state, boardID) => getBoardProperty(state, boardID).userBoards;
-export const selectUserBoardsTotalPages = (state, boardID) => getBoardProperty(state, boardID).userBoardsTotalPages;
-export const selectUserBoardsNextPage = (state, boardID) => getBoardProperty(state, boardID).userBoardsNextPage;
-export const selectUserBoardsIsRefreshing = (state, boardID) => getBoardProperty(state, boardID).userBoardsIsRefreshing;
-export const selectUserBoardsIsFirstFetch = (state, boardID) => getBoardProperty(state, boardID).userBoardsIsFirstFetch;
-export const selectUserBoardsIsLoading = (state, boardID) => getBoardProperty(state, boardID).userBoardsIsLoading;
+export const selectUserBoards = (state, username) => getUserProperty(state, username).userBoards;
+export const selectUserBoardsTotalPages = (state, username) => getUserProperty(state, username).userBoardsTotalPages;
+export const selectUserBoardsNextPage = (state, username) => getUserProperty(state, username).userBoardsNextPage;
+export const selectUserBoardsIsRefreshing = (state, username) => getUserProperty(state, username).userBoardsIsRefreshing;
+export const selectUserBoardsIsFirstFetch = (state, username) => getUserProperty(state, username).userBoardsIsFirstFetch;
+export const selectUserBoardsIsLoading = (state, username) => getUserProperty(state, username).userBoardsIsLoading;
