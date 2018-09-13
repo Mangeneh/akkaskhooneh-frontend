@@ -40,7 +40,7 @@ export default class CommentComponent extends Component {
     return (
       <Thumbnail
         style={{
-          alignSelf: 'center',
+          alignSelf: 'flex-start',
           width: Constants.COMMENT_THUMBNAIL_RADIUS * 2,
           height: Constants.COMMENT_THUMBNAIL_RADIUS * 2,
           borderRadius: Constants.COMMENT_THUMBNAIL_RADIUS,
