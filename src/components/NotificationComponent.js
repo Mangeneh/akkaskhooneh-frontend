@@ -2,6 +2,7 @@ import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
 import { Constants, Strings } from '../config';
 import { strings } from '../i18n';
+import {timeDiff} from '../helpers/timeDiff';
 
 export default class NotificationComponent extends Component {
   render() {
@@ -30,7 +31,6 @@ export default class NotificationComponent extends Component {
 
   renderPic() {
 	const { notification } = this.props;
-	{console.warn((notification.notif_type === 1 || notification.notif_type === 4))}
     return (
       <Thumbnail
         style={{
@@ -76,6 +76,7 @@ export default class NotificationComponent extends Component {
   }
 
   renderTime() {
+    const { notification } = this.props;
     return (
       <Text
         note
@@ -85,7 +86,7 @@ export default class NotificationComponent extends Component {
           paddingRight: 8,
         }}
       >
-        {'unknown'}
+        {timeDiff(notification.time)}
       </Text>
     );
   }

@@ -66,9 +66,9 @@
   "your-photos" : "عکس های اشتراکی شما",
   "search_user_or_pic": "جستجوی عکس یا کاربر",
   "like_notification": "کاربر {{name}} عکس شما را پسندید.",
-  "comment_notification": " {{name}} روی این عکس شما نظر داد.",
-  "follow_notification" : " {{name}} شما را دنبال کرد.",
-  "follow_request_notification" : " {{name}} می خواهد شما را دنبال کند.",
+  "comment_notification": "کاربر {{name}} روی این عکس شما نظر داد.",
+  "follow_notification" : "کاربر {{name}} شما را دنبال کرد.",
+  "follow_request_notification" : "کاربر {{name}} می خواهد شما را دنبال کند.",
   "comment_failed" : "ارسال نظر با خطا مواجه شد.",
   "add": "اضافه کن",
   "users": "کاربرها",
@@ -82,5 +82,12 @@
   "notifications": "اطلاعیه ها",
   "forgot_password_enter_email": "اگر رمز عبور خود را فراموش کرده اید، در زیر ایمیل خود را وارد کنید.",
   "non_existing_email": "ایمیل وارد شده موجود نیست.",
-  "send_forgot_link": "ارسال لینک بازیابی"
+  "send_forgot_link": "ارسال لینک بازیابی",
+  "year": "در {{number}} سال پیش",
+  "week": "در {{number}} هفته پیش",
+  "month": "در {{number}} ماه پیش",
+  "hour": "در {{number}} ساعت پیش",
+  "minute": "در {{number}} دقیقه پیش",
+  "day": "در {{number}} روز پیش",
+  "now": "لحظاتی پیش"
 }

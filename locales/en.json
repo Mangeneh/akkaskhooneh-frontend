@@ -82,5 +82,12 @@
   "notifications": "Notifications",
   "forgot_password_enter_email": "Enter your email here, if you've forgotten your current password.",
   "non_existing_email": "This email does not exist.",
-  "send_forgot_link": "Retrieve Your Password."
+  "send_forgot_link": "Retrieve Your Password.",
+  "year": "{{number}} years ago",
+  "month": "{{number}} months ago",
+  "week": "{{number}} weeks ago",
+  "hour": "{{number}} hours ago",
+  "minute": "{{number}} minutes ago",
+  "day": "{{number}} days ago",
+  "now": "just now"
 }

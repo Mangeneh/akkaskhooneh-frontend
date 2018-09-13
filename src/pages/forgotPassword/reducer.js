@@ -29,3 +29,4 @@ function validate(email) {
   }
   return PageModes.DISABLED;
 }
+

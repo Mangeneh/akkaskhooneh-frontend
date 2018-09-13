@@ -25,7 +25,9 @@ import {
   extractOwnerUsername,
   extractPostPictureUri,
   extractProfilePictureUri,
+  extractPostDate,
 } from '../helpers';
+import {timeDiff} from '../helpers/timeDiff';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -73,8 +75,7 @@ class Post extends Component {
                   paddingRight: 8,
                 }}
               >
-                ۲ ساعت
-                پیش
+                {timeDiff(extractPostDate(item))}
               </Text>
               <Text />
             </View>

@@ -81,4 +81,11 @@ export const Strings = {
   FORGOT_PASSWORD_ENTER_EMAIL: 'forgot_password_enter_email',
   NON_EXISTING_EMAIL: 'non_existing_email',
   SEND_FORGOT_LINK: 'send_forgot_link',
+  YEAR: 'year',
+  MONTH: 'month',
+  WEEK: 'week',
+  HOUR: 'hour',
+  DAY: 'day',
+  MINUTE: 'minute',
+  NOW: 'now',
 };

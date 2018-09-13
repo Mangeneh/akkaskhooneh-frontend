@@ -47,3 +47,7 @@ export function extractIsLiked(post) {
 export function extractCommentsCount(post) {
   return post.comments_count;
 }
+
+export function extractPostDate(post) {
+  return post.time;
+}
