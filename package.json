@@ -44,6 +44,7 @@
     "react-navigation-fluid-transitions": "latest",
     "react-navigation-material-bottom-tabs": "^0.3.0",
     "react-navigation-tabs": "latest",
+    "react-number-format": "^3.5.2",
     "react-photo-gallery": "^6.2.0",
     "react-redux": "^5.0.7",
     "react-stack-grid": "^0.7.1",

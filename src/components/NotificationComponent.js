@@ -37,7 +37,7 @@ export default class NotificationComponent extends Component {
           alignSelf: 'center',
           width: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
           height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
-          borderRadius: Constants.CONTACT_THUMBNAIL_RADIUS,
+          borderRadius: notification.notif_type === 1 || notification.notif_type === 4 ? Constants.POST_CARD_RADIUS : Constants.CONTACT_THUMBNAIL_RADIUS,
 		}}
         source={{ uri: (notification.notif_type === 1 || notification.notif_type === 4) ? notification.data.post_picture : notification.profile_picture }}
       />
