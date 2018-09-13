@@ -21,8 +21,7 @@ class ProfileHeader extends Component {
   }
 
   renderSelfHeader() {
-    const { onEditPress, username, onSettingsPress } = this.props;
-    console.log(this.props);
+    const { onEditPress, selfUsername, onSettingsPress } = this.props;
     return (
       <View>
         <Header
@@ -46,7 +45,7 @@ class ProfileHeader extends Component {
               color: 'white',
             }}
             >
-              {username}
+              {selfUsername}
             </Title>
           </Body>
           <Right style={{
