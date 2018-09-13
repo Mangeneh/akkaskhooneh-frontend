@@ -34,13 +34,16 @@ import {
   extractCommentsCount,
   extractIsLiked,
   extractLikesCount,
-  extractOwnerUsername, extractPostPictureUri,
+  extractOwnerUsername,
+  extractPostPictureUri,
   extractProfilePictureUri,
 } from '../../helpers';
 import { strings } from '../../i18n';
 import {
   selectComments,
+  selectCommentsIsFirstFetch,
   selectCommentsIsLoading,
+  selectCommentsIsRefreshing,
   selectCommentsNextPage,
   selectCommentsTotalPages,
   selectIsSendingComment,
@@ -236,11 +239,11 @@ class PostInfo extends Component {
   }
 
   renderCommentsList() {
-    const { refreshComments, commentsIsLoading, comments } = this.props;
+    const { refreshComments, commentsIsRefreshing, comments } = this.props;
     return (
       <FlatList
         onRefresh={() => refreshComments()}
-        refreshing={commentsIsLoading}
+        refreshing={commentsIsRefreshing}
         onEndReached={() => {
           this.updateComments();
         }}
@@ -317,6 +320,8 @@ const mapStateToProps = (state, ownProps) => {
     comments: selectComments(state, postID),
     commentsNextPage: selectCommentsNextPage(state, postID),
     commentsTotalPages: selectCommentsTotalPages(state, postID),
+    commentsIsRefreshing: selectCommentsIsRefreshing(state, postID),
+    commentsIsFirstFetch: selectCommentsIsFirstFetch(state, postID),
     commentsIsLoading: selectCommentsIsLoading(state, postID),
   };
 };

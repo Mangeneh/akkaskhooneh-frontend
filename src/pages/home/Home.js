@@ -23,7 +23,9 @@ import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
 import {
   selectHomePosts,
+  selectHomePostsIsFirstFetch,
   selectHomePostsIsLoading,
+  selectHomePostsIsRefreshing,
   selectHomePostsNextPage,
   selectHomePostsTotalPages,
 } from '../../reducers/PostsReducer';
@@ -112,12 +114,12 @@ class Home extends Component {
 
   renderFeed() {
     const {
-      refreshHomePosts, postsIsLoading, posts,
+      refreshHomePosts, postsIsRefreshing, posts,
     } = this.props;
     return (
       <FlatList
         onRefresh={() => refreshHomePosts()}
-        refreshing={postsIsLoading}
+        refreshing={postsIsRefreshing}
         onEndReached={() => this.updatePosts()}
         style={{
           width: '100%',
@@ -149,10 +151,8 @@ class Home extends Component {
     const { sendLikeOrDislike } = this.props;
     sendLikeOrDislike(id)
       .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
-
       });
   }
 
@@ -222,6 +222,8 @@ const mapStateToProps = state => ({
   posts: selectHomePosts(state),
   postsNextPage: selectHomePostsNextPage(state),
   postsTotalPages: selectHomePostsTotalPages(state),
+  postsIsRefreshing: selectHomePostsIsRefreshing(state),
+  postsIsFirstFetch: selectHomePostsIsFirstFetch(state),
   postsIsLoading: selectHomePostsIsLoading(state),
 });
 
