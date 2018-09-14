@@ -1,7 +1,7 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
 import { Constants, Graphics } from '../config';
-import { timeDiff } from '../helpers/timeDiff';
+import { calculateTimeDifference } from '../helpers';
 
 export default class CommentComponent extends Component {
   render() {
@@ -90,7 +90,7 @@ export default class CommentComponent extends Component {
           paddingRight: 8,
         }}
       >
-        {timeDiff(comment.time)}
+        {calculateTimeDifference(comment.time)}
       </Text>
     );
   }

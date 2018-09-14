@@ -24,7 +24,7 @@ const INITIAL_HOME_POSTS_STATE = {
 const INITIAL_OPEN_POST_STATE = {
   postInfo: {},
   postInfoIsFirstFetch: true,
-  postInfoIsLoading: true,
+  postInfoIsLoading: false,
   comments: [],
   commentsNextPage: 1,
   commentsTotalPages: 1,
@@ -85,7 +85,7 @@ export default (state = INITIAL_STATE, action) => {
     COMMENT_SUCCESS,
     COMMENT_FAIL,
     //
-    LIKE_OR_DISLIKE_SUCCESS,
+    LIKE_OR_DISLIKE,
     //
     REFRESH_HOME_POSTS,
     REFRESH_HOME_POSTS_SUCCESS,
@@ -100,7 +100,6 @@ export default (state = INITIAL_STATE, action) => {
     GET_TAGS_PHOTOS_NEXT_PAGE,
     GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS,
   } = PostsActions;
-  console.log(state);
   switch (action.type) {
     case REFRESH_USER_PHOTOS: {
       const usernameField = createUserBadge(action.payload.username);
@@ -304,26 +303,35 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     //
-    case LIKE_OR_DISLIKE_SUCCESS: {
-      const { postID } = action.meta.previousAction.payload;
+    case LIKE_OR_DISLIKE: {
+      const { postID } = action.payload;
       const chosenPost = state.home.homePosts.find(post => post.id === postID);
       const chosenPostIndex = state.home.homePosts.indexOf(chosenPost);
-      const newLikes = extractLikesCount(chosenPost) + (action.payload.data.liked ? 1 : -1);
+      const newLikes = extractLikesCount(chosenPost) + (chosenPost.is_liked ? -1 : 1);
       const newPost = {
         ...chosenPost,
         likes_count: newLikes,
-        is_liked: action.payload.data.liked,
+        is_liked: !chosenPost.is_liked,
       };
       const newHomePosts = [
         ...state.home.homePosts.slice(0, chosenPostIndex),
         newPost,
         ...state.home.homePosts.slice(chosenPostIndex + 1),
       ];
+      const postField = createPostBadge(postID);
       return {
         ...state,
         home: {
           ...state.home,
           homePosts: newHomePosts,
+        },
+        [postField]: {
+          ...state[postField],
+          postInfo: {
+            ...state[postField].postInfo,
+            likes_count: newLikes,
+            is_liked: !state[postField].postInfo.is_liked,
+          },
         },
       };
     }
@@ -471,6 +479,7 @@ const getPostProperty = (state, postID) => {
   return INITIAL_OPEN_POST_STATE;
 };
 export const selectPostInfo = (state, postID) => getPostProperty(state, postID).postInfo;
+export const selectPostInfoIsFirstFetch = (state, postID) => getPostProperty(state, postID).postInfoIsFirstFetch;
 export const selectPostInfoIsLoading = (state, postID) => getPostProperty(state, postID).postInfoIsLoading;
 export const selectComments = (state, postID) => getPostProperty(state, postID).comments;
 export const selectCommentsNextPage = (state, postID) => getPostProperty(state, postID).commentsNextPage;

@@ -17,7 +17,7 @@ import { HomeHeader } from '../../components';
 import AddBoardModal from '../../components/AddBoardModal';
 import Post from '../../components/Post';
 import {
-  Colors, Constants, Pages, Strings,
+  Colors, Constants, Graphics, Pages, Strings,
 } from '../../config';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
@@ -108,8 +108,7 @@ class Home extends Component {
 
   renderContent() {
     const { posts, postsIsLoading } = this.props;
-    return (posts.length === 0
-    && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
+    return (posts.length === 0 && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
   }
 
   renderFeed() {
@@ -138,11 +137,10 @@ class Home extends Component {
         saveButtonPressed={() => {
           this.showModal();
         }}
-        onLikePressed={() => this.likeOrDislike(item.id)}
-        onCommentOrPicPressed={() => {
-          this.onCommentOrPicPressed(item.id);
-        }}
-        item={item}
+        home
+        margin={8}
+        imageHeight={Graphics.HOME_POST_IMAGE_HEIGHT}
+        post={item}
       />
     );
   }

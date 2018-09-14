@@ -1,7 +1,7 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
 import { Constants, Strings } from '../config';
-import { timeDiff } from '../helpers/timeDiff';
+import { calculateTimeDifference } from '../helpers';
 import { strings } from '../i18n';
 
 export default class NotificationComponent extends Component {
@@ -38,7 +38,7 @@ export default class NotificationComponent extends Component {
           width: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
           height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
           borderRadius: notification.notif_type === 1 || notification.notif_type === 4 ? Constants.POST_CARD_RADIUS : Constants.CONTACT_THUMBNAIL_RADIUS,
-		}}
+        }}
         source={{ uri: (notification.notif_type === 1 || notification.notif_type === 4) ? notification.data.post_picture : notification.profile_picture }}
       />
     );
@@ -86,7 +86,7 @@ export default class NotificationComponent extends Component {
           paddingRight: 8,
         }}
       >
-        {timeDiff(notification.time)}
+        {calculateTimeDifference(notification.time)}
       </Text>
     );
   }

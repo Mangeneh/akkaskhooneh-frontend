@@ -1,159 +1,212 @@
 import {
-  Body,
-  Button,
-  Card,
-  CardItem,
-  Icon,
-  Item,
-  Left,
-  Right,
-  Text,
-  Thumbnail,
+  Body, Card, CardItem, Icon, Left, Right, Text, Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import {
-  Dimensions, Platform, StyleSheet, TouchableOpacity, View,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { sendLikeOrDislike } from '../actions';
 import {
-  Colors, Constants, Graphics, Pages, Parameters,
+  Colors, Graphics, Pages, Parameters,
 } from '../config';
 import {
+  calculateTimeDifference,
   extractCaption,
   extractCommentsCount,
   extractIsLiked,
   extractLikesCount,
   extractOwnerUsername,
   extractPostDate,
+  extractPostID,
   extractPostPictureUri,
   extractProfilePictureUri,
+  PlatformSpecificResizeMode,
 } from '../helpers';
-import { timeDiff } from '../helpers/timeDiff';
-
-const WIDTH = Dimensions.get('window').width;
 
 class Post extends Component {
   render() {
-    const {
-      saveButtonPressed, item, onCommentOrPicPressed, onLikePressed,
-    } = this.props;
+    const { margin } = this.props;
     return (
       <Card style={{
         borderRadius: Graphics.POST_CARD_RADIUS,
-        marginRight: 8,
-        marginLeft: 8,
+        marginRight: margin,
+        marginLeft: margin,
         marginTop: 8,
       }}
       >
-        <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
-          <Left>
-            <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="more-horizontal" type="Feather" style={styles.icon} />
-            </Button>
-          </Left>
-          <Body />
-          <Right style={{
-            flexDirection: 'row',
-            alignSelf: 'flex-end',
-            paddingRight: 12,
-          }}
-          >
-            <View style={{ flexDirection: 'column' }}>
-              <TouchableOpacity onPress={() => this.showProfile()}>
-                <Text style={{
-                  fontSize: Graphics.POST_OWNER_NAME_FONT_SIZE,
-                  textAlign: 'right',
-                  paddingRight: 8,
-                }}
-                >
-                  {extractOwnerUsername(item)}
-                </Text>
-              </TouchableOpacity>
-              <Text
-                note
-                style={{
-                  fontSize: Constants.POST_TIME_FONT_SIZE,
-                  paddingRight: 8,
-                }}
-              >
-                {timeDiff(extractPostDate(item))}
-              </Text>
-              <Text />
-            </View>
-            <Thumbnail source={{ uri: extractProfilePictureUri(item) }} />
-          </Right>
-        </CardItem>
-        <TouchableOpacity onPress={onCommentOrPicPressed} activeOpacity={0.5}>
-          <CardItem cardBody>
-            <FastImage
-              source={{ uri: extractPostPictureUri(item) }}
-              style={{
-                height: WIDTH - 128,
-                width: null,
-                flex: 1,
-              }}
-              resizeMode={Platform.OS === 'ios' ? FastImage.resizeMode.contain : FastImage.resizeMode.center}
-            />
-          </CardItem>
-        </TouchableOpacity>
-        <CardItem>
-          <Item>
-            <Text style={{
-              fontSize: Constants.ITEM_FONT_SIZE,
-              textAlign: 'right',
-            }}
-            >
-              {extractCaption(item)}
-            </Text>
-            <Text />
-          </Item>
-        </CardItem>
-        <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
-          <Left>
-            <Button transparent style={{ flexDirection: 'row' }} onPress={onLikePressed}>
-              <Icon
-                name={extractIsLiked(item) ? 'heart' : 'heart-outlined'}
-                type="Entypo"
-                style={{ color: extractIsLiked(item) ? 'red' : Colors.BASE }}
-              />
-              <Text style={styles.stats}>{extractLikesCount(item)}</Text>
-            </Button>
-            <Button
-              transparent
-              style={{ flexDirection: 'row' }}
-              onPress={onCommentOrPicPressed}
-            >
-              <Icon name="commenting-o" type="FontAwesome" style={styles.icon} />
-              <Text style={styles.stats}>{extractCommentsCount(item)}</Text>
-            </Button>
-            <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="share-2" type="Feather" style={styles.icon} />
-            </Button>
-          </Left>
-          <Right>
-            <Button
-              transparent
-              style={{ flexDirection: 'row' }}
-              onPress={saveButtonPressed}
-            >
-              <Icon name="bookmark-o" type="FontAwesome" style={{ color: Colors.BASE }} />
-            </Button>
-          </Right>
-        </CardItem>
+        {this.renderTop()}
+        {this.renderBorder()}
+        {this.renderPostPicture()}
+        {this.renderBorder()}
+        {this.renderCaption()}
+        {this.renderBottom()}
       </Card>
     );
   }
 
+  renderBorder() {
+    return (<View style={styles.border} />);
+  }
+
+  renderTop() {
+    const { post } = this.props;
+    return (
+      <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
+        <Left>
+          <TouchableOpacity hitSlop={Graphics.HIT_SLOP}>
+            <Icon name="dots-horizontal" type="MaterialCommunityIcons" style={styles.icon} />
+          </TouchableOpacity>
+        </Left>
+        <Body />
+        <Right style={{
+          flexDirection: 'row',
+          alignSelf: 'flex-end',
+        }}
+        >
+          <View style={{
+            flexDirection: 'column',
+            marginRight: 8,
+          }}
+          >
+            <TouchableOpacity onPress={() => this.showProfile()}>
+              <Text style={{
+                fontSize: Graphics.POST_OWNER_NAME_FONT_SIZE,
+                textAlign: 'right',
+                marginRight: 4,
+              }}
+              >
+                {extractOwnerUsername(post)}
+              </Text>
+            </TouchableOpacity>
+            <Text
+              note
+              style={{
+                fontSize: Graphics.POST_TIME_FONT_SIZE,
+                marginRight: 8,
+              }}
+            >
+              {calculateTimeDifference(extractPostDate(post))}
+            </Text>
+          </View>
+          <View style={{ marginRight: 8 }}>
+            <Thumbnail small source={{ uri: extractProfilePictureUri(post) }} />
+          </View>
+        </Right>
+      </CardItem>
+    );
+  }
+
+  renderPostPicture() {
+    const { post, imageHeight } = this.props;
+    return (
+      <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={0.8}>
+        <CardItem cardBody>
+          <FastImage
+            source={{ uri: extractPostPictureUri(post) }}
+            style={{
+              width: null,
+              height: imageHeight,
+              flex: 1,
+            }}
+            resizeMode={PlatformSpecificResizeMode()}
+          />
+        </CardItem>
+      </TouchableOpacity>
+    );
+  }
+
+  renderCaption() {
+    const { post } = this.props;
+    return (post.caption
+      ? (
+        <View>
+          <CardItem style={{ justifyContent: 'flex-end' }}>
+            <Text style={{ fontSize: Graphics.POST_CAPTION_FONT_SIZE }}>
+              {extractCaption(post)}
+            </Text>
+          </CardItem>
+          {this.renderBorder()}
+        </View>
+      ) : null
+    );
+  }
+
+  renderBottom() {
+    const {
+      saveButtonPressed, post,
+    } = this.props;
+    return (
+      <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
+        <Left>
+          <TouchableOpacity onPress={() => this.onLikePressed()}>
+            <Icon
+              name={extractIsLiked(post) ? 'heart' : 'heart-outline'}
+              type="MaterialCommunityIcons"
+              style={{
+                color: extractIsLiked(post) ? 'red' : Colors.ICON,
+                fontSize: Graphics.POST_ICONS_FONT_SIZE,
+              }}
+            />
+          </TouchableOpacity>
+          <Text style={styles.stats}>{extractLikesCount(post)}</Text>
+          <TouchableOpacity onPress={() => this.showCompletePost()}>
+            <Icon name="comment-text" type="MaterialCommunityIcons" style={styles.icon} />
+          </TouchableOpacity>
+          <Text style={styles.stats}>{extractCommentsCount(post)}</Text>
+          <TouchableOpacity>
+            <Icon name="share-variant" type="MaterialCommunityIcons" style={styles.icon} />
+          </TouchableOpacity>
+        </Left>
+        <Right>
+          <TouchableOpacity onPress={saveButtonPressed}>
+            <Icon name="bookmark-plus" type="MaterialCommunityIcons" style={styles.icon} />
+          </TouchableOpacity>
+        </Right>
+      </CardItem>
+    );
+  }
+
   showProfile() {
-    const { navigation, item } = this.props;
-    navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: extractOwnerUsername(item) });
+    const { navigation, post } = this.props;
+    navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: extractOwnerUsername(post) });
+  }
+
+  showCompletePost() {
+    const { home, navigation, post } = this.props;
+    if (home) {
+      navigation.push(Pages.POST_INFO_PAGE, { [Parameters.POST_ID]: extractPostID(post) });
+    }
+  }
+
+  onLikePressed() {
+    const { sendLikeOrDislike, post } = this.props;
+    sendLikeOrDislike(extractPostID(post));
   }
 }
 
-export default withNavigation(Post);
-
 const styles = StyleSheet.create({
-  icon: { color: Colors.ICON },
-  stats: { color: Colors.TEXT },
+  icon: {
+    color: Colors.ICON,
+    fontSize: Graphics.POST_ICONS_FONT_SIZE,
+  },
+  stats: {
+    color: Colors.ICON,
+    marginTop: 2,
+    marginRight: 8,
+  },
+  border: {
+    height: 1,
+    width: '100%',
+    alignSelf: 'center',
+    backgroundColor: Colors.BORDER,
+  },
 });
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+  sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
+});
+
+export default connect(null, mapDispatchToProps)(withNavigation(Post));

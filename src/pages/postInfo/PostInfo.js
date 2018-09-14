@@ -1,43 +1,20 @@
 import {
-  Body,
-  Button,
-  Card,
-  CardItem,
-  Icon,
-  Item,
-  Left,
-  Right,
-  Text,
-  Textarea,
-  Thumbnail,
-  Toast,
+  Button, Icon, Item, Textarea, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  View,
+  ActivityIndicator, FlatList, SafeAreaView, ScrollView, View,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import {
   getCommentsNextPage, getPostInfo, refreshComments, sendComment,
 } from '../../actions';
 import { CustomStatusBar, PostHeader } from '../../components';
 import CommentComponent from '../../components/CommentComponent';
-import { Colors, Constants, Strings } from '../../config';
+import Post from '../../components/Post';
 import {
-  extractCaption,
-  extractCommentsCount,
-  extractIsLiked,
-  extractLikesCount,
-  extractOwnerUsername,
-  extractPostPictureUri,
-  extractProfilePictureUri,
-} from '../../helpers';
+  Colors, Constants, Graphics, Parameters, Strings,
+} from '../../config';
 import { strings } from '../../i18n';
 import {
   selectComments,
@@ -48,27 +25,22 @@ import {
   selectCommentsTotalPages,
   selectIsSendingComment,
   selectPostInfo,
+  selectPostInfoIsFirstFetch,
   selectPostInfoIsLoading,
 } from '../../reducers/PostsReducer';
 
-const WIDTH = Dimensions.get('window').width;
-
 class PostInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      commentText: '',
-    };
-  }
+  state = {
+    commentText: '',
+  };
 
   componentWillMount() {
-    const { refreshComments, getPostInfo } = this.props;
-    getPostInfo();
-    refreshComments();
+    this.getPostInfo();
+    this.refreshComments();
   }
 
   render() {
-    const { navigation, postInfoIsLoading } = this.props;
+    const { navigation, postInfoIsFirstFetch } = this.props;
     return (
       <SafeAreaView
         style={{
@@ -76,7 +48,7 @@ class PostInfo extends Component {
           backgroundColor: 'white',
         }}
       >
-        <PostHeader onBackPress={() => navigation.navigate('Main')} />
+        <PostHeader onBackPress={() => navigation.goBack()} />
         <CustomStatusBar />
         <View style={{ flex: 1 }}>
           <ScrollView style={{ flexGrow: 1 }}>
@@ -86,9 +58,11 @@ class PostInfo extends Component {
                 marginBottom: 0,
               }}
             >
-              {!postInfoIsLoading ? this.renderCard() : null}
+              {!postInfoIsFirstFetch ? this.renderPost() : null}
             </View>
-            <View style={{ flex: 4 }}>{this.renderCommentsList()}</View>
+            <View style={{ flex: 4 }}>
+              {this.renderCommentsList()}
+            </View>
           </ScrollView>
           {this.renderInputBox()}
         </View>
@@ -144,97 +118,14 @@ class PostInfo extends Component {
     );
   }
 
-  renderCard() {
+  renderPost() {
     const { postInfo } = this.props;
     return (
-      <Card>
-        <CardItem>
-          <Left />
-          <Body />
-          <Right
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'flex-end',
-              paddingRight: 12,
-            }}
-          >
-            <View style={{ flexDirection: 'column' }}>
-              <Text
-                style={{
-                  fontSize: Constants.POST_NAME_FONT_SIZE,
-                  textAlign: 'right',
-                  paddingRight: 8,
-                }}
-              >
-                {extractOwnerUsername(postInfo)}
-              </Text>
-              <Text
-                note
-                style={{
-                  fontSize: Constants.POST_TIME_FONT_SIZE,
-                  paddingRight: 8,
-                }}
-              >
-                ۲ ساعت پیش
-              </Text>
-              <Text />
-            </View>
-            <Thumbnail source={{ uri: extractProfilePictureUri(postInfo) }} />
-          </Right>
-        </CardItem>
-        <CardItem cardBody>
-          <FastImage
-            source={{ uri: extractPostPictureUri(postInfo) }}
-            style={{
-              height: WIDTH,
-              width: WIDTH,
-              flex: 1,
-            }}
-            resizeMode={FastImage.resizeMode.stretch}
-          />
-        </CardItem>
-        <CardItem>
-          <Item>
-            <Left />
-            <Body />
-            <Right>
-              <Text
-                style={{
-                  fontSize: Constants.ITEM_FONT_SIZE,
-                  textAlign: 'right',
-                }}
-              >
-                {extractCaption(postInfo)}
-              </Text>
-              <Text />
-            </Right>
-          </Item>
-        </CardItem>
-        <CardItem>
-          <Left>
-            <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon
-                name={extractIsLiked(postInfo) ? 'heart' : 'heart-outlined'}
-                type="Entypo"
-                style={{ color: extractIsLiked(postInfo) ? 'red' : Colors.BASE }}
-              />
-              <Text style={{ color: Colors.BASE }}>{extractLikesCount(postInfo)}</Text>
-            </Button>
-            <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="commenting-o" type="FontAwesome" style={{ color: Colors.BASE }} />
-              <Text style={{ color: Colors.BASE }}>{extractCommentsCount(postInfo)}</Text>
-            </Button>
-            <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="share-2" type="Feather" style={{ color: Colors.BASE }} />
-            </Button>
-          </Left>
-          <Right>
-            <Button transparent style={{ flexDirection: 'row' }}>
-              <Icon name="bookmark-o" type="FontAwesome" style={{ color: Colors.BASE }} />
-            </Button>
-          </Right>
-        </CardItem>
-      </Card>
+      <Post
+        margin={0}
+        post={postInfo}
+        imageHeight={Graphics.POST_IMAGE_HEIGHT}
+      />
     );
   }
 
@@ -260,6 +151,20 @@ class PostInfo extends Component {
 
   renderComment(item, index) {
     return <CommentComponent comment={item} />;
+  }
+
+  getPostInfo() {
+    const { postInfoIsLoading, getPostInfo } = this.props;
+    if (!postInfoIsLoading) {
+      getPostInfo();
+    }
+  }
+
+  refreshComments() {
+    const { commentsIsRefreshing, commentsIsLoading, refreshComments } = this.props;
+    if (!commentsIsRefreshing && !commentsIsLoading) {
+      refreshComments();
+    }
   }
 
   updateComments() {
@@ -315,24 +220,25 @@ const mapStateToProps = (state, ownProps) => {
   const postID = ownProps.navigation.getParam('postID');
   return {
     postInfo: selectPostInfo(state, postID),
+    postInfoIsFirstFetch: selectPostInfoIsFirstFetch(state, postID),
     postInfoIsLoading: selectPostInfoIsLoading(state, postID),
-    isSendingComment: selectIsSendingComment(state, postID),
     comments: selectComments(state, postID),
     commentsNextPage: selectCommentsNextPage(state, postID),
     commentsTotalPages: selectCommentsTotalPages(state, postID),
-    commentsIsRefreshing: selectCommentsIsRefreshing(state, postID),
     commentsIsFirstFetch: selectCommentsIsFirstFetch(state, postID),
+    commentsIsRefreshing: selectCommentsIsRefreshing(state, postID),
     commentsIsLoading: selectCommentsIsLoading(state, postID),
+    isSendingComment: selectIsSendingComment(state, postID),
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const postID = ownProps.navigation.getParam('postID');
+  const postID = ownProps.navigation.getParam(Parameters.POST_ID);
   return {
     getPostInfo: () => dispatch(getPostInfo(postID)),
-    commentOnPost: content => dispatch(sendComment(postID, content)),
     refreshComments: () => dispatch(refreshComments(postID)),
     getCommentsNextPage: commentsNext => dispatch(getCommentsNextPage(postID, commentsNext)),
+    commentOnPost: comment => dispatch(sendComment(postID, comment)),
   };
 };
 
