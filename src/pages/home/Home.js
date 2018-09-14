@@ -19,6 +19,7 @@ import Post from '../../components/Post';
 import {
   Colors, Constants, Graphics, Pages, Strings,
 } from '../../config';
+import { extractPostID } from '../../helpers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
 import {
@@ -31,12 +32,12 @@ import {
 } from '../../reducers/PostsReducer';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.updatePosts();
-    this.state = {
-      newBoardName: '',
-    };
+  state = {
+    newBoardName: '',
+  };
+
+  componentWillMount() {
+    this.refreshPosts();
   }
 
   render() {
@@ -140,31 +141,26 @@ class Home extends Component {
         home
         margin={8}
         imageHeight={Graphics.HOME_POST_IMAGE_HEIGHT}
-        post={item}
+        postID={extractPostID(item)}
       />
     );
   }
 
-  likeOrDislike(id) {
-    const { sendLikeOrDislike } = this.props;
-    sendLikeOrDislike(id)
-      .then((response) => {
-      })
-      .catch((error) => {
-      });
-  }
-
-  onCommentOrPicPressed(id) {
-    const { navigation } = this.props;
-    navigation.push(Pages.POST_INFO_PAGE, { postID: id });
-  }
-
   updatePosts() {
     const {
-      postsNextPage, postsTotalPages, postsIsLoading, getPostsNextPage,
+      postsNextPage, postsTotalPages, postsIsLoading, postsIsRefreshing, getPostsNextPage,
     } = this.props;
-    if (postsNextPage <= postsTotalPages && !postsIsLoading) {
+    if (postsNextPage <= postsTotalPages && !postsIsLoading && !postsIsRefreshing) {
       getPostsNextPage(postsNextPage);
+    }
+  }
+
+  refreshPosts() {
+    const {
+      refreshHomePosts, postsIsLoading, postsIsRefreshing,
+    } = this.props;
+    if (!postsIsLoading && !postsIsRefreshing) {
+      refreshHomePosts();
     }
   }
 

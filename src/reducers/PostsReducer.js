@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { PostsActions, UsersActions } from '../actions';
-import { extractLikesCount } from '../helpers';
+import { extractIsLiked, extractLikesCount, extractPostID } from '../helpers';
 import { selectPosts } from './index';
 
 const INITIAL_USER_PHOTOS_STATE = {
@@ -169,6 +169,7 @@ export default (state = INITIAL_STATE, action) => {
           homePostsIsFirstFetch: false,
           homePostsIsRefreshing: false,
         },
+        ...injectNewPosts(action.payload.data.results, state),
       };
     case GET_HOME_POSTS_NEXT_PAGE:
       return {
@@ -188,6 +189,7 @@ export default (state = INITIAL_STATE, action) => {
           homePostsTotalPages: action.payload.data.total_pages,
           homePostsIsLoading: false,
         },
+        ...injectNewPosts(action.payload.data.results, state),
       };
     //
     case GET_POST_INFO: {
@@ -304,34 +306,19 @@ export default (state = INITIAL_STATE, action) => {
     }
     //
     case LIKE_OR_DISLIKE: {
-      const { postID } = action.payload;
-      const chosenPost = state.home.homePosts.find(post => post.id === postID);
-      const chosenPostIndex = state.home.homePosts.indexOf(chosenPost);
-      const newLikes = extractLikesCount(chosenPost) + (chosenPost.is_liked ? -1 : 1);
-      const newPost = {
-        ...chosenPost,
+      const postField = createPostBadge(action.payload.postID);
+      const chosenPostInfo = state[postField].postInfo;
+      const newLikes = extractLikesCount(chosenPostInfo) + (extractIsLiked(chosenPostInfo) ? -1 : 1);
+      const newPostInfo = {
+        ...chosenPostInfo,
         likes_count: newLikes,
-        is_liked: !chosenPost.is_liked,
+        is_liked: !chosenPostInfo.is_liked,
       };
-      const newHomePosts = [
-        ...state.home.homePosts.slice(0, chosenPostIndex),
-        newPost,
-        ...state.home.homePosts.slice(chosenPostIndex + 1),
-      ];
-      const postField = createPostBadge(postID);
       return {
         ...state,
-        home: {
-          ...state.home,
-          homePosts: newHomePosts,
-        },
         [postField]: {
           ...state[postField],
-          postInfo: {
-            ...state[postField].postInfo,
-            likes_count: newLikes,
-            is_liked: !state[postField].postInfo.is_liked,
-          },
+          postInfo: newPostInfo,
         },
       };
     }
@@ -440,6 +427,43 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+const injectNewPosts = (newPosts, state) => newPosts.reduce((accumulator, currentValue, currentIndex) => {
+  if (currentIndex === 1) {
+    const firstPostField = createPostBadge(extractPostID(accumulator));
+    const secondPostField = createPostBadge(extractPostID(currentValue));
+    return {
+      [firstPostField]: {
+        ...INITIAL_OPEN_POST_STATE,
+        ...state[firstPostField],
+        postInfo: {
+          ...accumulator,
+        },
+        postInfoIsFirstFetch: false,
+      },
+      [secondPostField]: {
+        ...INITIAL_OPEN_POST_STATE,
+        ...state[secondPostField],
+        postInfo: {
+          ...currentValue,
+        },
+        postInfoIsFirstFetch: false,
+      },
+    };
+  }
+  const postField = createPostBadge(extractPostID(currentValue));
+  return {
+    ...accumulator,
+    [postField]: {
+      ...INITIAL_OPEN_POST_STATE,
+      ...state[postField],
+      postInfo: {
+        ...currentValue,
+      },
+      postInfoIsFirstFetch: false,
+    },
+  };
+});
 
 const selectHome = state => selectPosts(state).home;
 

@@ -15,6 +15,7 @@ import Post from '../../components/Post';
 import {
   Colors, Constants, Graphics, Parameters, Strings,
 } from '../../config';
+import { extractPostID } from '../../helpers';
 import { strings } from '../../i18n';
 import {
   selectComments,
@@ -119,12 +120,13 @@ class PostInfo extends Component {
   }
 
   renderPost() {
-    const { postInfo } = this.props;
+    const postID = this.props.navigation.getParam(Parameters.POST_ID);
     return (
       <Post
         margin={0}
-        post={postInfo}
+        postID={postID}
         imageHeight={Graphics.POST_IMAGE_HEIGHT}
+        home={false}
       />
     );
   }
@@ -217,7 +219,7 @@ class PostInfo extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const postID = ownProps.navigation.getParam('postID');
+  const postID = ownProps.navigation.getParam(Parameters.POST_ID);
   return {
     postInfo: selectPostInfo(state, postID),
     postInfoIsFirstFetch: selectPostInfoIsFirstFetch(state, postID),

@@ -23,6 +23,11 @@ import {
   extractProfilePictureUri,
   PlatformSpecificResizeMode,
 } from '../helpers';
+import {
+  selectPostInfo,
+  selectPostInfoIsFirstFetch,
+  selectPostInfoIsLoading,
+} from '../reducers/PostsReducer';
 
 class Post extends Component {
   render() {
@@ -50,7 +55,7 @@ class Post extends Component {
   }
 
   renderTop() {
-    const { post } = this.props;
+    const { postInfo } = this.props;
     return (
       <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
         <Left>
@@ -76,7 +81,7 @@ class Post extends Component {
                 marginRight: 4,
               }}
               >
-                {extractOwnerUsername(post)}
+                {extractOwnerUsername(postInfo)}
               </Text>
             </TouchableOpacity>
             <Text
@@ -86,11 +91,11 @@ class Post extends Component {
                 marginRight: 8,
               }}
             >
-              {calculateTimeDifference(extractPostDate(post))}
+              {calculateTimeDifference(extractPostDate(postInfo))}
             </Text>
           </View>
           <View style={{ marginRight: 8 }}>
-            <Thumbnail small source={{ uri: extractProfilePictureUri(post) }} />
+            <Thumbnail small source={{ uri: extractProfilePictureUri(postInfo) }} />
           </View>
         </Right>
       </CardItem>
@@ -98,12 +103,12 @@ class Post extends Component {
   }
 
   renderPostPicture() {
-    const { post, imageHeight } = this.props;
+    const { postInfo, imageHeight } = this.props;
     return (
       <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={0.8}>
         <CardItem cardBody>
           <FastImage
-            source={{ uri: extractPostPictureUri(post) }}
+            source={{ uri: extractPostPictureUri(postInfo) }}
             style={{
               width: null,
               height: imageHeight,
@@ -117,13 +122,13 @@ class Post extends Component {
   }
 
   renderCaption() {
-    const { post } = this.props;
-    return (post.caption
+    const { postInfo } = this.props;
+    return (postInfo.caption
       ? (
         <View>
           <CardItem style={{ justifyContent: 'flex-end' }}>
             <Text style={{ fontSize: Graphics.POST_CAPTION_FONT_SIZE }}>
-              {extractCaption(post)}
+              {extractCaption(postInfo)}
             </Text>
           </CardItem>
           {this.renderBorder()}
@@ -134,26 +139,26 @@ class Post extends Component {
 
   renderBottom() {
     const {
-      saveButtonPressed, post,
+      saveButtonPressed, postInfo,
     } = this.props;
     return (
       <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
         <Left>
           <TouchableOpacity onPress={() => this.onLikePressed()}>
             <Icon
-              name={extractIsLiked(post) ? 'heart' : 'heart-outline'}
+              name={extractIsLiked(postInfo) ? 'heart' : 'heart-outline'}
               type="MaterialCommunityIcons"
               style={{
-                color: extractIsLiked(post) ? 'red' : Colors.ICON,
+                color: extractIsLiked(postInfo) ? 'red' : Colors.ICON,
                 fontSize: Graphics.POST_ICONS_FONT_SIZE,
               }}
             />
           </TouchableOpacity>
-          <Text style={styles.stats}>{extractLikesCount(post)}</Text>
+          <Text style={styles.stats}>{extractLikesCount(postInfo)}</Text>
           <TouchableOpacity onPress={() => this.showCompletePost()}>
             <Icon name="comment-text" type="MaterialCommunityIcons" style={styles.icon} />
           </TouchableOpacity>
-          <Text style={styles.stats}>{extractCommentsCount(post)}</Text>
+          <Text style={styles.stats}>{extractCommentsCount(postInfo)}</Text>
           <TouchableOpacity>
             <Icon name="share-variant" type="MaterialCommunityIcons" style={styles.icon} />
           </TouchableOpacity>
@@ -168,20 +173,20 @@ class Post extends Component {
   }
 
   showProfile() {
-    const { navigation, post } = this.props;
-    navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: extractOwnerUsername(post) });
+    const { navigation, postInfo } = this.props;
+    navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: extractOwnerUsername(postInfo) });
   }
 
   showCompletePost() {
-    const { home, navigation, post } = this.props;
+    const { home, navigation, postInfo } = this.props;
     if (home) {
-      navigation.push(Pages.POST_INFO_PAGE, { [Parameters.POST_ID]: extractPostID(post) });
+      navigation.push(Pages.POST_INFO_PAGE, { [Parameters.POST_ID]: extractPostID(postInfo) });
     }
   }
 
   onLikePressed() {
-    const { sendLikeOrDislike, post } = this.props;
-    sendLikeOrDislike(extractPostID(post));
+    const { sendLikeOrDislike, postInfo } = this.props;
+    sendLikeOrDislike(extractPostID(postInfo));
   }
 }
 
@@ -203,10 +208,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state, ownProps) => {
+  const { postID } = ownProps;
+  return {
+    postInfo: selectPostInfo(state, postID),
+    postInfoIsFirstFetch: selectPostInfoIsFirstFetch(state, postID),
+    postInfoIsLoading: selectPostInfoIsLoading(state, postID),
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
 });
 
-export default connect(null, mapDispatchToProps)(withNavigation(Post));
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(Post));
