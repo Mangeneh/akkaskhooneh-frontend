@@ -3,11 +3,14 @@ import {
   Dimensions, FlatList, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Colors, Graphics } from '../config';
+import { withNavigation } from 'react-navigation';
+import {
+  Colors, Graphics, Pages, Parameters,
+} from '../config';
 import { extractPostID, extractPostPictureUri } from '../helpers';
 import Loading from './Loading';
 
-export default class PostsPhotoList extends Component {
+class PostsPhotoList extends Component {
   componentWillMount() {
     const { width } = Dimensions.get('window');
     const imagesPerRow = 2;
@@ -47,13 +50,12 @@ export default class PostsPhotoList extends Component {
   }
 
   renderPostPhoto(item, index) {
-    const { onPhotoPress } = this.props;
     const uri = extractPostPictureUri(item);
     const postID = extractPostID(item);
     return (uri ? (
       <TouchableOpacity
         style={styles.imageContainer}
-        onPress={() => onPhotoPress(postID)}
+        onPress={() => this.props.navigation.push(Pages.POST_INFO_PAGE, { [Parameters.POST_ID]: postID })}
       >
         <FastImage
           source={{
@@ -78,3 +80,5 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 });
+
+export default withNavigation(PostsPhotoList);

@@ -38,6 +38,8 @@ import {
 } from '../reducers/PostsReducer';
 import AddBoardModal from './AddBoardModal';
 
+const DOUBLE_PRESS_DELAY = 300;
+
 class Post extends Component {
   state = {
     newBoardName: '',
@@ -144,9 +146,9 @@ class Post extends Component {
   }
 
   renderPostPicture() {
-    const { postInfo, imageHeight } = this.props;
+    const { postInfo, imageHeight, home } = this.props;
     return (
-      <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={0.8}>
+      <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={home ? 0.9 : 1}>
         <CardItem cardBody>
           <FastImage
             source={{ uri: extractPostPictureUri(postInfo) }}
@@ -247,9 +249,9 @@ class Post extends Component {
     this.addNewPostToBoard(response.payload.data.id);
   }
 
-  addNewPostToBoard(selectedBoardID) {
-    const { selectedPostID, addPostToBoard, refreshSelfBoards } = this.props;
-    addPostToBoard(selectedPostID, selectedBoardID)
+  addNewPostToBoard(boardID) {
+    const { addPostToBoard, refreshSelfBoards } = this.props;
+    addPostToBoard(boardID)
       .then((response) => {
       })
       .catch((error) => {
@@ -303,12 +305,15 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
-  getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
-  addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
-  refreshSelfBoards: () => dispatch(refreshUserBoards()),
-  createBoard: newBoardName => dispatch(createBoard(newBoardName)),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { postID } = ownProps;
+  return {
+    sendLikeOrDislike: () => dispatch(sendLikeOrDislike(postID)),
+    getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
+    addPostToBoard: boardID => dispatch(addPostToBoard(postID, boardID)),
+    refreshSelfBoards: () => dispatch(refreshUserBoards()),
+    createBoard: newBoardName => dispatch(createBoard(newBoardName)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(Post));
