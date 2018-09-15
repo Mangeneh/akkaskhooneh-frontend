@@ -59,7 +59,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         notifications: action.payload.data.results,
-        notificationsNextPage: state.notificationsNextPage + 1,
+        notificationsNextPage: 2,
         notificationsTotalPages: action.payload.data.total_pages,
         notificationsIsFirstFetch: false,
         notificationsIsRefreshing: false,
@@ -82,3 +82,4 @@ export const selectNotifications = state => selectNotificationPage(state).notifi
 export const selectNotificationsNextPage = state => selectNotificationPage(state).notificationsNextPage;
 export const selectNotificationsTotalPages = state => selectNotificationPage(state).notificationsTotalPages;
 export const selectNotificationsIsLoading = state => selectNotificationPage(state).notificationsIsLoading;
+export const selectNotificationsIsFirstFetch = state => selectNotificationPage(state).notificationsIsFirstFetch;

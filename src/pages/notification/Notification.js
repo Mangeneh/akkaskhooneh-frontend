@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { CustomStatusBar, NotificationComponent } from '../../components';
 import { Colors, Strings, Constants } from '../../config';
 import { strings } from '../../i18n';
-import { getNotifications, refreshNotifications, startNewSearch } from './actions';
+import { getNotifications, refreshNotifications } from './actions';
 import {
   selectNotifications,
   selectNotificationsIsLoading,
   selectNotificationsNextPage,
   selectNotificationsTotalPages,
+  selectNotificationsIsFirstFetch,
 } from './reducer';
 
 class Notification extends Component {
@@ -38,7 +39,7 @@ class Notification extends Component {
             paddingLeft: 8,
           }}
           >
-            {this.props.notifications.length === 0 ? this.showEmpty() : this.renderNotifications()}
+            {this.props.notifications.length === 0 && !this.props.notificationsIsFirstFetch ? this.showEmpty() : this.renderNotifications()}
           </View>
         </View>
       </View>
@@ -99,12 +100,14 @@ class Notification extends Component {
   }
 
   updateNotifications() {
+    console.warn(this.props.notificationsNextPage);
     const {
       notificationsNextPage, notificationsTotalPages, notificationsIsLoading, getNotificationsNextPage,
     } = this.props;
     if (notificationsNextPage <= notificationsTotalPages && !notificationsIsLoading) {
       getNotificationsNextPage(notificationsNextPage)
         .then((response) => {
+          console.warn(response)
         })
         .catch((error) => {
         });
@@ -117,12 +120,12 @@ const mapStateToProps = state => ({
   notificationsNextPage: selectNotificationsNextPage(state),
   notificationsTotalPages: selectNotificationsTotalPages(state),
   notificationsIsLoading: selectNotificationsIsLoading(state),
+  notificationsIsFirstFetch: selectNotificationsIsFirstFetch(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   refreshNotifications: () => dispatch(refreshNotifications()),
   getNotificationsNextPage: notificationsNext => dispatch(getNotifications(notificationsNext)),
-  startNewSearch: () => dispatch(startNewSearch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);
