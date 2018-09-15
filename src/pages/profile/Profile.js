@@ -152,7 +152,7 @@ class Profile extends Component {
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
         >
-          {this.props.photos.length === 0 ? this.showEmpty() : this.renderPhotosList()}
+          {this.props.photos.length === 0 && !this.props.photosIsFirstFetch ? this.showEmpty() : this.renderPhotosList()}
         </Tab>
       </Tabs>
     );

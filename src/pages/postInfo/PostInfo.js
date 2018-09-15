@@ -62,7 +62,7 @@ class PostInfo extends Component {
               {!postInfoIsFirstFetch ? this.renderPost() : null}
             </View>
             <View style={{ flex: 4 }}>
-              {this.props.comments.length === 0 ? this.showEmpty() : this.renderCommentsList()}
+              {this.props.comments.length === 0 && !this.props.commentsIsFirstFetch ? this.showEmpty() : this.renderCommentsList()}
             </View>
           </ScrollView>
           {this.renderInputBox()}
