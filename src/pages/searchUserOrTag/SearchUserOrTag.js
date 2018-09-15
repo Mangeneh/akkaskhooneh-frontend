@@ -133,7 +133,6 @@ class SearchUserOrTag extends Component {
               this.props.refreshSearchUsers(searchText);
               this.props.refreshSearchTags(searchText)
                 .then((response) => {
-                  console.warn(response);
                 })
                 .catch((error) => {
                   Toast.show({

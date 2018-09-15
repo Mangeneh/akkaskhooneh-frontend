@@ -1,6 +1,6 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
-import { Constants, Graphics } from '../config';
+import { Constants, Graphics, Colors } from '../config';
 import { calculateTimeDifference } from '../helpers';
 
 export default class CommentComponent extends Component {
@@ -57,6 +57,7 @@ export default class CommentComponent extends Component {
         fontSize: Graphics.COMMENTS_TEXT_SIZE,
         textAlign: 'right',
         paddingRight: 8,
+        color: Colors.ICON,
       }}
       >
         {comment.comment}
