@@ -18,7 +18,6 @@ import { strings } from '../i18n';
 
 class NotificationComponent extends Component {
   render() {
-    console.log(this.props.notification);
     return (
       <TouchableOpacity
         style={{
@@ -110,6 +109,7 @@ class NotificationComponent extends Component {
     if (this.isLikeOrComment()) {
       navigation.push(Pages.POST_INFO_PAGE, { [Parameters.POST_ID]: extractNotificationPostID(notification) });
     }else {
+      // todo
       // navigation.push(Pages.OTHERS_PROFILE, {[Parameters.USERNAME]: extractNo})
     }
   }

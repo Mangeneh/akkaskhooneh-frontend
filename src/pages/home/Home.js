@@ -79,7 +79,7 @@ class Home extends Component {
 
   renderContent() {
     const { posts, postsIsLoading, postsIsFirstFetch, postsIsRefreshing } = this.props;
-    return (posts.length === 0 && !postsIsLoading ? this.renderNewUserFirstImpression() : this.renderFeed());
+    return (posts.length === 0 && !postsIsFirstFetch ? this.renderNewUserFirstImpression() : this.renderFeed());
   }
 
   renderFeed() {
