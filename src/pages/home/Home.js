@@ -1,15 +1,11 @@
-import { Button, Text, Toast } from 'native-base';
+import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import {
-  addPostToBoard,
-  createBoard,
   getHomePostsNextPage,
   getPostInfo,
-  getUserBoardsNextPage,
   refreshHomePosts,
-  refreshUserBoards,
   sendLikeOrDislike,
 } from '../../actions';
 import { HomeHeader } from '../../components';
