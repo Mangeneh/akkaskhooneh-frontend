@@ -4,10 +4,15 @@ import {
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import { addPostToBoard, getUserPhotosNextPage, refreshUserPhotos } from '../../actions';
+import {
+  addPostToBoard,
+  getUserPhotosNextPage,
+  refreshBoardsPhotos,
+  refreshUserPhotos,
+} from '../../actions';
 import { AddPostToBoardHeader, CustomStatusBar, ProfilePageImageItem } from '../../components';
 import Loading from '../../components/Loading';
-import { Colors, Strings } from '../../config';
+import { Colors, Parameters, Strings } from '../../config';
 import { strings } from '../../i18n';
 import {
   selectUserPhotos,
@@ -135,6 +140,15 @@ class AddPostToBoard extends Component {
     }
   }
 
+  refreshPhotos() {
+    const {
+      refreshPhotos, photosIsLoading, photosIsRefreshing,
+    } = this.props;
+    if (!photosIsLoading && !photosIsRefreshing) {
+      refreshPhotos();
+    }
+  }
+
   updatePhotos() {
     const {
       photosNextPage, photosTotalPages, getPhotosNextPage, photosIsLoading, photosIsRefreshing,
@@ -145,18 +159,12 @@ class AddPostToBoard extends Component {
   }
 
   onAddPress() {
-    const { addPostToBoard, navigation } = this.props;
-    addPostToBoard(this.state.selectedPostID, navigation.getParam('boardID'))
-      .then(response => navigation.goBack());
-  }
-
-  refreshPhotos() {
-    const {
-      refreshPhotos, photosIsLoading, photosIsRefreshing,
-    } = this.props;
-    if (!photosIsLoading && !photosIsRefreshing) {
-      refreshPhotos();
-    }
+    const { addPostToBoard, navigation, refreshBoardsPhotos } = this.props;
+    addPostToBoard(this.state.selectedPostID)
+      .then((response) => {
+        refreshBoardsPhotos()
+          .then(response => navigation.goBack());
+      });
   }
 }
 
@@ -179,10 +187,14 @@ const mapStateToProps = state => ({
   photosIsLoading: selectUserPhotosIsLoading(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext)),
-  refreshPhotos: () => dispatch(refreshUserPhotos()),
-  addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const boardID = ownProps.navigation.getParam(Parameters.BOARD_ID);
+  return {
+    getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext)),
+    refreshPhotos: () => dispatch(refreshUserPhotos()),
+    addPostToBoard: postID => dispatch(addPostToBoard(postID, boardID)),
+    refreshBoardsPhotos: () => dispatch(refreshBoardsPhotos(boardID)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostToBoard);

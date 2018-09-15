@@ -214,7 +214,9 @@ class Post extends Component {
   }
 
   showModal() {
-    this.refs.modal.open();
+    const { refreshSelfBoards } = this.props;
+    refreshSelfBoards()
+      .then(response => this.refs.modal.open());
   }
 
   onAddPress() {
