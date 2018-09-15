@@ -1,4 +1,4 @@
-import { Container, Tab, Tabs } from 'native-base';
+import { Container, Tab, Tabs, Text } from 'native-base';
 import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ import {
 import { Board, ProfileHeader } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import {
-  Colors, Pages, Parameters, Strings,
+  Colors, Pages, Parameters, Strings, Constants,
 } from '../../config';
 import { ProfileInfo } from '../../containers';
 import { strings } from '../../i18n';
@@ -47,7 +47,7 @@ class Profile extends Component {
 
   render() {
     const {
-      boardsIsRefreshing, boardsIsFirstFetch, boards, photosIsRefreshing, photosIsFirstFetch, photos, navigation,
+      boardsIsRefreshing, boardsIsFirstFetch, boards, navigation,
     } = this.props;
     const username = navigation.getParam(Parameters.USERNAME);
     return (
@@ -126,18 +126,35 @@ class Profile extends Component {
               activeTabStyle={{ backgroundColor: 'white' }}
               tabStyle={{ backgroundColor: 'white' }}
             >
-              <PostsPhotoList
-                data={photos}
-                onRefresh={() => this.refreshPhotos()}
-                refreshing={photosIsRefreshing}
-                isFirstFetch={photosIsFirstFetch}
-                onEndReached={() => this.updatePhotos()}
-                onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
-              />
+              {this.props.photos.length === 0 ? this.showEmpty() : this.renderPhotosList()}
             </Tab>
           </Tabs>
         </View>
       </Container>
+    );
+  }
+
+  showEmpty() {
+    return (
+      <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
+        <Text style={{ color: Colors.ICON, fontSize: Constants.TEXT_NORMAL_SIZE }}>{strings(Strings.NO_POSTS_YET)}</Text>
+      </View>
+    );
+  }
+
+  renderPhotosList() {
+    const {
+      photosIsRefreshing, photosIsFirstFetch, photos, navigation,
+    } = this.props;
+    return (
+      <PostsPhotoList
+        data={photos}
+        onRefresh={() => this.refreshPhotos()}
+        refreshing={photosIsRefreshing}
+        isFirstFetch={photosIsFirstFetch}
+        onEndReached={() => this.updatePhotos()}
+        onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
+      />
     );
   }
 

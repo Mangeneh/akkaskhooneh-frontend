@@ -1,5 +1,5 @@
 import {
-  Button, Icon, Item, Textarea, Toast,
+  Button, Icon, Item, Textarea, Toast, Text,
 } from 'native-base';
 import React, { Component } from 'react';
 import {
@@ -62,12 +62,20 @@ class PostInfo extends Component {
               {!postInfoIsFirstFetch ? this.renderPost() : null}
             </View>
             <View style={{ flex: 4 }}>
-              {this.renderCommentsList()}
+              {this.props.comments.length === 0 ? this.showEmpty() : this.renderCommentsList()}
             </View>
           </ScrollView>
           {this.renderInputBox()}
         </View>
       </SafeAreaView>
+    );
+  }
+
+  showEmpty() {
+    return (
+      <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
+        <Text style={{ color: Colors.ICON, fontSize: Constants.TEXT_NORMAL_SIZE }}>{strings(Strings.NO_COMMENTS_YET)}</Text>
+      </View>
     );
   }
 
@@ -93,8 +101,8 @@ class PostInfo extends Component {
               color={Colors.ACCENT}
             />
           ) : (
-            this.renderSendIcon()
-          )}
+              this.renderSendIcon()
+            )}
           <Textarea
             rowSpan={2}
             placeholder={strings(Strings.COMMENT)}

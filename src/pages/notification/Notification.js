@@ -1,9 +1,9 @@
-import { Body, Header, Title } from 'native-base';
+import { Body, Header, Title, Text } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar, NotificationComponent } from '../../components';
-import { Colors, Strings } from '../../config';
+import { Colors, Strings, Constants } from '../../config';
 import { strings } from '../../i18n';
 import { getNotifications, refreshNotifications, startNewSearch } from './actions';
 import {
@@ -38,9 +38,17 @@ class Notification extends Component {
             paddingLeft: 8,
           }}
           >
-            {this.renderNotifications()}
+            {this.props.notifications.length === 0 ? this.showEmpty() : this.renderNotifications()}
           </View>
         </View>
+      </View>
+    );
+  }
+
+  showEmpty() {
+    return (
+      <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
+        <Text style={{ color: Colors.ICON, fontSize: Constants.TEXT_NORMAL_SIZE }}>{strings(Strings.NO_NOTIFICATIONS_YET)}</Text>
       </View>
     );
   }
