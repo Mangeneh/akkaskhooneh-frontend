@@ -15,7 +15,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case PASSWORD_CHANGED:
       return {
-        mode: validate(action.payload),
+        mode: validate(action.payload.password, action.payload.repeatedPassword),
       };
     case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
@@ -24,8 +24,8 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-function validate(password) {
-  if (checkPassword(password)) {
+function validate(password, repeatedPassword) {
+  if (checkPassword(password) && password === repeatedPassword) {
     return PageModes.NORMAL;
   }
   return PageModes.DISABLED;

@@ -144,8 +144,8 @@ class ContactList extends Component {
             value={searchText}
             onChangeText={(searchText) => {
               this.setState({ searchText });
-              this.refreshFollowings(searchText);
-              this.refreshFollowers(searchText);
+              refreshFollowings(searchText);
+              refreshFollowers(searchText);
             }}
           />
           <Icon name="ios-search" style={{ color: Colors.BASE }} />
@@ -202,10 +202,10 @@ class ContactList extends Component {
 
   refreshFollowings(text) {
     const {
-      followingsIsLoading, refreshFollowings, followingsIsRefreshing,
+      followingsIsLoading, followingsIsRefreshing,
     } = this.props;
     if (!followingsIsLoading && !followingsIsRefreshing) {
-      refreshFollowings(text)
+      this.props.refreshFollowings(text)
         .then((response) => {
         })
         .catch((error) => {

@@ -19,7 +19,7 @@ class TokenPage extends Component {
     const {
       error, validateCode, sendCurrentToken,
     } = this.props;
-    const {code} = this.state;
+    const { code } = this.state;
     return (
       <View style={{
         flex: 1,
@@ -65,11 +65,11 @@ class TokenPage extends Component {
                 </Text>
               </View>
               <View>
-              <Input style = {{backgroundColor: 'white', textAlign: 'center', borderRadius: Constants.TEXT_BOX_RADIUS, minHeight: 40, maxHeight: 40}} 
-                    maxLength={6}
-                    value={code}
-                    onChangeText={(code) => {this.setState({code}); validateCode(code);}}
-               />
+                <Input style={{ backgroundColor: 'white', textAlign: 'center', borderRadius: Constants.TEXT_BOX_RADIUS, minHeight: 40, maxHeight: 40 }}
+                  maxLength={6}
+                  value={code}
+                  onChangeText={(code) => { this.setState({ code }); validateCode(code); }}
+                />
               </View>
             </View>
             <View style={{
@@ -80,29 +80,32 @@ class TokenPage extends Component {
             }}
             >
               <SendTokenButton
-                text = {strings(Strings.SEND)}
-                onPress={() => sendCurrentToken(code).then((result) => {
-                  console.warn(result)
-                  NavigationService.navigate(Pages.GET_NEW_PASSWORD, {
-                      token: this.state.code,
-                  })
-              })
-              .catch((error) => {
-                  console.warn(error)
-                  Toast.show({
-                      text: strings(Strings.INVALID_TOKEN),
-                      textStyle: { textAlign: 'center' },
-                      position: 'bottom',
-                      type: 'danger',
-                    });
-              })
-              } 
+                text={strings(Strings.SEND)}
+                onPress={() => this.onSendPress()}
               />
             </View>
           </View>
         </KeyboardAwareScrollView>
       </View>
     );
+  }
+
+  onSendPress() {
+    this.props.sendCurrentToken(this.state.code).then((result) => {
+      console.warn(result);
+      this.props.navigation.navigate(Pages.GET_NEW_PASSWORD, {
+        token: this.state.code,
+      });
+    })
+      .catch((error) => {
+        console.warn(error);
+        Toast.show({
+          text: strings(Strings.INVALID_TOKEN),
+          textStyle: { textAlign: 'center' },
+          position: 'bottom',
+          type: 'danger',
+        });
+      });
   }
 
   onBackPress() {
