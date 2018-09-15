@@ -194,10 +194,8 @@ class SearchUserOrTag extends Component {
     if (searchUsersNextPage <= searchUsersTotalPages && !searchUsersIsLoading) {
       getSearchUsersNextPage(text, searchUsersNextPage)
         .then((response) => {
-          // console.warn(response);
         })
         .catch((error) => {
-          // console.warn(error);
         });
     }
   }

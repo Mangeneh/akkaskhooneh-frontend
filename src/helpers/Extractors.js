@@ -1,4 +1,5 @@
 import { Platform } from 'react-native';
+import { FollowModes } from '../config';
 
 export function extractImageSource(image) {
   return Platform.OS === 'ios' ? image.sourceURL : image.path;
@@ -50,4 +51,45 @@ export function extractCommentsCount(post) {
 
 export function extractPostDate(post) {
   return post.time;
+}
+
+export function extractUserFullName(user) {
+  return user.fullname;
+}
+
+export function extractUserUsername(user) {
+  return user.username;
+}
+
+export function extractUserProfilePictureUri(user) {
+  return user.profile_picture;
+}
+
+export function extractNotificationType(notification) {
+  return notification.notif_type;
+}
+
+export function extractNotificationSubjectUser(notification) {
+  return notification.subject_user;
+}
+
+export function extractNotificationTime(notification) {
+  return notification.time;
+}
+
+export function extractIsPrivate(user) {
+  return user.is_private;
+}
+
+export function extractFollowMode(user) {
+  switch (user.follow_state) {
+    case 1:
+      return FollowModes.FOLLOWED;
+    case 2:
+      return FollowModes.REQUESTED;
+    case 3:
+      return FollowModes.NOT_FOLLOWED;
+    default:
+      return FollowModes.NOT_FOLLOWED;
+  }
 }

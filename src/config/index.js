@@ -10,3 +10,4 @@ export * from './Pages';
 export * from './Graphics';
 export * from './FollowModes';
 export * from './Parameters';
+export * from './NotificationTypes';

@@ -1,18 +1,21 @@
-import { Text, Thumbnail, View } from 'native-base';
+import { Text, Thumbnail } from 'native-base';
 import React, { Component } from 'react';
-import { Constants } from '../config';
+import { TouchableOpacity, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import { Constants, Pages, Parameters } from '../config';
+import { extractUserFullName, extractUserProfilePictureUri, extractUserUsername } from '../helpers';
 
-export default class ContactItem extends Component {
+class ContactItem extends Component {
   render() {
     return (
-      <View
+      <TouchableOpacity
         style={{
           marginBottom: 12,
-          marginRight: 4,
+          marginRight: 8,
           flexDirection: 'row',
           justifyContent: 'flex-end',
-          borderRadius: Constants.POST_CARD_RADIUS,
         }}
+        onPress={() => this.onPress()}
       >
         <View style={{
           flexDirection: 'column',
@@ -23,12 +26,12 @@ export default class ContactItem extends Component {
             justifyContent: 'flex-end',
           }}
           >
-            <View>{this.renderUsername()}</View>
+            {this.renderUsername()}
           </View>
-          <View style={{ marginLeft: 40 }}>{this.renderFullName()}</View>
+          {this.renderFullName()}
         </View>
         {this.renderProfilePic()}
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -38,11 +41,10 @@ export default class ContactItem extends Component {
       <Thumbnail
         style={{
           alignSelf: 'center',
-          width: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
-          height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
-          borderRadius: Constants.CONTACT_THUMBNAIL_RADIUS,
         }}
-        source={{ uri: user.profile_picture }}
+        small
+        circular
+        source={{ uri: extractUserProfilePictureUri(user) }}
       />
     );
   }
@@ -57,7 +59,7 @@ export default class ContactItem extends Component {
           paddingRight: 8,
         }}
       >
-        {user.username}
+        {extractUserUsername(user)}
       </Text>
     );
   }
@@ -73,8 +75,15 @@ export default class ContactItem extends Component {
           paddingRight: 8,
         }}
       >
-        {user.fullname}
+        {extractUserFullName(user)}
       </Text>
     );
   }
+
+  onPress() {
+    const { user, navigation } = this.props;
+    navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: extractUserUsername(user) });
+  }
 }
+
+export default withNavigation(ContactItem);
