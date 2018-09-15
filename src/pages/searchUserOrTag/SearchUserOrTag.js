@@ -2,10 +2,12 @@ import {
   Header, Icon, Input, Item, Tab, Tabs, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, View, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { ContactItem, CustomStatusBar, TagItem } from '../../components';
-import { Colors, Constants, Strings, Graphics } from '../../config';
+import {
+  Colors, Constants, Graphics, Strings,
+} from '../../config';
 import { strings } from '../../i18n';
 import {
   getSearchTags,
@@ -114,9 +116,21 @@ class SearchUserOrTag extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <View style={{ flexDirection: 'row', flex: 1 }}>
-          <View style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 10 }}>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()} hitSlop={Graphics.HIT_SLOP}>
+        <View style={{
+          flexDirection: 'row',
+          flex: 1,
+        }}
+        >
+          <View style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            marginLeft: 10,
+          }}
+          >
+            <TouchableOpacity
+              onPress={() => this.props.navigation.goBack()}
+              hitSlop={Graphics.HIT_SLOP}
+            >
               <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
             </TouchableOpacity>
           </View>

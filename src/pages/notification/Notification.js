@@ -1,30 +1,28 @@
-import { Body, Header, Title, Text } from 'native-base';
+import {
+  Body, Header, Text, Title,
+} from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar, NotificationComponent } from '../../components';
-import { Colors, Strings, Constants } from '../../config';
+import { Colors, Constants, Strings } from '../../config';
 import { strings } from '../../i18n';
 import { getNotifications, refreshNotifications } from './actions';
 import {
   selectNotifications,
+  selectNotificationsIsFirstFetch,
   selectNotificationsIsLoading,
   selectNotificationsNextPage,
   selectNotificationsTotalPages,
-  selectNotificationsIsFirstFetch,
 } from './reducer';
 
 class Notification extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.updateNotifications();
   }
 
   render() {
-    // setTimeout(() => {this.props.refreshNotifications()}, 10000)
+    const { notifications, notificationsIsFirstFetch } = this.props;
     return (
       <View style={{ flex: 1 }}>
         <View>
@@ -39,7 +37,7 @@ class Notification extends Component {
             paddingLeft: 8,
           }}
           >
-            {this.props.notifications.length === 0 && !this.props.notificationsIsFirstFetch ? this.showEmpty() : this.renderNotifications()}
+            {notifications.length === 0 && !notificationsIsFirstFetch ? this.showEmpty() : this.renderNotifications()}
           </View>
         </View>
       </View>
@@ -48,8 +46,19 @@ class Notification extends Component {
 
   showEmpty() {
     return (
-      <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
-        <Text style={{ color: Colors.ICON, fontSize: Constants.TEXT_NORMAL_SIZE }}>{strings(Strings.NO_NOTIFICATIONS_YET)}</Text>
+      <View style={{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        flex: 1,
+      }}
+      >
+        <Text style={{
+          color: Colors.ICON,
+          fontSize: Constants.TEXT_NORMAL_SIZE,
+        }}
+        >
+          {strings(Strings.NO_NOTIFICATIONS_YET)}
+        </Text>
       </View>
     );
   }
@@ -100,14 +109,12 @@ class Notification extends Component {
   }
 
   updateNotifications() {
-    console.warn(this.props.notificationsNextPage);
     const {
       notificationsNextPage, notificationsTotalPages, notificationsIsLoading, getNotificationsNextPage,
     } = this.props;
     if (notificationsNextPage <= notificationsTotalPages && !notificationsIsLoading) {
       getNotificationsNextPage(notificationsNextPage)
         .then((response) => {
-          console.warn(response)
         })
         .catch((error) => {
         });

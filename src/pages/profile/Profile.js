@@ -1,4 +1,6 @@
-import { Container, Tab, Tabs, Text } from 'native-base';
+import {
+  Container, Tab, Tabs, Text,
+} from 'native-base';
 import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,7 +15,7 @@ import { Board, ProfileHeader } from '../../components';
 import Loading from '../../components/Loading';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import {
-  Colors, Pages, Parameters, Strings, Constants, FollowModes
+  Colors, Constants, FollowModes, Pages, Parameters, Strings,
 } from '../../config';
 import { ProfileInfo } from '../../containers';
 import { extractFollowMode } from '../../helpers';
@@ -36,7 +38,7 @@ import {
 } from '../../reducers/PostsReducer';
 import {
   selectProfileFollowStatus,
-  selectProfileIsPrivate, selectUserInfoIsFirstFetch,
+  selectProfileIsPrivate,
   selectUsername,
 } from '../../reducers/UsersReducer';
 
@@ -60,9 +62,7 @@ class Profile extends Component {
   }
 
   render() {
-    const {
-      boardsIsRefreshing, boardsIsFirstFetch, boards, navigation, isAccessible
-    } = this.props;
+    const { navigation, isAccessible } = this.props;
     const username = navigation.getParam(Parameters.USERNAME);
     return (
       <Container>
@@ -159,8 +159,19 @@ class Profile extends Component {
 
   showEmpty() {
     return (
-      <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
-        <Text style={{ color: Colors.ICON, fontSize: Constants.TEXT_NORMAL_SIZE }}>{strings(Strings.NO_POSTS_YET)}</Text>
+      <View style={{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        flex: 1,
+      }}
+      >
+        <Text style={{
+          color: Colors.ICON,
+          fontSize: Constants.TEXT_NORMAL_SIZE,
+        }}
+        >
+          {strings(Strings.NO_POSTS_YET)}
+        </Text>
       </View>
     );
   }

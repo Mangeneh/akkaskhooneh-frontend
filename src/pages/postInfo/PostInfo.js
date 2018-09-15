@@ -1,5 +1,5 @@
 import {
-  Button, Icon, Item, Textarea, Toast, Text,
+  Button, Icon, Item, Text, Textarea, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
 import {
@@ -15,7 +15,6 @@ import Post from '../../components/Post';
 import {
   Colors, Constants, Graphics, Parameters, Strings,
 } from '../../config';
-import { extractPostID } from '../../helpers';
 import { strings } from '../../i18n';
 import {
   selectComments,
@@ -73,8 +72,19 @@ class PostInfo extends Component {
 
   showEmpty() {
     return (
-      <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
-        <Text style={{ color: Colors.ICON, fontSize: Constants.TEXT_NORMAL_SIZE }}>{strings(Strings.NO_COMMENTS_YET)}</Text>
+      <View style={{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        flex: 1,
+      }}
+      >
+        <Text style={{
+          color: Colors.ICON,
+          fontSize: Constants.TEXT_NORMAL_SIZE,
+        }}
+        >
+          {strings(Strings.NO_COMMENTS_YET)}
+        </Text>
       </View>
     );
   }
@@ -101,8 +111,8 @@ class PostInfo extends Component {
               color={Colors.ACCENT}
             />
           ) : (
-              this.renderSendIcon()
-            )}
+            this.renderSendIcon()
+          )}
           <Textarea
             rowSpan={2}
             placeholder={strings(Strings.COMMENT)}
