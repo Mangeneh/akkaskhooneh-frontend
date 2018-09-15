@@ -4,13 +4,13 @@ import {
   Dimensions, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Colors, Pages } from '../config';
+import { withNavigation } from 'react-navigation';
+import { Colors, Pages, Parameters } from '../config';
 import { extractTagID, extractTagName, extractTagPictureUri } from '../helpers';
-import NavigationService from '../NavigationService';
 
 const WIDTH = Dimensions.get('window').width;
 
-export default class TagMasonry extends Component {
+class TagMasonry extends Component {
   render() {
     const { tags } = this.props;
     let component;
@@ -87,9 +87,9 @@ export default class TagMasonry extends Component {
   renderBrick(tag, style) {
     return (
       <TouchableOpacity
-        onPress={() => NavigationService.navigate(Pages.TAGS_PHOTOS, {
-          tagID: extractTagID(tag),
-          tagName: extractTagName(tag),
+        onPress={() => this.props.navigation.push(Pages.TAGS_PHOTOS, {
+          [Parameters.TAG_ID]: extractTagID(tag),
+          [Parameters.TAG_NAME]: extractTagName(tag),
         })}
       >
         <FastImage
@@ -160,3 +160,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.25)',
   },
 });
+
+export default withNavigation(TagMasonry);

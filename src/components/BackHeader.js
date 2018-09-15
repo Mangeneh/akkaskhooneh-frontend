@@ -4,10 +4,12 @@ import {
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Colors, Graphics } from '../config';
+import CustomStatusBar from './CustomStatusBar';
 
 export default props => (
   <View>
     <Header androidStatusBarColor={Colors.BASE} style={{ backgroundColor: Colors.BASE }}>
+      <CustomStatusBar />
       <Left style={{
         flex: 1,
         marginLeft: 16,

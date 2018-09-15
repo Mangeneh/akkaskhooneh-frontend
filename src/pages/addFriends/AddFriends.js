@@ -27,7 +27,6 @@ class AddFriends extends Component {
         backgroundColor: 'white',
       }}
       >
-        <CustomStatusBar />
         <BackHeader
           title={strings(Strings.INVITE_FRIENDS)}
           onBackPress={() => this.props.navigation.goBack()}
@@ -38,6 +37,7 @@ class AddFriends extends Component {
           marginTop: 16,
         }}
         >
+          <CustomStatusBar />
           <Item
             rounded
             style={{

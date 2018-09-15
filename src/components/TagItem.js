@@ -1,11 +1,14 @@
-import { Text, Thumbnail, View } from 'native-base';
+import { Text, Thumbnail } from 'native-base';
 import React, { Component } from 'react';
-import { Constants } from '../config';
+import { TouchableOpacity, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import { Constants, Pages, Parameters } from '../config';
+import { extractTagID, extractTagName, extractTagPictureUri } from '../helpers';
 
-export default class TagItem extends Component {
+class TagItem extends Component {
   render() {
     return (
-      <View
+      <TouchableOpacity
         style={{
           marginBottom: 12,
           marginRight: 4,
@@ -13,16 +16,18 @@ export default class TagItem extends Component {
           justifyContent: 'flex-end',
           borderRadius: Constants.POST_CARD_RADIUS,
         }}
+        onPress={() => this.onPress()}
       >
-        <View style={{
-          justifyContent: 'center',
-          alignContent: 'center',
-        }}
+        <View
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}
         >
-          <View>{this.renderName()}</View>
+          {this.renderName()}
         </View>
         {this.renderPicture()}
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -36,7 +41,7 @@ export default class TagItem extends Component {
           height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
           borderRadius: Constants.CONTACT_THUMBNAIL_RADIUS,
         }}
-        source={{ uri: tag.picture }}
+        source={{ uri: extractTagPictureUri(tag) }}
       />
     );
   }
@@ -51,8 +56,18 @@ export default class TagItem extends Component {
           paddingRight: 8,
         }}
       >
-        {tag.name}
+        {extractTagName(tag)}
       </Text>
     );
   }
+
+  onPress() {
+    const { tag, navigation } = this.props;
+    navigation.push(Pages.TAGS_PHOTOS, {
+      [Parameters.TAG_ID]: extractTagID(tag),
+      [Parameters.TAG_NAME]: extractTagName(tag),
+    });
+  }
 }
+
+export default withNavigation(TagItem);

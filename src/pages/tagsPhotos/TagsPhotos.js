@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getTagsPhotosNextPage, refreshTagsPhotos } from '../../actions';
 import { BackHeader, CustomStatusBar } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
-import { Pages } from '../../config';
+import { Pages, Parameters } from '../../config';
 import {
   selectTagsPhotos,
   selectTagsPhotosIsFirstFetch,
@@ -23,7 +23,7 @@ class TagsPhotos extends Component {
     const {
       tagsPhotosIsRefreshing, tagsPhotos, tagsPhotosIsFirstFetch, navigation,
     } = this.props;
-    const tagName = navigation.getParam('tagName');
+    const tagName = navigation.getParam(Parameters.TAG_NAME);
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
@@ -53,14 +53,14 @@ class TagsPhotos extends Component {
     const {
       tagsPhotosNextPage, tagsPhotosTotalPages, getTagsPhotosNextPage, tagsPhotosIsLoading, tagsPhotosIsRefreshing,
     } = this.props;
-    if (tagsPhotosNextPage <= tagsPhotosTotalPages && !tagsPhotosIsLoading) {
+    if (tagsPhotosNextPage <= tagsPhotosTotalPages && !tagsPhotosIsLoading && !tagsPhotosIsRefreshing) {
       getTagsPhotosNextPage(tagsPhotosNextPage);
     }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const tagID = ownProps.navigation.getParam('tagID');
+  const tagID = ownProps.navigation.getParam(Parameters.TAG_ID);
   return {
     tagsPhotos: selectTagsPhotos(state, tagID),
     tagsPhotosPage: selectTagsPhotosNextPage(state, tagID),
@@ -72,7 +72,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const tagID = ownProps.navigation.getParam('tagID');
+  const tagID = ownProps.navigation.getParam(Parameters.TAG_ID);
   return {
     refreshTagsPhotos: () => dispatch(refreshTagsPhotos(tagID)),
     getTagsPhotosNextPage: commentsNext => dispatch(getTagsPhotosNextPage(tagID, commentsNext)),
