@@ -1,7 +1,6 @@
 import { Button, Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
-import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import {
   addPostToBoard,
@@ -14,7 +13,6 @@ import {
   sendLikeOrDislike,
 } from '../../actions';
 import { HomeHeader } from '../../components';
-import AddBoardModal from '../../components/AddBoardModal';
 import Post from '../../components/Post';
 import {
   Colors, Constants, Graphics, Pages, Strings,
@@ -32,41 +30,17 @@ import {
 } from '../../reducers/PostsReducer';
 
 class Home extends Component {
-  state = {
-    newBoardName: '',
-  };
-
   componentWillMount() {
     this.refreshPosts();
   }
 
   render() {
-    const { newBoardName } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <HomeHeader
           onAddFriendsPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
           title={strings(Strings.APP_NAME)}
         />
-        <Modal
-          style={{
-            width: 300,
-            height: null,
-            borderRadius: 5,
-            justifyContent: 'center',
-          }}
-          position="center"
-          ref="modal"
-          backButtonClose
-          coverScreen
-        >
-          <AddBoardModal
-            newBoardName={newBoardName}
-            onNameChange={newBoardName => this.setState({ newBoardName })}
-            onAddPress={() => this.onAddPress()}
-            onBoardNamePressed={selectedBoardID => this.addNewPostToBoard(selectedBoardID)}
-          />
-        </Modal>
         {this.renderContent()}
       </View>
     );
@@ -135,9 +109,6 @@ class Home extends Component {
   renderPost(item, index) {
     return (
       <Post
-        saveButtonPressed={() => {
-          this.showModal();
-        }}
         home
         margin={8}
         imageHeight={Graphics.HOME_POST_IMAGE_HEIGHT}
@@ -163,53 +134,6 @@ class Home extends Component {
       refreshHomePosts();
     }
   }
-
-  showModal() {
-    this.refs.modal.open();
-  }
-
-  onAddPress() {
-    const { newBoardName } = this.state;
-    if (newBoardName !== '') {
-      this.props.createBoard(newBoardName)
-        .then((response) => {
-          this.onCreateBoardSuccess(response);
-        })
-        .catch((error) => {
-          this.onCreateBoardFail(error);
-        });
-    }
-  }
-
-  onCreateBoardFail(error) {
-    Toast.show({
-      text: Strings.CREATE_NEW_BOARD_FAIL,
-      textStyle: { textAlign: 'center' },
-      position: 'bottom',
-      type: 'danger',
-    });
-  }
-
-  onCreateBoardSuccess(response) {
-    Toast.show({
-      text: strings(Strings.CREATE_NEW_BOARD_SUCCESS),
-      textStyle: { textAlign: 'center' },
-      position: 'bottom',
-      type: 'success',
-    });
-    this.addNewPostToBoard(response.payload.data.id);
-  }
-
-  addNewPostToBoard(selectedBoardID) {
-    const { selectedPostID, addPostToBoard, refreshSelfBoards } = this.props;
-    addPostToBoard(selectedPostID, selectedBoardID)
-      .then((response) => {
-      })
-      .catch((error) => {
-      });
-    this.refs.modal.close();
-    refreshSelfBoards();
-  }
 }
 
 const mapStateToProps = state => ({
@@ -223,11 +147,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   refreshHomePosts: () => dispatch(refreshHomePosts()),
-  refreshSelfBoards: () => dispatch(refreshUserBoards()),
-  createBoard: newBoardName => dispatch(createBoard(newBoardName)),
   getPostsNextPage: postsNext => dispatch(getHomePostsNextPage(postsNext)),
-  getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
-  addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
   getPostInfo: postID => dispatch(getPostInfo(postID)),
   sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
 });

@@ -1,14 +1,21 @@
 import {
-  Body, Card, CardItem, Icon, Left, Right, Text, Thumbnail,
+  Body, Card, CardItem, Icon, Left, Right, Text, Thumbnail, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Modal from 'react-native-modalbox';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { sendLikeOrDislike } from '../actions';
 import {
-  Colors, Graphics, Pages, Parameters,
+  addPostToBoard,
+  createBoard,
+  getUserBoardsNextPage,
+  refreshUserBoards,
+  sendLikeOrDislike,
+} from '../actions';
+import {
+  Colors, Graphics, Pages, Parameters, Strings,
 } from '../config';
 import {
   calculateTimeDifference,
@@ -23,30 +30,64 @@ import {
   extractProfilePictureUri,
   PlatformSpecificResizeMode,
 } from '../helpers';
+import { strings } from '../i18n';
 import {
   selectPostInfo,
   selectPostInfoIsFirstFetch,
   selectPostInfoIsLoading,
 } from '../reducers/PostsReducer';
+import AddBoardModal from './AddBoardModal';
 
 class Post extends Component {
+  state = {
+    newBoardName: '',
+  };
+
   render() {
     const { margin } = this.props;
     return (
-      <Card style={{
-        borderRadius: Graphics.POST_CARD_RADIUS,
-        marginRight: margin,
-        marginLeft: margin,
-        marginTop: 8,
-      }}
+      <View>
+        <Card style={{
+          borderRadius: Graphics.POST_CARD_RADIUS,
+          marginRight: margin,
+          marginLeft: margin,
+          marginTop: 8,
+        }}
+        >
+          {this.renderTop()}
+          {this.renderBorder()}
+          {this.renderPostPicture()}
+          {this.renderBorder()}
+          {this.renderCaption()}
+          {this.renderBottom()}
+        </Card>
+        {this.renderModal()}
+      </View>
+    );
+  }
+
+  renderModal() {
+    const { newBoardName } = this.state;
+    return (
+      <Modal
+        style={{
+          width: 300,
+          height: null,
+          borderRadius: 5,
+          justifyContent: 'center',
+        }}
+        position="center"
+        ref="modal"
+        backButtonClose
+        coverScreen
       >
-        {this.renderTop()}
-        {this.renderBorder()}
-        {this.renderPostPicture()}
-        {this.renderBorder()}
-        {this.renderCaption()}
-        {this.renderBottom()}
-      </Card>
+        <AddBoardModal
+          newBoardName={newBoardName}
+          onNameChange={newBoardName => this.setState({ newBoardName })}
+          onAddPress={() => this.onAddPress()}
+          onBoardNamePressed={selectedBoardID => this.addNewPostToBoard(selectedBoardID)}
+        />
+      </Modal>
     );
   }
 
@@ -138,9 +179,7 @@ class Post extends Component {
   }
 
   renderBottom() {
-    const {
-      saveButtonPressed, postInfo,
-    } = this.props;
+    const { postInfo } = this.props;
     return (
       <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
         <Left>
@@ -164,12 +203,59 @@ class Post extends Component {
           </TouchableOpacity>
         </Left>
         <Right>
-          <TouchableOpacity onPress={saveButtonPressed}>
+          <TouchableOpacity onPress={() => this.showModal()}>
             <Icon name="bookmark-plus" type="MaterialCommunityIcons" style={styles.icon} />
           </TouchableOpacity>
         </Right>
       </CardItem>
     );
+  }
+
+  showModal() {
+    this.refs.modal.open();
+  }
+
+  onAddPress() {
+    const { newBoardName } = this.state;
+    if (newBoardName !== '') {
+      this.props.createBoard(newBoardName)
+        .then((response) => {
+          this.onCreateBoardSuccess(response);
+        })
+        .catch((error) => {
+          this.onCreateBoardFail(error);
+        });
+    }
+  }
+
+  onCreateBoardFail(error) {
+    Toast.show({
+      text: Strings.CREATE_NEW_BOARD_FAIL,
+      textStyle: { textAlign: 'center' },
+      position: 'bottom',
+      type: 'danger',
+    });
+  }
+
+  onCreateBoardSuccess(response) {
+    Toast.show({
+      text: strings(Strings.CREATE_NEW_BOARD_SUCCESS),
+      textStyle: { textAlign: 'center' },
+      position: 'bottom',
+      type: 'success',
+    });
+    this.addNewPostToBoard(response.payload.data.id);
+  }
+
+  addNewPostToBoard(selectedBoardID) {
+    const { selectedPostID, addPostToBoard, refreshSelfBoards } = this.props;
+    addPostToBoard(selectedPostID, selectedBoardID)
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+    this.refs.modal.close();
+    refreshSelfBoards();
   }
 
   showProfile() {
@@ -219,6 +305,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
+  getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
+  addPostToBoard: (postID, boardID) => dispatch(addPostToBoard(postID, boardID)),
+  refreshSelfBoards: () => dispatch(refreshUserBoards()),
+  createBoard: newBoardName => dispatch(createBoard(newBoardName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(Post));
