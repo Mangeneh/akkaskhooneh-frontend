@@ -46,11 +46,10 @@ class ContactList extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.tabs.goToPage.bind(this.tabs, 1));
+    setTimeout(this.tabs.goToPage.bind(this.tabs, this.props.navigation.getParam('tab')));
   }
 
   render() {
-    console.log(this.props);
     return (
       <View style={{ flex: 1 }}>
         <View>
@@ -63,7 +62,7 @@ class ContactList extends Component {
               this.tabs = component;
             }}
             tabBarUnderlineStyle={{ backgroundColor: Colors.ACCENT }}
-            initialPage={1}
+            initialPage={this.props.navigation.getParam('tab')}
             locked
           >
             <Tab
@@ -128,7 +127,7 @@ class ContactList extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <View style={{ flex: 1, flexDirection: 'row'}}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 10 }}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()} hitSlop={Graphics.HIT_SLOP}>
               <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />

@@ -5,7 +5,7 @@ import { Avatar } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import Loading from '../components/Loading';
-import { Colors, Pages, Parameters, Strings, } from '../config';
+import { Colors, Pages, Parameters, Strings } from '../config';
 import { strings } from '../i18n';
 import {
   selectBio,
@@ -36,7 +36,7 @@ class ProfileInfo extends Component {
             alignItems: 'flex-start',
           }}
           >
-            <TouchableOpacity onPress={() => this.onSocialPress()}>
+            <TouchableOpacity onPress={() => this.onSocialPress(1)}>
               <Text style={{
                 marginRight: 16,
                 fontSize: 12,
@@ -46,7 +46,7 @@ class ProfileInfo extends Component {
                 {strings(Strings.NUM_OF_FOLLOWINGS, { number: followings })}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onSocialPress()}>
+            <TouchableOpacity onPress={() => this.onSocialPress(0)}>
               <Text style={{
                 fontSize: 12,
                 color: Colors.ICON,
@@ -74,9 +74,9 @@ class ProfileInfo extends Component {
     );
   }
 
-  onSocialPress() {
+  onSocialPress(tabNum) {
     const { absoluteUsername } = this.props;
-    this.props.navigation.push(Pages.CONTACT_LIST, { [Parameters.USERNAME]: absoluteUsername });
+    this.props.navigation.push(Pages.CONTACT_LIST, { [Parameters.USERNAME]: absoluteUsername, tab: tabNum });
   }
 }
 
