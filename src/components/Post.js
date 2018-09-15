@@ -137,9 +137,9 @@ class Post extends Component {
               {calculateTimeDifference(extractPostDate(postInfo))}
             </Text>
           </View>
-          <View style={{ marginRight: 8 }}>
+          <TouchableOpacity style={{ marginRight: 8 }} onPress={() => this.showProfile()}>
             <Thumbnail small source={{ uri: extractProfilePictureUri(postInfo) }} />
-          </View>
+          </TouchableOpacity>
         </Right>
       </CardItem>
     );
