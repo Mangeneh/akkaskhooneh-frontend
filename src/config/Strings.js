@@ -90,5 +90,6 @@ export const Strings = {
   NOW: 'now',
   ENTER_TOKEN: 'enter_token',
   INVALID_TOKEN: 'invalid_token',
-  TOKEN_TIME: 'token_time'
+  TOKEN_TIME: 'token_time',
+  SEND: 'send'
 };

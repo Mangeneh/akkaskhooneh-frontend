@@ -92,5 +92,6 @@
   "now": "just now",
   "enter_token": "Enter the 6-digit number, sent to your email.",
   "invalid_token": "The token is not valid.",
-  "token_time": "You can request for a token every 5 minute."
+  "token_time": "You can request for a token every 5 minute.",
+  "send": "Send"
 }

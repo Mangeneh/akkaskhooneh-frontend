@@ -13,6 +13,7 @@ import BoardsReducer from './BoardsReducer';
 import PostsReducer from './PostsReducer';
 import UsersReducer from './UsersReducer';
 import GetNewPasswordReducer from '../pages/getNewPassword/reducer';
+import SendTokenReducer from '../pages/tokenPage/reducer';
 
 export default combineReducers({
   loginPage: LoginPageReducer,
@@ -29,6 +30,7 @@ export default combineReducers({
   notification: NotificationReducer,
   forgotPass: ForgotPasswordReducer,
   getNewPass: GetNewPasswordReducer,
+  sendToken: SendTokenReducer,
 });
 
 export const selectLoginPage = state => state.loginPage;
@@ -45,3 +47,4 @@ export const selectSearch = state => state.search;
 export const selectNotificationPage = state => state.notification;
 export const selectForgotPass = state => state.forgotPass;
 export const selectGetNewPass = state => state.getNewPass;
+export const selectSendToken = state => state.sendToken;
