@@ -27,6 +27,10 @@ export const Server = {
   LIKE_DISLIKE: '/social/like/',
   COMMENT: '/social/comment/',
   GET_COMMENTS_LIST: '/social/comment/',
+  // Social - Users
+  FOLLOW_REQUEST: '/social/request/',
+  UN_FOLLOW_REQUEST: '/social/unfollow/',
+  FOLLOW_ACCEPT: '/social/accept/',
   // Tags
   GET_SEARCH_TOP_TAGS: '/social/tophashtag/?page=',
   GET_TAGS_PHOTOS_NEXT_PAGE: '/social/tag/',

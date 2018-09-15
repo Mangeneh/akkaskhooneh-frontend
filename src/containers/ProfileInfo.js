@@ -1,11 +1,14 @@
-import { Button, Text } from 'native-base';
+import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
+import FollowButton from '../components/FollowButton';
 import Loading from '../components/Loading';
-import { Colors, Pages, Parameters, Strings } from '../config';
+import {
+  Colors, Pages, Parameters, Strings,
+} from '../config';
 import { strings } from '../i18n';
 import {
   selectBio,
@@ -13,15 +16,16 @@ import {
   selectNumOfFollowers,
   selectNumOfFollowings,
   selectProfilePicture,
+  selectUserInfoIsFirstFetch,
   selectUsername,
 } from '../reducers/UsersReducer';
 
 class ProfileInfo extends Component {
   render() {
     const {
-      bio, fullName, followers, followings, username, selfUsername,
+      bio, fullName, followers, followings, username, userInfoIsFirstFetch,
     } = this.props;
-    return (
+    return (!userInfoIsFirstFetch ? (
       <View style={{
         height: 80,
         flexDirection: 'row',
@@ -57,10 +61,11 @@ class ProfileInfo extends Component {
             </TouchableOpacity>
           </View>
           <Text style={styles.bio}>{bio}</Text>
+          <FollowButton username={username} />
         </View>
         {this.renderAvatar()}
       </View>
-    );
+    ) : <Loading />);
   }
 
   renderAvatar() {
@@ -74,9 +79,12 @@ class ProfileInfo extends Component {
     );
   }
 
-  onSocialPress(tabNum) {
+  onSocialPress(tabNumber) {
     const { absoluteUsername } = this.props;
-    this.props.navigation.push(Pages.CONTACT_LIST, { [Parameters.USERNAME]: absoluteUsername, tab: tabNum });
+    this.props.navigation.push(Pages.CONTACT_LIST, {
+      [Parameters.USERNAME]: absoluteUsername,
+      tab: tabNumber,
+    });
   }
 }
 
@@ -102,6 +110,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   const { username } = ownProps;
   return {
+    userInfoIsFirstFetch: selectUserInfoIsFirstFetch(state, username),
     selfUsername: selectUsername(state),
     bio: selectBio(state, username),
     profilePicture: selectProfilePicture(state, username),

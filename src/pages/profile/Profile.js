@@ -33,8 +33,8 @@ import {
   selectUserPhotosTotalPages,
 } from '../../reducers/PostsReducer';
 import {
-  selectProfileFollowingStatus,
-  selectProfileIsPrivate,
+  selectProfileFollowStatus,
+  selectProfileIsPrivate, selectUserInfoIsFirstFetch,
   selectUsername,
 } from '../../reducers/UsersReducer';
 
@@ -60,7 +60,6 @@ class Profile extends Component {
   render() {
     const { navigation, isAccessible } = this.props;
     const username = navigation.getParam(Parameters.USERNAME);
-    console.log(this.props);
     return (
       <Container>
         <ProfileHeader
@@ -221,10 +220,10 @@ const mapStateToProps = (state, ownProps) => {
   const username = ownProps.navigation.getParam(Parameters.USERNAME);
   return {
     isAccessible: !(selectProfileIsPrivate(state, username)
-      && extractFollowMode(selectProfileFollowingStatus(state, username)) !== FollowModes.FOLLOWED)
+      && extractFollowMode(selectProfileFollowStatus(state, username)) !== FollowModes.FOLLOWED)
       || (username ? selectUsername(state) === username : true),
     isPrivate: selectProfileIsPrivate(state, username),
-    followingStatus: selectProfileFollowingStatus(state, username),
+    followingStatus: selectProfileFollowStatus(state, username),
     photos: selectUserPhotos(state, username),
     photosNextPage: selectUserPhotosNextPage(state, username),
     photosTotalPages: selectUserPhotosTotalPages(state, username),
