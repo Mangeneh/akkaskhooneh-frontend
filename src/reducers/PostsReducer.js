@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { PostsActions, UsersActions } from '../actions';
-import { extractIsLiked, extractLikesCount, extractPostID } from '../helpers';
+import { extractCommentsCount, extractIsLiked, extractLikesCount, extractPostID } from '../helpers';
 import { selectPosts } from './index';
 
 const INITIAL_USER_PHOTOS_STATE = {
@@ -228,10 +228,16 @@ export default (state = INITIAL_STATE, action) => {
     }
     case COMMENT_SUCCESS: {
       const postField = createPostBadge(action.meta.previousAction.payload.postID);
+      const chosenPostInfo = state[postField].postInfo;
+      const newPostInfo = {
+        ...chosenPostInfo,
+        comments_count: extractCommentsCount(state[postField].postInfo) + 1,
+      };
       return {
         ...state,
         [postField]: {
           ...state[postField],
+          postInfo: newPostInfo,
           isSendingComment: false,
         },
       };
