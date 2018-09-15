@@ -97,5 +97,5 @@ export const Strings = {
   NO_COMMENTS_YET: 'no_comments_yet',
   NO_NOTIFICATIONS_YET: 'no_notifications_yet',
   UNFOLLOW: 'unfollow',
-  MUTE: 'mute'
+  MUTE: 'mute',
 };

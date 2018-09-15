@@ -13,6 +13,7 @@ class FollowButton extends Component {
     console.log(this.props);
     const { onPress } = this.props;
     const buttonSettings = this.makeButtonSettings();
+    console.log(buttonSettings);
     return (
       <Button
         onPress={onPress}

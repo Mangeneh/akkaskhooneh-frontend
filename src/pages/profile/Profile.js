@@ -12,6 +12,7 @@ import {
   updateUser,
 } from '../../actions';
 import { Board, ProfileHeader } from '../../components';
+import FollowButton from '../../components/FollowButton';
 import Loading from '../../components/Loading';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import {
@@ -39,6 +40,7 @@ import {
 import {
   selectProfileFollowStatus,
   selectProfileIsPrivate,
+  selectUserInfoIsFirstFetch,
   selectUsername,
 } from '../../reducers/UsersReducer';
 
@@ -62,7 +64,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { navigation, isAccessible } = this.props;
+    const { navigation, isAccessible, userInfoIsFirstFetch } = this.props;
     const username = navigation.getParam(Parameters.USERNAME);
     return (
       <Container>
@@ -77,14 +79,18 @@ class Profile extends Component {
           alignItems: 'flex-end',
         }}
         >
-          <View style={{
-            marginTop: 16,
-            marginRight: 16,
-            marginBottom: 8,
-          }}
-          >
-            <ProfileInfo username={navigation.getParam(Parameters.USERNAME)} />
-          </View>
+          {!userInfoIsFirstFetch
+            ? (
+              <View style={{
+                marginTop: 16,
+                marginRight: 16,
+                marginBottom: 8,
+              }}
+              >
+                <ProfileInfo username={navigation.getParam(Parameters.USERNAME)} />
+                {!(this.isSelfProfile()) ? <FollowButton username={username} /> : null}
+              </View>
+            ) : <Loading />}
           {isAccessible ? this.renderSharedMaterial() : <Loading />}
         </View>
       </Container>
@@ -245,6 +251,15 @@ class Profile extends Component {
   showBoardDetails(item) {
     this.props.navigation.push(Pages.BOARDS_PAGE, { board: item });
   }
+
+  isSelfProfile() {
+    const { navigation, selfUsername } = this.props;
+    const username = navigation.getParam(Parameters.USERNAME);
+    if (!username) {
+      return true;
+    }
+    return username === selfUsername;
+  }
 }
 
 // If no username is passed, it means this is the profile of the logged in user
@@ -256,6 +271,8 @@ const mapStateToProps = (state, ownProps) => {
       || (username ? selectUsername(state) === username : true),
     isPrivate: selectProfileIsPrivate(state, username),
     followingStatus: selectProfileFollowStatus(state, username),
+    userInfoIsFirstFetch: selectUserInfoIsFirstFetch(state, username),
+    selfUsername: selectUsername(state),
     photos: selectUserPhotos(state, username),
     photosNextPage: selectUserPhotosNextPage(state, username),
     photosTotalPages: selectUserPhotosTotalPages(state, username),

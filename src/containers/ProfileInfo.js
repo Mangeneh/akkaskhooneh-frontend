@@ -23,7 +23,7 @@ import {
 class ProfileInfo extends Component {
   render() {
     const {
-      bio, fullName, followers, followings, username, userInfoIsFirstFetch,
+      bio, fullName, followers, followings, userInfoIsFirstFetch,
     } = this.props;
     return (!userInfoIsFirstFetch ? (
       <View style={{
@@ -61,7 +61,6 @@ class ProfileInfo extends Component {
             </TouchableOpacity>
           </View>
           <Text style={styles.bio}>{bio}</Text>
-          <FollowButton username={username} />
         </View>
         {this.renderAvatar()}
       </View>

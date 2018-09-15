@@ -38,7 +38,6 @@ import {
 } from '../reducers/PostsReducer';
 import AddBoardModal from './AddBoardModal';
 import MoreModal from './MoreModal';
-import { REGISTER } from 'redux-persist';
 
 const DOUBLE_PRESS_DELAY = 300;
 

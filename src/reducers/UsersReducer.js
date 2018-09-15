@@ -19,6 +19,7 @@ const INITIAL_FOLLOWERS_FOLLOWINGS_STATE = {
 
 const INITIAL_SELF_USER_STATE = {
   userInfo: {},
+  userInfoIsFirstFetch: true,
   accessToken: '',
   refreshToken: '',
   lastRefreshTime: 0,

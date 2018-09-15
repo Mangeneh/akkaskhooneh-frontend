@@ -93,8 +93,8 @@ export function extractIsPrivate(user) {
   return user.is_private;
 }
 
-export function extractFollowMode(user) {
-  switch (user.following_status) {
+export function extractFollowMode(followStatus) {
+  switch (followStatus) {
     case 1:
       return FollowModes.FOLLOWED;
     case 2:
