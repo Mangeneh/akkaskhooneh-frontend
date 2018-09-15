@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar, PasswordTextBox } from '../../components';
 import PasswordInstruction from '../../components/PasswordInstruction';
-import { Colors, Strings } from '../../config';
+import { Colors, Strings, Pages } from '../../config';
 import GetNewPassButton from '../../containers/GetNewPassButton';
 import { strings } from '../../i18n';
 import {
@@ -115,10 +115,15 @@ class GetNewPassword extends Component {
     if (this.state.newPassword === this.state.repeatedPassword) {
       this.props.sendNewPassword(this.props.navigation.getParam('token'), this.state.newPassword)
         .then((response) => {
-          console.warn(response);
+          this.props.navigation.navigate(Pages.LOGIN);
         })
         .catch((error) => {
-          console.warn(error);
+          Toast.show({
+            text: strings(Strings.CHANGE_PASS_FAIL),
+            textStyle: { textAlign: 'center' },
+            position: 'bottom',
+            type: 'danger',
+          });
         });
     }
   }

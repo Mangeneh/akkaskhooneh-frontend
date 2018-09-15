@@ -33,9 +33,9 @@ export default class PostHeader extends Component {
             marginRight: 16,
           }}
           >
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Icon name="more-horizontal" type="Feather" style={{ color: 'white' }} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </Right>
         </Header>
       </View>

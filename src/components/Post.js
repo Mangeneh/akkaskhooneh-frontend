@@ -181,9 +181,9 @@ class Post extends Component {
   }
 
   renderBottom() {
-    const { postInfo } = this.props;
+    const { postInfo, home } = this.props;
     return (
-      <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
+      <CardItem style={{ borderRadius: home ? Graphics.POST_CARD_RADIUS : 0 }}>
         <Left>
           <TouchableOpacity onPress={() => this.onLikePressed()}>
             <Icon
