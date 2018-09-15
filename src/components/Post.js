@@ -37,6 +37,8 @@ import {
   selectPostInfoIsLoading,
 } from '../reducers/PostsReducer';
 import AddBoardModal from './AddBoardModal';
+import MoreModal from './MoreModal';
+import { REGISTER } from 'redux-persist';
 
 const DOUBLE_PRESS_DELAY = 300;
 
@@ -63,12 +65,32 @@ class Post extends Component {
           {this.renderCaption()}
           {this.renderBottom()}
         </Card>
-        {this.renderModal()}
+        {this.renderSaveModal()}
+        {this.renderMoreModal()}
       </View>
     );
   }
 
-  renderModal() {
+  renderMoreModal() {
+    return (
+      <Modal
+        style={{
+          width: 300,
+          height: null,
+          borderRadius: 5,
+          justifyContent: 'center',
+        }}
+        position="center"
+        ref="moreModal"
+        backButtonClose
+        coverScreen
+      >
+        <MoreModal />
+      </Modal>
+    );
+  }
+
+  renderSaveModal() {
     const { newBoardName } = this.state;
     return (
       <Modal
@@ -79,7 +101,7 @@ class Post extends Component {
           justifyContent: 'center',
         }}
         position="center"
-        ref="modal"
+        ref="saveModal"
         backButtonClose
         coverScreen
       >
@@ -102,7 +124,7 @@ class Post extends Component {
     return (
       <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
         <Left>
-          <TouchableOpacity hitSlop={Graphics.HIT_SLOP}>
+          <TouchableOpacity hitSlop={Graphics.HIT_SLOP} onPress={() => this.showMoreModal()}>
             <Icon name="dots-horizontal" type="MaterialCommunityIcons" style={styles.icon} />
           </TouchableOpacity>
         </Left>
@@ -205,7 +227,7 @@ class Post extends Component {
           </TouchableOpacity>
         </Left>
         <Right>
-          <TouchableOpacity onPress={() => this.showModal()}>
+          <TouchableOpacity onPress={() => this.showSaveModal()}>
             <Icon name="bookmark-plus" type="MaterialCommunityIcons" style={styles.icon} />
           </TouchableOpacity>
         </Right>
@@ -213,10 +235,14 @@ class Post extends Component {
     );
   }
 
-  showModal() {
+  showSaveModal() {
     const { refreshSelfBoards } = this.props;
     refreshSelfBoards()
-      .then(response => this.refs.modal.open());
+      .then(response => this.refs.saveModal.open());
+  }
+
+  showMoreModal() {
+    this.refs.moreModal.open();
   }
 
   onAddPress() {
@@ -258,7 +284,7 @@ class Post extends Component {
       })
       .catch((error) => {
       });
-    this.refs.modal.close();
+    this.refs.saveModal.close();
     refreshSelfBoards();
   }
 

@@ -96,5 +96,7 @@
   "send": "Send",
   "no_posts_yet": "No Posts Yet.",
   "no_comments_yet": "No Comments Yet.",
-  "no_notifications_yet": "No Notifications Yet."
+  "no_notifications_yet": "No Notifications Yet.",
+  "unfollow": "Unofollow This User",
+  "mute": "Do Not Show This Post Anymore."
 }

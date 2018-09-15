@@ -100,14 +100,12 @@ class Notification extends Component {
   }
 
   updateNotifications() {
-    console.warn(this.props.notificationsNextPage);
     const {
       notificationsNextPage, notificationsTotalPages, notificationsIsLoading, getNotificationsNextPage,
     } = this.props;
     if (notificationsNextPage <= notificationsTotalPages && !notificationsIsLoading) {
       getNotificationsNextPage(notificationsNextPage)
         .then((response) => {
-          console.warn(response)
         })
         .catch((error) => {
         });
