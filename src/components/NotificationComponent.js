@@ -1,7 +1,14 @@
 import { Text, Thumbnail, View } from 'native-base';
 import React, { Component } from 'react';
-import { Constants, Strings } from '../config';
-import { calculateTimeDifference } from '../helpers';
+import {
+  Constants, Graphics, NotificationTypes, Strings,
+} from '../config';
+import {
+  calculateTimeDifference,
+  extractNotificationSubjectUser,
+  extractNotificationTime,
+  extractNotificationType,
+} from '../helpers';
 import { strings } from '../i18n';
 
 export default class NotificationComponent extends Component {
@@ -13,7 +20,7 @@ export default class NotificationComponent extends Component {
           marginRight: 4,
           flexDirection: 'row',
           justifyContent: 'flex-end',
-          borderRadius: Constants.POST_CARD_RADIUS,
+          borderRadius: Graphics.POST_CARD_RADIUS,
         }}
       >
         <View style={{
@@ -35,10 +42,9 @@ export default class NotificationComponent extends Component {
       <Thumbnail
         style={{
           alignSelf: 'center',
-          width: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
-          height: Constants.CONTACT_THUMBNAIL_RADIUS * 2,
-          borderRadius: notification.notif_type === 1 || notification.notif_type === 4 ? Constants.POST_CARD_RADIUS : Constants.CONTACT_THUMBNAIL_RADIUS,
+          borderRadius: notification.notif_type === 1 || notification.notif_type === 4 ? Graphics.POST_CARD_RADIUS : Constants.CONTACT_THUMBNAIL_RADIUS,
         }}
+        small
         source={{ uri: (notification.notif_type === 1 || notification.notif_type === 4) ? notification.data.post_picture : notification.profile_picture }}
       />
     );
@@ -46,14 +52,14 @@ export default class NotificationComponent extends Component {
 
   getMessageType(name) {
     const { notification } = this.props;
-    switch (notification.notif_type) {
-      case 1:
+    switch (extractNotificationType(notification)) {
+      case NotificationTypes.LIKE:
         return (strings(Strings.LIKE_NOTIFICATION, { name }));
-      case 2:
+      case NotificationTypes.FOLLOW:
         return (strings(Strings.FOLLOW_NOTIFICATION, { name }));
-      case 3:
+      case NotificationTypes.FOLLOW_REQUEST:
         return (strings(Strings.FOLLOW_REQUEST_NOTIFICATION, { name }));
-      case 4:
+      case NotificationTypes.COMMENT:
         return (strings(Strings.COMMENT_NOTIFICATION, { name }));
       default:
         return ('');
@@ -70,7 +76,7 @@ export default class NotificationComponent extends Component {
           paddingRight: 8,
         }}
       >
-        {this.getMessageType(notification.subject_user)}
+        {this.getMessageType(extractNotificationSubjectUser(notification))}
       </Text>
     );
   }
@@ -86,7 +92,7 @@ export default class NotificationComponent extends Component {
           paddingRight: 8,
         }}
       >
-        {calculateTimeDifference(notification.time)}
+        {calculateTimeDifference(extractNotificationTime(notification))}
       </Text>
     );
   }

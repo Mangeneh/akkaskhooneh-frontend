@@ -91,5 +91,6 @@ export const Strings = {
   ENTER_TOKEN: 'enter_token',
   INVALID_TOKEN: 'invalid_token',
   TOKEN_TIME: 'token_time',
-  SEND: 'send'
+  SEND: 'send',
+  FOLLOW_REQUEST_NOTIFICATION: 'follow_request_notification',
 };

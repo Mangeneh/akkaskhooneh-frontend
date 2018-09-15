@@ -19,4 +19,5 @@ export const Graphics = {
     right: 10,
   },
   POST_ICONS_FONT_SIZE: 24,
+  SEARCH_USER_PROFILE_PICTURE_SIZE: 30,
 };
