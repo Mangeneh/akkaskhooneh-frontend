@@ -2,7 +2,7 @@ import {
   Header, Icon, Input, Item, Tab, Tabs, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import {
   getFollowers,
@@ -14,7 +14,7 @@ import {
 import { ContactItem, CustomStatusBar } from '../../components';
 import Loading from '../../components/Loading';
 import {
-  Colors, Constants, Parameters, Strings,
+  Colors, Constants, Parameters, Strings, Graphics,
 } from '../../config';
 import { strings } from '../../i18n';
 import {
@@ -46,11 +46,10 @@ class ContactList extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.tabs.goToPage.bind(this.tabs, 1));
+    setTimeout(this.tabs.goToPage.bind(this.tabs, this.props.navigation.getParam('tab')));
   }
 
   render() {
-    console.log(this.props);
     return (
       <View style={{ flex: 1 }}>
         <View>
@@ -63,7 +62,7 @@ class ContactList extends Component {
               this.tabs = component;
             }}
             tabBarUnderlineStyle={{ backgroundColor: Colors.ACCENT }}
-            initialPage={1}
+            initialPage={this.props.navigation.getParam('tab')}
             locked
           >
             <Tab
@@ -128,28 +127,40 @@ class ContactList extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <Item
-          rounded
-          style={{
-            alignSelf: 'center',
-            borderRadius: Constants.TEXT_BOX_RADIUS,
-          }}
-        >
-          <Input
-            placeholder={strings(Strings.SEARCH_USER)}
-            style={{
-              textAlign: 'right',
-              fontSize: Constants.ITEM_FONT_SIZE,
-            }}
-            value={searchText}
-            onChangeText={(searchText) => {
-              this.setState({ searchText });
-              refreshFollowings(searchText);
-              refreshFollowers(searchText);
-            }}
-          />
-          <Icon name="ios-search" style={{ color: Colors.BASE }} />
-        </Item>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 10 }}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()} hitSlop={Graphics.HIT_SLOP}>
+              <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 8 }}>
+            <Item
+              rounded
+              style={{
+                minHeight: Graphics.SEARCH_BAR_HEIGHT,
+                maxHeight: Graphics.SEARCH_BAR_HEIGHT,
+                alignSelf: 'center',
+                borderRadius: Constants.TEXT_BOX_RADIUS,
+              }}
+            >
+              <Input
+                placeholder={strings(Strings.SEARCH_USER)}
+                style={{
+                  textAlign: 'right',
+                  fontSize: Constants.ITEM_FONT_SIZE,
+                }}
+                value={searchText}
+                onChangeText={(searchText) => {
+                  this.setState({ searchText });
+                  refreshFollowings(searchText);
+                  refreshFollowers(searchText);
+                }}
+              />
+              <Icon name="ios-search" style={{ color: Colors.BASE }} />
+            </Item>
+          </View>
+        </View>
+
       </Header>
     );
   }

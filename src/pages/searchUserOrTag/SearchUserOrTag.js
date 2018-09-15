@@ -2,10 +2,10 @@ import {
   Header, Icon, Input, Item, Tab, Tabs, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { ContactItem, CustomStatusBar, TagItem } from '../../components';
-import { Colors, Constants, Strings } from '../../config';
+import { Colors, Constants, Strings, Graphics } from '../../config';
 import { strings } from '../../i18n';
 import {
   getSearchTags,
@@ -114,38 +114,49 @@ class SearchUserOrTag extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <Item
-          rounded
-          style={{
-            alignSelf: 'center',
-            borderRadius: Constants.TEXT_BOX_RADIUS,
-          }}
-        >
-          <Input
-            placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
-            style={{
-              textAlign: 'right',
-              fontSize: Constants.ITEM_FONT_SIZE,
-            }}
-            value={searchText}
-            onChangeText={(searchText) => {
-              this.setState({ searchText });
-              this.props.refreshSearchUsers(searchText);
-              this.props.refreshSearchTags(searchText)
-                .then((response) => {
-                })
-                .catch((error) => {
-                  Toast.show({
-                    text: strings(Strings.SEARCH_FAIL),
-                    textStyle: { textAlign: 'center' },
-                    position: 'bottom',
-                    type: 'danger',
-                  });
-                });
-            }}
-          />
-          <Icon name="ios-search" style={{ color: Colors.BASE }} />
-        </Item>
+        <View style={{ flexDirection: 'row', flex: 1 }}>
+          <View style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 10 }}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()} hitSlop={Graphics.HIT_SLOP}>
+              <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 8 }}>
+            <Item
+              rounded
+              style={{
+                minHeight: Graphics.SEARCH_BAR_HEIGHT,
+                maxHeight: Graphics.SEARCH_BAR_HEIGHT,
+                alignSelf: 'center',
+                borderRadius: Constants.TEXT_BOX_RADIUS,
+              }}
+            >
+              <Input
+                placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
+                style={{
+                  textAlign: 'right',
+                  fontSize: Constants.ITEM_FONT_SIZE,
+                }}
+                value={searchText}
+                onChangeText={(searchText) => {
+                  this.setState({ searchText });
+                  this.props.refreshSearchUsers(searchText);
+                  this.props.refreshSearchTags(searchText)
+                    .then((response) => {
+                    })
+                    .catch((error) => {
+                      Toast.show({
+                        text: strings(Strings.SEARCH_FAIL),
+                        textStyle: { textAlign: 'center' },
+                        position: 'bottom',
+                        type: 'danger',
+                      });
+                    });
+                }}
+              />
+              <Icon name="ios-search" style={{ color: Colors.BASE }} />
+            </Item>
+          </View>
+        </View>
       </Header>
     );
   }
