@@ -3,7 +3,7 @@ import {
 } from 'native-base';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Colors } from '../config';
+import { Colors, Graphics } from '../config';
 
 export default props => (
   <View>
@@ -13,7 +13,7 @@ export default props => (
         marginLeft: 16,
       }}
       >
-        <TouchableOpacity onPress={() => props.onBackPress()}>
+        <TouchableOpacity onPress={() => props.onBackPress()} hitSlop={Graphics.HIT_SLOP}>
           <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
         </TouchableOpacity>
       </Left>

@@ -10,6 +10,7 @@ import {
   BoardsPage,
   ChangePass,
   ForgotPassword,
+  GetNewPassword,
   Login,
   Main,
   NewPost,
@@ -20,7 +21,6 @@ import {
   SignUpComplete,
   TagsPhotos,
   TokenPage,
-  GetNewPassword,
 } from './pages';
 import Profile from './pages/profile/Profile';
 import { selectAccessToken } from './reducers/UsersReducer';
