@@ -1,20 +1,26 @@
-import { Text, Thumbnail, View } from 'native-base';
+import { Text, Thumbnail } from 'native-base';
 import React, { Component } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import {
-  Constants, Graphics, NotificationTypes, Strings,
+  Constants, Graphics, NotificationTypes, Pages, Parameters, Strings,
 } from '../config';
 import {
   calculateTimeDifference,
+  extractNotificationPostID,
+  extractNotificationPostPicture,
+  extractNotificationProfilePicture,
   extractNotificationSubjectUser,
   extractNotificationTime,
   extractNotificationType,
 } from '../helpers';
 import { strings } from '../i18n';
 
-export default class NotificationComponent extends Component {
+class NotificationComponent extends Component {
   render() {
+    console.log(this.props.notification);
     return (
-      <View
+      <TouchableOpacity
         style={{
           marginBottom: 12,
           marginRight: 4,
@@ -22,6 +28,7 @@ export default class NotificationComponent extends Component {
           justifyContent: 'flex-end',
           borderRadius: Graphics.POST_CARD_RADIUS,
         }}
+        onPress={() => this.onPress()}
       >
         <View style={{
           flexDirection: 'column',
@@ -32,21 +39,37 @@ export default class NotificationComponent extends Component {
           <View>{this.renderTime()}</View>
         </View>
         {this.renderPic()}
-      </View>
+      </TouchableOpacity>
     );
   }
 
   renderPic() {
     const { notification } = this.props;
+    const isLikeOrComment = this.isLikeOrComment();
     return (
       <Thumbnail
         style={{
           alignSelf: 'center',
-          borderRadius: notification.notif_type === 1 || notification.notif_type === 4 ? Graphics.POST_CARD_RADIUS : Constants.CONTACT_THUMBNAIL_RADIUS,
+          borderRadius: isLikeOrComment ? Graphics.POST_CARD_RADIUS : Constants.CONTACT_THUMBNAIL_RADIUS,
         }}
         small
-        source={{ uri: (notification.notif_type === 1 || notification.notif_type === 4) ? notification.data.post_picture : notification.profile_picture }}
+        source={{ uri: isLikeOrComment ? extractNotificationPostPicture(notification) : extractNotificationProfilePicture(notification) }}
       />
+    );
+  }
+
+  renderMessage() {
+    const { notification } = this.props;
+    return (
+      <Text
+        style={{
+          fontSize: Constants.POST_NAME_FONT_SIZE,
+          textAlign: 'right',
+          paddingRight: 8,
+        }}
+      >
+        {this.getMessageType(extractNotificationSubjectUser(notification))}
+      </Text>
     );
   }
 
@@ -66,21 +89,6 @@ export default class NotificationComponent extends Component {
     }
   }
 
-  renderMessage() {
-    const { notification } = this.props;
-    return (
-      <Text
-        style={{
-          fontSize: Constants.POST_NAME_FONT_SIZE,
-          textAlign: 'right',
-          paddingRight: 8,
-        }}
-      >
-        {this.getMessageType(extractNotificationSubjectUser(notification))}
-      </Text>
-    );
-  }
-
   renderTime() {
     const { notification } = this.props;
     return (
@@ -88,7 +96,7 @@ export default class NotificationComponent extends Component {
         note
         style={{
           textAlign: 'right',
-          fontSize: Constants.POST_TIME_FONT_SIZE,
+          fontSize: Graphics.POST_TIME_FONT_SIZE,
           paddingRight: 8,
         }}
       >
@@ -96,4 +104,21 @@ export default class NotificationComponent extends Component {
       </Text>
     );
   }
+
+  onPress() {
+    const { navigation, notification } = this.props;
+    if (this.isLikeOrComment()) {
+      navigation.push(Pages.POST_INFO_PAGE, { [Parameters.POST_ID]: extractNotificationPostID(notification) });
+    }else {
+      // navigation.push(Pages.OTHERS_PROFILE, {[Parameters.USERNAME]: extractNo})
+    }
+  }
+
+  isLikeOrComment() {
+    const { notification } = this.props;
+    return extractNotificationType(notification) === NotificationTypes.LIKE
+      || extractNotificationType(notification) === NotificationTypes.COMMENT;
+  }
 }
+
+export default withNavigation(NotificationComponent);

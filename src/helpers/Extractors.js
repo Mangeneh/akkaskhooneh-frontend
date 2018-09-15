@@ -77,6 +77,18 @@ export function extractNotificationTime(notification) {
   return notification.time;
 }
 
+export function extractNotificationPostPicture(notification) {
+  return notification.data.post_picture;
+}
+
+export function extractNotificationPostID(notification) {
+  return notification.data.post_id;
+}
+
+export function extractNotificationProfilePicture(notification) {
+  return notification.profile_picture;
+}
+
 export function extractIsPrivate(user) {
   return user.is_private;
 }
