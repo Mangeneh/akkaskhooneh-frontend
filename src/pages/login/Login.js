@@ -1,4 +1,4 @@
-// import LottieView from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 import { Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -32,10 +32,10 @@ import {
 
 class Login extends Component {
   componentDidMount() {
-    // this.animation.play();
-    // this.interval = setInterval(() => {
-    //   this.animation.play();
-    // }, 5000);
+    this.animation.play();
+    this.interval = setInterval(() => {
+      this.animation.play();
+    }, 5000);
   }
 
   componentWillUnmount() {
@@ -126,17 +126,16 @@ class Login extends Component {
   }
 
   renderAnimation() {
-    return null;
-    // return (
-    //   <LottieView
-    //     ref={(animation) => {
-    //       this.animation = animation;
-    //     }}
-    //     source={require('../../assets/animations/foto_icon_')}
-    //     loop={false}
-    //     style={{ width: 300 }}
-    //   />
-    // );
+    return (
+      <LottieView
+        ref={(animation) => {
+          this.animation = animation;
+        }}
+        source={require('../../assets/animations/foto_icon_')}
+        loop={false}
+        style={{ width: 300 }}
+      />
+    );
   }
 
   renderOtherLoginSection() {

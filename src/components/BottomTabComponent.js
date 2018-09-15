@@ -6,15 +6,28 @@ import { MaterialTopTabBar } from 'react-navigation-tabs';
 import { connect } from 'react-redux';
 import { Colors, Pages } from '../config';
 import NavigationService from '../NavigationService';
-import { selectUserBoardsIsLoading } from '../reducers/BoardsReducer';
-import { selectHomePostsIsLoading, selectUserPhotosIsLoading } from '../reducers/PostsReducer';
+import {
+  selectNotificationsIsLoading,
+  selectNotificationsIsRefreshing,
+} from '../pages/notification/reducer';
+import {
+  selectSearchTopTagsIsLoading,
+  selectSearchTopTagsIsRefreshing,
+} from '../pages/search/reducer';
+import { selectUserBoardsIsLoading, selectUserBoardsIsRefreshing } from '../reducers/BoardsReducer';
+import {
+  selectHomePostsIsLoading,
+  selectHomePostsIsRefreshing,
+  selectUserPhotosIsLoading,
+  selectUserPhotosIsRefreshing,
+} from '../reducers/PostsReducer';
 import CustomStatusBar from './CustomStatusBar';
 
 class BottomTabComponent extends Component {
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.isLoading) {
-    //   this.animation.play();
-    // }
+    if (nextProps.isLoading) {
+      this.animation.play();
+    }
   }
 
   render() {
@@ -50,7 +63,6 @@ class BottomTabComponent extends Component {
 
   renderLoadingBar() {
     const { isLoading } = this.props;
-    return null;
     return (
       <LottieView
         ref={(animation) => {
@@ -72,8 +84,15 @@ class BottomTabComponent extends Component {
 
 const mapStateToProps = state => ({
   isLoading: selectUserBoardsIsLoading(state)
+    || selectUserBoardsIsRefreshing(state)
     || selectUserPhotosIsLoading(state)
-    || selectHomePostsIsLoading(state),
+    || selectUserPhotosIsRefreshing(state)
+    || selectHomePostsIsLoading(state)
+    || selectHomePostsIsRefreshing(state)
+    || selectSearchTopTagsIsLoading(state)
+    || selectSearchTopTagsIsRefreshing(state)
+    || selectNotificationsIsLoading(state)
+    || selectNotificationsIsRefreshing(state),
 });
 
 export default connect(mapStateToProps, null)(BottomTabComponent);

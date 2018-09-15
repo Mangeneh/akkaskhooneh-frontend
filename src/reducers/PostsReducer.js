@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import { PostsActions, UsersActions } from '../actions';
-import { extractCommentsCount, extractIsLiked, extractLikesCount, extractPostID } from '../helpers';
+import {
+  extractCommentsCount, extractIsLiked, extractLikesCount, extractPostID,
+} from '../helpers';
 import { selectPosts } from './index';
 
 const INITIAL_USER_PHOTOS_STATE = {
@@ -434,42 +436,47 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-const injectNewPosts = (newPosts, state) => newPosts.reduce((accumulator, currentValue, currentIndex) => {
-  if (currentIndex === 1) {
-    const firstPostField = createPostBadge(extractPostID(accumulator));
-    const secondPostField = createPostBadge(extractPostID(currentValue));
-    return {
-      [firstPostField]: {
-        ...INITIAL_OPEN_POST_STATE,
-        ...state[firstPostField],
-        postInfo: {
-          ...accumulator,
+const injectNewPosts = (newPosts, state) => {
+  if (newPosts.length === 0) {
+    return {};
+  }
+  return newPosts.reduce((accumulator, currentValue, currentIndex) => {
+    if (currentIndex === 1) {
+      const firstPostField = createPostBadge(extractPostID(accumulator));
+      const secondPostField = createPostBadge(extractPostID(currentValue));
+      return {
+        [firstPostField]: {
+          ...INITIAL_OPEN_POST_STATE,
+          ...state[firstPostField],
+          postInfo: {
+            ...accumulator,
+          },
+          postInfoIsFirstFetch: false,
         },
-        postInfoIsFirstFetch: false,
-      },
-      [secondPostField]: {
+        [secondPostField]: {
+          ...INITIAL_OPEN_POST_STATE,
+          ...state[secondPostField],
+          postInfo: {
+            ...currentValue,
+          },
+          postInfoIsFirstFetch: false,
+        },
+      };
+    }
+    const postField = createPostBadge(extractPostID(currentValue));
+    return {
+      ...accumulator,
+      [postField]: {
         ...INITIAL_OPEN_POST_STATE,
-        ...state[secondPostField],
+        ...state[postField],
         postInfo: {
           ...currentValue,
         },
         postInfoIsFirstFetch: false,
       },
     };
-  }
-  const postField = createPostBadge(extractPostID(currentValue));
-  return {
-    ...accumulator,
-    [postField]: {
-      ...INITIAL_OPEN_POST_STATE,
-      ...state[postField],
-      postInfo: {
-        ...currentValue,
-      },
-      postInfoIsFirstFetch: false,
-    },
-  };
-});
+  });
+};
 
 const selectHome = state => selectPosts(state).home;
 

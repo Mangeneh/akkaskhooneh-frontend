@@ -1,24 +1,25 @@
-import {
-  Body, Header, Text, Title,
-} from 'native-base';
+import LottieView from 'lottie-react-native';
+import { Body, Header, Title } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar, NotificationComponent } from '../../components';
-import { Colors, Constants, Strings } from '../../config';
+import Loading from '../../components/Loading';
+import { Colors, Strings } from '../../config';
 import { strings } from '../../i18n';
 import { getNotifications, refreshNotifications } from './actions';
 import {
   selectNotifications,
   selectNotificationsIsFirstFetch,
   selectNotificationsIsLoading,
+  selectNotificationsIsRefreshing,
   selectNotificationsNextPage,
   selectNotificationsTotalPages,
 } from './reducer';
 
 class Notification extends Component {
   componentWillMount() {
-    this.updateNotifications();
+    this.refreshNotifications();
   }
 
   render() {
@@ -30,15 +31,14 @@ class Notification extends Component {
           {this.renderHeader()}
         </View>
         <View style={{ flex: 1 }}>
-          <View style={{
-            backgroundColor: Colors.WHITE_BACK,
-            flex: 1,
-            width: '100%',
-            paddingLeft: 8,
-          }}
-          >
-            {notifications.length === 0 && !notificationsIsFirstFetch ? this.showEmpty() : this.renderNotifications()}
-          </View>
+          {!notificationsIsFirstFetch ? (
+            <View style={{
+              flex: 1,
+            }}
+            >
+              {notifications.length === 0 ? this.showEmpty() : this.renderNotifications()}
+            </View>
+          ) : <Loading />}
         </View>
       </View>
     );
@@ -46,20 +46,15 @@ class Notification extends Component {
 
   showEmpty() {
     return (
-      <View style={{
-        alignSelf: 'center',
-        justifyContent: 'center',
-        flex: 1,
-      }}
-      >
-        <Text style={{
-          color: Colors.ICON,
-          fontSize: Constants.TEXT_NORMAL_SIZE,
+      <LottieView
+        source={require('../../assets/animations/no_notifications')}
+        autoPlay
+        loop
+        style={{
+          alignSelf: 'center',
+          flex: 1,
         }}
-        >
-          {strings(Strings.NO_NOTIFICATIONS_YET)}
-        </Text>
-      </View>
+      />
     );
   }
 
@@ -84,10 +79,10 @@ class Notification extends Component {
   }
 
   renderNotifications() {
-    const { refreshNotifications, notificationsIsLoading, notifications } = this.props;
+    const { notificationsIsLoading, notifications } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshNotifications()}
+        onRefresh={() => this.refreshNotifications()}
         refreshing={notificationsIsLoading}
         onEndReached={() => {
           this.updateNotifications();
@@ -108,11 +103,25 @@ class Notification extends Component {
     return <NotificationComponent notification={item} />;
   }
 
+  refreshNotifications() {
+    const {
+      notificationsIsLoading, notificationsIsRefreshing, refreshNotifications,
+    } = this.props;
+    if (!notificationsIsLoading && !notificationsIsRefreshing) {
+      refreshNotifications()
+        .then((response) => {
+        })
+        .catch((error) => {
+        });
+    }
+  }
+
   updateNotifications() {
     const {
-      notificationsNextPage, notificationsTotalPages, notificationsIsLoading, getNotificationsNextPage,
+      notificationsNextPage, notificationsTotalPages, notificationsIsLoading, getNotificationsNextPage, notificationsIsRefreshing,
     } = this.props;
-    if (notificationsNextPage <= notificationsTotalPages && !notificationsIsLoading) {
+    if (notificationsNextPage <= notificationsTotalPages && !notificationsIsLoading
+      && !notificationsIsRefreshing) {
       getNotificationsNextPage(notificationsNextPage)
         .then((response) => {
         })
@@ -126,8 +135,9 @@ const mapStateToProps = state => ({
   notifications: selectNotifications(state),
   notificationsNextPage: selectNotificationsNextPage(state),
   notificationsTotalPages: selectNotificationsTotalPages(state),
-  notificationsIsLoading: selectNotificationsIsLoading(state),
   notificationsIsFirstFetch: selectNotificationsIsFirstFetch(state),
+  notificationsIsRefreshing: selectNotificationsIsRefreshing(state),
+  notificationsIsLoading: selectNotificationsIsLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,3 +1,4 @@
+import LottieView from 'lottie-react-native';
 import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
@@ -10,9 +11,7 @@ import {
 } from '../../actions';
 import { HomeHeader } from '../../components';
 import Post from '../../components/Post';
-import {
-  Colors, Constants, Graphics, Pages, Strings,
-} from '../../config';
+import { Colors, Constants, Graphics, Pages, Strings, } from '../../config';
 import { extractPostID } from '../../helpers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
@@ -47,12 +46,12 @@ class Home extends Component {
       <View style={{
         flex: 1,
         alignSelf: 'center',
-        justifyContent: 'center',
       }}
       >
         <Text style={{
           fontSize: Constants.TEXT_NORMAL_SIZE,
           color: Colors.ICON,
+          marginTop: 16,
           marginBottom: 8,
         }}
         >
@@ -62,8 +61,9 @@ class Home extends Component {
           style={{
             backgroundColor: 'white',
             alignSelf: 'center',
+            zIndex: 10,
           }}
-          onPress={() => NavigationService.navigate(Pages.ADD_FRIENDS)}
+          onPress={() => this.props.navigation.navigate(Pages.ADD_FRIENDS)}
         >
           <Text style={{
             fontSize: Constants.TEXT_NORMAL_SIZE,
@@ -73,13 +73,19 @@ class Home extends Component {
             {strings(Strings.INVITE_FRIENDS)}
           </Text>
         </Button>
+        <LottieView
+          source={require('../../assets/animations/moon')}
+          autoPlay
+          loop
+          style={{ zIndex: 0 }}
+        />
       </View>
     );
   }
 
   renderContent() {
     const {
-      posts, postsIsLoading, postsIsFirstFetch, postsIsRefreshing,
+      posts, postsIsFirstFetch,
     } = this.props;
     return (posts.length === 0 && !postsIsFirstFetch ? this.renderNewUserFirstImpression() : this.renderFeed());
   }

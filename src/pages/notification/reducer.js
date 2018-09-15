@@ -24,14 +24,8 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_NOTIFICATION,
     REFRESH_NOTIFICATION_SUCCESS,
     REFRESH_NOTIFICATION_FAIL,
-    START_NEW_SEARCH,
   } = NotificationActions;
   switch (action.type) {
-    case START_NEW_SEARCH:
-      return {
-        ...state,
-        notificationsNextPage: 1,
-      };
     case GET_NOTIFICATION_NEXT_PAGE:
       return {
         ...state,
@@ -69,8 +63,6 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         notificationsIsRefreshing: false,
       };
-    case RESET_NOTIFICATION:
-      return { ...state, ...INITIAL_NOTIFICATIONS_STATE };
     case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
@@ -81,5 +73,6 @@ export default (state = INITIAL_STATE, action) => {
 export const selectNotifications = state => selectNotificationPage(state).notifications;
 export const selectNotificationsNextPage = state => selectNotificationPage(state).notificationsNextPage;
 export const selectNotificationsTotalPages = state => selectNotificationPage(state).notificationsTotalPages;
-export const selectNotificationsIsLoading = state => selectNotificationPage(state).notificationsIsLoading;
 export const selectNotificationsIsFirstFetch = state => selectNotificationPage(state).notificationsIsFirstFetch;
+export const selectNotificationsIsRefreshing = state => selectNotificationPage(state).notificationsIsRefreshing;
+export const selectNotificationsIsLoading = state => selectNotificationPage(state).notificationsIsLoading;
