@@ -33,12 +33,9 @@ import {
 } from '../../reducers/UsersReducer';
 
 class ContactList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: '',
-    };
-  }
+  state = {
+    searchText: '',
+  };
 
   componentWillMount() {
     this.refreshFollowings('');
@@ -63,7 +60,6 @@ class ContactList extends Component {
             }}
             tabBarUnderlineStyle={{ backgroundColor: Colors.ACCENT }}
             initialPage={this.props.navigation.getParam('tab')}
-            locked
           >
             <Tab
               heading={strings(Strings.FOLLOWERS)}

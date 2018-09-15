@@ -55,7 +55,6 @@ class SearchUserOrTag extends Component {
             }}
             tabBarUnderlineStyle={{ backgroundColor: Colors.ACCENT }}
             initialPage={1}
-            locked
           >
             <Tab
               heading={strings(Strings.TAGS)}
