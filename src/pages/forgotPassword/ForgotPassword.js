@@ -111,7 +111,7 @@ class ForgotPassword extends Component {
 
   onFail(error) {
     Toast.show({
-      text: error.error.response.status === 404 ? strings(Strings.NON_EXISTING_EMAIL) :  strings(Strings.TOKEN_TIME),
+      text: error.error.response.status === 404 ? strings(Strings.NON_EXISTING_EMAIL) : strings(Strings.TOKEN_TIME),
       textStyle: { textAlign: 'center' },
       position: 'bottom',
       type: 'danger',

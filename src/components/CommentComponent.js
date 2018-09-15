@@ -1,9 +1,12 @@
-import { Text, Thumbnail, View } from 'native-base';
+import { Text, Thumbnail } from 'native-base';
+import { TouchableOpacity, View } from 'react-native';
 import React, { Component } from 'react';
-import { Constants, Graphics, Colors } from '../config';
-import { calculateTimeDifference } from '../helpers';
+import { Constants, Graphics, Colors, Pages, Parameters } from '../config';
+import { calculateTimeDifference, extractUserUsername } from '../helpers';
+import { withNavigation } from 'react-navigation';
 
-export default class CommentComponent extends Component {
+
+class CommentComponent extends Component {
   render() {
     return (
       <View
@@ -26,11 +29,13 @@ export default class CommentComponent extends Component {
           }}
           >
             <View>{this.renderTime()}</View>
-            <View>{this.renderUsername()}</View>
+            <TouchableOpacity onPress={() => this.onPress(this.props.comment.username)}>{this.renderUsername()}</TouchableOpacity>
           </View>
           <View style={{ marginLeft: 40 }}>{this.renderCommentText()}</View>
         </View>
-        {this.renderProfilePic()}
+        <TouchableOpacity onPress={() => this.onPress(this.props.comment.username)}>
+          {this.renderProfilePic()}
+        </TouchableOpacity>
       </View>
     );
   }
@@ -95,4 +100,11 @@ export default class CommentComponent extends Component {
       </Text>
     );
   }
+
+  onPress(username) {
+    const { navigation } = this.props;
+    navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: username });
+  }
 }
+
+export default withNavigation(CommentComponent);
