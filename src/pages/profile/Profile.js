@@ -1,4 +1,4 @@
-import { Container, Tab, Tabs } from 'native-base';
+import { Container, Tab, Tabs, Text } from 'native-base';
 import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -12,7 +12,9 @@ import {
 import { Board, ProfileHeader } from '../../components';
 import Loading from '../../components/Loading';
 import PostsPhotoList from '../../components/PostsPhotoList';
-import { Colors, FollowModes, Pages, Parameters, Strings, } from '../../config';
+import {
+  Colors, Pages, Parameters, Strings, Constants, FollowModes
+} from '../../config';
 import { ProfileInfo } from '../../containers';
 import { extractFollowMode } from '../../helpers';
 import { strings } from '../../i18n';
@@ -58,7 +60,9 @@ class Profile extends Component {
   }
 
   render() {
-    const { navigation, isAccessible } = this.props;
+    const {
+      boardsIsRefreshing, boardsIsFirstFetch, boards, navigation, isAccessible
+    } = this.props;
     const username = navigation.getParam(Parameters.USERNAME);
     return (
       <Container>
@@ -79,9 +83,9 @@ class Profile extends Component {
             marginBottom: 8,
           }}
           >
-            <ProfileInfo username={navigation.getParam(Parameters.USERNAME)}/>
+            <ProfileInfo username={navigation.getParam(Parameters.USERNAME)} />
           </View>
-          {isAccessible ? this.renderSharedMaterial() : <Loading/>}
+          {isAccessible ? this.renderSharedMaterial() : <Loading />}
         </View>
       </Container>
     );
@@ -89,7 +93,7 @@ class Profile extends Component {
 
   renderSharedMaterial() {
     const {
-      boardsIsRefreshing, boardsIsFirstFetch, boards, photosIsRefreshing, photosIsFirstFetch, photos, navigation,
+      boardsIsRefreshing, boardsIsFirstFetch, boards,
     } = this.props;
     return (
       <Tabs
@@ -118,7 +122,7 @@ class Profile extends Component {
             flex: 1,
           }}
           >
-            {(boardsIsFirstFetch) ? (<ActivityIndicator size="large"/>) : (
+            {(boardsIsFirstFetch) ? (<ActivityIndicator size="large" />) : (
               <FlatList
                 onRefresh={() => this.refreshBoards()}
                 refreshing={boardsIsRefreshing}
@@ -147,22 +151,39 @@ class Profile extends Component {
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
         >
-          <PostsPhotoList
-            data={photos}
-            onRefresh={() => this.refreshPhotos()}
-            refreshing={photosIsRefreshing}
-            isFirstFetch={photosIsFirstFetch}
-            onEndReached={() => this.updatePhotos()}
-            onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
-          />
+          {this.props.photos.length === 0 && !this.props.photosIsFirstFetch ? this.showEmpty() : this.renderPhotosList()}
         </Tab>
       </Tabs>
     );
   }
 
+  showEmpty() {
+    return (
+      <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
+        <Text style={{ color: Colors.ICON, fontSize: Constants.TEXT_NORMAL_SIZE }}>{strings(Strings.NO_POSTS_YET)}</Text>
+      </View>
+    );
+  }
+
+  renderPhotosList() {
+    const {
+      photosIsRefreshing, photosIsFirstFetch, photos, navigation,
+    } = this.props;
+    return (
+      <PostsPhotoList
+        data={photos}
+        onRefresh={() => this.refreshPhotos()}
+        refreshing={photosIsRefreshing}
+        isFirstFetch={photosIsFirstFetch}
+        onEndReached={() => this.updatePhotos()}
+        onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
+      />
+    );
+  }
+
   renderBoard(item, index) {
     return (
-      <Board board={item} onAllPress={() => this.showBoardDetails(item)}/>
+      <Board board={item} onAllPress={() => this.showBoardDetails(item)} />
     );
   }
 

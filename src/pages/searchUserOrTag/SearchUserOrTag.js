@@ -131,6 +131,7 @@ class SearchUserOrTag extends Component {
               }}
             >
               <Input
+                autoFocus
                 placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
                 style={{
                   textAlign: 'right',

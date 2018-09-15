@@ -93,5 +93,8 @@
   "enter_token": "Enter the 6-digit number, sent to your email.",
   "invalid_token": "The token is not valid.",
   "token_time": "You can request for a token every 5 minute.",
-  "send": "Send"
+  "send": "Send",
+  "no_posts_yet": "No Posts Yet.",
+  "no_comments_yet": "No Comments Yet.",
+  "no_notifications_yet": "No Notifications Yet."
 }

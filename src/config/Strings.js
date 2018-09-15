@@ -93,4 +93,7 @@ export const Strings = {
   TOKEN_TIME: 'token_time',
   SEND: 'send',
   FOLLOW_REQUEST_NOTIFICATION: 'follow_request_notification',
+  NO_POSTS_YET: 'no_posts_yet',
+  NO_COMMENTS_YET: 'no_comments_yet',
+  NO_NOTIFICATIONS_YET: 'no_notifications_yet',
 };
