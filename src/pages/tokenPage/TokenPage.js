@@ -1,23 +1,25 @@
 import { Icon, Text, Toast, Input } from 'native-base';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar } from '../../components';
 import { Colors, Constants, Strings, Pages } from '../../config';
 import { strings } from '../../i18n';
 import CodeInput from 'react-native-confirmation-code-input';
-import { sendToken } from './actions';
+import { sendToken, codeChanged } from './actions';
 import NavigationService from '../../NavigationService';
+import { SendTokenButton } from '../../containers';
 
 class TokenPage extends Component {
   state = {
-    tokenCode: '',
+    code: '',
   }
   render() {
     const {
-      error,
+      error, validateCode, sendCurrentToken,
     } = this.props;
+    const {code} = this.state;
     return (
       <View style={{
         flex: 1,
@@ -63,29 +65,11 @@ class TokenPage extends Component {
                 </Text>
               </View>
               <View>
-                <CodeInput
-                    codeLength={6}
-                    className='border-circle'
-                    autoFocus={false}
-                    codeInputStyle={{ fontWeight: '800' }}
-                    onFulfill={(code) =>{this.props.sendToken(code)
-                        .then((result) => {
-                            console.warn(result)
-                            NavigationService.navigate(Pages.GET_NEW_PASSWORD, {
-                                token: tokenCode,
-                            })
-                        })
-                        .catch((error) => {
-                            console.warn(error)
-                            Toast.show({
-                                text: strings(Strings.INVALID_TOKEN),
-                                textStyle: { textAlign: 'center' },
-                                position: 'bottom',
-                                type: 'danger',
-                              });
-                        })
-                    }}
-                />
+              <Input style = {{backgroundColor: 'white', textAlign: 'center', borderRadius: Constants.TEXT_BOX_RADIUS, minHeight: 40, maxHeight: 40}} 
+                    maxLength={6}
+                    value={code}
+                    onChangeText={(code) => {this.setState({code}); validateCode(code);}}
+               />
               </View>
             </View>
             <View style={{
@@ -95,6 +79,25 @@ class TokenPage extends Component {
               flex: 1,
             }}
             >
+              <SendTokenButton
+                text = {strings(Strings.SEND)}
+                onPress={() => sendCurrentToken(code).then((result) => {
+                  console.warn(result)
+                  NavigationService.navigate(Pages.GET_NEW_PASSWORD, {
+                      token: this.state.code,
+                  })
+              })
+              .catch((error) => {
+                  console.warn(error)
+                  Toast.show({
+                      text: strings(Strings.INVALID_TOKEN),
+                      textStyle: { textAlign: 'center' },
+                      position: 'bottom',
+                      type: 'danger',
+                    });
+              })
+              } 
+              />
             </View>
           </View>
         </KeyboardAwareScrollView>
@@ -108,7 +111,8 @@ class TokenPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  sendToken: token => dispatch(sendToken(token)),
+  sendCurrentToken: token => dispatch(sendToken(token)),
+  validateCode: code => dispatch(codeChanged(code)),
 });
 
 export default connect(null, mapDispatchToProps)(TokenPage);
