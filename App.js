@@ -19,6 +19,7 @@ import { Actions as SendTokenActions } from './src/pages/tokenPage/actions';
 import rootReducer from './src/reducers';
 import { selectAccessToken, selectRefreshToken } from './src/reducers/UsersReducer';
 import RootStack from './src/RootStack';
+import { Actions as GetNewPassword } from './src/pages/getNewPassword/actions';
 
 // console.disableYellowBox = true;
 
@@ -47,7 +48,7 @@ const store = createStore(
           {
             success({ getState, dispatch, getSourceAction }, request) {
               const { type } = request.reduxSourceAction;
-              if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL || type === ForgotPasswordActions.FORGOT_PASSWORD || type === SendTokenActions.SEND_TOKEN) {
+              if (type === SignUpCompleteActions.SIGN_UP || type === SignUpActions.VALIDATE_EMAIL || type === ForgotPasswordActions.FORGOT_PASSWORD || type === SendTokenActions.SEND_TOKEN || type === GetNewPassword.CHANGE_PASSWORD) {
                 return request;
               }
               request.headers.authorization = `Bearer ${selectAccessToken(getState())}`;

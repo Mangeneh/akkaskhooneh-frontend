@@ -7,9 +7,9 @@ export const Actions = {
   CHANGE_PASSWORD_FAIL: 'GET_NEW_PASS_CHANGE_PASSWORD_FAIL',
 };
 
-export const passwordChanged = password => ({
+export const passwordChanged = (password, repeatedPassword) => ({
   type: Actions.PASSWORD_CHANGED,
-  payload: password,
+  payload: { password, repeatedPassword },
 });
 
 export const getNewPassword = (token, password) => ({

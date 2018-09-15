@@ -69,8 +69,7 @@ class GetNewPassword extends Component {
                   error={error}
                   placeholder={strings(Strings.NEW_PASSWORD)}
                   value={newPassword}
-                  onChangePassword={this.setState({ newPassword })}
-                  reset={() => this.props.reset()}
+                  onChangePassword={(newPassword) => { this.setState({ newPassword }); this.props.changePassword(newPassword, repeatedPassword); }}
                 />
                 <PasswordInstruction />
               </View>
@@ -84,8 +83,7 @@ class GetNewPassword extends Component {
                   error={error}
                   placeholder={strings(Strings.REPEAT_NEW_PASSWORD)}
                   value={repeatedPassword}
-                  onChangePassword={this.setState({ repeatedPassword })}
-                  reset={() => this.props.reset()}
+                  onChangePassword={(repeatedPassword) => { this.setState({ repeatedPassword }); this.props.changePassword(newPassword, repeatedPassword); }}
                 />
               </View>
             </View>
@@ -115,7 +113,13 @@ class GetNewPassword extends Component {
 
   onSaveChangesPressed() {
     if (this.state.newPassword === this.state.repeatedPassword) {
-      this.props.sendNewPassword(this.props.navigation.getParam('token'), this.state.newPassword);
+      this.props.sendNewPassword(this.props.navigation.getParam('token'), this.state.newPassword)
+        .then((response) => {
+          console.warn(response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
     }
   }
 }
@@ -126,7 +130,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changePassword: password => dispatch(passwordChanged(password)),
+  changePassword: (password, repeatedPassword) => dispatch(passwordChanged(password, repeatedPassword)),
   sendNewPassword: (token, password) => dispatch(getNewPassword(token, password)),
 });
 
