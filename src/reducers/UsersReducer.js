@@ -287,6 +287,8 @@ export const selectFullName = (state, username) => getUserProperty(state, userna
 export const selectNumOfFollowers = (state, username) => getUserProperty(state, username).userInfo.followers;
 export const selectNumOfFollowings = (state, username) => getUserProperty(state, username).userInfo.following;
 export const selectProfilePicture = (state, username) => getUserProperty(state, username).userInfo.profile_picture;
+export const selectProfileIsPrivate = (state, username) => getUserProperty(state, username).userInfo.is_private;
+export const selectProfileFollowingStatus = (state, username) => getUserProperty(state, username).userInfo.following_status;
 
 export const selectSelfEmail = state => selectSelf(state).userInfo.email;
 
