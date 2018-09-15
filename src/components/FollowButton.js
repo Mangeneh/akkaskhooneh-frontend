@@ -1,11 +1,16 @@
 import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import { FollowModes, Strings } from '../config';
+import { extractFollowMode } from '../helpers';
 import { strings } from '../i18n';
+import { selectProfileFollowStatus } from '../reducers/UsersReducer';
 
-export default class FollowButton extends Component {
+class FollowButton extends Component {
   render() {
+    console.log("follow button");
+    console.log(this.props);
     const { onPress } = this.props;
     const buttonSettings = this.makeButtonSettings();
     return (
@@ -20,8 +25,9 @@ export default class FollowButton extends Component {
   }
 
   makeButtonSettings() {
-    const { mode } = this.props;
-    switch (mode) {
+    const { followStatus } = this.props;
+    const followMode = extractFollowMode(followStatus);
+    switch (followMode) {
       case FollowModes.FOLLOWED:
         return {
           text: strings(Strings.FOLLOWED),
@@ -46,3 +52,14 @@ const styles = StyleSheet.create({
   notFollowed: {},
   requested: {},
 });
+
+const mapStateToProps = (state, ownProps) => {
+  const { username } = ownProps;
+  return {
+    followStatus: selectProfileFollowStatus(state, username),
+  };
+};
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FollowButton);

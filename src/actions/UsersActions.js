@@ -20,6 +20,12 @@ export const UsersActions = {
   REFRESH_FOLLOWERS: 'REFRESH_FOLLOWERS',
   REFRESH_FOLLOWERS_SUCCESS: 'REFRESH_FOLLOWERS_SUCCESS',
   REFRESH_FOLLOWERS_FAIL: 'REFRESH_FOLLOWERS_FAIL',
+  FOLLOW_REQUEST: 'FOLLOW_REQUEST',
+  FOLLOW_REQUEST_SUCCESS: 'FOLLOW_REQUEST_SUCCESS',
+  FOLLOW_REQUEST_FAIL: 'FOLLOW_REQUEST_FAIL',
+  UN_FOLLOW_REQUEST: 'UN_FOLLOW_REQUEST',
+  UN_FOLLOW_REQUEST_SUCCESS: 'UN_FOLLOW_REQUEST_SUCCESS',
+  UN_FOLLOW_REQUEST_FAIL: 'UN_FOLLOW_REQUEST_FAIL',
   SIGN_OUT: 'SIGN_OUT',
 };
 
@@ -124,4 +130,32 @@ export const getFollowers = (searchText, followersNext, username) => {
 
 export const startNewSearch = () => ({
   type: UsersActions.START_NEW_SEARCH,
+});
+
+export const followRequest = username => ({
+  type: UsersActions.FOLLOW_REQUEST,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.FOLLOW_REQUEST,
+      data: {
+        username,
+      },
+    },
+    username,
+  },
+});
+
+export const unFollowRequest = username => ({
+  type: UsersActions.UN_FOLLOW_REQUEST,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.UN_FOLLOW_REQUEST,
+      data: {
+        username,
+      },
+    },
+    username,
+  },
 });

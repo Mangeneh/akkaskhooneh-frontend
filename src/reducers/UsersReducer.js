@@ -27,6 +27,7 @@ const INITIAL_SELF_USER_STATE = {
 
 const INITIAL_OTHER_USER_STATE = {
   userInfo: {},
+  userInfoIsFirstFetch: true,
   social: INITIAL_FOLLOWERS_FOLLOWINGS_STATE,
 };
 
@@ -63,6 +64,7 @@ export default (state = INITIAL_STATE, action) => {
         [userField]: {
           ...state[userField],
           userInfo: action.payload.data,
+          userInfoIsFirstFetch: false,
         },
       };
     }
@@ -281,6 +283,7 @@ const getUserProperty = (state, username) => {
   }
   return INITIAL_OTHER_USER_STATE;
 };
+export const selectUserInfoIsFirstFetch = (state, username) => getUserProperty(state, username).userInfoIsFirstFetch;
 export const selectUsername = (state, username) => getUserProperty(state, username).userInfo.username;
 export const selectBio = (state, username) => getUserProperty(state, username).userInfo.bio;
 export const selectFullName = (state, username) => getUserProperty(state, username).userInfo.fullname;
@@ -288,7 +291,7 @@ export const selectNumOfFollowers = (state, username) => getUserProperty(state, 
 export const selectNumOfFollowings = (state, username) => getUserProperty(state, username).userInfo.following;
 export const selectProfilePicture = (state, username) => getUserProperty(state, username).userInfo.profile_picture;
 export const selectProfileIsPrivate = (state, username) => getUserProperty(state, username).userInfo.is_private;
-export const selectProfileFollowingStatus = (state, username) => getUserProperty(state, username).userInfo.following_status;
+export const selectProfileFollowStatus = (state, username) => getUserProperty(state, username).userInfo.following_status;
 
 export const selectSelfEmail = state => selectSelf(state).userInfo.email;
 
