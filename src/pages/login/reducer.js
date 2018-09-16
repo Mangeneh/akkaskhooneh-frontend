@@ -7,7 +7,7 @@ import { Actions } from './actions';
 const INITIAL_STATE = {
   email: '',
   password: '',
-  mode: PageModes.NORMAL,
+  mode: PageModes.DISABLED,
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -4,12 +4,14 @@ import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar, EmailTextBox } from '../../components';
-import { Colors, Constants, Strings, Pages } from '../../config';
+import {
+  Colors, Constants, Pages, Strings,
+} from '../../config';
 import { ForgotPasswordButton } from '../../containers';
 import { strings } from '../../i18n';
+import NavigationService from '../../NavigationService';
 import { emailChanged, sendEmailForForgotPassword } from './actions';
 import { selectError, selectMode } from './reducer';
-import NavigationService from '../../NavigationService';
 
 class ForgotPassword extends Component {
   state = {
@@ -19,7 +21,7 @@ class ForgotPassword extends Component {
   render() {
     const { email } = this.state;
     const {
-      error,
+      error, validateEmail,
     } = this.props;
     return (
       <View style={{
@@ -70,8 +72,8 @@ class ForgotPassword extends Component {
                   placeholder={strings(Strings.EMAIL_ADDRESS)}
                   value={email}
                   onChangeEmail={(email) => {
-                    this.setState({ email: email.toLowerCase() });
-                    this.props.validateEmail(email);
+                    this.setState({ email });
+                    validateEmail(email);
                   }}
                 />
               </View>

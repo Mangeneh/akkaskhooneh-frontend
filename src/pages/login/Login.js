@@ -5,12 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { accessTokenSet, refreshTokenSet, updateUser } from '../../actions/UsersActions';
-import {
-  CustomStatusBar,
-  EmailTextBox,
-  PasswordInstruction,
-  PasswordTextBox,
-} from '../../components';
+import { CustomStatusBar, EmailTextBox, PasswordTextBox } from '../../components';
 import {
   Colors, Fonts, Pages, Strings,
 } from '../../config';
@@ -89,7 +84,6 @@ class Login extends Component {
                   onChangePassword={password => changePassword(password)}
                   reset={() => resetPassword()}
                 />
-                <PasswordInstruction />
               </View>
               <LoginButton
                 onPress={() => this.onLoginPress()}

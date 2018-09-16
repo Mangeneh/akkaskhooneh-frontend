@@ -52,7 +52,6 @@ class PostInfo extends Component {
         <CustomStatusBar />
         <View style={{ flex: 1 }}>
           {this.renderCommentsList()}
-          {this.props.comments.length === 0 && !this.props.commentsIsFirstFetch ? this.showEmpty() : null}
           {this.renderInputBox()}
         </View>
       </SafeAreaView>

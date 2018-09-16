@@ -19,7 +19,7 @@ export const sendEmailForForgotPassword = email => ({
       method: RequestMethods.POST,
       url: Server.FORGOT_PASSWORD,
       data: {
-        email,
+        email: email.toLowerCase(),
       },
     },
   },
