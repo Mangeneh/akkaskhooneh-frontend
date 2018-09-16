@@ -176,7 +176,7 @@ class AddPostInfo extends Component {
       .then((response) => {
         this.props.navigation.navigate(Pages.MAIN);
         setTimeout(() => { this.props.refreshHomePosts(); }, 1000);
-        this.refreshUserPhotos();
+        this.props.refreshUserPhotos();
       });
   }
 }

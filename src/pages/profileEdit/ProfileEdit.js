@@ -12,7 +12,9 @@ import { connect } from 'react-redux';
 import { updateUser } from '../../actions/UsersActions';
 import { BackHeader, CustomLongTextBox, CustomStatusBar } from '../../components';
 import BioInstruction from '../../components/BioInstruction';
-import { Colors, Constants, Strings } from '../../config';
+import {
+  Colors, Constants, PageModes, Strings,
+} from '../../config';
 import SaveChangesButton from '../../containers/SaveChangesButton';
 import { extractImageSource } from '../../helpers';
 import { strings } from '../../i18n';
@@ -210,21 +212,29 @@ class ProfileEdit extends Component {
   }
 
   onSaveChangesPressed() {
-    this.props.editProfile(this.state.fullName, this.state.bio)
-      .then((response) => {
-        if (this.state.toggleStatus) {
-          this.props.sendChangeStatus(this.state.toggleStatus);
-        }
-        if (this.state.imageFile !== null) {
-          this.changeImage();
-        } else {
-          this.onSuccess();
-        }
-        this.props.updateUser();
-      })
-      .catch((error) => {
-        this.onFail();
-      });
+    const {
+      mode, sendChangeStatus, updateUser, editProfile,
+    } = this.props;
+    const {
+      fullName, bio, toggleStatus, imageFile,
+    } = this.state;
+    if (mode !== PageModes.LOADING && mode !== PageModes.SUCCESS) {
+      editProfile(fullName, bio)
+        .then((response) => {
+          if (toggleStatus) {
+            sendChangeStatus(toggleStatus);
+          }
+          if (imageFile !== null) {
+            this.changeImage();
+          } else {
+            this.onSuccess();
+          }
+          updateUser();
+        })
+        .catch((error) => {
+          this.onFail();
+        });
+    }
   }
 
   onSuccess() {
