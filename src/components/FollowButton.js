@@ -1,10 +1,10 @@
 import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { deleteFollowRequest, followRequest, unFollowRequest } from '../actions';
 import {
-  Colors, FollowModes, Graphics, Strings, Constants,
+  Colors, Constants, FollowModes, Graphics, Strings,
 } from '../config';
 import { extractFollowMode } from '../helpers';
 import { strings } from '../i18n';

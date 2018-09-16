@@ -16,7 +16,6 @@ import {
   selectNumOfFollowings,
   selectProfilePicture,
   selectUserInfoIsFirstFetch,
-  selectUsername,
 } from '../reducers/UsersReducer';
 
 class ProfileInfo extends Component {

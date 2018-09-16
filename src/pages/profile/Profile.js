@@ -82,13 +82,15 @@ class Profile extends Component {
         >
           {!userInfoIsFirstFetch
             ? (
-              <View style={{
-                marginTop: 16,
-                marginRight: 16,
-                marginBottom: 8,
-              }}
-              >
-                <ProfileInfo username={navigation.getParam(Parameters.USERNAME)} />
+              <View>
+                <View style={{
+                  marginTop: 16,
+                  marginRight: 16,
+                  marginBottom: 8,
+                }}
+                >
+                  <ProfileInfo username={navigation.getParam(Parameters.USERNAME)} />
+                </View>
                 {!(this.isSelfProfile()) ? <FollowButton username={username} /> : null}
               </View>
             ) : <Loading />}

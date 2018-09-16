@@ -112,44 +112,34 @@ class SearchUserOrTag extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <View style={{
-          flexDirection: 'row',
-          flex: 1,
-        }}
+        <TouchableOpacity
+          onPress={() => this.props.navigation.goBack()}
+          hitSlop={Graphics.HIT_SLOP}
+          style={{
+            justifyContent: 'center',
+          }}
         >
-          <TouchableOpacity
-            onPress={() => this.props.navigation.goBack()}
-            hitSlop={Graphics.HIT_SLOP}
+          <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
+        </TouchableOpacity>
+        <Item
+          rounded
+          style={{
+            alignSelf: 'center',
+            borderRadius: Constants.TEXT_BOX_RADIUS,
+          }}
+        >
+          <Input
+            autoFocus
+            placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
             style={{
-              flex: 1,
-              justifyContent: 'flex-start',
-              marginLeft: 10,
+              textAlign: 'right',
+              fontSize: Constants.ITEM_FONT_SIZE,
             }}
-          >
-            <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
-          </TouchableOpacity>
-          <View style={{ flex: 8 }}>
-            <Item
-              rounded
-              style={{
-                alignSelf: 'center',
-                borderRadius: Constants.TEXT_BOX_RADIUS,
-              }}
-            >
-              <Input
-                autoFocus
-                placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
-                style={{
-                  textAlign: 'right',
-                  fontSize: Constants.ITEM_FONT_SIZE,
-                }}
-                value={searchText}
-                onChangeText={searchText => this.search(searchText)}
-              />
-              <Icon name="ios-search" style={{ color: Colors.BASE }} />
-            </Item>
-          </View>
-        </View>
+            value={searchText}
+            onChangeText={searchText => this.search(searchText)}
+          />
+          <Icon name="ios-search" style={{ color: Colors.ICON }} />
+        </Item>
       </Header>
     );
   }

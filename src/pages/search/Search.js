@@ -74,7 +74,7 @@ class Search extends Component {
               fontSize: Constants.ITEM_FONT_SIZE,
             }}
           />
-          <Icon name="ios-search" style={{ color: Colors.BASE }} />
+          <Icon name="ios-search" style={{ color: Colors.ICON }} />
         </Item>
       </Header>
     );
