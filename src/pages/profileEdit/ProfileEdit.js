@@ -282,8 +282,8 @@ class ProfileEdit extends Component {
 
   onChooseFromGalleryPress() {
     ImagePicker.openPicker({
-      width: Constants.IMAGE_SIZE,
-      height: Constants.IMAGE_SIZE,
+      width: Constants.UPLOAD_POST_PICTURE_SIZE,
+      height: Constants.UPLOAD_POST_PICTURE_SIZE,
       cropping: true,
     })
       .then((image) => {
@@ -297,8 +297,8 @@ class ProfileEdit extends Component {
 
   onOpenCameraPress() {
     ImagePicker.openCamera({
-      width: Constants.IMAGE_SIZE,
-      height: Constants.IMAGE_SIZE,
+      width: Constants.UPLOAD_POST_PICTURE_SIZE,
+      height: Constants.UPLOAD_POST_PICTURE_SIZE,
       cropping: true,
     })
       .then((image) => {

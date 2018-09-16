@@ -1,7 +1,7 @@
 import { Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Avatar, SocialIcon } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { CustomStatusBar, EmailTextBox, PasswordTextBox } from '../../components';
@@ -138,42 +138,11 @@ class SignUp extends Component {
         justifyContent: 'center',
       }}
       >
-        {this.renderOtherLoginButtons()}
         <TouchableOpacity
           style={{ alignSelf: 'center' }}
           onPress={() => this.onReturnToLoginPress()}
         >
           <Text style={styles.text}>{strings(Strings.ENTER_LOGIN_PAGE)}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  renderOtherLoginButtons() {
-    return (
-      <View style={{
-        flexDirection: 'row',
-        alignSelf: 'center',
-        marginBottom: 16,
-      }}
-      >
-        <TouchableOpacity>
-          <SocialIcon
-            light
-            type="facebook"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <SocialIcon
-            light
-            type="google"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <SocialIcon
-            light
-            type="twitter"
-          />
         </TouchableOpacity>
       </View>
     );

@@ -108,7 +108,7 @@ export default class NewPost extends Component {
         }}
         >
           <Button
-            onPress={() => this.continue()}
+            onPress={() => this.openPicker()}
             style={{
               alignSelf: 'center',
               marginRight: 32,
@@ -131,10 +131,14 @@ export default class NewPost extends Component {
 
   onCameraScreenPress() {
     ImagePicker.openCamera({
-      width: Constants.IMAGE_SIZE,
-      height: Constants.IMAGE_SIZE,
+      mediaType: 'photo',
+      width: Constants.UPLOAD_POST_PICTURE_SIZE,
+      height: Constants.UPLOAD_POST_PICTURE_SIZE,
       cropping: true,
       avoidEmptySpaceAroundImage: false,
+      cropperStatusBarColor: Colors.BASE,
+      cropperToolbarColor: Colors.BASE,
+      freeStyleCropEnabled: true,
     })
       .then((image) => {
         const imageSource = extractImageSource(image);
@@ -157,9 +161,27 @@ export default class NewPost extends Component {
     }
   }
 
+  openPicker() {
+    ImagePicker.openCropper({
+      path: this.state.imageSource,
+      width: Constants.UPLOAD_POST_PICTURE_SIZE,
+      height: Constants.UPLOAD_POST_PICTURE_SIZE,
+      cropperStatusBarColor: Colors.BASE,
+      cropperToolbarColor: Colors.BASE,
+      freeStyleCropEnabled: true,
+    }).then((image) => {
+      const imageSource = extractImageSource(image);
+      this.setState({
+        imageSource,
+        hasChosen: true,
+      });
+      this.continue();
+    });
+  }
+
   continue() {
     const { imageSource } = this.state;
-    ImageResizer.createResizedImage(imageSource, Constants.IMAGE_SIZE, Constants.IMAGE_SIZE, 'JPEG', 90)
+    ImageResizer.createResizedImage(imageSource, Constants.UPLOAD_POST_PICTURE_SIZE, Constants.UPLOAD_POST_PICTURE_SIZE, 'JPEG', 90)
       .then((response) => {
         this.props.navigation.navigate(Pages.ADD_POST_INFO, { imageSource: response.uri });
       })

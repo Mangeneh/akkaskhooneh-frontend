@@ -99,7 +99,6 @@ class NotificationComponent extends Component {
 
   getMessageType(name) {
     const { notification } = this.props;
-    console.warn(notification);
     switch (extractNotificationType(notification)) {
       case NotificationTypes.LIKE:
         return (strings(Strings.LIKE_NOTIFICATION, { name }));

@@ -2,7 +2,9 @@ import {
   Body, Card, CardItem, Icon, Left, Right, Text, Thumbnail, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions, StyleSheet, TouchableOpacity, View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Modal from 'react-native-modalbox';
 import { withNavigation } from 'react-navigation';
@@ -39,7 +41,7 @@ import {
 import AddBoardModal from './AddBoardModal';
 import MoreModal from './MoreModal';
 
-const DOUBLE_PRESS_DELAY = 300;
+const WIDTH = Dimensions.get('window').width;
 
 class Post extends Component {
   state = {
@@ -47,11 +49,11 @@ class Post extends Component {
   };
 
   render() {
-    const { margin } = this.props;
+    const { margin, home } = this.props;
     return (
       <View>
         <Card style={{
-          borderRadius: Graphics.POST_CARD_RADIUS,
+          borderRadius: home ? Graphics.POST_CARD_RADIUS : 0,
           marginRight: margin,
           marginLeft: margin,
           marginTop: 8,
@@ -167,7 +169,7 @@ class Post extends Component {
   }
 
   renderPostPicture() {
-    const { postInfo, imageHeight, home } = this.props;
+    const { postInfo, margin, home } = this.props;
     return (
       <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={home ? 0.9 : 1}>
         <CardItem cardBody>
@@ -175,7 +177,7 @@ class Post extends Component {
             source={{ uri: extractPostPictureUri(postInfo) }}
             style={{
               width: null,
-              height: imageHeight,
+              height: WIDTH - 2 * margin,
               flex: 1,
             }}
             resizeMode={PlatformSpecificResizeMode()}

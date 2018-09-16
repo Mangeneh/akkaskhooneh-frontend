@@ -100,7 +100,12 @@ class Notification extends Component {
   }
 
   renderNotification(item, index) {
-    return <NotificationComponent notification={item} sendRespondForFollowRequest={(isAccept, username) => this.sendRespondForFollowRequest(isAccept, username)} />;
+    return (
+      <NotificationComponent
+        notification={item}
+        sendRespondForFollowRequest={(isAccept, username) => this.sendRespondForFollowRequest(isAccept, username)}
+      />
+    );
   }
 
   sendRespondForFollowRequest(isAccept, username) {

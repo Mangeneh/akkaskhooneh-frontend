@@ -113,10 +113,9 @@ class Home extends Component {
   renderPost(item, index) {
     return (
       <Post
-        home
-        margin={8}
-        imageHeight={Graphics.HOME_POST_IMAGE_HEIGHT}
         postID={extractPostID(item)}
+        margin={8}
+        home
       />
     );
   }

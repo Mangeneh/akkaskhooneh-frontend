@@ -2,7 +2,13 @@ import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { deleteFollowRequest, followRequest, unFollowRequest, refreshHomePosts, refreshUserBoards } from '../actions';
+import {
+  deleteFollowRequest,
+  followRequest,
+  refreshHomePosts,
+  refreshUserBoards,
+  unFollowRequest,
+} from '../actions';
 import {
   Colors, Constants, FollowModes, Graphics, Strings,
 } from '../config';
@@ -56,18 +62,18 @@ class FollowButton extends Component {
     const followMode = extractFollowMode(followStatus);
     switch (followMode) {
       case FollowModes.FOLLOWED:
-        unFollowRequest()      
-        .then((response) => {
-          refreshHomePosts();
-          refreshUserBoards();
-        })
+        unFollowRequest()
+          .then((response) => {
+            refreshHomePosts();
+            refreshUserBoards();
+          });
         break;
       case FollowModes.NOT_FOLLOWED:
         followRequest()
-        .then((response) => {
-          refreshHomePosts();
-          refreshUserBoards();
-        })
+          .then((response) => {
+            refreshHomePosts();
+            refreshUserBoards();
+          });
         break;
       case FollowModes.REQUESTED:
         deleteFollowRequest();

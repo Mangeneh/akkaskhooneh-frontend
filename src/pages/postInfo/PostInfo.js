@@ -143,7 +143,6 @@ class PostInfo extends Component {
       <Post
         margin={0}
         postID={postID}
-        imageHeight={Graphics.POST_IMAGE_HEIGHT}
         home={false}
       />
     );

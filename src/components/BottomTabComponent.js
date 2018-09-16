@@ -84,11 +84,25 @@ class BottomTabComponent extends Component {
   }
 
   async onNewPostPress() {
-    await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-    );
-    await CameraKitCamera.requestDeviceCameraAuthorization();
+    await this.authorizeGallery();
+    await this.authorizeCamera();
     NavigationService.navigate(Pages.NEW_POST);
+  }
+
+  async authorizeGallery() {
+    const isGalleryAuthorized = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE);
+    if (!isGalleryAuthorized) {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      );
+    }
+  }
+
+  async authorizeCamera() {
+    const isCameraAuthorized = await CameraKitCamera.checkDeviceCameraAuthorizationStatus();
+    if (!isCameraAuthorized) {
+      await CameraKitCamera.requestDeviceCameraAuthorization();
+    }
   }
 }
 

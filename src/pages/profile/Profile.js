@@ -8,9 +8,9 @@ import { connect } from 'react-redux';
 import {
   getUserBoardsNextPage,
   getUserPhotosNextPage,
+  refreshHomePosts,
   refreshUserBoards,
   refreshUserPhotos,
-  refreshHomePosts,
   updateUser,
 } from '../../actions';
 import { Board, ProfileHeader } from '../../components';

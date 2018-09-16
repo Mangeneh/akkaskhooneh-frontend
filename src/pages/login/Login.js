@@ -2,7 +2,6 @@ import LottieView from 'lottie-react-native';
 import { Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SocialIcon } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { accessTokenSet, refreshTokenSet, updateUser } from '../../actions/UsersActions';
@@ -145,39 +144,8 @@ class Login extends Component {
         justifyContent: 'center',
       }}
       >
-        {this.renderOtherLoginButtons()}
         <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => this.onSignUpPress()}>
           <Text style={styles.text}>{strings('sign_up')}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  renderOtherLoginButtons() {
-    return (
-      <View style={{
-        flexDirection: 'row',
-        alignSelf: 'center',
-        marginBottom: 16,
-      }}
-      >
-        <TouchableOpacity>
-          <SocialIcon
-            light
-            type="facebook"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <SocialIcon
-            light
-            type="google"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <SocialIcon
-            light
-            type="twitter"
-          />
         </TouchableOpacity>
       </View>
     );
