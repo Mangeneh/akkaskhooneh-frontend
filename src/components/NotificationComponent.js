@@ -13,6 +13,7 @@ import {
   extractNotificationSubjectUser,
   extractNotificationTime,
   extractNotificationType,
+  extractNotificationObjectUser,
 } from '../helpers';
 import { strings } from '../i18n';
 
@@ -74,6 +75,7 @@ class NotificationComponent extends Component {
 
   getMessageType(name) {
     const { notification } = this.props;
+    console.warn(notification);
     switch (extractNotificationType(notification)) {
       case NotificationTypes.LIKE:
         return (strings(Strings.LIKE_NOTIFICATION, { name }));
@@ -83,6 +85,8 @@ class NotificationComponent extends Component {
         return (strings(Strings.FOLLOW_REQUEST_NOTIFICATION, { name }));
       case NotificationTypes.COMMENT:
         return (strings(Strings.COMMENT_NOTIFICATION, { name }));
+      case NotificationTypes.OTHERS_FOLLOW:
+        return (strings(Strings.OTHERS_FOLLOW, { subject: name, object: extractNotificationObjectUser(notification) }));
       default:
         return ('');
     }
@@ -108,9 +112,8 @@ class NotificationComponent extends Component {
     const { navigation, notification } = this.props;
     if (this.isLikeOrComment()) {
       navigation.push(Pages.POST_INFO_PAGE, { [Parameters.POST_ID]: extractNotificationPostID(notification) });
-    }else {
-      // todo
-      // navigation.push(Pages.OTHERS_PROFILE, {[Parameters.USERNAME]: extractNo})
+    } else {
+      navigation.push(Pages.OTHERS_PROFILE, { [Parameters.USERNAME]: extractNotificationSubjectUser(notification) });
     }
   }
 

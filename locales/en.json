@@ -99,5 +99,8 @@
   "no_notifications_yet": "No Notifications Yet.",
   "unfollow": "Unofollow This User",
   "mute": "Do Not Show This Post Anymore.",
-  "private": "Private Account"
+  "private": "Private Account",
+  "others_follow": "{{subject}} followed {{object}}.",
+  "bio_instruction": "Maximum 45 characters.",
+  "username_instruction": "Your Username Must Contain at least 4 characters."
 }

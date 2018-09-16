@@ -73,6 +73,10 @@ export function extractNotificationSubjectUser(notification) {
   return notification.subject_user;
 }
 
+export function extractNotificationObjectUser(notification) {
+  return notification.data.username;
+}
+
 export function extractNotificationTime(notification) {
   return notification.time;
 }

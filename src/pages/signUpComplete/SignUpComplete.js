@@ -26,6 +26,8 @@ import {
 import {
   selectBio, selectFullName, selectImage, selectMode, selectUsername,
 } from './reducer';
+import BioInstruction from '../../components/BioInstruction';
+import UsernameInstruction from '../../components/UsernameInstruction';
 
 class SignUpComplete extends Component {
   render() {
@@ -70,7 +72,7 @@ class SignUpComplete extends Component {
               justifyContent: 'center',
             }}
             >
-              <Item style={styles.item} rounded>
+              <Item style={{ marginLeft: 32, marginRight: 32, backgroundColor: 'white', borderRadius: Constants.TEXT_BOX_RADIUS, elevation: Constants.TEXT_BOX_ELEVATION }} rounded>
                 <Input
                   placeholder={strings(Strings.USERNAME)}
                   style={styles.input}
@@ -78,6 +80,7 @@ class SignUpComplete extends Component {
                   onChangeText={username => changeUsername(username)}
                 />
               </Item>
+              <UsernameInstruction />
               <Item style={styles.item} rounded>
                 <Input
                   placeholder={strings(Strings.FIRST_LAST_NAME)}
@@ -94,7 +97,7 @@ class SignUpComplete extends Component {
                   style={styles.input}
                 />
               </Item>
-              <Item style={styles.item} rounded>
+              <Item style={{ marginLeft: 32, marginRight: 32, backgroundColor: 'white', borderRadius: Constants.TEXT_BOX_RADIUS, elevation: Constants.TEXT_BOX_ELEVATION }} rounded>
 
                 <CustomLongTextBox
                   placeholder={strings(Strings.ABOUT_YOU)}
@@ -103,6 +106,7 @@ class SignUpComplete extends Component {
                   onChangeText={bio => changeBio(bio)}
                 />
               </Item>
+              <BioInstruction />
             </View>
             <View style={{
               flex: 1,
