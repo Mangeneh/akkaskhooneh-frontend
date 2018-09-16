@@ -101,6 +101,6 @@
   "mute": "Do Not Show This Post Anymore.",
   "private": "Private Account",
   "others_follow": "{{subject}} followed {{object}}.",
-  "bio_instruction": "Introduce yourself in 45 characters.",
+  "bio_instruction": "Maximum 45 characters.",
   "username_instruction": "Your Username Must Contain at least 4 characters."
 }

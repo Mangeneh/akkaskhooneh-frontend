@@ -27,6 +27,7 @@ import {
   changeProfilePic, changeStatus, editProfile, normalize,
 } from './actions';
 import { selectImage, selectMode } from './reducer';
+import BioInstruction from '../../components/BioInstruction';
 
 class ProfileEdit extends Component {
   state = {
@@ -159,19 +160,21 @@ class ProfileEdit extends Component {
                     }}
                   />
                 </Item>
-                <Item style={styles.item} rounded>
+                <Item style={{ marginLeft: 32, marginRight: 32, backgroundColor: 'white', borderRadius: Constants.TEXT_BOX_RADIUS, elevation: Constants.TEXT_BOX_ELEVATION }} rounded>
                   <CustomLongTextBox
                     placeholder={strings(Strings.ABOUT_YOU)}
                     style={{
                       textAlign: 'center',
                       fontSize: 10,
                     }}
+                    maxLength={45}
                     value={this.state.bio}
                     onChangeText={(bio) => {
                       this.setState({ bio });
                     }}
                   />
                 </Item>
+                <BioInstruction />
               </View>
               <View
                 style={{
