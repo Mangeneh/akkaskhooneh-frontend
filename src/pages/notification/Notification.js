@@ -1,7 +1,9 @@
 import LottieView from 'lottie-react-native';
-import { Body, Header, Title, Left, Icon, Right } from 'native-base';
+import {
+  Body, Header, Icon, Left, Right, Title,
+} from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, View, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar, NotificationComponent } from '../../components';
 import Loading from '../../components/Loading';
@@ -26,20 +28,16 @@ class Notification extends Component {
     const { notifications, notificationsIsFirstFetch } = this.props;
     return (
       <View style={{ flex: 1 }}>
-        <View>
-          <CustomStatusBar />
-          {this.renderHeader()}
-        </View>
-        <View style={{ flex: 1 }}>
-          {!notificationsIsFirstFetch ? (
-            <View style={{
-              flex: 1,
-            }}
-            >
-              {notifications.length === 0 ? this.showEmpty() : this.renderNotifications()}
-            </View>
-          ) : <Loading />}
-        </View>
+        <CustomStatusBar />
+        {this.renderHeader()}
+        {!notificationsIsFirstFetch ? (
+          <View style={{
+            flex: 1,
+          }}
+          >
+            {notifications.length === 0 ? this.showEmpty() : this.renderNotifications()}
+          </View>
+        ) : <Loading />}
       </View>
     );
   }
@@ -65,12 +63,19 @@ class Notification extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <Left>
-          <TouchableOpacity onPress={() => { this.props.refreshNotifications(); }}>
+        <Left style={{
+          flex: 1,
+          marginLeft: 16,
+        }}
+        >
+          <TouchableOpacity onPress={() => {
+            this.props.refreshNotifications();
+          }}
+          >
             <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: 'white' }} />
           </TouchableOpacity>
         </Left>
-        <Body style={{ flex: 3 }}>
+        <Body style={{ flex: 1 }}>
           <Title style={{
             alignSelf: 'center',
             color: 'white',
@@ -79,7 +84,12 @@ class Notification extends Component {
             {strings(Strings.NOTIFICATIONS)}
           </Title>
         </Body>
-        <Right />
+        <Right style={{
+          flex: 1,
+        }}
+        >
+          <View />
+        </Right>
       </Header>
     );
   }
