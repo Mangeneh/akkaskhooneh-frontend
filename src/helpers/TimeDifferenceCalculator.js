@@ -4,8 +4,8 @@ import { strings } from '../i18n';
 
 export const calculateTimeDifference = (then) => {
   const now = new Date();
-  const ms = moment(now)
-    .diff(moment(then));
+  const ms = moment(now).utc()
+    .diff(moment(then).utc());
   const day = moment.duration(ms);
   const dayDiff = Math.floor(day.asDays());
   const weeks = Math.floor(day.asDays() / 7);
@@ -16,6 +16,9 @@ export const calculateTimeDifference = (then) => {
   const hours = parseInt(moment.utc(moment(now)
     .diff(moment(then)))
     .format('HH'));
+  if (Math.floor(day.asHours()) < 0) {
+    return (strings(Strings.NOW));
+  }
   if (Math.floor(day.asHours()) >= 24 * 365) {
     return (strings(Strings.YEAR, { number: years }));
   }

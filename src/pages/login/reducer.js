@@ -5,8 +5,8 @@ import { selectLoginPage } from '../../reducers';
 import { Actions } from './actions';
 
 const INITIAL_STATE = {
-  email: 'test@test.com',
-  password: 'test1234',
+  email: '',
+  password: '',
   mode: PageModes.NORMAL,
 };
 

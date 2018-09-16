@@ -1,7 +1,6 @@
 import LottieView from 'lottie-react-native';
 import React, { Component } from 'react';
 import { PermissionsAndroid, TouchableOpacity, View } from 'react-native';
-import { CameraKitCamera } from 'react-native-camera-kit';
 import { Icon } from 'react-native-elements';
 import { MaterialTopTabBar } from 'react-navigation-tabs';
 import { connect } from 'react-redux';
@@ -84,25 +83,14 @@ class BottomTabComponent extends Component {
   }
 
   async onNewPostPress() {
-    await this.authorizeGallery();
-    await this.authorizeCamera();
+    await this.authorizeGalleryCamera();
     NavigationService.navigate(Pages.NEW_POST);
   }
 
-  async authorizeGallery() {
-    const isGalleryAuthorized = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE);
-    if (!isGalleryAuthorized) {
-      await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      );
-    }
-  }
-
-  async authorizeCamera() {
-    const isCameraAuthorized = await CameraKitCamera.checkDeviceCameraAuthorizationStatus();
-    if (!isCameraAuthorized) {
-      await CameraKitCamera.requestDeviceCameraAuthorization();
-    }
+  async authorizeGalleryCamera() {
+    await PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.CAMERA]);
   }
 }
 

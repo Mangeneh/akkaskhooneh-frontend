@@ -35,7 +35,7 @@ export const loginUser = (email, password) => ({
       method: RequestMethods.POST,
       url: Server.LOGIN_USER,
       data: {
-        email,
+        email: email.toLowerCase(),
         password,
       },
     },

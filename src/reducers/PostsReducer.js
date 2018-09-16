@@ -1,7 +1,10 @@
 import _ from 'lodash';
 import { PostsActions, UsersActions } from '../actions';
 import {
-  extractCommentsCount, extractIsLiked, extractLikesCount, extractPostID,
+  extractCommentsCount,
+  extractIsLiked,
+  extractLikesCount,
+  extractPostID,
 } from '../helpers';
 import { selectPosts } from './index';
 
@@ -439,6 +442,18 @@ export default (state = INITIAL_STATE, action) => {
 const injectNewPosts = (newPosts, state) => {
   if (newPosts.length === 0) {
     return {};
+  } if (newPosts.length === 1) {
+    const postField = createPostBadge(extractPostID(newPosts[0]));
+    return {
+      [postField]: {
+        ...INITIAL_OPEN_POST_STATE,
+        ...state[postField],
+        postInfo: {
+          ...newPosts[0],
+        },
+        postInfoIsFirstFetch: false,
+      },
+    };
   }
   return newPosts.reduce((accumulator, currentValue, currentIndex) => {
     if (currentIndex === 1) {

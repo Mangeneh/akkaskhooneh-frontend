@@ -200,8 +200,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  email: selectEmail(state)
-    .toLowerCase(),
+  email: selectEmail(state),
   password: selectPassword(state),
   mode: selectMode(state),
   error: selectError(state),
