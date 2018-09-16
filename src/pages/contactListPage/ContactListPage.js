@@ -38,8 +38,7 @@ class ContactList extends Component {
   };
 
   componentWillMount() {
-    this.refreshFollowings('');
-    this.refreshFollowers('');
+    this.search('');
   }
 
   componentDidMount() {
@@ -49,10 +48,8 @@ class ContactList extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View>
-          <CustomStatusBar />
-          {this.renderHeader()}
-        </View>
+        <CustomStatusBar />
+        {this.renderHeader()}
         <View style={{ flex: 1 }}>
           <Tabs
             ref={(component) => {
@@ -115,7 +112,6 @@ class ContactList extends Component {
 
   renderHeader() {
     const { searchText } = this.state;
-    const { refreshFollowings, refreshFollowers } = this.props;
     return (
       <Header
         androidStatusBarColor={Colors.BASE}
@@ -123,52 +119,34 @@ class ContactList extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <View style={{
-          flex: 1,
-          flexDirection: 'row',
-        }}
-        >
-          <View style={{
-            flex: 1,
-            justifyContent: 'flex-start',
-            marginLeft: 10,
+        <TouchableOpacity
+          onPress={() => this.props.navigation.goBack()}
+          hitSlop={Graphics.HIT_SLOP}
+          style={{
+            justifyContent: 'center',
           }}
-          >
-            <TouchableOpacity
-              onPress={() => this.props.navigation.goBack()}
-              hitSlop={Graphics.HIT_SLOP}
-            >
-              <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 8 }}>
-            <Item
-              rounded
-              style={{
-                minHeight: Graphics.SEARCH_BAR_HEIGHT,
-                maxHeight: Graphics.SEARCH_BAR_HEIGHT,
-                alignSelf: 'center',
-                borderRadius: Constants.TEXT_BOX_RADIUS,
-              }}
-            >
-              <Input
-                placeholder={strings(Strings.SEARCH_USER)}
-                style={{
-                  textAlign: 'right',
-                  fontSize: Constants.ITEM_FONT_SIZE,
-                }}
-                value={searchText}
-                onChangeText={(searchText) => {
-                  this.setState({ searchText });
-                  refreshFollowings(searchText);
-                  refreshFollowers(searchText);
-                }}
-              />
-              <Icon name="ios-search" style={{ color: Colors.BASE }} />
-            </Item>
-          </View>
-        </View>
-
+        >
+          <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
+        </TouchableOpacity>
+        <Item
+          rounded
+          style={{
+            alignSelf: 'center',
+            borderRadius: Constants.TEXT_BOX_RADIUS,
+          }}
+        >
+          <Input
+            autoFocus
+            placeholder={strings(Strings.SEARCH_USER)}
+            style={{
+              textAlign: 'right',
+              fontSize: Constants.ITEM_FONT_SIZE,
+            }}
+            value={searchText}
+            onChangeText={searchText => this.search(searchText)}
+          />
+          <Icon name="ios-search" style={{ color: Colors.ICON }} />
+        </Item>
       </Header>
     );
   }
@@ -302,6 +280,13 @@ class ContactList extends Component {
           });
         });
     }
+  }
+
+  search(searchText) {
+    const { refreshFollowings, refreshFollowers } = this.props;
+    this.setState({ searchText });
+    refreshFollowings(searchText);
+    refreshFollowers(searchText);
   }
 }
 
