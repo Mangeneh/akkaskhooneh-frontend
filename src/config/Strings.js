@@ -96,10 +96,12 @@ export const Strings = {
   NO_POSTS_YET: 'no_posts_yet',
   NO_COMMENTS_YET: 'no_comments_yet',
   NO_NOTIFICATIONS_YET: 'no_notifications_yet',
-  UNFOLLOW: 'unfollow',
+  UN_FOLLOW: 'un_follow',
   MUTE: 'mute',
   PRIVATE: 'private',
   OTHERS_FOLLOW: 'others_follow',
   BIO_INSTRUCTION: 'bio_instruction',
   USERNAME_INSTRUCTION: 'username_instruction',
+  CAMERA: 'camera',
+  CANCEL: 'cancel',
 };

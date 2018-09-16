@@ -22,7 +22,7 @@ export default class MoreModal extends Component {
       <View>
         <Item>
           <TouchableOpacity>
-            <Text style={styles.listItem}>{strings(Strings.UNFOLLOW)}</Text>
+            <Text style={styles.listItem}>{strings(Strings.UN_FOLLOW)}</Text>
           </TouchableOpacity>
         </Item>
         <Item>
