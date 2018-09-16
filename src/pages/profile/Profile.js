@@ -1,11 +1,7 @@
 import LottieView from 'lottie-react-native';
-import {
-  Container, Icon, Tab, Tabs, Text,
-} from 'native-base';
+import { Container, Icon, Tab, Tabs, Text, } from 'native-base';
 import React, { Component } from 'react';
-import {
-  ActivityIndicator, FlatList, TouchableOpacity, View,
-} from 'react-native';
+import { ActivityIndicator, FlatList, TouchableOpacity, View, } from 'react-native';
 import { connect } from 'react-redux';
 import {
   getUserBoardsNextPage,
@@ -18,9 +14,7 @@ import { Board, ProfileHeader } from '../../components';
 import FollowButton from '../../components/FollowButton';
 import Loading from '../../components/Loading';
 import PostsPhotoList from '../../components/PostsPhotoList';
-import {
-  Colors, Constants, FollowModes, Pages, Parameters, Strings,
-} from '../../config';
+import { Colors, Constants, FollowModes, Pages, Parameters, Strings, } from '../../config';
 import { ProfileInfo } from '../../containers';
 import { extractFollowMode } from '../../helpers';
 import { strings } from '../../i18n';
@@ -91,11 +85,11 @@ class Profile extends Component {
                   marginBottom: 8,
                 }}
                 >
-                  <ProfileInfo username={navigation.getParam(Parameters.USERNAME)} />
+                  <ProfileInfo username={navigation.getParam(Parameters.USERNAME)}/>
                 </View>
-                {!(this.isSelfProfile()) ? <FollowButton username={username} /> : null}
+                {!(this.isSelfProfile()) ? <FollowButton username={username}/> : null}
               </View>
-            ) : <Loading />}
+            ) : <Loading/>}
           {isAccessible ? this.renderSharedMaterial() : this.renderPrivate()}
         </View>
       </Container>
@@ -181,7 +175,7 @@ class Profile extends Component {
             onPress={() => this.refreshPhotos()}
             style={{ alignSelf: 'center' }}
           >
-            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
+            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -194,7 +188,7 @@ class Profile extends Component {
     } = this.props;
     return (
       <View>
-        {(boardsIsFirstFetch) ? (<ActivityIndicator size="large" />) : (
+        {(boardsIsFirstFetch) ? (<ActivityIndicator size="large"/>) : (
           <FlatList
             onRefresh={() => this.refreshBoards()}
             refreshing={boardsIsRefreshing}
@@ -235,7 +229,7 @@ class Profile extends Component {
             onPress={() => this.refreshBoards()}
             style={{ alignSelf: 'center' }}
           >
-            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
+            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -260,7 +254,7 @@ class Profile extends Component {
 
   renderBoard(item, index) {
     return (
-      <Board board={item} onAllPress={() => this.showBoardDetails(item)} />
+      <Board board={item} onAllPress={() => this.showBoardDetails(item)}/>
     );
   }
 
@@ -311,7 +305,10 @@ class Profile extends Component {
   }
 
   showBoardDetails(item) {
-    this.props.navigation.push(Pages.BOARDS_PAGE, { board: item });
+    this.props.navigation.push(Pages.BOARDS_PAGE, {
+      board: item,
+      isSelf: this.isSelfProfile(),
+    });
   }
 
   isSelfProfile() {

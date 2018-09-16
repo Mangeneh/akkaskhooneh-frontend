@@ -38,6 +38,7 @@ class BoardsPage extends Component {
           onBackPress={() => navigation.goBack()}
           onDeletePress={() => this.confirmDeleteBoard()}
           onAddPress={() => this.addSelfPostsToBoard()}
+          isSelf={navigation.getParam('isSelf')}
         />
         <Modal
           style={{
@@ -134,10 +135,6 @@ class BoardsPage extends Component {
 
   addSelfPostsToBoard() {
     this.props.navigation.navigate(Pages.ADD_POST_TO_BOARD, { [Parameters.BOARD_ID]: this.props.navigation.getParam('board').id });
-  }
-
-  isSelfBoard(){
-    const boardID = this.props.navigation.getParam('board').id;
   }
 }
 
