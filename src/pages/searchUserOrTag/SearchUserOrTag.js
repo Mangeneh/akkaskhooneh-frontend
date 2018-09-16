@@ -1,9 +1,13 @@
-import { Header, Icon, Input, Item, Tab, Tabs, Toast, } from 'native-base';
+import {
+  Header, Icon, Input, Item, Tab, Tabs, Toast,
+} from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { ContactItem, CustomStatusBar, TagItem } from '../../components';
-import { Colors, Constants, Graphics, Strings, } from '../../config';
+import {
+  Colors, Constants, Graphics, Strings,
+} from '../../config';
 import { strings } from '../../i18n';
 import {
   getSearchTags,
@@ -39,7 +43,7 @@ class SearchUserOrTag extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <CustomStatusBar/>
+        <CustomStatusBar />
         {this.renderHeader()}
         <View style={{ flex: 1 }}>
           <Tabs
@@ -107,7 +111,7 @@ class SearchUserOrTag extends Component {
         searchBar
         style={{ backgroundColor: Colors.BASE }}
       >
-        <CustomStatusBar/>
+        <CustomStatusBar />
         <TouchableOpacity
           onPress={() => this.props.navigation.goBack()}
           hitSlop={Graphics.HIT_SLOP}
@@ -134,7 +138,7 @@ class SearchUserOrTag extends Component {
             value={searchText}
             onChangeText={searchText => this.search(searchText)}
           />
-          <Icon name="ios-search" style={{ color: Colors.ICON }}/>
+          <Icon name="ios-search" style={{ color: Colors.ICON }} />
         </Item>
       </Header>
     );
@@ -163,7 +167,7 @@ class SearchUserOrTag extends Component {
   }
 
   renderUser(item, index) {
-    return <ContactItem user={item}/>;
+    return <ContactItem user={item} />;
   }
 
   renderTags() {
@@ -188,7 +192,7 @@ class SearchUserOrTag extends Component {
   }
 
   renderTag(item, index) {
-    return <TagItem tag={item}/>;
+    return <TagItem tag={item} />;
   }
 
   updateUsers(text) {

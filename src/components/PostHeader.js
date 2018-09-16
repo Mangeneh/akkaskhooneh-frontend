@@ -16,7 +16,7 @@ export default class PostHeader extends Component {
           }}
           >
             <TouchableOpacity onPress={() => this.props.onBackPress()}>
-              <Icon type="Ionicons" name="ios-arrow-back" style={{ color: 'white' }} />
+              <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
             </TouchableOpacity>
           </Left>
           <Body style={{ flex: 3 }}>
