@@ -1,7 +1,7 @@
 import LottieView from 'lottie-react-native';
-import { Button, Text } from 'native-base';
+import { Button, Icon, Text } from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import {
   getHomePostsNextPage,
@@ -11,7 +11,9 @@ import {
 } from '../../actions';
 import { HomeHeader } from '../../components';
 import Post from '../../components/Post';
-import { Colors, Constants, Graphics, Pages, Strings } from '../../config';
+import {
+  Colors, Constants, Graphics, Pages, Strings,
+} from '../../config';
 import { extractPostID } from '../../helpers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
@@ -57,22 +59,12 @@ class Home extends Component {
         >
           {strings(Strings.NEW_USER_FIRST_IMPRESSION)}
         </Text>
-        <Button
-          style={{
-            backgroundColor: 'white',
-            alignSelf: 'center',
-            zIndex: 10,
-          }}
-          onPress={() => this.props.navigation.navigate(Pages.ADD_FRIENDS)}
+        <TouchableOpacity
+          onPress={() => this.refreshPosts()}
+          style={{ alignSelf: 'center', zIndex: 10 }}
         >
-          <Text style={{
-            fontSize: Constants.TEXT_NORMAL_SIZE,
-            color: Colors.ICON,
-          }}
-          >
-            {strings(Strings.INVITE_FRIENDS)}
-          </Text>
-        </Button>
+          <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
+        </TouchableOpacity>
         <LottieView
           source={require('../../assets/animations/moon')}
           autoPlay

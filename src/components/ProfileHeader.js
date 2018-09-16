@@ -54,7 +54,7 @@ class ProfileHeader extends Component {
           }}
           >
             <TouchableOpacity onPress={() => onSettingsPress()}>
-              <Icon type="MaterialCommunityIcons" name="ship-wheel" style={{ color: 'white' }} />
+              <Icon name="ship-wheel" type="MaterialCommunityIcons" style={{ color: 'white' }} />
             </TouchableOpacity>
           </Right>
         </Header>

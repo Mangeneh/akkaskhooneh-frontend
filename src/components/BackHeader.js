@@ -12,7 +12,7 @@ export default props => (
       <CustomStatusBar />
       <Left style={{
         flex: 1,
-        marginLeft: 16,
+        marginLeft: 8,
       }}
       >
         <TouchableOpacity onPress={() => props.onBackPress()} hitSlop={Graphics.HIT_SLOP}>
