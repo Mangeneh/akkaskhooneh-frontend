@@ -183,13 +183,14 @@ class ProfileEdit extends Component {
     this.props.editProfile(this.state.fullName, this.state.bio)
       .then((response) => {
         if (this.state.toggleStatus) {
-          this.props.sendChangeStatus(this.state.toggleStatus)
+          this.props.sendChangeStatus(this.state.toggleStatus);
         }
         if (this.state.imageFile !== null) {
           this.changeImage();
         } else {
           this.onSuccess();
         }
+        this.props.updateUser();
       })
       .catch((error) => {
         this.onFail();
