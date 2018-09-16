@@ -7,10 +7,11 @@ import { deleteBoard, refreshBoardsPhotos, refreshUserBoards } from '../../actio
 import { getBoardsPhotosNextPage } from '../../actions/PostsActions';
 import { BoardsPageHeader, CustomStatusBar } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
-import { Colors, Pages, Parameters, Strings } from '../../config';
+import {
+  Colors, Pages, Parameters, Strings,
+} from '../../config';
 import { showFailiureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
-import NavigationService from '../../NavigationService';
 import {
   selectBoardsPhotos,
   selectBoardsPhotosIsFirstFetch,
@@ -133,6 +134,10 @@ class BoardsPage extends Component {
 
   addSelfPostsToBoard() {
     this.props.navigation.navigate(Pages.ADD_POST_TO_BOARD, { [Parameters.BOARD_ID]: this.props.navigation.getParam('board').id });
+  }
+
+  isSelfBoard(){
+    const boardID = this.props.navigation.getParam('board').id;
   }
 }
 

@@ -115,9 +115,6 @@ class Profile extends Component {
   }
 
   renderSharedMaterial() {
-    const {
-      boardsIsRefreshing, boardsIsFirstFetch, boards,
-    } = this.props;
     return (
       <Tabs
         ref={(component) => {
@@ -140,26 +137,7 @@ class Profile extends Component {
           tabStyle={{ backgroundColor: 'white' }}
           activeTabStyle={{ backgroundColor: 'white' }}
         >
-          <View style={{
-            backgroundColor: Colors.WHITE_BACK,
-            flex: 1,
-          }}
-          >
-            {(boardsIsFirstFetch) ? (<ActivityIndicator size="large" />) : (
-              <FlatList
-                onRefresh={() => this.refreshBoards()}
-                refreshing={boardsIsRefreshing}
-                onEndReached={() => this.updateBoards()}
-                style={{
-                  width: '100%',
-                  marginTop: 8,
-                }}
-                keyExtractor={(item, index) => item.id.toString()}
-                data={boards}
-                renderItem={({ item, index }) => this.renderBoard(item, index)}
-              />
-            )}
-          </View>
+          {this.props.boards.length === 0 && !this.props.boardsIsFirstFetch ? this.showBoardsEmpty() : this.renderBoardsList()}
         </Tab>
         <Tab
           heading={strings(Strings.PHOTOS)}
@@ -174,13 +152,13 @@ class Profile extends Component {
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
         >
-          {this.props.photos.length === 0 && !this.props.photosIsFirstFetch ? this.showEmpty() : this.renderPhotosList()}
+          {this.props.photos.length === 0 && !this.props.photosIsFirstFetch ? this.showPostsEmpty() : this.renderPhotosList()}
         </Tab>
       </Tabs>
     );
   }
 
-  showEmpty() {
+  showPostsEmpty() {
     return (
       <View style={{
         alignSelf: 'center',
@@ -201,6 +179,60 @@ class Profile extends Component {
         <View>
           <TouchableOpacity
             onPress={() => this.refreshPhotos()}
+            style={{ alignSelf: 'center' }}
+          >
+            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
+  renderBoardsList() {
+    const {
+      boardsIsRefreshing, boardsIsFirstFetch, boards,
+    } = this.props;
+    return (
+      <View>
+        {(boardsIsFirstFetch) ? (<ActivityIndicator size="large" />) : (
+          <FlatList
+            onRefresh={() => this.refreshBoards()}
+            refreshing={boardsIsRefreshing}
+            onEndReached={() => this.updateBoards()}
+            style={{
+              width: '100%',
+              marginTop: 8,
+            }}
+            keyExtractor={(item, index) => item.id.toString()}
+            data={boards}
+            renderItem={({ item, index }) => this.renderBoard(item, index)}
+          />
+        )}
+      </View>
+    );
+  }
+
+  showBoardsEmpty() {
+    return (
+      <View style={{
+        alignSelf: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'column',
+      }}
+      >
+        <View>
+          <Text style={{
+            color: Colors.ICON,
+            fontSize: Constants.TEXT_NORMAL_SIZE,
+          }}
+          >
+            {strings(Strings.NO_BOARDS_YET)}
+          </Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => this.refreshBoards()}
             style={{ alignSelf: 'center' }}
           >
             <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
@@ -234,10 +266,11 @@ class Profile extends Component {
 
   refreshPhotos() {
     const {
-      refreshPhotos, photosIsLoading, photosIsRefreshing,
+      refreshPhotos, photosIsLoading, photosIsRefreshing, updateUser,
     } = this.props;
     if (!photosIsLoading && !photosIsRefreshing) {
       refreshPhotos();
+      updateUser();
     }
   }
 
@@ -252,10 +285,11 @@ class Profile extends Component {
 
   refreshBoards() {
     const {
-      refreshBoards, boardsIsLoading, boardsIsRefreshing,
+      refreshBoards, boardsIsLoading, boardsIsRefreshing, updateUser,
     } = this.props;
     if (!boardsIsLoading && !boardsIsRefreshing) {
       refreshBoards();
+      updateUser();
     }
   }
 

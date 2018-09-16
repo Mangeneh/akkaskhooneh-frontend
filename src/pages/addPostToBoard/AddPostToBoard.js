@@ -8,6 +8,7 @@ import {
   addPostToBoard,
   getUserPhotosNextPage,
   refreshBoardsPhotos,
+  refreshUserBoards,
   refreshUserPhotos,
 } from '../../actions';
 import { AddPostToBoardHeader, CustomStatusBar, ProfilePageImageItem } from '../../components';
@@ -159,9 +160,12 @@ class AddPostToBoard extends Component {
   }
 
   onAddPress() {
-    const { addPostToBoard, navigation, refreshBoardsPhotos } = this.props;
+    const {
+      addPostToBoard, navigation, refreshBoardsPhotos, refreshBoards,
+    } = this.props;
     addPostToBoard(this.state.selectedPostID)
       .then((response) => {
+        refreshBoards();
         refreshBoardsPhotos()
           .then(response => navigation.goBack());
       })
@@ -196,6 +200,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext)),
     refreshPhotos: () => dispatch(refreshUserPhotos()),
+    refreshBoards: () => dispatch(refreshUserBoards()),
     addPostToBoard: postID => dispatch(addPostToBoard(postID, boardID)),
     refreshBoardsPhotos: () => dispatch(refreshBoardsPhotos(boardID)),
   };
