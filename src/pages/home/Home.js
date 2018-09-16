@@ -11,7 +11,7 @@ import {
 } from '../../actions';
 import { HomeHeader } from '../../components';
 import Post from '../../components/Post';
-import { Colors, Constants, Graphics, Pages, Strings, } from '../../config';
+import { Colors, Constants, Graphics, Pages, Strings } from '../../config';
 import { extractPostID } from '../../helpers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';

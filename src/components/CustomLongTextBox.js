@@ -15,6 +15,7 @@ export default (props) => {
           disabled={disabled}
           value={value}
           onChangeText={onChangeText}
+          maxLength={45}
         />
       </Form>
     </Content>

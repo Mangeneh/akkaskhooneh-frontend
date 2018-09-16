@@ -167,7 +167,6 @@ class ProfileEdit extends Component {
                       textAlign: 'center',
                       fontSize: 10,
                     }}
-                    maxLength={45}
                     value={this.state.bio}
                     onChangeText={(bio) => {
                       this.setState({ bio });

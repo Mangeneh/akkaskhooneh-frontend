@@ -1,9 +1,9 @@
-import { Text, Thumbnail } from 'native-base';
+import { Text, Thumbnail, Icon } from 'native-base';
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {
-  Constants, Graphics, NotificationTypes, Pages, Parameters, Strings,
+  Constants, Graphics, NotificationTypes, Pages, Parameters, Strings, Colors,
 } from '../config';
 import {
   calculateTimeDifference,
@@ -27,9 +27,11 @@ class NotificationComponent extends Component {
           flexDirection: 'row',
           justifyContent: 'flex-end',
           borderRadius: Graphics.POST_CARD_RADIUS,
+          flex: 1,
         }}
         onPress={() => this.onPress()}
       >
+        { extractNotificationType(this.props.notification) === NotificationTypes.FOLLOW_REQUEST ? this.renderAcceptOrDenyButtons() : <View />}
         <View style={{
           flexDirection: 'column',
           justifyContent: 'flex-end',
@@ -41,6 +43,28 @@ class NotificationComponent extends Component {
         {this.renderPic()}
       </TouchableOpacity>
     );
+  }
+
+  renderAcceptOrDenyButtons() {
+    const { notification } = this.props;
+    return (
+      <View style={{ justifyContent: 'flex-start', flexDirection: 'row' }}>
+        <TouchableOpacity onPress={() => this.props.sendRespondForFollowRequest(false, extractNotificationSubjectUser(notification))}>
+          <Icon name="close" type="MaterialCommunityIcons" style={styles.item} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.sendRespondForFollowRequest(true, extractNotificationSubjectUser(notification))}>
+          <Icon name="check" type="MaterialCommunityIcons" style={styles.item} />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  acceptFollowRequest() {
+
+  }
+
+  denyFollowRequest() {
+
   }
 
   renderPic() {
@@ -123,5 +147,14 @@ class NotificationComponent extends Component {
       || extractNotificationType(notification) === NotificationTypes.COMMENT;
   }
 }
+
+const styles = StyleSheet.create({
+  item: {
+    color: Colors.ICON,
+    marginLeft: 4,
+    marginTop: 4,
+    marginBottom: 4,
+  },
+});
 
 export default withNavigation(NotificationComponent);

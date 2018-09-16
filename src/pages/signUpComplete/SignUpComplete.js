@@ -98,7 +98,6 @@ class SignUpComplete extends Component {
                 />
               </Item>
               <Item style={{ marginLeft: 32, marginRight: 32, backgroundColor: 'white', borderRadius: Constants.TEXT_BOX_RADIUS, elevation: Constants.TEXT_BOX_ELEVATION }} rounded>
-
                 <CustomLongTextBox
                   placeholder={strings(Strings.ABOUT_YOU)}
                   style={styles.input}

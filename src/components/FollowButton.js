@@ -2,7 +2,7 @@ import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { deleteFollowRequest, followRequest, unFollowRequest } from '../actions';
+import { deleteFollowRequest, followRequest, unFollowRequest, refreshHomePosts, refreshUserBoards } from '../actions';
 import {
   Colors, Constants, FollowModes, Graphics, Strings,
 } from '../config';
@@ -51,15 +51,23 @@ class FollowButton extends Component {
 
   onPress() {
     const {
-      followStatus, followRequest, unFollowRequest, deleteFollowRequest,
+      followStatus, followRequest, unFollowRequest, deleteFollowRequest, refreshHomePosts, refreshUserBoards,
     } = this.props;
     const followMode = extractFollowMode(followStatus);
     switch (followMode) {
       case FollowModes.FOLLOWED:
-        unFollowRequest();
+        unFollowRequest()      
+        .then((response) => {
+          refreshHomePosts();
+          refreshUserBoards();
+        })
         break;
       case FollowModes.NOT_FOLLOWED:
-        followRequest();
+        followRequest()
+        .then((response) => {
+          refreshHomePosts();
+          refreshUserBoards();
+        })
         break;
       case FollowModes.REQUESTED:
         deleteFollowRequest();
@@ -116,6 +124,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     followRequest: () => dispatch(followRequest(username)),
     unFollowRequest: () => dispatch(unFollowRequest(username)),
     deleteFollowRequest: () => dispatch(deleteFollowRequest(username)),
+    refreshHomePosts: () => dispatch(refreshHomePosts()),
+    refreshUserBoards: () => dispatch(refreshUserBoards()),
   };
 };
 

@@ -33,6 +33,7 @@ export const Server = {
   DELETE_FOLLOW_REQUEST: '/social/request/delete/',
   UN_FOLLOW_REQUEST: '/social/unfollow/',
   FOLLOW_ACCEPT: '/social/accept/',
+  FOLLOW_REQUEST_RESPONSE: '/social/request/accept/',
   // Tags
   GET_SEARCH_TOP_TAGS: '/social/tophashtag/?page=',
   GET_TAGS_PHOTOS_NEXT_PAGE: '/social/tag/',

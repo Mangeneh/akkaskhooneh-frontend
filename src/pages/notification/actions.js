@@ -7,6 +7,9 @@ export const NotificationActions = {
   REFRESH_NOTIFICATION: 'REFRESH_NOTIFICATION',
   REFRESH_NOTIFICATION_SUCCESS: 'REFRESH_NOTIFICATION_SUCCESS',
   REFRESH_NOTIFICATION_FAIL: 'REFRESH_NOTIFICATION_FAIL',
+  SEND_FOLLOW_RESPONSE: 'SEND_FOLLOW_RESPONSE',
+  SEND_FOLLOW_RESPONSE_SUCCESS: 'SEND_FOLLOW_RESPONSE_SUCCESS',
+  SEND_FOLLOW_RESPONSE_FAIL: 'SEND_FOLLOW_RESPONSE_FAIL',
 };
 
 export const refreshNotifications = () => ({
@@ -15,6 +18,20 @@ export const refreshNotifications = () => ({
     request: {
       method: RequestMethods.GET,
       url: `${Server.GET_NOTIFICATIONS}1`,
+    },
+  },
+});
+
+export const respondToFollowRequest = (accept, username) => ({
+  type: NotificationActions.SEND_FOLLOW_RESPONSE,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.FOLLOW_REQUEST_RESPONSE,
+      data: {
+        accept,
+        username,
+      },
     },
   },
 });

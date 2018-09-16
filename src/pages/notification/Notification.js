@@ -7,7 +7,7 @@ import { CustomStatusBar, NotificationComponent } from '../../components';
 import Loading from '../../components/Loading';
 import { Colors, Strings } from '../../config';
 import { strings } from '../../i18n';
-import { getNotifications, refreshNotifications } from './actions';
+import { getNotifications, refreshNotifications, respondToFollowRequest } from './actions';
 import {
   selectNotifications,
   selectNotificationsIsFirstFetch,
@@ -100,7 +100,17 @@ class Notification extends Component {
   }
 
   renderNotification(item, index) {
-    return <NotificationComponent notification={item} />;
+    return <NotificationComponent notification={item} sendRespondForFollowRequest={(isAccept, username) => this.sendRespondForFollowRequest(isAccept, username)} />;
+  }
+
+  sendRespondForFollowRequest(isAccept, username) {
+    const { respondToFollowRequest, refreshNotifications } = this.props;
+    respondToFollowRequest(isAccept, username)
+      .then((response) => {
+        refreshNotifications();
+      })
+      .catch((error) => {
+      });
   }
 
   refreshNotifications() {
@@ -143,6 +153,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   refreshNotifications: () => dispatch(refreshNotifications()),
   getNotificationsNextPage: notificationsNext => dispatch(getNotifications(notificationsNext)),
+  respondToFollowRequest: (isAccept, username) => dispatch(respondToFollowRequest(isAccept, username)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

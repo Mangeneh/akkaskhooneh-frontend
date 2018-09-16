@@ -10,6 +10,7 @@ import {
   getUserPhotosNextPage,
   refreshUserBoards,
   refreshUserPhotos,
+  refreshHomePosts,
   updateUser,
 } from '../../actions';
 import { Board, ProfileHeader } from '../../components';
@@ -311,6 +312,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     refreshBoards: () => dispatch(refreshUserBoards(username)),
     getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext, username)),
     getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext, username)),
+    refreshHomePosts: () => dispatch(refreshHomePosts()),
   };
 };
 
