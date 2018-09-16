@@ -138,7 +138,6 @@ export default class NewPost extends Component {
       avoidEmptySpaceAroundImage: false,
       cropperStatusBarColor: Colors.BASE,
       cropperToolbarColor: Colors.BASE,
-      freeStyleCropEnabled: true,
     })
       .then((image) => {
         const imageSource = extractImageSource(image);
@@ -168,7 +167,6 @@ export default class NewPost extends Component {
       height: Constants.UPLOAD_POST_PICTURE_SIZE,
       cropperStatusBarColor: Colors.BASE,
       cropperToolbarColor: Colors.BASE,
-      freeStyleCropEnabled: true,
     }).then((image) => {
       const imageSource = extractImageSource(image);
       this.setState({

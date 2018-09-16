@@ -164,6 +164,10 @@ class AddPostToBoard extends Component {
       .then((response) => {
         refreshBoardsPhotos()
           .then(response => navigation.goBack());
+      })
+      .catch((error) => {
+        refreshBoardsPhotos()
+          .then(response => navigation.goBack());
       });
   }
 }

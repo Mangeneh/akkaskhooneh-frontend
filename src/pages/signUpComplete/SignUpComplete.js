@@ -213,6 +213,9 @@ class SignUpComplete extends Component {
       width: Constants.UPLOAD_POST_PICTURE_SIZE,
       height: Constants.UPLOAD_POST_PICTURE_SIZE,
       cropping: true,
+      avoidEmptySpaceAroundImage: false,
+      cropperStatusBarColor: Colors.BASE,
+      cropperToolbarColor: Colors.BASE,
     })
       .then((image) => {
         const imageSource = extractImageSource(image);
@@ -225,6 +228,9 @@ class SignUpComplete extends Component {
       width: Constants.UPLOAD_POST_PICTURE_SIZE,
       height: Constants.UPLOAD_POST_PICTURE_SIZE,
       cropping: true,
+      avoidEmptySpaceAroundImage: false,
+      cropperStatusBarColor: Colors.BASE,
+      cropperToolbarColor: Colors.BASE,
     })
       .then((image) => {
         const imageSource = extractImageSource(image);
