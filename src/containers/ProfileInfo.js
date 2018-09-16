@@ -4,7 +4,6 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import FollowButton from '../components/FollowButton';
 import Loading from '../components/Loading';
 import {
   Colors, Pages, Parameters, Strings,
@@ -79,9 +78,9 @@ class ProfileInfo extends Component {
   }
 
   onSocialPress(tabNumber) {
-    const { absoluteUsername } = this.props;
-    this.props.navigation.push(Pages.CONTACT_LIST, {
-      [Parameters.USERNAME]: absoluteUsername,
+    const { username, navigation } = this.props;
+    navigation.push(Pages.CONTACT_LIST, {
+      [Parameters.USERNAME]: username,
       tab: tabNumber,
     });
   }
@@ -110,7 +109,6 @@ const mapStateToProps = (state, ownProps) => {
   const { username } = ownProps;
   return {
     userInfoIsFirstFetch: selectUserInfoIsFirstFetch(state, username),
-    selfUsername: selectUsername(state),
     bio: selectBio(state, username),
     profilePicture: selectProfilePicture(state, username),
     fullName: selectFullName(state, username),

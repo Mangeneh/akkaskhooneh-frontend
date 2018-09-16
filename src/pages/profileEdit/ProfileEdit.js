@@ -1,13 +1,13 @@
 import FormData from 'form-data';
 import {
-  ActionSheet, Input, Item, Toast, Text,
+  ActionSheet, Input, Item, Text, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
-import { Switch } from 'react-native-paper';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Switch } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { updateUser } from '../../actions/UsersActions';
 import { BackHeader, CustomLongTextBox, CustomStatusBar } from '../../components';
@@ -18,12 +18,14 @@ import { strings } from '../../i18n';
 import {
   selectBio,
   selectFullName,
+  selectProfileIsPrivate,
   selectProfilePicture,
   selectSelfEmail,
   selectUsername,
-  selectProfileIsPrivate,
 } from '../../reducers/UsersReducer';
-import { changeProfilePic, editProfile, normalize, changeStatus } from './actions';
+import {
+  changeProfilePic, changeStatus, editProfile, normalize,
+} from './actions';
 import { selectImage, selectMode } from './reducer';
 
 class ProfileEdit extends Component {
@@ -93,16 +95,33 @@ class ProfileEdit extends Component {
                 />
               </TouchableOpacity>
               <View style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginBottom: 16  }}>
+                <View style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                  marginBottom: 16,
+                }}
+                >
                   <View style={{ marginRight: 8 }}>
-                    <Text style = {{ color: 'white', fontSize: Constants.TEXT_NORMAL_SIZE, alignSelf: 'center', justifyContent: 'center' }}>{strings(Strings.PRIVATE)}</Text>
+                    <Text style={{
+                      color: 'white',
+                      fontSize: Constants.TEXT_NORMAL_SIZE,
+                      alignSelf: 'center',
+                      justifyContent: 'center',
+                    }}
+                    >
+                      {strings(Strings.PRIVATE)}
+                    </Text>
                   </View>
                   <View>
                     <Switch
                       color={Colors.ACCENT}
                       value={isSwitchOn}
-                      onValueChange={() => { this.setState({ isSwitchOn: !isSwitchOn }); this.setState({ toggleStatus: !toggleStatus }); }
-                    }
+                      onValueChange={() => {
+                        this.setState({ isSwitchOn: !isSwitchOn });
+                        this.setState({ toggleStatus: !toggleStatus });
+                      }
+                      }
                     />
                   </View>
                 </View>

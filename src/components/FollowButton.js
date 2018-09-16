@@ -2,6 +2,7 @@ import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { deleteFollowRequest, followRequest, unFollowRequest } from '../actions';
 import {
   Colors, FollowModes, Graphics, Strings,
 } from '../config';
@@ -11,11 +12,10 @@ import { selectProfileFollowStatus } from '../reducers/UsersReducer';
 
 class FollowButton extends Component {
   render() {
-    const { onPress } = this.props;
     const buttonSettings = this.makeButtonSettings();
     return (
       <Button
-        onPress={onPress}
+        onPress={() => this.onPress()}
         block
         style={buttonSettings.buttonStyle}
       >
@@ -48,18 +48,34 @@ class FollowButton extends Component {
         };
     }
   }
+
+  onPress() {
+    const {
+      followStatus, followRequest, unFollowRequest, deleteFollowRequest,
+    } = this.props;
+    const followMode = extractFollowMode(followStatus);
+    switch (followMode) {
+      case FollowModes.FOLLOWED:
+        unFollowRequest();
+        break;
+      case FollowModes.NOT_FOLLOWED:
+        followRequest();
+        break;
+      case FollowModes.REQUESTED:
+        deleteFollowRequest();
+        break;
+    }
+  }
 }
 
 const styles = StyleSheet.create({
   buttonFollowed: {
-    alignSelf: 'center',
     width: Graphics.FOLLOW_BUTTON_WIDTH,
     height: Graphics.FOLLOW_BUTTON_HEIGHT,
     borderRadius: Graphics.FOLLOW_BUTTON_BORDER_RADIUS,
     backgroundColor: Colors.ACCENT,
   },
   buttonNotFollowed: {
-    alignSelf: 'center',
     width: Graphics.FOLLOW_BUTTON_WIDTH,
     height: Graphics.FOLLOW_BUTTON_HEIGHT,
     borderRadius: Graphics.FOLLOW_BUTTON_BORDER_RADIUS,
@@ -68,7 +84,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   buttonRequested: {
-    alignSelf: 'center',
     width: Graphics.FOLLOW_BUTTON_WIDTH,
     height: Graphics.FOLLOW_BUTTON_HEIGHT,
     borderRadius: Graphics.FOLLOW_BUTTON_BORDER_RADIUS,
@@ -92,6 +107,13 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { username } = ownProps;
+  return {
+    followRequest: () => dispatch(followRequest(username)),
+    unFollowRequest: () => dispatch(unFollowRequest(username)),
+    deleteFollowRequest: () => dispatch(deleteFollowRequest(username)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FollowButton);

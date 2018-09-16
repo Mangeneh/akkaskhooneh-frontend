@@ -11,3 +11,4 @@ export * from './Graphics';
 export * from './FollowModes';
 export * from './Parameters';
 export * from './NotificationTypes';
+export * from './FollowSatus';

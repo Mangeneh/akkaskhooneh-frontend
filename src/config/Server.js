@@ -30,6 +30,7 @@ export const Server = {
   GET_COMMENTS_LIST: '/social/comment/',
   // Social - Users
   FOLLOW_REQUEST: '/social/request/',
+  DELETE_FOLLOW_REQUEST: '/social/request/delete/',
   UN_FOLLOW_REQUEST: '/social/unfollow/',
   FOLLOW_ACCEPT: '/social/accept/',
   // Tags

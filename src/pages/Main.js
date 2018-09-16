@@ -3,7 +3,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import BottomTabComponent from '../components/BottomTabComponent';
 import { Colors, Pages } from '../config';
-import ContactList from './contactListPage/ContactListPage';
 import Home from './home/Home';
 import Notification from './notification/Notification';
 import Profile from './profile/Profile';
@@ -12,7 +11,6 @@ import SearchUserOrTag from './searchUserOrTag/SearchUserOrTag';
 
 const profileStack = createStackNavigator({
   Profile,
-  ContactList,
 }, {
   initialRouteName: Pages.SELF_PROFILE,
   headerMode: 'none',

@@ -26,6 +26,9 @@ export const UsersActions = {
   UN_FOLLOW_REQUEST: 'UN_FOLLOW_REQUEST',
   UN_FOLLOW_REQUEST_SUCCESS: 'UN_FOLLOW_REQUEST_SUCCESS',
   UN_FOLLOW_REQUEST_FAIL: 'UN_FOLLOW_REQUEST_FAIL',
+  DELETE_FOLLOW_REQUEST: 'DELETE_FOLLOW_REQUEST',
+  DELETE_FOLLOW_REQUEST_SUCCESS: 'DELETE_FOLLOW_REQUEST_SUCCESS',
+  DELETE_FOLLOW_REQUEST_FAIL: 'DELETE_FOLLOW_REQUEST_FAIL',
   SIGN_OUT: 'SIGN_OUT',
 };
 
@@ -152,6 +155,20 @@ export const unFollowRequest = username => ({
     request: {
       method: RequestMethods.POST,
       url: Server.UN_FOLLOW_REQUEST,
+      data: {
+        username,
+      },
+    },
+    username,
+  },
+});
+
+export const deleteFollowRequest = username => ({
+  type: UsersActions.DELETE_FOLLOW_REQUEST,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.DELETE_FOLLOW_REQUEST,
       data: {
         username,
       },
