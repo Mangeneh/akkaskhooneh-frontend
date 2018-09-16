@@ -17,7 +17,7 @@ import { strings } from '../../i18n';
 import { normalize, sendPost } from './actions';
 import { selectMode } from './reducer';
 import {
-  refreshHomePosts,
+  refreshHomePosts, refreshUserPhotos,
 } from '../../actions';
 
 
@@ -176,6 +176,7 @@ class AddPostInfo extends Component {
       .then((response) => {
         this.props.navigation.navigate(Pages.MAIN);
         setTimeout(() => { this.props.refreshHomePosts(); }, 1000);
+        this.refreshUserPhotos();
       });
   }
 }
@@ -199,6 +200,7 @@ const mapDispatchToProps = dispatch => ({
   sendPost: (imageSource, caption, tags) => dispatch(sendPost(imageSource, caption, tags)),
   normalize: () => dispatch(normalize()),
   refreshHomePosts: () => dispatch(refreshHomePosts()),
+  refreshUserPhotos: () => dispatch(refreshUserPhotos()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostInfo);
