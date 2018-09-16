@@ -254,7 +254,7 @@ class Post extends Component {
 
   onCreateBoardFail(error) {
     Toast.show({
-      text: Strings.CREATE_NEW_BOARD_FAIL,
+      text: strings(Strings.CREATE_NEW_BOARD_FAIL),
       textStyle: { textAlign: 'center' },
       position: 'bottom',
       type: 'danger',

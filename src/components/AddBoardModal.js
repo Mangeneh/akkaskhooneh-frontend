@@ -10,9 +10,10 @@ import { getUserBoardsNextPage } from '../actions';
 import { Colors, Constants, Strings } from '../config';
 import { strings } from '../i18n';
 import {
-  selectUserBoards, selectUserBoardsIsLoading,
+  selectUserBoards,
+  selectUserBoardsIsLoading,
   selectUserBoardsNextPage,
-  selectUserBoardsTotalPages
+  selectUserBoardsTotalPages,
 } from '../reducers/BoardsReducer';
 
 class AddBoardModal extends Component {
