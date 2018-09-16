@@ -1,10 +1,12 @@
 import LottieView from 'lottie-react-native';
 import React, { Component } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { PermissionsAndroid, TouchableOpacity, View } from 'react-native';
+import { CameraKitCamera } from 'react-native-camera-kit';
 import { Icon } from 'react-native-elements';
 import { MaterialTopTabBar } from 'react-navigation-tabs';
 import { connect } from 'react-redux';
-import { Colors, Pages } from '../config';
+import { Colors } from '../config';
+import { Pages } from '../config/Pages';
 import NavigationService from '../NavigationService';
 import {
   selectNotificationsIsLoading,
@@ -42,7 +44,7 @@ class BottomTabComponent extends Component {
             alignSelf: 'center',
             bottom: 20,
           }}
-          onPress={() => NavigationService.navigate(Pages.NEW_POST)}
+          onPress={() => this.onNewPostPress()}
         >
           <Icon
             name="plus"
@@ -79,6 +81,14 @@ class BottomTabComponent extends Component {
         }}
       />
     );
+  }
+
+  async onNewPostPress() {
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    );
+    await CameraKitCamera.requestDeviceCameraAuthorization();
+    NavigationService.navigate(Pages.NEW_POST);
   }
 }
 

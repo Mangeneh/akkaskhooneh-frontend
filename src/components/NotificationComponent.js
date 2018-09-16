@@ -7,13 +7,13 @@ import {
 } from '../config';
 import {
   calculateTimeDifference,
+  extractNotificationObjectUser,
   extractNotificationPostID,
   extractNotificationPostPicture,
   extractNotificationProfilePicture,
   extractNotificationSubjectUser,
   extractNotificationTime,
   extractNotificationType,
-  extractNotificationObjectUser,
 } from '../helpers';
 import { strings } from '../i18n';
 
@@ -110,7 +110,10 @@ class NotificationComponent extends Component {
       case NotificationTypes.COMMENT:
         return (strings(Strings.COMMENT_NOTIFICATION, { name }));
       case NotificationTypes.OTHERS_FOLLOW:
-        return (strings(Strings.OTHERS_FOLLOW, { subject: name, object: extractNotificationObjectUser(notification) }));
+        return (strings(Strings.OTHERS_FOLLOW, {
+          subject: name,
+          object: extractNotificationObjectUser(notification),
+        }));
       default:
         return ('');
     }
