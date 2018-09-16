@@ -1,3 +1,4 @@
+import LottieView from 'lottie-react-native';
 import {
   Container, Tab, Tabs, Text,
 } from 'native-base';
@@ -91,9 +92,21 @@ class Profile extends Component {
                 {!(this.isSelfProfile()) ? <FollowButton username={username} /> : null}
               </View>
             ) : <Loading />}
-          {isAccessible ? this.renderSharedMaterial() : <Loading />}
+          {isAccessible ? this.renderSharedMaterial() : this.renderPrivate()}
         </View>
       </Container>
+    );
+  }
+
+  renderPrivate() {
+    return (
+      <LottieView
+        source={require('../../assets/animations/lock')}
+        loop
+        autoPlay
+        speed={0.5}
+        style={{ width: '100%' }}
+      />
     );
   }
 

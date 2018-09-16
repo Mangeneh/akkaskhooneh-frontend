@@ -16,7 +16,7 @@ export default props => (
       }}
       >
         <TouchableOpacity onPress={() => props.onBackPress()} hitSlop={Graphics.HIT_SLOP}>
-          <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
+          <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
         </TouchableOpacity>
       </Left>
       <Body style={{ flex: 3 }}>

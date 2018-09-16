@@ -1,24 +1,25 @@
-import { Icon, Text, Toast, Input } from 'native-base';
+import {
+  Icon, Input, Text, Toast,
+} from 'native-base';
 import React, { Component } from 'react';
-import { View, TextInput } from 'react-native';
+import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { BackHeader, CustomStatusBar } from '../../components';
-import { Colors, Constants, Strings, Pages } from '../../config';
-import { strings } from '../../i18n';
-import CodeInput from 'react-native-confirmation-code-input';
-import { sendToken, codeChanged } from './actions';
-import NavigationService from '../../NavigationService';
+import {
+  Colors, Constants, Pages, Strings,
+} from '../../config';
 import { SendTokenButton } from '../../containers';
+import { strings } from '../../i18n';
+import { codeChanged, sendToken } from './actions';
 
 class TokenPage extends Component {
   state = {
     code: '',
-  }
+  };
+
   render() {
-    const {
-      error, validateCode, sendCurrentToken,
-    } = this.props;
+    const { validateCode } = this.props;
     const { code } = this.state;
     return (
       <View style={{
@@ -65,10 +66,20 @@ class TokenPage extends Component {
                 </Text>
               </View>
               <View>
-                <Input style={{ backgroundColor: 'white', textAlign: 'center', borderRadius: Constants.TEXT_BOX_RADIUS, minHeight: 40, maxHeight: 40 }}
+                <Input
+                  style={{
+                    backgroundColor: 'white',
+                    textAlign: 'center',
+                    borderRadius: Constants.TEXT_BOX_RADIUS,
+                    minHeight: 40,
+                    maxHeight: 40,
+                  }}
                   maxLength={6}
                   value={code}
-                  onChangeText={(code) => { this.setState({ code }); validateCode(code); }}
+                  onChangeText={(code) => {
+                    this.setState({ code });
+                    validateCode(code);
+                  }}
                 />
               </View>
             </View>
@@ -91,14 +102,13 @@ class TokenPage extends Component {
   }
 
   onSendPress() {
-    this.props.sendCurrentToken(this.state.code).then((result) => {
-      console.warn(result);
-      this.props.navigation.navigate(Pages.GET_NEW_PASSWORD, {
-        token: this.state.code,
-      });
-    })
+    this.props.sendCurrentToken(this.state.code)
+      .then((result) => {
+        this.props.navigation.navigate(Pages.GET_NEW_PASSWORD, {
+          token: this.state.code,
+        });
+      })
       .catch((error) => {
-        console.warn(error);
         Toast.show({
           text: strings(Strings.INVALID_TOKEN),
           textStyle: { textAlign: 'center' },

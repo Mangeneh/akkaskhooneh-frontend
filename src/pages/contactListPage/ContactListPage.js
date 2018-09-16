@@ -2,7 +2,7 @@ import {
   Header, Icon, Input, Item, Tab, Tabs, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, View, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import {
   getFollowers,
@@ -14,7 +14,7 @@ import {
 import { ContactItem, CustomStatusBar } from '../../components';
 import Loading from '../../components/Loading';
 import {
-  Colors, Constants, Parameters, Strings, Graphics,
+  Colors, Constants, Graphics, Parameters, Strings,
 } from '../../config';
 import { strings } from '../../i18n';
 import {
@@ -123,9 +123,21 @@ class ContactList extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 10 }}>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()} hitSlop={Graphics.HIT_SLOP}>
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+        }}
+        >
+          <View style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            marginLeft: 10,
+          }}
+          >
+            <TouchableOpacity
+              onPress={() => this.props.navigation.goBack()}
+              hitSlop={Graphics.HIT_SLOP}
+            >
               <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
             </TouchableOpacity>
           </View>
@@ -199,10 +211,8 @@ class ContactList extends Component {
       && !followingsIsRefreshing) {
       getFollowingsNextPage(text, followingsNextPage)
         .then((response) => {
-          // console.log(response);
         })
         .catch((error) => {
-          // console.log(error);
         });
     }
   }
@@ -295,20 +305,23 @@ class ContactList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  followings: selectFollowings(state),
-  followingsNextPage: selectFollowingsNextPage(state),
-  followingsTotalPages: selectFollowingsTotalPages(state),
-  followingsIsFirstFetch: selectFollowingsIsFirstFetch(state),
-  followingsIsRefreshing: selectFollowingsIsRefreshing(state),
-  followingsIsLoading: selectFollowingsIsLoading(state),
-  followers: selectFollowers(state),
-  followersNextPage: selectFollowersNextPage(state),
-  followersTotalPages: selectFollowersTotalPages(state),
-  followersIsFirstFetch: selectFollowersIsFirstFetch(state),
-  followersIsRefreshing: selectFollowersIsRefreshing(state),
-  followersIsLoading: selectFollowersIsLoading(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  return {
+    followings: selectFollowings(state, username),
+    followingsNextPage: selectFollowingsNextPage(state, username),
+    followingsTotalPages: selectFollowingsTotalPages(state, username),
+    followingsIsFirstFetch: selectFollowingsIsFirstFetch(state, username),
+    followingsIsRefreshing: selectFollowingsIsRefreshing(state, username),
+    followingsIsLoading: selectFollowingsIsLoading(state, username),
+    followers: selectFollowers(state, username),
+    followersNextPage: selectFollowersNextPage(state, username),
+    followersTotalPages: selectFollowersTotalPages(state, username),
+    followersIsFirstFetch: selectFollowersIsFirstFetch(state, username),
+    followersIsRefreshing: selectFollowersIsRefreshing(state, username),
+    followersIsLoading: selectFollowersIsLoading(state, username),
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const username = ownProps.navigation.getParam(Parameters.USERNAME);

@@ -22,6 +22,7 @@ import {
   TagsPhotos,
   TokenPage,
 } from './pages';
+import ContactList from './pages/contactListPage/ContactListPage';
 import Profile from './pages/profile/Profile';
 import { selectAccessToken } from './reducers/UsersReducer';
 
@@ -58,6 +59,7 @@ const Inside = createStackNavigator({
   ChangePass,
   BoardsPage,
   AddPostToBoard,
+  ContactList,
   PostInfo,
   TagsPhotos,
   OthersProfile: Profile,

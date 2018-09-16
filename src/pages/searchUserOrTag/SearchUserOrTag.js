@@ -28,13 +28,12 @@ import {
 } from './reducer';
 
 class SearchUserOrTag extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: '',
-    };
-    this.updateUsers('');
-    this.updateTags('');
+  state = {
+    searchText: '',
+  };
+
+  componentWillMount() {
+    this.search('');
   }
 
   componentDidMount() {
@@ -44,10 +43,8 @@ class SearchUserOrTag extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View>
-          <CustomStatusBar />
-          {this.renderHeader()}
-        </View>
+        <CustomStatusBar />
+        {this.renderHeader()}
         <View style={{ flex: 1 }}>
           <Tabs
             ref={(component) => {
@@ -120,25 +117,21 @@ class SearchUserOrTag extends Component {
           flex: 1,
         }}
         >
-          <View style={{
-            flex: 1,
-            justifyContent: 'flex-start',
-            marginLeft: 10,
-          }}
+          <TouchableOpacity
+            onPress={() => this.props.navigation.goBack()}
+            hitSlop={Graphics.HIT_SLOP}
+            style={{
+              flex: 1,
+              justifyContent: 'flex-start',
+              marginLeft: 10,
+            }}
           >
-            <TouchableOpacity
-              onPress={() => this.props.navigation.goBack()}
-              hitSlop={Graphics.HIT_SLOP}
-            >
-              <Icon name="ios-arrow-back" type="Ionicons" style={{ color: 'white' }} />
-            </TouchableOpacity>
-          </View>
+            <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
+          </TouchableOpacity>
           <View style={{ flex: 8 }}>
             <Item
               rounded
               style={{
-                minHeight: Graphics.SEARCH_BAR_HEIGHT,
-                maxHeight: Graphics.SEARCH_BAR_HEIGHT,
                 alignSelf: 'center',
                 borderRadius: Constants.TEXT_BOX_RADIUS,
               }}
@@ -151,21 +144,7 @@ class SearchUserOrTag extends Component {
                   fontSize: Constants.ITEM_FONT_SIZE,
                 }}
                 value={searchText}
-                onChangeText={(searchText) => {
-                  this.setState({ searchText });
-                  this.props.refreshSearchUsers(searchText);
-                  this.props.refreshSearchTags(searchText)
-                    .then((response) => {
-                    })
-                    .catch((error) => {
-                      Toast.show({
-                        text: strings(Strings.SEARCH_FAIL),
-                        textStyle: { textAlign: 'center' },
-                        position: 'bottom',
-                        type: 'danger',
-                      });
-                    });
-                }}
+                onChangeText={searchText => this.search(searchText)}
               />
               <Icon name="ios-search" style={{ color: Colors.BASE }} />
             </Item>
@@ -201,19 +180,6 @@ class SearchUserOrTag extends Component {
     return <ContactItem user={item} />;
   }
 
-  updateUsers(text) {
-    const {
-      searchUsersNextPage, searchUsersTotalPages, searchUsersIsLoading, getSearchUsersNextPage,
-    } = this.props;
-    if (searchUsersNextPage <= searchUsersTotalPages && !searchUsersIsLoading) {
-      getSearchUsersNextPage(text, searchUsersNextPage)
-        .then((response) => {
-        })
-        .catch((error) => {
-        });
-    }
-  }
-
   renderTags() {
     const { searchText } = this.state;
     const { refreshSearchTags, searchTagsIsLoading, searchTags } = this.props;
@@ -239,6 +205,19 @@ class SearchUserOrTag extends Component {
     return <TagItem tag={item} />;
   }
 
+  updateUsers(text) {
+    const {
+      searchUsersNextPage, searchUsersTotalPages, searchUsersIsLoading, getSearchUsersNextPage,
+    } = this.props;
+    if (searchUsersNextPage <= searchUsersTotalPages && !searchUsersIsLoading) {
+      getSearchUsersNextPage(text, searchUsersNextPage)
+        .then((response) => {
+        })
+        .catch((error) => {
+        });
+    }
+  }
+
   updateTags(text) {
     const {
       searchTagsNextPage, searchTagsTotalPages, searchTagsIsLoading, getSearchTagsNextPage,
@@ -250,6 +229,23 @@ class SearchUserOrTag extends Component {
         .catch((error) => {
         });
     }
+  }
+
+  search(searchText) {
+    const { refreshSearchUsers, refreshSearchTags } = this.props;
+    this.setState({ searchText });
+    refreshSearchUsers(searchText);
+    refreshSearchTags(searchText)
+      .then((response) => {
+      })
+      .catch((error) => {
+        Toast.show({
+          text: strings(Strings.SEARCH_FAIL),
+          textStyle: { textAlign: 'center' },
+          position: 'bottom',
+          type: 'danger',
+        });
+      });
   }
 }
 

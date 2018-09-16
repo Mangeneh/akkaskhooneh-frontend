@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { UsersActions } from '../actions/UsersActions';
+import { FollowStatus } from '../config';
 import { selectUsers } from './index';
 
 const INITIAL_FOLLOWERS_FOLLOWINGS_STATE = {
@@ -42,6 +43,7 @@ export default (state = INITIAL_STATE, action) => {
     UPDATE_USER_INFO, GET_FOLLOWERS_NEXT_PAGE, GET_FOLLOWERS_NEXT_PAGE_SUCCESS, GET_FOLLOWINGS_NEXT_PAGE,
     GET_FOLLOWINGS_NEXT_PAGE_SUCCESS, GET_FOLLOWERS_NEXT_PAGE_FAIL, GET_FOLLOWINGS_NEXT_PAGE_FAIL, REFRESH_FOLLOWERS_FAIL,
     REFRESH_FOLLOWINGS_FAIL, REFRESH_FOLLOWERS, REFRESH_FOLLOWERS_SUCCESS, REFRESH_FOLLOWINGS, REFRESH_FOLLOWINGS_SUCCESS,
+    FOLLOW_REQUEST, UN_FOLLOW_REQUEST, DELETE_FOLLOW_REQUEST,
   } = UsersActions;
   console.log(state);
   console.log(action);
@@ -266,6 +268,52 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
+    //
+    case FOLLOW_REQUEST: {
+      const { username } = action.payload;
+      const userField = createUserBadge(username);
+      return {
+        ...state,
+        [userField]: {
+          ...state[userField],
+          userInfo: {
+            ...state[userField].userInfo,
+            followers: state[userField].userInfo.followers + (state[userField].userInfo.is_private ? 0 : 1),
+            following_status: state[userField].userInfo.is_private ? FollowStatus.REQUESTED : FollowStatus.FOLLOWED,
+          },
+        },
+      };
+    }
+    case UN_FOLLOW_REQUEST: {
+      const { username } = action.payload;
+      const userField = createUserBadge(username);
+      return {
+        ...state,
+        [userField]: {
+          ...state[userField],
+          userInfo: {
+            ...state[userField].userInfo,
+            followers: state[userField].userInfo.followers - 1,
+            following_status: FollowStatus.NOT_FOLLOWED,
+          },
+        },
+      };
+    }
+    case DELETE_FOLLOW_REQUEST: {
+      const { username } = action.payload;
+      const userField = createUserBadge(username);
+      return {
+        ...state,
+        [userField]: {
+          ...state[userField],
+          userInfo: {
+            ...state[userField].userInfo,
+            following_status: FollowStatus.NOT_FOLLOWED,
+          },
+        },
+      };
+    }
+    //
     case SIGN_OUT:
       return INITIAL_STATE;
     default:
