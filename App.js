@@ -24,9 +24,7 @@ import { Actions as GetNewPassword } from './src/pages/getNewPassword/actions';
 // console.disableYellowBox = true;
 
 const client = axios.create({
-  // baseURL: 'http://192.168.11.140',
-  baseURL: 'http://thekamyab.com:9090',
-  // baseURL: 'http://10.0.3.2:8000',
+  baseURL: 'http://192.168.11.140',
   responseType: 'json',
 });
 
