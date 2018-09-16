@@ -1,10 +1,10 @@
 import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { deleteFollowRequest, followRequest, unFollowRequest } from '../actions';
 import {
-  Colors, FollowModes, Graphics, Strings,
+  Colors, FollowModes, Graphics, Strings, Constants,
 } from '../config';
 import { extractFollowMode } from '../helpers';
 import { strings } from '../i18n';
@@ -90,12 +90,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.ACCENT,
   },
   textFollowed: {
+    fontSize: Constants.TEXT_NORMAL_SIZE,
     color: 'white',
   },
   textNotFollowed: {
+    fontSize: Constants.TEXT_NORMAL_SIZE,
     color: Colors.ACCENT,
   },
   textRequested: {
+    fontSize: Constants.TEXT_NORMAL_SIZE,
     color: 'white',
   },
 });

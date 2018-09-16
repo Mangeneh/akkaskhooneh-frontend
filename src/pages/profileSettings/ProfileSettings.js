@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     fontSize: Constants.TEXT_NORMAL_SIZE,
     color: Colors.TEXT,
     textAlign: 'center',
+    marginBottom: 20,
   },
 });
 
