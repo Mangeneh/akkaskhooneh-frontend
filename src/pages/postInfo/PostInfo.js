@@ -220,7 +220,7 @@ class PostInfo extends Component {
       commentOnPost(this.state.commentText)
         .then((response) => {
           this.setState({ commentText: '' });
-          refreshComments();
+          setTimeout(() => { refreshComments(); }, 1000);
         })
         .catch((error) => {
           this.setState({ commentText: '' });

@@ -73,6 +73,7 @@ class TokenPage extends Component {
                     borderRadius: Constants.TEXT_BOX_RADIUS,
                     minHeight: 40,
                     maxHeight: 40,
+                    fontSize: Constants.TEXT_NORMAL_SIZE,
                   }}
                   maxLength={6}
                   value={code}

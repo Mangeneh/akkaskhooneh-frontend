@@ -59,14 +59,6 @@ class NotificationComponent extends Component {
     );
   }
 
-  acceptFollowRequest() {
-
-  }
-
-  denyFollowRequest() {
-
-  }
-
   renderPic() {
     const { notification } = this.props;
     const isLikeOrComment = this.isLikeOrComment();
