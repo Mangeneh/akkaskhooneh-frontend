@@ -1,9 +1,9 @@
 import LottieView from 'lottie-react-native';
 import {
-  Container, Tab, Tabs, Text,
+  Container, Tab, Tabs, Text, Icon,
 } from 'native-base';
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import {
   getUserBoardsNextPage,
@@ -185,15 +185,23 @@ class Profile extends Component {
         alignSelf: 'center',
         justifyContent: 'center',
         flex: 1,
+        flexDirection: 'column',
       }}
       >
-        <Text style={{
-          color: Colors.ICON,
-          fontSize: Constants.TEXT_NORMAL_SIZE,
-        }}
-        >
-          {strings(Strings.NO_POSTS_YET)}
-        </Text>
+        <View>
+          <Text style={{
+            color: Colors.ICON,
+            fontSize: Constants.TEXT_NORMAL_SIZE,
+          }}
+          >
+            {strings(Strings.NO_POSTS_YET)}
+          </Text>
+        </View>
+        <View>
+          <TouchableOpacity onPress={() => { this.props.refreshHomePosts(); }} style={{ alignSelf: 'center' }}>
+            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
