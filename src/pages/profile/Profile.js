@@ -1,14 +1,15 @@
 import LottieView from 'lottie-react-native';
 import {
-  Container, Tab, Tabs, Text, Icon,
+  Container, Icon, Tab, Tabs, Text,
 } from 'native-base';
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, View, TouchableOpacity } from 'react-native';
+import {
+  ActivityIndicator, FlatList, TouchableOpacity, View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import {
   getUserBoardsNextPage,
   getUserPhotosNextPage,
-  refreshHomePosts,
   refreshUserBoards,
   refreshUserPhotos,
   updateUser,
@@ -198,7 +199,10 @@ class Profile extends Component {
           </Text>
         </View>
         <View>
-          <TouchableOpacity onPress={() => { this.props.refreshHomePosts(); }} style={{ alignSelf: 'center' }}>
+          <TouchableOpacity
+            onPress={() => this.refreshPhotos()}
+            style={{ alignSelf: 'center' }}
+          >
             <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
           </TouchableOpacity>
         </View>
@@ -320,7 +324,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     refreshBoards: () => dispatch(refreshUserBoards(username)),
     getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext, username)),
     getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext, username)),
-    refreshHomePosts: () => dispatch(refreshHomePosts()),
   };
 };
 

@@ -1,12 +1,20 @@
-import { Button, Icon, Item, Text, Textarea, Toast, } from 'native-base';
+import {
+  Button, Icon, Item, Text, Textarea, Toast,
+} from 'native-base';
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, SafeAreaView, View, } from 'react-native';
+import {
+  ActivityIndicator, FlatList, SafeAreaView, View,
+} from 'react-native';
 import { connect } from 'react-redux';
-import { getCommentsNextPage, getPostInfo, refreshComments, sendComment, } from '../../actions';
+import {
+  getCommentsNextPage, getPostInfo, refreshComments, sendComment,
+} from '../../actions';
 import { CustomStatusBar, PostHeader } from '../../components';
 import CommentComponent from '../../components/CommentComponent';
 import Post from '../../components/Post';
-import { Colors, Constants, Parameters, Strings, } from '../../config';
+import {
+  Colors, Constants, Parameters, Strings,
+} from '../../config';
 import { strings } from '../../i18n';
 import {
   selectComments,
@@ -40,10 +48,11 @@ class PostInfo extends Component {
           backgroundColor: 'white',
         }}
       >
-        <PostHeader onBackPress={() => navigation.goBack()}/>
-        <CustomStatusBar/>
+        <PostHeader onBackPress={() => navigation.goBack()} />
+        <CustomStatusBar />
         <View style={{ flex: 1 }}>
-          {this.props.comments.length === 0 && !this.props.commentsIsFirstFetch ? this.showEmpty() : this.renderCommentsList()}
+          {this.renderCommentsList()}
+          {this.props.comments.length === 0 && !this.props.commentsIsFirstFetch ? this.showEmpty() : null}
           {this.renderInputBox()}
         </View>
       </SafeAreaView>
@@ -135,10 +144,13 @@ class PostInfo extends Component {
   }
 
   renderCommentsList() {
-    const { refreshComments, commentsIsRefreshing, comments } = this.props;
+    const { commentsIsRefreshing, comments } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshComments()}
+        onRefresh={() => {
+          this.getPostInfo();
+          this.refreshComments();
+        }}
         refreshing={commentsIsRefreshing}
         onEndReached={() => {
           this.updateComments();
@@ -146,7 +158,6 @@ class PostInfo extends Component {
         ListHeaderComponent={this.renderPost()}
         style={{
           width: '100%',
-          marginTop: 8,
         }}
         keyExtractor={(item, index) => index.toString()}
         data={comments}
@@ -156,7 +167,7 @@ class PostInfo extends Component {
   }
 
   renderComment(item, index) {
-    return <CommentComponent comment={item}/>;
+    return <CommentComponent comment={item} />;
   }
 
   getPostInfo() {
@@ -196,7 +207,7 @@ class PostInfo extends Component {
         }}
         onPress={() => this.sendComment()}
       >
-        <Icon name="send" type="FontAwesome" style={{ color: Colors.ACCENT }}/>
+        <Icon name="send" type="FontAwesome" style={{ color: Colors.ACCENT }} />
       </Button>
     );
   }
