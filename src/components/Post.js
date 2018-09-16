@@ -124,11 +124,7 @@ class Post extends Component {
     const { postInfo } = this.props;
     return (
       <CardItem style={{ borderRadius: Graphics.POST_CARD_RADIUS }}>
-        <Left>
-          <TouchableOpacity hitSlop={Graphics.HIT_SLOP} onPress={() => this.showMoreModal()}>
-            <Icon name="dots-horizontal" type="MaterialCommunityIcons" style={styles.icon} />
-          </TouchableOpacity>
-        </Left>
+        <Left />
         <Body />
         <Right style={{
           flexDirection: 'row',
@@ -223,9 +219,6 @@ class Post extends Component {
             <Icon name="comment-text" type="MaterialCommunityIcons" style={styles.icon} />
           </TouchableOpacity>
           <Text style={styles.stats}>{extractCommentsCount(postInfo)}</Text>
-          <TouchableOpacity>
-            <Icon name="share-variant" type="MaterialCommunityIcons" style={styles.icon} />
-          </TouchableOpacity>
         </Left>
         <Right>
           <TouchableOpacity onPress={() => this.showSaveModal()}>
