@@ -101,5 +101,5 @@ export const Strings = {
   PRIVATE: 'private',
   OTHERS_FOLLOW: 'others_follow',
   BIO_INSTRUCTION: 'bio_instruction',
-  USERNAME_INSTRUCTION: 'username_instruction'
+  USERNAME_INSTRUCTION: 'username_instruction',
 };

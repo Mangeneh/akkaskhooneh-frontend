@@ -9,6 +9,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux';
 import { accessTokenSet, refreshTokenSet, updateUser } from '../../actions/UsersActions';
 import { BackHeader, CustomLongTextBox, FullStatusBar } from '../../components';
+import BioInstruction from '../../components/BioInstruction';
+import UsernameInstruction from '../../components/UsernameInstruction';
 import {
   Addresses, Colors, Constants, Pages, Strings,
 } from '../../config';
@@ -26,8 +28,6 @@ import {
 import {
   selectBio, selectFullName, selectImage, selectMode, selectUsername,
 } from './reducer';
-import BioInstruction from '../../components/BioInstruction';
-import UsernameInstruction from '../../components/UsernameInstruction';
 
 class SignUpComplete extends Component {
   render() {
@@ -72,7 +72,16 @@ class SignUpComplete extends Component {
               justifyContent: 'center',
             }}
             >
-              <Item style={{ marginLeft: 32, marginRight: 32, backgroundColor: 'white', borderRadius: Constants.TEXT_BOX_RADIUS, elevation: Constants.TEXT_BOX_ELEVATION }} rounded>
+              <Item
+                style={{
+                  marginLeft: 32,
+                  marginRight: 32,
+                  backgroundColor: 'white',
+                  borderRadius: Constants.TEXT_BOX_RADIUS,
+                  elevation: Constants.TEXT_BOX_ELEVATION,
+                }}
+                rounded
+              >
                 <Input
                   placeholder={strings(Strings.USERNAME)}
                   style={styles.input}
@@ -97,7 +106,16 @@ class SignUpComplete extends Component {
                   style={styles.input}
                 />
               </Item>
-              <Item style={{ marginLeft: 32, marginRight: 32, backgroundColor: 'white', borderRadius: Constants.TEXT_BOX_RADIUS, elevation: Constants.TEXT_BOX_ELEVATION }} rounded>
+              <Item
+                style={{
+                  marginLeft: 32,
+                  marginRight: 32,
+                  backgroundColor: 'white',
+                  borderRadius: Constants.TEXT_BOX_RADIUS,
+                  elevation: Constants.TEXT_BOX_ELEVATION,
+                }}
+                rounded
+              >
 
                 <CustomLongTextBox
                   placeholder={strings(Strings.ABOUT_YOU)}

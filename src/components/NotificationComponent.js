@@ -1,19 +1,19 @@
 import { Text, Thumbnail } from 'native-base';
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {
   Constants, Graphics, NotificationTypes, Pages, Parameters, Strings,
 } from '../config';
 import {
   calculateTimeDifference,
+  extractNotificationObjectUser,
   extractNotificationPostID,
   extractNotificationPostPicture,
   extractNotificationProfilePicture,
   extractNotificationSubjectUser,
   extractNotificationTime,
   extractNotificationType,
-  extractNotificationObjectUser,
 } from '../helpers';
 import { strings } from '../i18n';
 
@@ -86,7 +86,10 @@ class NotificationComponent extends Component {
       case NotificationTypes.COMMENT:
         return (strings(Strings.COMMENT_NOTIFICATION, { name }));
       case NotificationTypes.OTHERS_FOLLOW:
-        return (strings(Strings.OTHERS_FOLLOW, { subject: name, object: extractNotificationObjectUser(notification) }));
+        return (strings(Strings.OTHERS_FOLLOW, {
+          subject: name,
+          object: extractNotificationObjectUser(notification),
+        }));
       default:
         return ('');
     }

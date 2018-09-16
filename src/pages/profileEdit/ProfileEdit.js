@@ -11,6 +11,7 @@ import { Switch } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { updateUser } from '../../actions/UsersActions';
 import { BackHeader, CustomLongTextBox, CustomStatusBar } from '../../components';
+import BioInstruction from '../../components/BioInstruction';
 import { Colors, Constants, Strings } from '../../config';
 import SaveChangesButton from '../../containers/SaveChangesButton';
 import { extractImageSource } from '../../helpers';
@@ -27,7 +28,6 @@ import {
   changeProfilePic, changeStatus, editProfile, normalize,
 } from './actions';
 import { selectImage, selectMode } from './reducer';
-import BioInstruction from '../../components/BioInstruction';
 
 class ProfileEdit extends Component {
   state = {
@@ -160,7 +160,16 @@ class ProfileEdit extends Component {
                     }}
                   />
                 </Item>
-                <Item style={{ marginLeft: 32, marginRight: 32, backgroundColor: 'white', borderRadius: Constants.TEXT_BOX_RADIUS, elevation: Constants.TEXT_BOX_ELEVATION }} rounded>
+                <Item
+                  style={{
+                    marginLeft: 32,
+                    marginRight: 32,
+                    backgroundColor: 'white',
+                    borderRadius: Constants.TEXT_BOX_RADIUS,
+                    elevation: Constants.TEXT_BOX_ELEVATION,
+                  }}
+                  rounded
+                >
                   <CustomLongTextBox
                     placeholder={strings(Strings.ABOUT_YOU)}
                     style={{
