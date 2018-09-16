@@ -1,7 +1,7 @@
 import LottieView from 'lottie-react-native';
-import { Body, Header, Title } from 'native-base';
+import { Body, Header, Title, Left, Icon, Right } from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomStatusBar, NotificationComponent } from '../../components';
 import Loading from '../../components/Loading';
@@ -65,6 +65,11 @@ class Notification extends Component {
         style={{ backgroundColor: Colors.BASE }}
       >
         <CustomStatusBar />
+        <Left>
+          <TouchableOpacity onPress={() => { this.props.refreshNotifications(); }}>
+            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: 'white' }} />
+          </TouchableOpacity>
+        </Left>
         <Body style={{ flex: 3 }}>
           <Title style={{
             alignSelf: 'center',
@@ -74,6 +79,7 @@ class Notification extends Component {
             {strings(Strings.NOTIFICATIONS)}
           </Title>
         </Body>
+        <Right />
       </Header>
     );
   }
