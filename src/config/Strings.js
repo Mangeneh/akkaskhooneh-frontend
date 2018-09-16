@@ -98,4 +98,5 @@ export const Strings = {
   NO_NOTIFICATIONS_YET: 'no_notifications_yet',
   UNFOLLOW: 'unfollow',
   MUTE: 'mute',
+  PRIVATE: 'private',
 };

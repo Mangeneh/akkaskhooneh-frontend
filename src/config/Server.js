@@ -12,6 +12,7 @@ export const Server = {
   EDIT_PROFILE: '/auth/editprofile/',
   CHANGE_PROFILE_PIC: '/social/change-pic/',
   CHANGE_PASSWORD: '/auth/changepassword/',
+  CHANGE_STATUS: '/auth/change/status/',
   // Social - Posts
   GET_BOARDS_NEXT_PAGE: '/social/boards/',
   GET_HOME_POSTS_NEXT_PAGE: '/social/feed/?page=',

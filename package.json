@@ -46,7 +46,8 @@
     "redux-persist": "^5.10.0",
     "redux-thunk": "latest",
     "rn-placeholder": "^1.2.0",
-    "rn-sliding-up-panel": "^1.2.1"
+    "rn-sliding-up-panel": "^1.2.1",
+    "toggle-switch-react-native": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

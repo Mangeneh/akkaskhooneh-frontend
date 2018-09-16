@@ -1,8 +1,9 @@
 import FormData from 'form-data';
 import {
-  ActionSheet, Input, Item, Toast,
+  ActionSheet, Input, Item, Toast, Text,
 } from 'native-base';
 import React, { Component } from 'react';
+import { Switch } from 'react-native-paper';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -20,8 +21,9 @@ import {
   selectProfilePicture,
   selectSelfEmail,
   selectUsername,
+  selectProfileIsPrivate,
 } from '../../reducers/UsersReducer';
-import { changeProfilePic, editProfile, normalize } from './actions';
+import { changeProfilePic, editProfile, normalize, changeStatus } from './actions';
 import { selectImage, selectMode } from './reducer';
 
 class ProfileEdit extends Component {
@@ -30,13 +32,18 @@ class ProfileEdit extends Component {
     bio: this.props.bioFromDB,
     imageFile: null,
     imageSource: this.props.imageSourceFromDB,
+    isSwitchOn: false,
+    toggleStatus: false,
   };
 
   componentWillMount() {
     this.props.normalize();
+    this.setState({ isSwitchOn: this.props.isPrivate });
+    this.setState({ toggleStatus: false });
   }
 
   render() {
+    const { isSwitchOn, toggleStatus } = this.state;
     const { emailFromDB, usernameFromDB } = this.props;
     return (
       <View style={{
@@ -86,6 +93,19 @@ class ProfileEdit extends Component {
                 />
               </TouchableOpacity>
               <View style={{ flex: 1 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginBottom: 16  }}>
+                  <View style={{ marginRight: 8 }}>
+                    <Text style = {{ color: 'white', fontSize: Constants.TEXT_NORMAL_SIZE, alignSelf: 'center', justifyContent: 'center' }}>{strings(Strings.PRIVATE)}</Text>
+                  </View>
+                  <View>
+                    <Switch
+                      color={Colors.ACCENT}
+                      value={isSwitchOn}
+                      onValueChange={() => { this.setState({ isSwitchOn: !isSwitchOn }); this.setState({ toggleStatus: !toggleStatus }); }
+                    }
+                    />
+                  </View>
+                </View>
                 <Item style={styles.item} rounded>
                   <Input
                     disabled
@@ -162,6 +182,9 @@ class ProfileEdit extends Component {
   onSaveChangesPressed() {
     this.props.editProfile(this.state.fullName, this.state.bio)
       .then((response) => {
+        if (this.state.toggleStatus) {
+          this.props.sendChangeStatus(this.state.toggleStatus)
+        }
         if (this.state.imageFile !== null) {
           this.changeImage();
         } else {
@@ -293,6 +316,7 @@ const mapStateToProps = state => ({
   imageSourceFromDB: selectProfilePicture(state),
   mode: selectMode(state),
   image: selectImage(state),
+  isPrivate: selectProfileIsPrivate(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -300,6 +324,7 @@ const mapDispatchToProps = dispatch => ({
   updateUser: () => dispatch(updateUser()),
   editProfile: (fullName, bio) => dispatch(editProfile(fullName, bio)),
   changeProfilePic: formData => dispatch(changeProfilePic(formData)),
+  sendChangeStatus: () => dispatch(changeStatus()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit);

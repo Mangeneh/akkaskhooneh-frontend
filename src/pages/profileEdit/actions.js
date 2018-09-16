@@ -9,6 +9,9 @@ export const Actions = {
   CHANGE_PROFILE_PIC: 'CHANGE_PROFILE_PIC',
   CHANGE_PROFILE_PIC_SUCCESS: 'CHANGE_PROFILE_PIC_SUCCESS',
   CHANGE_PROFILE_PIC_FAIL: 'CHANGE_PROFILE_PIC_FAIL',
+  CHANGE_STATUS: 'EDIT_PROFILE_CHANGE_STATUS',
+  CHANGE_STATUS_SUCCESS: 'EDIT_PROFILE_CHANGE_STATUS_SUCCESS',
+  CHANGE_STATUS_FAIL: 'EDIT_PROFILE_CHANGE_STATUS_FAIL',
 };
 
 export const normalize = () => ({
@@ -25,6 +28,16 @@ export const editProfile = (fullName, bio) => ({
         fullname: fullName,
         bio,
       },
+    },
+  },
+});
+
+export const changeStatus = () => ({
+  type: Actions.CHANGE_STATUS,
+  payload: {
+    request: {
+      method: 'POST',
+      url: Server.CHANGE_STATUS,
     },
   },
 });
