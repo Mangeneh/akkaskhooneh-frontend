@@ -3,6 +3,9 @@ import axios from 'axios';
 import { Root, StyleProvider } from 'native-base';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { selectAccessToken, selectRefreshToken } from './src/reducers/UsersReducer';
+import RootStack from './src/RootStack';
+import { Actions as GetNewPassword } from './src/pages/getNewPassword/actions';
 import { applyMiddleware, createStore } from 'redux';
 import axiosMiddleware from 'redux-axios-middleware';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -17,9 +20,6 @@ import { Actions as SignUpActions } from './src/pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './src/pages/signUpComplete/actions';
 import { Actions as SendTokenActions } from './src/pages/tokenPage/actions';
 import rootReducer from './src/reducers';
-import { selectAccessToken, selectRefreshToken } from './src/reducers/UsersReducer';
-import RootStack from './src/RootStack';
-import { Actions as GetNewPassword } from './src/pages/getNewPassword/actions';
 
 // console.disableYellowBox = true;
 
