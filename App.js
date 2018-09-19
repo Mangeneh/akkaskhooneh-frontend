@@ -3,15 +3,15 @@ import axios from 'axios';
 import { Root, StyleProvider } from 'native-base';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { selectAccessToken, selectRefreshToken } from './src/reducers/UsersReducer';
-import RootStack from './src/RootStack';
-import { Actions as GetNewPassword } from './src/pages/getNewPassword/actions';
 import { applyMiddleware, createStore } from 'redux';
 import axiosMiddleware from 'redux-axios-middleware';
 import { persistReducer, persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
+import { Actions as GetNewPassword } from './src/pages/getNewPassword/actions';
+import RootStack from './src/RootStack';
+import { selectAccessToken, selectRefreshToken } from './src/reducers/UsersReducer';
 import getTheme from './native-base-theme/components';
 import commonColor from './native-base-theme/variables/commonColor';
 import { accessTokenUpdated } from './src/actions/UsersActions';
@@ -24,7 +24,7 @@ import rootReducer from './src/reducers';
 // console.disableYellowBox = true;
 
 const client = axios.create({
-  baseURL: 'http://192.168.11.140',
+  baseURL: 'https://akkaskhooneh.rasooll.com',
   responseType: 'json',
 });
 
