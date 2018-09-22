@@ -1,5 +1,4 @@
 import { UsersActions } from '../../actions';
-import { selectSearchPage } from '../../reducers';
 import { SearchedPostsActions } from './actions';
 
 const INITIAL_SEARCH_TOP_TAGS_STATE = {
@@ -57,6 +56,8 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const selectSearchPage = state => state.searchPage;
 
 export const selectSearchTopTags = state => selectSearchPage(state).searchTopTags;
 export const selectSearchTopTagsNextPage = state => selectSearchPage(state).searchTopTagsNextPage;

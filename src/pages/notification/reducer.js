@@ -1,5 +1,4 @@
 import { UsersActions } from '../../actions';
-import { selectNotificationPage } from '../../reducers';
 import { NotificationActions } from './actions';
 
 const INITIAL_NOTIFICATIONS_STATE = {
@@ -69,6 +68,8 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const selectNotificationPage = state => state.notification;
 
 export const selectNotifications = state => selectNotificationPage(state).notifications;
 export const selectNotificationsNextPage = state => selectNotificationPage(state).notificationsNextPage;

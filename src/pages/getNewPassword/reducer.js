@@ -1,7 +1,6 @@
 import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkPassword } from '../../helpers/Validators';
-import { selectGetNewPass } from '../../reducers';
 import { Actions } from './actions';
 
 const INITIAL_STATE = {
@@ -30,6 +29,8 @@ function validate(password, repeatedPassword) {
   }
   return PageModes.DISABLED;
 }
+
+export const selectGetNewPass = state => state.getNewPass;
 
 export const selectMode = state => selectGetNewPass(state).mode;
 export const selectError = state => selectMode(state) === PageModes.ERROR;

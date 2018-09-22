@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { UsersActions } from '../actions/UsersActions';
 import { FollowStatus } from '../config';
-import { selectUsers } from './index';
 
 const INITIAL_FOLLOWERS_FOLLOWINGS_STATE = {
   followers: [],
@@ -320,6 +319,8 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const selectUsers = state => state.users;
 
 const selectSelf = state => selectUsers(state).me;
 

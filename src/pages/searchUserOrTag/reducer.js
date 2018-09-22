@@ -1,5 +1,4 @@
 import { UsersActions } from '../../actions';
-import { selectSearch } from '../../reducers';
 import { SearchUserOrTagActions } from './actions';
 
 const INITIAL_SEARCH_USERS_STATE = {
@@ -128,6 +127,8 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const selectSearch = state => state.search;
 
 export const selectSearchUsers = state => selectSearch(state).searchUsers;
 export const selectSearchUsersNextPage = state => selectSearch(state).searchUsersNextPage;

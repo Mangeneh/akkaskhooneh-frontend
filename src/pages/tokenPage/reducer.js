@@ -1,7 +1,6 @@
 import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkPassword } from '../../helpers/Validators';
-import { selectSendToken } from '../../reducers';
 import { Actions } from './actions';
 
 const INITIAL_STATE = {
@@ -30,6 +29,8 @@ function validate(code) {
   }
   return PageModes.DISABLED;
 }
+
+export const selectSendToken = state => state.sendToken;
 
 export const selectMode = state => selectSendToken(state).mode;
 export const selectError = state => selectMode(state) === PageModes.ERROR;

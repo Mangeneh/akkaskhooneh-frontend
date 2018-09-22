@@ -1,7 +1,6 @@
 import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkUsername } from '../../helpers';
-import { selectSignUpCompletePage } from '../../reducers';
 import { Actions } from './actions';
 
 const INITIAL_STATE = {
@@ -81,6 +80,8 @@ function validate(username) {
   }
   return PageModes.DISABLED;
 }
+
+export const selectSignUpCompletePage = state => state.signUpCompletePage;
 
 export const selectUsername = state => selectSignUpCompletePage(state).username;
 export const selectFullName = state => selectSignUpCompletePage(state).fullName;

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { BoardsActions, UsersActions } from '../actions';
-import { selectBoards } from './index';
 
 const INITIAL_USER_BOARDS_STATE = {
   userBoards: [],
@@ -78,6 +77,8 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const selectBoards = state => state.boards;
 
 const createUserBadge = username => username || 'me';
 

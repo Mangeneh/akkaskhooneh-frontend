@@ -6,7 +6,6 @@ import {
   extractLikesCount,
   extractPostID,
 } from '../helpers';
-import { selectPosts } from './index';
 
 const INITIAL_USER_PHOTOS_STATE = {
   userPhotos: [],
@@ -492,6 +491,8 @@ const injectNewPosts = (newPosts, state) => {
     };
   });
 };
+
+export const selectPosts = state => state.posts;
 
 const selectHome = state => selectPosts(state).home;
 

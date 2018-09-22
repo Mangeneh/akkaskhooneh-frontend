@@ -1,7 +1,6 @@
 import { UsersActions } from '../../actions';
 import { PageModes } from '../../config';
 import { checkPassword } from '../../helpers/Validators';
-import { selectChangePassPage } from '../../reducers';
 import { Actions } from './actions';
 
 const INITIAL_STATE = {
@@ -72,6 +71,8 @@ function validate(previousPassword, newPassword, repeatedPassword) {
   }
   return PageModes.DISABLED;
 }
+
+export const selectChangePassPage = state => state.changePassPage;
 
 export const selectPreviousPassword = state => selectChangePassPage(state).previousPassword;
 export const selectNewPassword = state => selectChangePassPage(state).newPassword;
