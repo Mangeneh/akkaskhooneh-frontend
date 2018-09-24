@@ -27,7 +27,7 @@ import {
   selectPostInfo,
   selectPostInfoIsFirstFetch,
   selectPostInfoIsLoading,
-} from '../../reducers/PostsReducer';
+} from '../../reducers/posts';
 
 class PostInfo extends Component {
   state = {

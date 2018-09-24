@@ -22,7 +22,7 @@ import {
   selectUserPhotosIsRefreshing,
   selectUserPhotosNextPage,
   selectUserPhotosTotalPages,
-} from '../../reducers/PostsReducer';
+} from '../../reducers/posts';
 
 class AddPostToBoard extends Component {
   state = {

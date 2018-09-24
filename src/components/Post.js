@@ -37,7 +37,7 @@ import {
   selectPostInfo,
   selectPostInfoIsFirstFetch,
   selectPostInfoIsLoading,
-} from '../reducers/PostsReducer';
+} from '../reducers/posts';
 import AddBoardModal from './AddBoardModal';
 import MoreModal from './MoreModal';
 

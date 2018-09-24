@@ -21,7 +21,7 @@ import {
   selectHomePostsIsRefreshing,
   selectUserPhotosIsLoading,
   selectUserPhotosIsRefreshing,
-} from '../reducers/PostsReducer';
+} from '../reducers/posts';
 import CustomStatusBar from './CustomStatusBar';
 
 class BottomTabComponent extends Component {

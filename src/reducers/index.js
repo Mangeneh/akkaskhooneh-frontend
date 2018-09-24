@@ -13,12 +13,12 @@ import BoardsReducer from './BoardsReducer';
 import UsersReducer from './UsersReducer';
 import GetNewPasswordReducer from '../pages/getNewPassword/reducer';
 import SendTokenReducer from '../pages/tokenPage/reducer';
-import PostsReducer from './PostsReducer';
+import posts from './posts';
 
 export default combineReducers({
   loginPage: LoginPageReducer,
   users: UsersReducer,
-  posts: PostsReducer,
+  posts,
   boards: BoardsReducer,
   signUpPage: SignUpPageReducer,
   signUpCompletePage: SignUpCompletePageReducer,

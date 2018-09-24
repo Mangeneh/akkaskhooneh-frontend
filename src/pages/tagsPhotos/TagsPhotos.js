@@ -12,7 +12,7 @@ import {
   selectTagsPhotosIsRefreshing,
   selectTagsPhotosNextPage,
   selectTagsPhotosTotalPages,
-} from '../../reducers/PostsReducer';
+} from '../../reducers/posts';
 
 class TagsPhotos extends Component {
   componentWillMount() {

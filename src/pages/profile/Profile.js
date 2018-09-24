@@ -33,7 +33,7 @@ import {
   selectUserPhotosIsRefreshing,
   selectUserPhotosNextPage,
   selectUserPhotosTotalPages,
-} from '../../reducers/PostsReducer';
+} from '../../reducers/posts';
 import {
   selectProfileFollowStatus,
   selectProfileIsPrivate,

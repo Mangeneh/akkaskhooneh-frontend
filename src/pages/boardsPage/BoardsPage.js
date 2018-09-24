@@ -19,7 +19,7 @@ import {
   selectBoardsPhotosIsRefreshing,
   selectBoardsPhotosNextPage,
   selectBoardsPhotosTotalPages,
-} from '../../reducers/PostsReducer';
+} from '../../reducers/posts';
 
 class BoardsPage extends Component {
   componentWillMount() {

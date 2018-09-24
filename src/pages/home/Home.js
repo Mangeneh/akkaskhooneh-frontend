@@ -24,7 +24,7 @@ import {
   selectHomePostsIsRefreshing,
   selectHomePostsNextPage,
   selectHomePostsTotalPages,
-} from '../../reducers/PostsReducer';
+} from '../../reducers/posts';
 
 class Home extends Component {
   componentWillMount() {

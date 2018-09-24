@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Colors } from '../config';
-import { selectHomePostsIsLoading } from '../reducers/PostsReducer';
+import { selectHomePostsIsLoading } from '../reducers/posts';
 
 class HomeHeader extends Component {
   render() {

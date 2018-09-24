@@ -75,11 +75,9 @@ export default (state = INITIAL_STATE, action) => {
     GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
     //
     GET_BOARDS_PHOTOS_NEXT_PAGE,
-    GET_BOARDS_PHOTOS_NEXT_PAGE_FAIL,
     GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS,
     //
     REFRESH_BOARDS_PHOTOS,
-    REFRESH_BOARDS_PHOTOS_FAIL,
     REFRESH_BOARDS_PHOTOS_SUCCESS,
     //
     GET_POST_INFO,
@@ -106,18 +104,18 @@ export default (state = INITIAL_STATE, action) => {
   } = PostsActions;
   switch (action.type) {
     case REFRESH_USER_PHOTOS: {
-      const usernameField = createUserBadge(action.payload.username);
+      const userField = createUserField(action.payload.username);
       return {
         ...state,
-        [usernameField]: {
+        [userField]: {
           ...INITIAL_USER_PHOTOS_STATE,
-          ...state[usernameField],
+          ...state[userField],
           userPhotosIsRefreshing: true,
         },
       };
     }
     case REFRESH_USER_PHOTOS_SUCCESS: {
-      const usernameField = createUserBadge(action.meta.previousAction.payload.username);
+      const usernameField = createUserField(action.meta.previousAction.payload.username);
       return {
         ...state,
         [usernameField]: {
@@ -131,7 +129,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     case GET_USER_PHOTOS_NEXT_PAGE: {
-      const usernameField = createUserBadge(action.payload.username);
+      const usernameField = createUserField(action.payload.username);
       return {
         ...state,
         [usernameField]: {
@@ -141,7 +139,7 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     case GET_USER_PHOTOS_NEXT_PAGE_SUCCESS: {
-      const usernameField = createUserBadge(action.meta.previousAction.payload.username);
+      const usernameField = createUserField(action.meta.previousAction.payload.username);
       return {
         ...state,
         [usernameField]: {
@@ -496,14 +494,14 @@ export const selectPosts = state => state.posts;
 
 const selectHome = state => selectPosts(state).home;
 
-const createUserBadge = username => username || 'me';
+const createUserField = username => username || 'me';
 const createPostBadge = postID => `post${postID}`;
 const createTagBadge = tagID => `tag${tagID}`;
 const createBoardBadge = boardID => `board${boardID}`;
 
-const checkUserProperty = (state, username) => _.has(selectPosts(state), createUserBadge(username));
+const checkUserProperty = (state, username) => _.has(selectPosts(state), createUserField(username));
 const getUserProperty = (state, username) => {
-  const userProperty = createUserBadge(username);
+  const userProperty = createUserField(username);
   if (checkUserProperty(state, username)) {
     return selectPosts(state)[userProperty];
   }
