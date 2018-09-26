@@ -16,12 +16,7 @@ import {
   selectSearchTopTagsIsRefreshing,
 } from '../pages/search/reducer';
 import { selectUserBoardsIsLoading, selectUserBoardsIsRefreshing } from '../reducers/BoardsReducer';
-import {
-  selectHomePostsIsLoading,
-  selectHomePostsIsRefreshing,
-  selectUserPhotosIsLoading,
-  selectUserPhotosIsRefreshing,
-} from '../reducers/posts';
+import { selectUserPhotosIsLoading, selectUserPhotosIsRefreshing } from '../reducers/posts';
 import CustomStatusBar from './CustomStatusBar';
 
 class BottomTabComponent extends Component {

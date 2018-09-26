@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { getTagsPhotosNextPage, refreshTagsPhotos } from '../../actions';
 import { BackHeader, CustomStatusBar } from '../../components';
 import PostsPhotoList from '../../components/PostsPhotoList';
 import { Pages, Parameters } from '../../config';
 import {
-  selectTagsPhotos,
-  selectTagsPhotosIsFirstFetch,
-  selectTagsPhotosIsLoading,
-  selectTagsPhotosIsRefreshing,
-  selectTagsPhotosNextPage,
-  selectTagsPhotosTotalPages,
-} from '../../reducers/posts';
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+} from '../../reducers/paginator';
+import { createTagPhotosURL } from '../../config/URLCreators';
 
 class TagsPhotos extends Component {
   componentWillMount() {
-    this.refreshTagsPhotos();
+    this.refresh();
   }
 
   render() {
     const {
-      tagsPhotosIsRefreshing, tagsPhotos, tagsPhotosIsFirstFetch, navigation,
+      isRefreshing, tagsPhotos, isFirstFetch, navigation,
     } = this.props;
     const tagName = navigation.getParam(Parameters.TAG_NAME);
     return (
@@ -30,52 +26,60 @@ class TagsPhotos extends Component {
         <BackHeader title={tagName} onBackPress={() => navigation.goBack()} />
         <PostsPhotoList
           data={tagsPhotos}
-          onRefresh={() => this.refreshTagsPhotos()}
-          refreshing={tagsPhotosIsRefreshing}
-          isFirstFetch={tagsPhotosIsFirstFetch}
-          onEndReached={() => this.updateTagsPhotos()}
+          onRefresh={() => this.refresh()}
+          refreshing={isRefreshing}
+          isFirstFetch={isFirstFetch}
+          onEndReached={() => this.loadMore()}
           onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
         />
       </View>
     );
   }
 
-  refreshTagsPhotos() {
+  refresh() {
     const {
-      tagsPhotosIsLoading, tagsPhotosIsRefreshing, refreshTagsPhotos,
+      isLoading, isRefreshing, refresh,
     } = this.props;
-    if (!tagsPhotosIsLoading && !tagsPhotosIsRefreshing) {
-      refreshTagsPhotos();
+    if (!isLoading && !isRefreshing) {
+      refresh();
     }
   }
 
-  updateTagsPhotos() {
+  loadMore() {
     const {
-      tagsPhotosNextPage, tagsPhotosTotalPages, getTagsPhotosNextPage, tagsPhotosIsLoading, tagsPhotosIsRefreshing,
+      nextPage, totalPages, loadMore, isLoading, isRefreshing,
     } = this.props;
-    if (tagsPhotosNextPage <= tagsPhotosTotalPages && !tagsPhotosIsLoading && !tagsPhotosIsRefreshing) {
-      getTagsPhotosNextPage(tagsPhotosNextPage);
+    if (nextPage <= totalPages && !isLoading && !isRefreshing) {
+      loadMore(nextPage);
     }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   const tagID = ownProps.navigation.getParam(Parameters.TAG_ID);
+  const paginatorSelectors = generatePaginatorSelectors(state, 'tag', tagID);
+  const {
+    selectData, selectNextPage, selectTotalPages,
+    selectIsFirstFetch, selectIsRefreshing, selectIsLoading,
+  } = paginatorSelectors;
   return {
-    tagsPhotos: selectTagsPhotos(state, tagID),
-    tagsPhotosPage: selectTagsPhotosNextPage(state, tagID),
-    tagsPhotosTotalPages: selectTagsPhotosTotalPages(state, tagID),
-    tagsPhotosIsFirstFetch: selectTagsPhotosIsFirstFetch(state, tagID),
-    tagsPhotosIsRefreshing: selectTagsPhotosIsRefreshing(state, tagID),
-    tagsPhotosIsLoading: selectTagsPhotosIsLoading(state, tagID),
+    tagsPhotos: selectData(),
+    nextPage: selectNextPage(),
+    totalPages: selectTotalPages(),
+    isFirstFetch: selectIsFirstFetch(),
+    isRefreshing: selectIsRefreshing(),
+    isLoading: selectIsLoading(),
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const tagID = ownProps.navigation.getParam(Parameters.TAG_ID);
+  const pagintorActionCreators = generatePaginatorActionCreators('tag', tagID);
+  const { refresh, loadMore } = pagintorActionCreators;
+  const { nextPage } = ownProps;
   return {
-    refreshTagsPhotos: () => dispatch(refreshTagsPhotos(tagID)),
-    getTagsPhotosNextPage: commentsNext => dispatch(getTagsPhotosNextPage(tagID, commentsNext)),
+    refresh: () => dispatch(refresh(createTagPhotosURL(tagID))),
+    loadMore: () => dispatch(loadMore(createTagPhotosURL(tagID, nextPage))),
   };
 };
 

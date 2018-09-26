@@ -21,7 +21,7 @@ import { createHomeURL } from '../../config/URLCreators';
 
 class Home extends Component {
   componentWillMount() {
-    this.refreshPosts();
+    this.refresh();
   }
 
   render() {
@@ -53,7 +53,7 @@ class Home extends Component {
           {strings(Strings.NEW_USER_FIRST_IMPRESSION)}
         </Text>
         <TouchableOpacity
-          onPress={() => this.refreshPosts()}
+          onPress={() => this.refresh()}
           style={{
             alignSelf: 'center',
             zIndex: 10,
@@ -82,7 +82,7 @@ class Home extends Component {
       <FlatList
         onRefresh={() => refresh()}
         refreshing={isRefreshing}
-        onEndReached={() => this.updatePosts()}
+        onEndReached={() => this.loadMore()}
         style={{
           width: '100%',
           marginTop: 8,
@@ -104,19 +104,19 @@ class Home extends Component {
     );
   }
 
-  updatePosts() {
+  refresh() {
+    const { refresh, isLoading, isRefreshing } = this.props;
+    if (!isLoading && !isRefreshing) {
+      refresh();
+    }
+  }
+
+  loadMore() {
     const {
       nextPage, totalPages, isLoading, isRefreshing, loadMore,
     } = this.props;
     if (nextPage <= totalPages && !isLoading && !isRefreshing) {
       loadMore(nextPage);
-    }
-  }
-
-  refreshPosts() {
-    const { refresh, isLoading, isRefreshing } = this.props;
-    if (!isLoading && !isRefreshing) {
-      refresh();
     }
   }
 }
@@ -143,8 +143,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const { refresh, loadMore } = pagintorActionCreators;
   const { nextPage } = ownProps;
   return {
-    refresh: () => dispatch(refresh(createHomeURL(PagintorActions.REFRESH))),
-    loadMore: () => dispatch(loadMore(createHomeURL(PagintorActions.LOAD_MORE, nextPage))),
+    refresh: () => dispatch(refresh(createHomeURL())),
+    loadMore: () => dispatch(loadMore(createHomeURL(nextPage))),
     getPostInfo: postID => dispatch(getPostInfo(postID)),
     sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
   };

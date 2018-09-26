@@ -79,12 +79,6 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_OPEN_POST_COMMENTS_SUCCESS,
     REFRESH_OPEN_POST_COMMENTS_FAIL,
     //
-    REFRESH_TAGS_PHOTOS,
-    REFRESH_TAGS_PHOTOS_SUCCESS,
-    //
-    GET_TAGS_PHOTOS_NEXT_PAGE,
-    GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS,
-    //
     INJECT_NEW_POSTS,
   } = PostsActions;
   switch (action.type) {
@@ -279,55 +273,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    // Tags
-    case GET_TAGS_PHOTOS_NEXT_PAGE: {
-      const tagField = createTagBadge(action.payload.tagID);
-      return {
-        ...state,
-        [tagField]: {
-          ...state[tagField],
-          tagsPhotosIsLoading: true,
-        },
-      };
-    }
-    case GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS: {
-      const tagField = createTagBadge(action.meta.previousAction.payload.tagID);
-      return {
-        ...state,
-        [tagField]: {
-          ...state[tagField],
-          tagsPhotos: state[tagField].tagsPhotos.concat(action.payload.data.results),
-          tagsPhotosNextPage: state[tagField].tagsPhotosNextPage + 1,
-          tagsPhotosTotalPages: action.payload.data.total_pages,
-          tagsPhotosIsLoading: false,
-        },
-      };
-    }
-    case REFRESH_TAGS_PHOTOS: {
-      const tagField = createTagBadge(action.payload.tagID);
-      return {
-        ...state,
-        [tagField]: {
-          ...INITIAL_TAGS_PHOTOS_STATE,
-          ...state[tagField],
-          tagsPhotosIsRefreshing: true,
-        },
-      };
-    }
-    case REFRESH_TAGS_PHOTOS_SUCCESS: {
-      const tagField = createTagBadge(action.meta.previousAction.payload.tagID);
-      return {
-        ...state,
-        [tagField]: {
-          ...state[tagField],
-          tagsPhotos: action.payload.data.results,
-          tagsPhotosNextPage: 2,
-          tagsPhotosTotalPages: action.payload.data.total_pages,
-          tagsPhotosIsFirstFetch: false,
-          tagsPhotosIsRefreshing: false,
-        },
-      };
-    }
     //
     case REFRESH_BOARDS_PHOTOS: {
       const boardField = createBoardBadge(action.payload.boardID);
@@ -442,11 +387,8 @@ const injectNewPosts = (newPosts, state) => {
 
 export const selectPosts = state => state.posts;
 
-const selectHome = state => selectPosts(state).home;
-
 const createUserField = username => username || 'me';
 const createPostBadge = postID => `post${postID}`;
-const createTagBadge = tagID => `tag${tagID}`;
 const createBoardBadge = boardID => `board${boardID}`;
 
 const checkUserProperty = (state, username) => _.has(selectPosts(state), createUserField(username));
@@ -463,13 +405,6 @@ export const selectUserPhotosTotalPages = (state, username) => getUserProperty(s
 export const selectUserPhotosIsFirstFetch = (state, username) => getUserProperty(state, username).userPhotosIsFirstFetch;
 export const selectUserPhotosIsRefreshing = (state, username) => getUserProperty(state, username).userPhotosIsRefreshing;
 export const selectUserPhotosIsLoading = (state, username) => getUserProperty(state, username).userPhotosIsLoading;
-
-export const selectHomePosts = state => selectHome(state).homePosts;
-export const selectHomePostsNextPage = state => selectHome(state).homePostsNextPage;
-export const selectHomePostsTotalPages = state => selectHome(state).homePostsTotalPages;
-export const selectHomePostsIsRefreshing = state => selectHome(state).homePostsIsRefreshing;
-export const selectHomePostsIsFirstFetch = state => selectHome(state).homePostsIsFirstFetch;
-export const selectHomePostsIsLoading = state => selectHome(state).homePostsIsLoading;
 
 const checkPostProperty = (state, postID) => _.has(selectPosts(state), createPostBadge(postID));
 const getPostProperty = (state, postID) => {
@@ -489,21 +424,6 @@ export const selectCommentsIsLoading = (state, postID) => getPostProperty(state,
 export const selectCommentsIsRefreshing = (state, postID) => getPostProperty(state, postID).commentsIsRefreshing;
 export const selectCommentsIsFirstFetch = (state, postID) => getPostProperty(state, postID).commentsIsFirstFetch;
 export const selectIsSendingComment = (state, postID) => getPostProperty(state, postID).isSendingComment;
-
-const checkTagProperty = (state, tagID) => _.has(selectPosts(state), createTagBadge(tagID));
-const getTagProperty = (state, tagID) => {
-  const tagProperty = createTagBadge(tagID);
-  if (checkTagProperty(state, tagID)) {
-    return selectPosts(state)[tagProperty];
-  }
-  return INITIAL_TAGS_PHOTOS_STATE;
-};
-export const selectTagsPhotos = (state, tagID) => getTagProperty(state, tagID).tagsPhotos;
-export const selectTagsPhotosNextPage = (state, tagID) => getTagProperty(state, tagID).tagsPhotosNextPage;
-export const selectTagsPhotosTotalPages = (state, tagID) => getTagProperty(state, tagID).tagsPhotosTotalPages;
-export const selectTagsPhotosIsRefreshing = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsRefreshing;
-export const selectTagsPhotosIsFirstFetch = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsFirstFetch;
-export const selectTagsPhotosIsLoading = (state, tagID) => getTagProperty(state, tagID).tagsPhotosIsLoading;
 
 const checkBoardProperty = (state, boardID) => _.has(selectPosts(state), createBoardBadge(boardID));
 const getBoardProperty = (state, boardID) => {
