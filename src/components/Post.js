@@ -28,7 +28,7 @@ import {
   extractOwnerUsername,
   extractPostDate,
   extractPostID,
-  extractPostPictureUri,
+  extractPostPictureURI,
   extractProfilePictureUri,
   PlatformSpecificResizeMode,
 } from '../helpers';
@@ -166,12 +166,12 @@ class Post extends Component {
 
   renderPostPicture() {
     const { postInfo, margin, home } = this.props;
-    if (extractPostPictureUri(postInfo)) {
+    if (extractPostPictureURI(postInfo)) {
       return (
         <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={home ? 0.9 : 1}>
           <CardItem cardBody>
             <FastImage
-              source={{ uri: extractPostPictureUri(postInfo) }}
+              source={{ uri: extractPostPictureURI(postInfo) }}
               style={{
                 width: null,
                 height: WIDTH - 2 * margin,

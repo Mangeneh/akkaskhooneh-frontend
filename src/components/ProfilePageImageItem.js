@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Graphics } from '../config';
-import { extractPostPictureUri } from '../helpers';
+import { extractPostPictureURI } from '../helpers';
 
 class ProfilePageImageItem extends Component {
   componentWillMount() {
@@ -14,7 +14,7 @@ class ProfilePageImageItem extends Component {
 
   render() {
     const { image } = this.props;
-    const uri = extractPostPictureUri(image);
+    const uri = extractPostPictureURI(image);
     return (
       <TouchableOpacity
         style={styles.imageContainer}

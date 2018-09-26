@@ -11,8 +11,6 @@ export const PostsActions = {
   REFRESH_USER_PHOTOS_SUCCESS: 'REFRESH_USER_PHOTOS_SUCCESS',
   REFRESH_USER_PHOTOS_FAIL: 'REFRESH_USER_PHOTOS_FAIL',
   //
-  CHOOSE_POST: 'CHOOSE_POST',
-  //
   GET_POST_INFO: 'FEED_GET_POST_INFO',
   GET_POST_INFO_SUCCESS: 'FEED_GET_POST_INFO_SUCCESS',
   GET_POST_INFO_FAIL: 'FEED_GET_POST_INFO_Fail',
@@ -32,14 +30,6 @@ export const PostsActions = {
   GET_OPEN_POST_COMMENTS_NEXT_PAGE: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS',
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL',
-  //
-  GET_BOARDS_PHOTOS_NEXT_PAGE: 'GET_BOARDS_PHOTOS_NEXT_PAGE',
-  GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS',
-  GET_BOARDS_PHOTOS_NEXT_PAGE_FAIL: 'GET_BOARDS_PHOTOS_NEXT_PAGE_FAIL',
-  //
-  REFRESH_BOARDS_PHOTOS: 'REFRESH_BOARDS_PHOTOS',
-  REFRESH_BOARDS_PHOTOS_SUCCESS: 'REFRESH_BOARDS_PHOTOS_SUCCESS',
-  REFRESH_BOARDS_PHOTOS_FAIL: 'REFRESH_BOARDS_PHOTOS_FAIL',
 };
 
 export const getUserPhotosNextPage = (photosNext, username) => {
@@ -91,28 +81,6 @@ export const getCommentsNextPage = (postID, commentsNext) => ({
       url: `${Server.GET_COMMENTS_LIST}${postID}/?page=${commentsNext}`,
     },
     postID,
-  },
-});
-
-export const getBoardsPhotosNextPage = (boardID, boardsPhotosNext) => ({
-  type: PostsActions.GET_BOARDS_PHOTOS_NEXT_PAGE,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_BOARDS_DETAILS}${boardID}/?page=${boardsPhotosNext}`,
-    },
-    boardID,
-  },
-});
-
-export const refreshBoardsPhotos = boardID => ({
-  type: PostsActions.REFRESH_BOARDS_PHOTOS,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_BOARDS_DETAILS}${boardID}/?page=1`,
-    },
-    boardID,
   },
 });
 

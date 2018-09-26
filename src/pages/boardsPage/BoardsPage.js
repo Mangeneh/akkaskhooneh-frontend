@@ -3,38 +3,26 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
-import { deleteBoard, refreshBoardsPhotos, refreshUserBoards } from '../../actions';
-import { getBoardsPhotosNextPage } from '../../actions/PostsActions';
+import { deleteBoard, refreshUserBoards } from '../../actions';
 import { BoardsPageHeader, CustomStatusBar } from '../../components';
-import PostsPhotoList from '../../components/PostsPhotoList';
 import {
   Colors, Pages, Parameters, Strings,
 } from '../../config';
 import { showFailiureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
-import {
-  selectBoardsPhotos,
-  selectBoardsPhotosIsFirstFetch,
-  selectBoardsPhotosIsLoading,
-  selectBoardsPhotosIsRefreshing,
-  selectBoardsPhotosNextPage,
-  selectBoardsPhotosTotalPages,
-} from '../../reducers/posts';
+import { PhotoList } from '../../containers';
+import { createBoardPhotosURL } from '../../config/URLCreators';
 
 class BoardsPage extends Component {
-  componentWillMount() {
-    this.refreshPhotos();
-  }
-
   render() {
-    const {
-      navigation, boardsPhotos, boardsPhotosIsFirstFetch, boardsPhotosIsRefreshing,
-    } = this.props;
+    const { navigation } = this.props;
+    const boardID = navigation.getParam(Parameters.BOARD).id;
+    const boardName = navigation.getParam(Parameters.BOARD).name;
     return (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
         <BoardsPageHeader
-          boardName={navigation.getParam('board').name}
+          boardName={boardName}
           onBackPress={() => navigation.goBack()}
           onDeletePress={() => this.confirmDeleteBoard()}
           onAddPress={() => this.addSelfPostsToBoard()}
@@ -85,35 +73,13 @@ class BoardsPage extends Component {
             </Button>
           </View>
         </Modal>
-        <PostsPhotoList
-          data={boardsPhotos}
-          onRefresh={() => this.refreshPhotos()}
-          refreshing={boardsPhotosIsRefreshing}
-          isFirstFetch={boardsPhotosIsFirstFetch}
-          onEndReached={() => this.updatePhotos()}
-          onPhotoPress={postID => navigation.push(Pages.POST_INFO_PAGE, { postID })}
+        <PhotoList
+          name="board"
+          id={boardID}
+          createURL={createBoardPhotosURL}
         />
       </View>
     );
-  }
-
-  refreshPhotos() {
-    const {
-      refreshBoardsPhotos, boardsPhotosIsLoading, boardsPhotosIsRefreshing,
-    } = this.props;
-    if (!boardsPhotosIsRefreshing && !boardsPhotosIsLoading) {
-      refreshBoardsPhotos();
-    }
-  }
-
-  updatePhotos() {
-    const {
-      boardsPhotosNextPage, boardsPhotosTotalPages, boardsPhotosIsLoading, getBoardsPhotosNextPage, boardsPhotosIsRefreshing,
-    } = this.props;
-    if (boardsPhotosNextPage <= boardsPhotosTotalPages
-      && !boardsPhotosIsLoading && !boardsPhotosIsRefreshing) {
-      getBoardsPhotosNextPage(boardsPhotosNextPage);
-    }
   }
 
   confirmDeleteBoard() {
@@ -134,7 +100,7 @@ class BoardsPage extends Component {
   }
 
   addSelfPostsToBoard() {
-    this.props.navigation.navigate(Pages.ADD_POST_TO_BOARD, { [Parameters.BOARD_ID]: this.props.navigation.getParam('board').id });
+    this.props.navigation.navigate(Pages.ADD_POST_TO_BOARD, { [Parameters.BOARD_ID]: this.props.navigation.getParam(Parameters.BOARD).id });
   }
 }
 
@@ -154,26 +120,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state, ownProps) => {
-  const boardID = ownProps.navigation.getParam('board').id;
-  return {
-    boardsPhotos: selectBoardsPhotos(state, boardID),
-    boardsPhotosNextPage: selectBoardsPhotosNextPage(state, boardID),
-    boardsPhotosTotalPages: selectBoardsPhotosTotalPages(state, boardID),
-    boardsPhotosIsRefreshing: selectBoardsPhotosIsRefreshing(state, boardID),
-    boardsPhotosIsFirstFetch: selectBoardsPhotosIsFirstFetch(state, boardID),
-    boardsPhotosIsLoading: selectBoardsPhotosIsLoading(state, boardID),
-  };
-};
-
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const boardID = ownProps.navigation.getParam('board').id;
+  const boardID = ownProps.navigation.getParam(Parameters.BOARD).id;
   return {
-    getBoardsPhotosNextPage: boardsPhotosNext => dispatch(getBoardsPhotosNextPage(boardID, boardsPhotosNext)),
-    refreshBoardsPhotos: () => dispatch(refreshBoardsPhotos(boardID)),
     deleteBoard: () => dispatch(deleteBoard(boardID)),
     refreshBoards: () => dispatch(refreshUserBoards()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardsPage);
+export default connect(null, mapDispatchToProps)(BoardsPage);

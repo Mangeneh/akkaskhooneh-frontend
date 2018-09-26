@@ -8,6 +8,7 @@ import SignUpCompleteButton from './SignUpCompleteButton';
 import ForgotPasswordButton from './ForgotPasswordButton';
 import GetNewPassButton from './GetNewPassButton';
 import SendTokenButton from './SendTokenButton';
+import PhotoList from './PhotoList';
 
 export {
   SignUpCompleteButton,
@@ -20,4 +21,5 @@ export {
   ForgotPasswordButton,
   GetNewPassButton,
   SendTokenButton,
+  PhotoList,
 };

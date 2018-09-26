@@ -6,7 +6,7 @@ export const extractImageSource = image => (Platform.OS === 'ios' ? image.source
 export const extractTagPictureUri = tag => tag.picture;
 export const extractTagName = tag => tag.tag_name;
 export const extractTagID = tag => tag.tag_id;
-export const extractPostPictureUri = post => post.post_picture;
+export const extractPostPictureURI = post => post.post_picture;
 export const extractPostID = post => post.id;
 export const extractProfilePictureUri = post => post.profile_picture;
 export const extractOwnerUsername = post => post.owner_username;

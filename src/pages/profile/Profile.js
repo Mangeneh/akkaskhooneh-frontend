@@ -306,7 +306,7 @@ class Profile extends Component {
 
   showBoardDetails(item) {
     this.props.navigation.push(Pages.BOARDS_PAGE, {
-      board: item,
+      [Parameters.BOARD]: item,
       isSelf: this.isSelfProfile(),
     });
   }

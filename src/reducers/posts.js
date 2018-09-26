@@ -29,24 +29,6 @@ const INITIAL_OPEN_POST_STATE = {
   isSendingComment: false,
 };
 
-const INITIAL_TAGS_PHOTOS_STATE = {
-  tagsPhotos: [],
-  tagsPhotosNextPage: 1,
-  tagsPhotosTotalPages: 1,
-  tagsPhotosIsFirstFetch: true,
-  tagsPhotosIsRefreshing: false,
-  tagsPhotosIsLoading: false,
-};
-
-const INITIAL_BOARDS_PHOTOS_STATE = {
-  boardsPhotos: [],
-  boardsPhotosNextPage: 1,
-  boardsPhotosTotalPages: 1,
-  boardsPhotosIsFirstFetch: true,
-  boardsPhotosIsRefreshing: false,
-  boardsPhotosIsLoading: false,
-};
-
 const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
@@ -59,12 +41,6 @@ export default (state = INITIAL_STATE, action) => {
     //
     GET_OPEN_POST_COMMENTS_NEXT_PAGE,
     GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
-    //
-    GET_BOARDS_PHOTOS_NEXT_PAGE,
-    GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS,
-    //
-    REFRESH_BOARDS_PHOTOS,
-    REFRESH_BOARDS_PHOTOS_SUCCESS,
     //
     GET_POST_INFO,
     GET_POST_INFO_SUCCESS,
@@ -274,55 +250,6 @@ export default (state = INITIAL_STATE, action) => {
       };
     }
     //
-    case REFRESH_BOARDS_PHOTOS: {
-      const boardField = createBoardBadge(action.payload.boardID);
-      return {
-        ...state,
-        [boardField]: {
-          ...INITIAL_BOARDS_PHOTOS_STATE,
-          ...state[boardField],
-          boardsPhotosIsRefreshing: true,
-        },
-      };
-    }
-    case REFRESH_BOARDS_PHOTOS_SUCCESS: {
-      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
-      return {
-        ...state,
-        [boardField]: {
-          ...state[boardField],
-          boardsPhotos: action.payload.data.results,
-          boardsPhotosNextPage: 2,
-          boardsPhotosTotalPages: action.payload.data.total_pages,
-          boardsPhotosIsFirstFetch: false,
-          boardsPhotosIsRefreshing: false,
-        },
-      };
-    }
-    case GET_BOARDS_PHOTOS_NEXT_PAGE: {
-      const boardField = createBoardBadge(action.payload.boardID);
-      return {
-        ...state,
-        [boardField]: {
-          ...state[boardField],
-          boardsPhotosIsLoading: true,
-        },
-      };
-    }
-    case GET_BOARDS_PHOTOS_NEXT_PAGE_SUCCESS: {
-      const boardField = createBoardBadge(action.meta.previousAction.payload.boardID);
-      return {
-        ...state,
-        [boardField]: {
-          ...state[boardField],
-          boardsPhotos: state[boardField].boardsPhotos.concat(action.payload.data.results),
-          boardsPhotosNextPage: state[boardField].boardsPhotosNextPage + 1,
-          boardsPhotosTotalPages: action.payload.data.total_pages,
-          boardsPhotosIsLoading: false,
-        },
-      };
-    }
-    //
     case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
@@ -389,7 +316,6 @@ export const selectPosts = state => state.posts;
 
 const createUserField = username => username || 'me';
 const createPostBadge = postID => `post${postID}`;
-const createBoardBadge = boardID => `board${boardID}`;
 
 const checkUserProperty = (state, username) => _.has(selectPosts(state), createUserField(username));
 const getUserProperty = (state, username) => {
@@ -424,18 +350,3 @@ export const selectCommentsIsLoading = (state, postID) => getPostProperty(state,
 export const selectCommentsIsRefreshing = (state, postID) => getPostProperty(state, postID).commentsIsRefreshing;
 export const selectCommentsIsFirstFetch = (state, postID) => getPostProperty(state, postID).commentsIsFirstFetch;
 export const selectIsSendingComment = (state, postID) => getPostProperty(state, postID).isSendingComment;
-
-const checkBoardProperty = (state, boardID) => _.has(selectPosts(state), createBoardBadge(boardID));
-const getBoardProperty = (state, boardID) => {
-  const boardProperty = createBoardBadge(boardID);
-  if (checkBoardProperty(state, boardID)) {
-    return selectPosts(state)[boardProperty];
-  }
-  return INITIAL_BOARDS_PHOTOS_STATE;
-};
-export const selectBoardsPhotos = (state, boardID) => getBoardProperty(state, boardID).boardsPhotos;
-export const selectBoardsPhotosTotalPages = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosTotalPages;
-export const selectBoardsPhotosNextPage = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosNextPage;
-export const selectBoardsPhotosIsRefreshing = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosIsRefreshing;
-export const selectBoardsPhotosIsFirstFetch = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosIsFirstFetch;
-export const selectBoardsPhotosIsLoading = (state, boardID) => getBoardProperty(state, boardID).boardsPhotosIsLoading;

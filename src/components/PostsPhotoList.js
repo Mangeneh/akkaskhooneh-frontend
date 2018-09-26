@@ -7,8 +7,7 @@ import { withNavigation } from 'react-navigation';
 import {
   Colors, Graphics, Pages, Parameters,
 } from '../config';
-import { extractPostID, extractPostPictureUri } from '../helpers';
-import CustomStatusBar from './CustomStatusBar';
+import { extractPostID, extractPostPictureURI } from '../helpers';
 import Loading from './Loading';
 
 class PostsPhotoList extends Component {
@@ -51,7 +50,7 @@ class PostsPhotoList extends Component {
   }
 
   renderPostPhoto(item, index) {
-    const uri = extractPostPictureUri(item);
+    const uri = extractPostPictureURI(item);
     const postID = extractPostID(item);
     return (uri ? (
       <TouchableOpacity
