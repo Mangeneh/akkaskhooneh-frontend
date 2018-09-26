@@ -13,6 +13,7 @@ import { Actions as SignUpActions } from './pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './pages/signUpComplete/actions';
 import { Actions as SendTokenActions } from './pages/tokenPage/actions';
 import rootReducer from './reducers';
+import Reactotron from '../ReactotronConfig';
 
 export default () => {
   const client = axios.create({
@@ -29,7 +30,7 @@ export default () => {
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-  return createStore(
+  return Reactotron.createStore(
     persistedReducer,
     {},
     applyMiddleware(
