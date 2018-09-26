@@ -4,25 +4,17 @@ import {
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import {
-  addPostToBoard,
-  getUserPhotosNextPage,
-  refreshBoardsPhotos,
-  refreshUserBoards,
-  refreshUserPhotos,
-} from '../../actions';
+import { addPostToBoard } from '../../actions';
 import { AddPostToBoardHeader, CustomStatusBar, ProfilePageImageItem } from '../../components';
 import Loading from '../../components/Loading';
 import { Colors, Parameters, Strings } from '../../config';
 import { strings } from '../../i18n';
 import {
-  selectUserPhotos,
-  selectUserPhotosIsFirstFetch,
-  selectUserPhotosIsLoading,
-  selectUserPhotosIsRefreshing,
-  selectUserPhotosNextPage,
-  selectUserPhotosTotalPages,
-} from '../../reducers/posts';
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+} from '../../reducers/paginator';
+import { selectUsername } from '../../reducers/UsersReducer';
+import { createProfilePhotosURL } from '../../config/URLCreators';
 
 class AddPostToBoard extends Component {
   state = {
@@ -31,12 +23,12 @@ class AddPostToBoard extends Component {
   };
 
   componentWillMount() {
-    this.refreshPhotos();
+    this.refresh();
   }
 
   render() {
     const {
-      photosIsRefreshing, photos, photosIsFirstFetch, navigation,
+      isRefreshing, isFirstFetch, photos, navigation,
     } = this.props;
     return (
       <View style={{ flex: 1 }}>
@@ -49,20 +41,20 @@ class AddPostToBoard extends Component {
         }}
         >
           <CustomStatusBar />
-          {!photosIsFirstFetch
+          {!isFirstFetch
             ? (
               <FlatList
-                onRefresh={() => this.refreshPhotos()}
-                refreshing={photosIsRefreshing}
+                onRefresh={() => this.refresh()}
+                refreshing={isRefreshing}
                 onEndReached={() => this.updatePhotos()}
                 style={{
                   flex: 1,
                   marginTop: 8,
                 }}
                 numColumns={2}
-                keyExtractor={(item, index) => item.id}
+                keyExtractor={(item) => item.id}
                 data={photos}
-                renderItem={({ item, index }) => this.renderPhoto(item, index)}
+                renderItem={({ item }) => this.renderPhoto(item)}
               />
             ) : <Loading />}
           {this.renderButton()}
@@ -71,7 +63,7 @@ class AddPostToBoard extends Component {
     );
   }
 
-  renderPhoto(item, index) {
+  renderPhoto(item) {
     const isSelected = (item.id === this.state.selectedPostID);
     return (
       <View>
@@ -141,38 +133,29 @@ class AddPostToBoard extends Component {
     }
   }
 
-  refreshPhotos() {
+  refresh() {
     const {
-      refreshPhotos, photosIsLoading, photosIsRefreshing,
+      refresh, isLoading, isRefreshing,
     } = this.props;
-    if (!photosIsLoading && !photosIsRefreshing) {
-      refreshPhotos();
+    if (!isLoading && !isRefreshing) {
+      refresh();
     }
   }
 
   updatePhotos() {
     const {
-      photosNextPage, photosTotalPages, getPhotosNextPage, photosIsLoading, photosIsRefreshing,
+      nextPage, totalPages, loadMore, isLoading, isRefreshing,
     } = this.props;
-    if (photosNextPage <= photosTotalPages && !photosIsLoading && !photosIsRefreshing) {
-      getPhotosNextPage(photosNextPage);
+    if (nextPage <= totalPages && !isLoading && !isRefreshing) {
+      loadMore(nextPage);
     }
   }
 
   onAddPress() {
-    const {
-      addPostToBoard, navigation, refreshBoardsPhotos, refreshBoards,
-    } = this.props;
+    const { addPostToBoard, navigation } = this.props;
     addPostToBoard(this.state.selectedPostID)
-      .then((response) => {
-        refreshBoards();
-        refreshBoardsPhotos()
-          .then(response => navigation.goBack());
-      })
-      .catch((error) => {
-        refreshBoardsPhotos()
-          .then(response => navigation.goBack());
-      });
+      .then(response => navigation.goBack())
+      .catch(error => navigation.goBack());
   }
 }
 
@@ -186,23 +169,33 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  photos: selectUserPhotos(state),
-  photosNextPage: selectUserPhotosNextPage(state),
-  photosTotalPages: selectUserPhotosTotalPages(state),
-  photosIsRefreshing: selectUserPhotosIsRefreshing(state),
-  photosIsFirstFetch: selectUserPhotosIsFirstFetch(state),
-  photosIsLoading: selectUserPhotosIsLoading(state),
-});
+const mapStateToProps = (state) => {
+  const paginatorSelectors = generatePaginatorSelectors(state, 'photos_', selectUsername(state));
+  const {
+    selectData, selectNextPage, selectTotalPages,
+    selectIsFirstFetch, selectIsRefreshing, selectIsLoading,
+  } = paginatorSelectors;
+  return {
+    photos: selectData(),
+    nextPage: selectNextPage(),
+    totalPages: selectTotalPages(),
+    isFirstFetch: selectIsFirstFetch(),
+    isRefreshing: selectIsRefreshing(),
+    isLoading: selectIsLoading(),
+    selfUsername: selectUsername(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const boardID = ownProps.navigation.getParam(Parameters.BOARD_ID);
+  const { navigation } = ownProps;
+  const boardID = navigation.getParam(Parameters.BOARD_ID);
+  const selfUsername = navigation.getParam(Parameters.USERNAME);
+  const pagintorActionCreators = generatePaginatorActionCreators('photos_', selfUsername);
+  const { refresh, loadMore } = pagintorActionCreators;
   return {
-    getPhotosNextPage: photosNext => dispatch(getUserPhotosNextPage(photosNext)),
-    refreshPhotos: () => dispatch(refreshUserPhotos()),
-    refreshBoards: () => dispatch(refreshUserBoards()),
+    loadMore: nextPage => dispatch(loadMore(createProfilePhotosURL(selfUsername, nextPage))),
+    refresh: () => dispatch(refresh(createProfilePhotosURL(selfUsername))),
     addPostToBoard: postID => dispatch(addPostToBoard(postID, boardID)),
-    refreshBoardsPhotos: () => dispatch(refreshBoardsPhotos(boardID)),
   };
 };
 

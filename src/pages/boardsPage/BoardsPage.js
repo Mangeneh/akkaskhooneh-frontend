@@ -12,6 +12,7 @@ import { showFailiureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
 import { PhotoList } from '../../containers';
 import { createBoardPhotosURL } from '../../config/URLCreators';
+import { selectUsername } from '../../reducers/UsersReducer';
 
 class BoardsPage extends Component {
   render() {
@@ -26,7 +27,7 @@ class BoardsPage extends Component {
           onBackPress={() => navigation.goBack()}
           onDeletePress={() => this.confirmDeleteBoard()}
           onAddPress={() => this.addSelfPostsToBoard()}
-          isSelf={navigation.getParam('isSelf')}
+          isSelf={navigation.getParam(Parameters.IS_SELF)}
         />
         <Modal
           style={{
@@ -100,7 +101,12 @@ class BoardsPage extends Component {
   }
 
   addSelfPostsToBoard() {
-    this.props.navigation.navigate(Pages.ADD_POST_TO_BOARD, { [Parameters.BOARD_ID]: this.props.navigation.getParam(Parameters.BOARD).id });
+    const { navigation, selfUsername } = this.props;
+    navigation.navigate(Pages.ADD_POST_TO_BOARD,
+      {
+        [Parameters.BOARD_ID]: navigation.getParam(Parameters.BOARD).id,
+        [Parameters.USERNAME]: selfUsername,
+      });
   }
 }
 
@@ -120,6 +126,10 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = state => ({
+  selfUsername: selectUsername(state),
+});
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   const boardID = ownProps.navigation.getParam(Parameters.BOARD).id;
   return {
@@ -128,4 +138,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(BoardsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardsPage);

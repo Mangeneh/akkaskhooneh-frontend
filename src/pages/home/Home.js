@@ -73,7 +73,8 @@ class Home extends Component {
 
   renderContent() {
     const { posts, isFirstFetch } = this.props;
-    return (posts.length === 0 && !isFirstFetch ? this.renderNewUserFirstImpression() : this.renderFeed());
+    return (posts.length === 0 && !isFirstFetch
+      ? this.renderNewUserFirstImpression() : this.renderFeed());
   }
 
   renderFeed() {
@@ -89,12 +90,12 @@ class Home extends Component {
         }}
         keyExtractor={(item, index) => item.id.toString()}
         data={posts}
-        renderItem={({ item, index }) => this.renderPost(item, index)}
+        renderItem={({ item }) => this.renderPost(item)}
       />
     );
   }
 
-  renderPost(item, index) {
+  renderPost(item) {
     return (
       <Post
         postID={extractPostID(item)}
@@ -137,14 +138,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   const onRefreshSuccess = (dispatch, data) => dispatch(injectNewPosts(data));
   const pagintorActionCreators = generatePaginatorActionCreators('home', '', onRefreshSuccess, onRefreshSuccess);
   const { refresh, loadMore } = pagintorActionCreators;
-  const { nextPage } = ownProps;
   return {
     refresh: () => dispatch(refresh(createHomeURL())),
-    loadMore: () => dispatch(loadMore(createHomeURL(nextPage))),
+    loadMore: nextPage => dispatch(loadMore(createHomeURL(nextPage))),
     getPostInfo: postID => dispatch(getPostInfo(postID)),
     sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
   };

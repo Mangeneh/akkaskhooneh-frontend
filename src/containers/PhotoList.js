@@ -14,13 +14,17 @@ import Loading from '../components/Loading';
 
 const IMAGE_SIZE = (Dimensions.get('window').width - 24) / 2;
 
+// TODO: Add Empty Mode
+
 class PostsPhotoList extends Component {
   componentWillMount() {
     this.refresh();
   }
 
   render() {
-    const { photos, isRefreshing, isFirstFetch } = this.props;
+    const {
+      photos, isRefreshing, isFirstFetch, nextPage,
+    } = this.props;
     return (
       (!isFirstFetch
         ? (
@@ -123,14 +127,12 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const {
-    name, id, nextPage, createURL,
-  } = ownProps;
+  const { name, id, createURL } = ownProps;
   const pagintorActionCreators = generatePaginatorActionCreators(name, id);
   const { refresh, loadMore } = pagintorActionCreators;
   return {
     refresh: () => dispatch(refresh(createURL(id))),
-    loadMore: () => dispatch(loadMore(createURL(id, nextPage))),
+    loadMore: nextPage => dispatch(loadMore(createURL(id, nextPage))),
   };
 };
 

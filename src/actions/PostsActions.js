@@ -32,36 +32,6 @@ export const PostsActions = {
   GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL',
 };
 
-export const getUserPhotosNextPage = (photosNext, username) => {
-  const url = username ? `${Server.GET_USER_PHOTOS_NEXT_PAGE}${username}/?page=${photosNext}`
-    : `${Server.GET_USER_PHOTOS_NEXT_PAGE}?page=${photosNext}`;
-  return {
-    type: PostsActions.GET_USER_PHOTOS_NEXT_PAGE,
-    payload: {
-      request: {
-        method: RequestMethods.GET,
-        url,
-      },
-      username,
-    },
-  };
-};
-
-export const refreshUserPhotos = (username) => {
-  const url = username ? `${Server.GET_USER_PHOTOS_NEXT_PAGE}${username}/?page=1`
-    : `${Server.GET_USER_PHOTOS_NEXT_PAGE}?page=1`;
-  return {
-    type: PostsActions.REFRESH_USER_PHOTOS,
-    payload: {
-      request: {
-        method: RequestMethods.GET,
-        url,
-      },
-      username,
-    },
-  };
-};
-
 export const refreshComments = postID => ({
   type: PostsActions.REFRESH_OPEN_POST_COMMENTS,
   payload: {

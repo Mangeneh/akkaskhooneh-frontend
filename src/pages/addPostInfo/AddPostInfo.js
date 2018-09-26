@@ -16,7 +16,6 @@ import SendPostButton from '../../containers/SendPostButton';
 import { strings } from '../../i18n';
 import { normalize, sendPost } from './actions';
 import { selectMode } from './reducer';
-import { refreshUserPhotos } from '../../actions';
 
 class AddPostInfo extends Component {
   state = {
@@ -172,7 +171,6 @@ class AddPostInfo extends Component {
     this.props.sendPost(imageSource, caption, tags)
       .then((response) => {
         this.props.navigation.navigate(Pages.MAIN);
-        this.props.refreshUserPhotos();
       });
   }
 }
@@ -195,7 +193,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   sendPost: (imageSource, caption, tags) => dispatch(sendPost(imageSource, caption, tags)),
   normalize: () => dispatch(normalize()),
-  refreshUserPhotos: () => dispatch(refreshUserPhotos()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostInfo);
