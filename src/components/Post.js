@@ -166,21 +166,25 @@ class Post extends Component {
 
   renderPostPicture() {
     const { postInfo, margin, home } = this.props;
-    return (
-      <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={home ? 0.9 : 1}>
-        <CardItem cardBody>
-          <FastImage
-            source={{ uri: extractPostPictureUri(postInfo) }}
-            style={{
-              width: null,
-              height: WIDTH - 2 * margin,
-              flex: 1,
-            }}
-            resizeMode={PlatformSpecificResizeMode()}
-          />
-        </CardItem>
-      </TouchableOpacity>
-    );
+    if (extractPostPictureUri(postInfo)) {
+      return (
+        <TouchableOpacity onPress={() => this.showCompletePost()} activeOpacity={home ? 0.9 : 1}>
+          <CardItem cardBody>
+            <FastImage
+              source={{ uri: extractPostPictureUri(postInfo) }}
+              style={{
+                width: null,
+                height: WIDTH - 2 * margin,
+                flex: 1,
+              }}
+              resizeMode={PlatformSpecificResizeMode()}
+            />
+          </CardItem>
+        </TouchableOpacity>
+      );
+    }
+
+    return null;
   }
 
   renderCaption() {

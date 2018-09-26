@@ -16,15 +16,6 @@ const INITIAL_USER_PHOTOS_STATE = {
   userPhotosIsLoading: false,
 };
 
-const INITIAL_HOME_POSTS_STATE = {
-  homePosts: [],
-  homePostsNextPage: 1,
-  homePostsTotalPages: 1,
-  homePostsIsFirstFetch: true,
-  homePostsIsRefreshing: false,
-  homePostsIsLoading: false,
-};
-
 const INITIAL_OPEN_POST_STATE = {
   postInfo: {},
   postInfoIsFirstFetch: true,
@@ -56,9 +47,7 @@ const INITIAL_BOARDS_PHOTOS_STATE = {
   boardsPhotosIsLoading: false,
 };
 
-const INITIAL_STATE = {
-  home: INITIAL_HOME_POSTS_STATE,
-};
+const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
   const {
@@ -67,9 +56,6 @@ export default (state = INITIAL_STATE, action) => {
     //
     REFRESH_USER_PHOTOS,
     REFRESH_USER_PHOTOS_SUCCESS,
-    //
-    GET_HOME_POSTS_NEXT_PAGE,
-    GET_HOME_POSTS_NEXT_PAGE_SUCCESS,
     //
     GET_OPEN_POST_COMMENTS_NEXT_PAGE,
     GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
@@ -89,9 +75,6 @@ export default (state = INITIAL_STATE, action) => {
     //
     LIKE_OR_DISLIKE,
     //
-    REFRESH_HOME_POSTS,
-    REFRESH_HOME_POSTS_SUCCESS,
-    //
     REFRESH_OPEN_POST_COMMENTS,
     REFRESH_OPEN_POST_COMMENTS_SUCCESS,
     REFRESH_OPEN_POST_COMMENTS_FAIL,
@@ -101,8 +84,16 @@ export default (state = INITIAL_STATE, action) => {
     //
     GET_TAGS_PHOTOS_NEXT_PAGE,
     GET_TAGS_PHOTOS_NEXT_PAGE_SUCCESS,
+    //
+    INJECT_NEW_POSTS,
   } = PostsActions;
   switch (action.type) {
+    case INJECT_NEW_POSTS: {
+      return {
+        ...state,
+        ...injectNewPosts(action.payload, state),
+      };
+    }
     case REFRESH_USER_PHOTOS: {
       const userField = createUserField(action.payload.username);
       return {
@@ -151,48 +142,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    //
-    case REFRESH_HOME_POSTS:
-      return {
-        ...state,
-        home: {
-          ...state.home,
-          homePostsIsRefreshing: true,
-        },
-      };
-    case REFRESH_HOME_POSTS_SUCCESS:
-      return {
-        ...state,
-        home: {
-          ...state.home,
-          homePosts: action.payload.data.results,
-          homePostsNextPage: 2,
-          homePostsTotalPages: action.payload.data.total_pages,
-          homePostsIsFirstFetch: false,
-          homePostsIsRefreshing: false,
-        },
-        ...injectNewPosts(action.payload.data.results, state),
-      };
-    case GET_HOME_POSTS_NEXT_PAGE:
-      return {
-        ...state,
-        home: {
-          ...state.home,
-          homePostsIsLoading: true,
-        },
-      };
-    case GET_HOME_POSTS_NEXT_PAGE_SUCCESS:
-      return {
-        ...state,
-        home: {
-          ...state.home,
-          homePosts: state.home.homePosts.concat(action.payload.data.results),
-          homePostsNextPage: state.home.homePostsNextPage + 1,
-          homePostsTotalPages: action.payload.data.total_pages,
-          homePostsIsLoading: false,
-        },
-        ...injectNewPosts(action.payload.data.results, state),
-      };
     //
     case GET_POST_INFO: {
       const postField = createPostBadge(action.payload.postID);
@@ -439,7 +388,8 @@ export default (state = INITIAL_STATE, action) => {
 const injectNewPosts = (newPosts, state) => {
   if (newPosts.length === 0) {
     return {};
-  } if (newPosts.length === 1) {
+  }
+  if (newPosts.length === 1) {
     const postField = createPostBadge(extractPostID(newPosts[0]));
     return {
       [postField]: {

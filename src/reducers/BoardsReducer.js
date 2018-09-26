@@ -21,7 +21,6 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_USER_BOARDS_SUCCESS,
     //
   } = BoardsActions;
-  console.log(state);
   switch (action.type) {
     case REFRESH_USER_BOARDS: {
       const userField = createUserBadge(action.payload.username);

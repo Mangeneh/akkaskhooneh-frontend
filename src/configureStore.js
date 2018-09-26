@@ -4,6 +4,7 @@ import axiosMiddleware from 'redux-axios-middleware';
 import { persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
 import { Actions as GetNewPassword } from './pages/getNewPassword/actions';
 import { selectAccessToken, selectRefreshToken } from './reducers/UsersReducer';
 import { accessTokenUpdated } from './actions/UsersActions';
@@ -32,6 +33,7 @@ export default () => {
     persistedReducer,
     {},
     applyMiddleware(
+      thunk,
       axiosMiddleware(client, {
         interceptors: {
           request: [

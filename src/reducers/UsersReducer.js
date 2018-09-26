@@ -44,8 +44,6 @@ export default (state = INITIAL_STATE, action) => {
     REFRESH_FOLLOWINGS_FAIL, REFRESH_FOLLOWERS, REFRESH_FOLLOWERS_SUCCESS, REFRESH_FOLLOWINGS, REFRESH_FOLLOWINGS_SUCCESS,
     FOLLOW_REQUEST, UN_FOLLOW_REQUEST, DELETE_FOLLOW_REQUEST,
   } = UsersActions;
-  console.log(state);
-  console.log(action);
   switch (action.type) {
     case UPDATE_USER_INFO: {
       const { username } = action.payload;

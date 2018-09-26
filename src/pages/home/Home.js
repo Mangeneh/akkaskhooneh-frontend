@@ -1,30 +1,23 @@
 import LottieView from 'lottie-react-native';
-import { Button, Icon, Text } from 'native-base';
+import { Icon, Text } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
-import {
-  getHomePostsNextPage,
-  getPostInfo,
-  refreshHomePosts,
-  sendLikeOrDislike,
-} from '../../actions';
+import { getPostInfo, injectNewPosts, sendLikeOrDislike } from '../../actions';
 import { HomeHeader } from '../../components';
 import Post from '../../components/Post';
 import {
-  Colors, Constants, Graphics, Pages, Strings,
+  Colors, Constants, Pages, Strings,
 } from '../../config';
 import { extractPostID } from '../../helpers';
 import { strings } from '../../i18n';
 import NavigationService from '../../NavigationService';
 import {
-  selectHomePosts,
-  selectHomePostsIsFirstFetch,
-  selectHomePostsIsLoading,
-  selectHomePostsIsRefreshing,
-  selectHomePostsNextPage,
-  selectHomePostsTotalPages,
-} from '../../reducers/posts';
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+  PagintorActions,
+} from '../../reducers/paginator';
+import { createHomeURL } from '../../config/URLCreators';
 
 class Home extends Component {
   componentWillMount() {
@@ -61,7 +54,10 @@ class Home extends Component {
         </Text>
         <TouchableOpacity
           onPress={() => this.refreshPosts()}
-          style={{ alignSelf: 'center', zIndex: 10 }}
+          style={{
+            alignSelf: 'center',
+            zIndex: 10,
+          }}
         >
           <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
         </TouchableOpacity>
@@ -76,20 +72,16 @@ class Home extends Component {
   }
 
   renderContent() {
-    const {
-      posts, postsIsFirstFetch,
-    } = this.props;
-    return (posts.length === 0 && !postsIsFirstFetch ? this.renderNewUserFirstImpression() : this.renderFeed());
+    const { posts, isFirstFetch } = this.props;
+    return (posts.length === 0 && !isFirstFetch ? this.renderNewUserFirstImpression() : this.renderFeed());
   }
 
   renderFeed() {
-    const {
-      refreshHomePosts, postsIsRefreshing, posts,
-    } = this.props;
+    const { refresh, isRefreshing, posts } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshHomePosts()}
-        refreshing={postsIsRefreshing}
+        onRefresh={() => refresh()}
+        refreshing={isRefreshing}
         onEndReached={() => this.updatePosts()}
         style={{
           width: '100%',
@@ -114,37 +106,48 @@ class Home extends Component {
 
   updatePosts() {
     const {
-      postsNextPage, postsTotalPages, postsIsLoading, postsIsRefreshing, getPostsNextPage,
+      nextPage, totalPages, isLoading, isRefreshing, loadMore,
     } = this.props;
-    if (postsNextPage <= postsTotalPages && !postsIsLoading && !postsIsRefreshing) {
-      getPostsNextPage(postsNextPage);
+    if (nextPage <= totalPages && !isLoading && !isRefreshing) {
+      loadMore(nextPage);
     }
   }
 
   refreshPosts() {
-    const {
-      refreshHomePosts, postsIsLoading, postsIsRefreshing,
-    } = this.props;
-    if (!postsIsLoading && !postsIsRefreshing) {
-      refreshHomePosts();
+    const { refresh, isLoading, isRefreshing } = this.props;
+    if (!isLoading && !isRefreshing) {
+      refresh();
     }
   }
 }
 
-const mapStateToProps = state => ({
-  posts: selectHomePosts(state),
-  postsNextPage: selectHomePostsNextPage(state),
-  postsTotalPages: selectHomePostsTotalPages(state),
-  postsIsRefreshing: selectHomePostsIsRefreshing(state),
-  postsIsFirstFetch: selectHomePostsIsFirstFetch(state),
-  postsIsLoading: selectHomePostsIsLoading(state),
-});
+const mapStateToProps = (state) => {
+  const paginatorSelectors = generatePaginatorSelectors(state, 'home', '');
+  const {
+    selectData, selectNextPage, selectTotalPages,
+    selectIsFirstFetch, selectIsRefreshing, selectIsLoading,
+  } = paginatorSelectors;
+  return {
+    posts: selectData(state),
+    nextPage: selectNextPage(state),
+    totalPages: selectTotalPages(state),
+    isFirstFetch: selectIsFirstFetch(state),
+    isRefreshing: selectIsRefreshing(state),
+    isLoading: selectIsLoading(state),
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  refreshHomePosts: () => dispatch(refreshHomePosts()),
-  getPostsNextPage: postsNext => dispatch(getHomePostsNextPage(postsNext)),
-  getPostInfo: postID => dispatch(getPostInfo(postID)),
-  sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const onRefreshSuccess = (dispatch, data) => dispatch(injectNewPosts(data));
+  const pagintorActionCreators = generatePaginatorActionCreators('home', '', onRefreshSuccess, onRefreshSuccess);
+  const { refresh, loadMore } = pagintorActionCreators;
+  const { nextPage } = ownProps;
+  return {
+    refresh: () => dispatch(refresh(createHomeURL(PagintorActions.REFRESH))),
+    loadMore: () => dispatch(loadMore(createHomeURL(PagintorActions.LOAD_MORE, nextPage))),
+    getPostInfo: postID => dispatch(getPostInfo(postID)),
+    sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -14,11 +14,13 @@ import UsersReducer from './UsersReducer';
 import GetNewPasswordReducer from '../pages/getNewPassword/reducer';
 import SendTokenReducer from '../pages/tokenPage/reducer';
 import posts from './posts';
+import pagination from './pagination';
 
 export default combineReducers({
   loginPage: LoginPageReducer,
   users: UsersReducer,
   posts,
+  pagination,
   boards: BoardsReducer,
   signUpPage: SignUpPageReducer,
   signUpCompletePage: SignUpCompletePageReducer,

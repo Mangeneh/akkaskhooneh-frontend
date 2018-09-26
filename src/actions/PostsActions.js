@@ -1,6 +1,8 @@
 import { RequestMethods, Server } from '../config';
 
 export const PostsActions = {
+  INJECT_NEW_POSTS: 'INJECT_NEW_POSTS',
+  //
   GET_USER_PHOTOS_NEXT_PAGE: 'GET_USER_PHOTOS_NEXT_PAGE',
   GET_USER_PHOTOS_NEXT_PAGE_SUCCESS: 'GET_USER_PHOTOS_NEXT_PAGE_SUCCESS',
   GET_USER_PHOTOS_NEXT_PAGE_FAIL: 'GET_USER_PHOTOS_NEXT_PAGE_FAIL',
@@ -8,10 +10,6 @@ export const PostsActions = {
   REFRESH_USER_PHOTOS: 'REFRESH_USER_PHOTOS',
   REFRESH_USER_PHOTOS_SUCCESS: 'REFRESH_USER_PHOTOS_SUCCESS',
   REFRESH_USER_PHOTOS_FAIL: 'REFRESH_USER_PHOTOS_FAIL',
-  //
-  GET_HOME_POSTS_NEXT_PAGE: 'GET_HOME_POSTS_NEXT_PAGE',
-  GET_HOME_POSTS_NEXT_PAGE_SUCCESS: 'GET_HOME_POSTS_NEXT_PAGE_SUCCESS',
-  GET_HOME_POSTS_NEXT_PAGE_FAIL: 'GET_HOME_POSTS_NEXT_PAGE_FAIL',
   //
   CHOOSE_POST: 'CHOOSE_POST',
   //
@@ -26,10 +24,6 @@ export const PostsActions = {
   COMMENT: 'COMMENT',
   COMMENT_SUCCESS: 'COMMENT_SUCCESS',
   COMMENT_FAIL: 'COMMENT_FAIL',
-  //
-  REFRESH_HOME_POSTS: 'REFRESH_HOME_POSTS',
-  REFRESH_HOME_POSTS_SUCCESS: 'REFRESH_HOME_POSTS_SUCCESS',
-  REFRESH_HOME_POSTS_FAIL: 'REFRESH_HOME_POSTS_FAIL',
   //
   REFRESH_OPEN_POST_COMMENTS: 'REFRESH_OPEN_POST_COMMENTS',
   REFRESH_OPEN_POST_COMMENTS_SUCCESS: 'REFRESH_OPEN_POST_COMMENTS_SUCCESS',
@@ -94,26 +88,6 @@ export const refreshComments = postID => ({
       url: `${Server.GET_COMMENTS_LIST}${postID}/?page=1`,
     },
     postID,
-  },
-});
-
-export const refreshHomePosts = () => ({
-  type: PostsActions.REFRESH_HOME_POSTS,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_HOME_POSTS_NEXT_PAGE}1`,
-    },
-  },
-});
-
-export const getHomePostsNextPage = postsNext => ({
-  type: PostsActions.GET_HOME_POSTS_NEXT_PAGE,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_HOME_POSTS_NEXT_PAGE}${postsNext}`,
-    },
   },
 });
 
@@ -211,4 +185,9 @@ export const sendComment = (postID, commentText) => ({
     },
     postID,
   },
+});
+
+export const injectNewPosts = newPosts => ({
+  type: PostsActions.INJECT_NEW_POSTS,
+  payload: newPosts,
 });

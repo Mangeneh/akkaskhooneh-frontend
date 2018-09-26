@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   deleteFollowRequest,
   followRequest,
-  refreshHomePosts,
   refreshUserBoards,
   unFollowRequest,
 } from '../actions';
@@ -57,21 +56,19 @@ class FollowButton extends Component {
 
   onPress() {
     const {
-      followStatus, followRequest, unFollowRequest, deleteFollowRequest, refreshHomePosts, refreshUserBoards,
+      followStatus, followRequest, unFollowRequest, deleteFollowRequest, refreshUserBoards,
     } = this.props;
     const followMode = extractFollowMode(followStatus);
     switch (followMode) {
       case FollowModes.FOLLOWED:
         unFollowRequest()
           .then((response) => {
-            refreshHomePosts();
             refreshUserBoards();
           });
         break;
       case FollowModes.NOT_FOLLOWED:
         followRequest()
           .then((response) => {
-            refreshHomePosts();
             refreshUserBoards();
           });
         break;
@@ -130,7 +127,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     followRequest: () => dispatch(followRequest(username)),
     unFollowRequest: () => dispatch(unFollowRequest(username)),
     deleteFollowRequest: () => dispatch(deleteFollowRequest(username)),
-    refreshHomePosts: () => dispatch(refreshHomePosts()),
     refreshUserBoards: () => dispatch(refreshUserBoards()),
   };
 };
