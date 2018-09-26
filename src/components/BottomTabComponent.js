@@ -7,16 +7,6 @@ import { connect } from 'react-redux';
 import { Colors } from '../config';
 import { Pages } from '../config/Pages';
 import NavigationService from '../NavigationService';
-import {
-  selectNotificationsIsLoading,
-  selectNotificationsIsRefreshing,
-} from '../pages/notification/reducer';
-import {
-  selectSearchTopTagsIsLoading,
-  selectSearchTopTagsIsRefreshing,
-} from '../pages/search/reducer';
-import { selectUserBoardsIsLoading, selectUserBoardsIsRefreshing } from '../reducers/BoardsReducer';
-import { selectUserPhotosIsLoading, selectUserPhotosIsRefreshing } from '../reducers/posts';
 import CustomStatusBar from './CustomStatusBar';
 
 class BottomTabComponent extends Component {
@@ -89,17 +79,10 @@ class BottomTabComponent extends Component {
   }
 }
 
+// TODO: Complete This
+
 const mapStateToProps = state => ({
-  isLoading: selectUserBoardsIsLoading(state)
-    || selectUserBoardsIsRefreshing(state)
-    || selectUserPhotosIsLoading(state)
-    || selectUserPhotosIsRefreshing(state)
-    // || selectHomePostsIsLoading(state)
-    // || selectHomePostsIsRefreshing(state)
-    || selectSearchTopTagsIsLoading(state)
-    || selectSearchTopTagsIsRefreshing(state)
-    || selectNotificationsIsLoading(state)
-    || selectNotificationsIsRefreshing(state),
+  isLoading: false,
 });
 
 export default connect(mapStateToProps, null)(BottomTabComponent);

@@ -7,15 +7,6 @@ import {
   extractPostID,
 } from '../helpers';
 
-const INITIAL_USER_PHOTOS_STATE = {
-  userPhotos: [],
-  userPhotosNextPage: 1,
-  userPhotosTotalPages: 1,
-  userPhotosIsFirstFetch: true,
-  userPhotosIsRefreshing: false,
-  userPhotosIsLoading: false,
-};
-
 const INITIAL_OPEN_POST_STATE = {
   postInfo: {},
   postInfoIsFirstFetch: true,
@@ -33,12 +24,6 @@ const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
   const {
-    GET_USER_PHOTOS_NEXT_PAGE,
-    GET_USER_PHOTOS_NEXT_PAGE_SUCCESS,
-    //
-    REFRESH_USER_PHOTOS,
-    REFRESH_USER_PHOTOS_SUCCESS,
-    //
     GET_OPEN_POST_COMMENTS_NEXT_PAGE,
     GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
     //
@@ -62,54 +47,6 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ...injectNewPosts(action.payload, state),
-      };
-    }
-    case REFRESH_USER_PHOTOS: {
-      const userField = createUserField(action.payload.username);
-      return {
-        ...state,
-        [userField]: {
-          ...INITIAL_USER_PHOTOS_STATE,
-          ...state[userField],
-          userPhotosIsRefreshing: true,
-        },
-      };
-    }
-    case REFRESH_USER_PHOTOS_SUCCESS: {
-      const usernameField = createUserField(action.meta.previousAction.payload.username);
-      return {
-        ...state,
-        [usernameField]: {
-          ...state[usernameField],
-          userPhotos: action.payload.data.results,
-          userPhotosNextPage: 2,
-          userPhotosTotalPages: action.payload.data.total_pages,
-          userPhotosIsFirstFetch: false,
-          userPhotosIsRefreshing: false,
-        },
-      };
-    }
-    case GET_USER_PHOTOS_NEXT_PAGE: {
-      const usernameField = createUserField(action.payload.username);
-      return {
-        ...state,
-        [usernameField]: {
-          ...state[usernameField],
-          userPhotosIsLoading: true,
-        },
-      };
-    }
-    case GET_USER_PHOTOS_NEXT_PAGE_SUCCESS: {
-      const usernameField = createUserField(action.meta.previousAction.payload.username);
-      return {
-        ...state,
-        [usernameField]: {
-          ...state[usernameField],
-          userPhotos: state[usernameField].userPhotos.concat(action.payload.data.results),
-          userPhotosNextPage: state[usernameField].userPhotosNextPage + 1,
-          userPhotosTotalPages: action.payload.data.total_pages,
-          userPhotosIsLoading: false,
-        },
       };
     }
     //
@@ -314,23 +251,7 @@ const injectNewPosts = (newPosts, state) => {
 
 export const selectPosts = state => state.posts;
 
-const createUserField = username => username || 'me';
 const createPostBadge = postID => `post${postID}`;
-
-const checkUserProperty = (state, username) => _.has(selectPosts(state), createUserField(username));
-const getUserProperty = (state, username) => {
-  const userProperty = createUserField(username);
-  if (checkUserProperty(state, username)) {
-    return selectPosts(state)[userProperty];
-  }
-  return INITIAL_USER_PHOTOS_STATE;
-};
-export const selectUserPhotos = (state, username) => getUserProperty(state, username).userPhotos;
-export const selectUserPhotosNextPage = (state, username) => getUserProperty(state, username).userPhotosNextPage;
-export const selectUserPhotosTotalPages = (state, username) => getUserProperty(state, username).userPhotosTotalPages;
-export const selectUserPhotosIsFirstFetch = (state, username) => getUserProperty(state, username).userPhotosIsFirstFetch;
-export const selectUserPhotosIsRefreshing = (state, username) => getUserProperty(state, username).userPhotosIsRefreshing;
-export const selectUserPhotosIsLoading = (state, username) => getUserProperty(state, username).userPhotosIsLoading;
 
 const checkPostProperty = (state, postID) => _.has(selectPosts(state), createPostBadge(postID));
 const getPostProperty = (state, postID) => {
