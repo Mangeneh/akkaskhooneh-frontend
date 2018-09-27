@@ -14,7 +14,7 @@ import {
   generatePaginatorSelectors,
 } from '../../reducers/paginator';
 import { selectUsername } from '../../reducers/UsersReducer';
-import { createProfilePhotosURL } from '../../config/URLCreators';
+import { createUserPhotosURL } from '../../config/URLCreators';
 
 class AddPostToBoard extends Component {
   state = {
@@ -193,8 +193,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const pagintorActionCreators = generatePaginatorActionCreators('photos_', selfUsername);
   const { refresh, loadMore } = pagintorActionCreators;
   return {
-    loadMore: nextPage => dispatch(loadMore(createProfilePhotosURL(selfUsername, nextPage))),
-    refresh: () => dispatch(refresh(createProfilePhotosURL(selfUsername))),
+    loadMore: nextPage => dispatch(loadMore(createUserPhotosURL(selfUsername, nextPage))),
+    refresh: () => dispatch(refresh(createUserPhotosURL(selfUsername))),
     addPostToBoard: postID => dispatch(addPostToBoard(postID, boardID)),
   };
 };

@@ -17,7 +17,7 @@ import {
   generatePaginatorSelectors,
   PagintorActions,
 } from '../../reducers/paginator';
-import { createHomeURL } from '../../config/URLCreators';
+import { createHomePostsURL } from '../../config/URLCreators';
 
 class Home extends Component {
   componentWillMount() {
@@ -123,7 +123,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const paginatorSelectors = generatePaginatorSelectors(state, 'home', '');
+  const paginatorSelectors = generatePaginatorSelectors(state, 'home_posts', '');
   const {
     selectData, selectNextPage, selectTotalPages,
     selectIsFirstFetch, selectIsRefreshing, selectIsLoading,
@@ -140,11 +140,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   const onRefreshSuccess = (dispatch, data) => dispatch(injectNewPosts(data));
-  const pagintorActionCreators = generatePaginatorActionCreators('home', '', onRefreshSuccess, onRefreshSuccess);
+  const pagintorActionCreators = generatePaginatorActionCreators('home_posts', '', onRefreshSuccess, onRefreshSuccess);
   const { refresh, loadMore } = pagintorActionCreators;
   return {
-    refresh: () => dispatch(refresh(createHomeURL())),
-    loadMore: nextPage => dispatch(loadMore(createHomeURL(nextPage))),
+    refresh: () => dispatch(refresh(createHomePostsURL())),
+    loadMore: nextPage => dispatch(loadMore(createHomePostsURL(nextPage))),
     getPostInfo: postID => dispatch(getPostInfo(postID)),
     sendLikeOrDislike: postID => dispatch(sendLikeOrDislike(postID)),
   };

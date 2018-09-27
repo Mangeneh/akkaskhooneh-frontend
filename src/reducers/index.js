@@ -9,7 +9,6 @@ import SearchPageReducer from '../pages/search/reducer';
 import SearchUserOrTagReducer from '../pages/searchUserOrTag/reducer';
 import SignUpPageReducer from '../pages/signUp/reducer';
 import SignUpCompletePageReducer from '../pages/signUpComplete/reducer';
-import BoardsReducer from './BoardsReducer';
 import UsersReducer from './UsersReducer';
 import GetNewPasswordReducer from '../pages/getNewPassword/reducer';
 import SendTokenReducer from '../pages/tokenPage/reducer';
@@ -21,7 +20,6 @@ export default combineReducers({
   users: UsersReducer,
   posts,
   pagination,
-  boards: BoardsReducer,
   signUpPage: SignUpPageReducer,
   signUpCompletePage: SignUpCompletePageReducer,
   profileEditPage: ProfileEditPageReducer,

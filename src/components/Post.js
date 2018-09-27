@@ -9,13 +9,7 @@ import FastImage from 'react-native-fast-image';
 import Modal from 'react-native-modalbox';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import {
-  addPostToBoard,
-  createBoard,
-  getUserBoardsNextPage,
-  refreshUserBoards,
-  sendLikeOrDislike,
-} from '../actions';
+import { addPostToBoard, createBoard, sendLikeOrDislike } from '../actions';
 import {
   Colors, Graphics, Pages, Parameters, Strings,
 } from '../config';
@@ -234,9 +228,8 @@ class Post extends Component {
   }
 
   showSaveModal() {
-    const { refreshSelfBoards } = this.props;
-    refreshSelfBoards()
-      .then(response => this.refs.saveModal.open());
+    // TODO: Refresh Boards
+    this.refs.saveModal.open();
   }
 
   showMoreModal() {
@@ -276,14 +269,14 @@ class Post extends Component {
   }
 
   addNewPostToBoard(boardID) {
-    const { addPostToBoard, refreshSelfBoards } = this.props;
+    const { addPostToBoard } = this.props;
     addPostToBoard(boardID)
       .then((response) => {
       })
       .catch((error) => {
       });
     this.refs.saveModal.close();
-    refreshSelfBoards();
+    // TODO: Refresh Boards
   }
 
   showProfile() {
@@ -335,9 +328,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const { postID } = ownProps;
   return {
     sendLikeOrDislike: () => dispatch(sendLikeOrDislike(postID)),
-    getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
     addPostToBoard: boardID => dispatch(addPostToBoard(postID, boardID)),
-    refreshSelfBoards: () => dispatch(refreshUserBoards()),
     createBoard: newBoardName => dispatch(createBoard(newBoardName)),
   };
 };

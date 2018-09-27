@@ -13,7 +13,7 @@ const TagsPhotos = ({ navigation }) => {
       <CustomStatusBar />
       <BackHeader title={tagName} onBackPress={() => navigation.goBack()} />
       <PhotoList
-        name="tag"
+        name="tag_photos_"
         id={tagID}
         createURL={createTagPhotosURL}
       />

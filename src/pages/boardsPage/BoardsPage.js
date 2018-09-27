@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
-import { deleteBoard, refreshUserBoards } from '../../actions';
+import { deleteBoard } from '../../actions';
 import { BoardsPageHeader, CustomStatusBar } from '../../components';
 import {
   Colors, Pages, Parameters, Strings,
@@ -75,7 +75,7 @@ class BoardsPage extends Component {
           </View>
         </Modal>
         <PhotoList
-          name="board"
+          name="board_photos_"
           id={boardID}
           createURL={createBoardPhotosURL}
         />
@@ -88,10 +88,9 @@ class BoardsPage extends Component {
   }
 
   deleteBoard() {
-    const { navigation, deleteBoard, refreshBoards } = this.props;
+    const { navigation, deleteBoard } = this.props;
     deleteBoard()
       .then((response) => {
-        refreshBoards();
         showSuccessToast(strings(Strings.DELETE_BOARD_SUCCESS));
         navigation.goBack();
       })
@@ -134,7 +133,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const boardID = ownProps.navigation.getParam(Parameters.BOARD).id;
   return {
     deleteBoard: () => dispatch(deleteBoard(boardID)),
-    refreshBoards: () => dispatch(refreshUserBoards()),
   };
 };
 

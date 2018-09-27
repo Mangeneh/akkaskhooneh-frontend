@@ -1,37 +1,26 @@
 import LottieView from 'lottie-react-native';
-import {
-  Container, Icon, Tab, Tabs, Text,
-} from 'native-base';
+import { Container, Tab, Tabs } from 'native-base';
 import React, { Component } from 'react';
-import {
-  ActivityIndicator, FlatList, TouchableOpacity, View,
-} from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { getUserBoardsNextPage, refreshUserBoards, updateUser } from '../../actions';
-import { Board, ProfileHeader } from '../../components';
+import { updateUser } from '../../actions';
+import { ProfileHeader } from '../../components';
 import FollowButton from '../../components/FollowButton';
 import Loading from '../../components/Loading';
 import {
-  Colors, Constants, FollowModes, Pages, Parameters, Strings,
+  Colors, FollowModes, Pages, Parameters, Strings,
 } from '../../config';
 import { PhotoList, ProfileInfo } from '../../containers';
 import { extractFollowMode } from '../../helpers';
 import { strings } from '../../i18n';
-import {
-  selectUserBoards,
-  selectUserBoardsIsFirstFetch,
-  selectUserBoardsIsLoading,
-  selectUserBoardsIsRefreshing,
-  selectUserBoardsNextPage,
-  selectUserBoardsTotalPages,
-} from '../../reducers/BoardsReducer';
 import {
   selectProfileFollowStatus,
   selectProfileIsPrivate,
   selectUserInfoIsFirstFetch,
   selectUsername,
 } from '../../reducers/UsersReducer';
-import { createProfilePhotosURL } from '../../config/URLCreators';
+import { createUserPhotosURL } from '../../config/URLCreators';
+import BoardList from '../../containers/BoardList';
 
 class Profile extends Component {
   componentWillMount() {
@@ -39,7 +28,7 @@ class Profile extends Component {
     updateUser()
       .then((response) => {
         if (isAccessible) {
-          this.refreshBoards();
+
         }
       });
   }
@@ -122,7 +111,7 @@ class Profile extends Component {
           tabStyle={{ backgroundColor: 'white' }}
           activeTabStyle={{ backgroundColor: 'white' }}
         >
-          {this.props.boards.length === 0 && !this.props.boardsIsFirstFetch ? this.showBoardsEmpty() : this.renderBoardsList()}
+          {this.renderBoardList()}
         </Tab>
         <Tab
           heading={strings(Strings.PHOTOS)}
@@ -143,57 +132,13 @@ class Profile extends Component {
     );
   }
 
-  renderBoardsList() {
-    const {
-      boardsIsRefreshing, boardsIsFirstFetch, boards,
-    } = this.props;
+  renderBoardList() {
+    const { navigation, selfUsername } = this.props;
     return (
-      <View>
-        {(boardsIsFirstFetch) ? (<ActivityIndicator size="large" />) : (
-          <FlatList
-            onRefresh={() => this.refreshBoards()}
-            refreshing={boardsIsRefreshing}
-            onEndReached={() => this.updateBoards()}
-            style={{
-              width: '100%',
-              marginTop: 8,
-            }}
-            keyExtractor={(item) => item.id.toString()}
-            data={boards}
-            renderItem={({ item }) => this.renderBoard(item)}
-          />
-        )}
-      </View>
-    );
-  }
-
-  showBoardsEmpty() {
-    return (
-      <View style={{
-        alignSelf: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        flexDirection: 'column',
-      }}
-      >
-        <View>
-          <Text style={{
-            color: Colors.ICON,
-            fontSize: Constants.TEXT_NORMAL_SIZE,
-          }}
-          >
-            {strings(Strings.NO_BOARDS_YET)}
-          </Text>
-        </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => this.refreshBoards()}
-            style={{ alignSelf: 'center' }}
-          >
-            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: Colors.ICON }} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <BoardList
+        username={this.isSelfProfile() ? selfUsername : navigation.getParam(Parameters.USERNAME)}
+        isSelfProfile={this.isSelfProfile()}
+      />
     );
   }
 
@@ -201,36 +146,11 @@ class Profile extends Component {
     const { navigation, selfUsername } = this.props;
     return (
       <PhotoList
-        name="photos_"
+        name="user_photos_"
         id={this.isSelfProfile() ? selfUsername : navigation.getParam(Parameters.USERNAME)}
-        createURL={createProfilePhotosURL}
+        createURL={createUserPhotosURL}
       />
     );
-  }
-
-  renderBoard(item) {
-    return (
-      <Board board={item} onAllPress={() => this.showBoardDetails(item)} />
-    );
-  }
-
-  refreshBoards() {
-    const {
-      refreshBoards, boardsIsLoading, boardsIsRefreshing, updateUser,
-    } = this.props;
-    if (!boardsIsLoading && !boardsIsRefreshing) {
-      refreshBoards();
-      updateUser();
-    }
-  }
-
-  updateBoards() {
-    const {
-      boardsNextPage, getBoardsNextPage, boardsTotalPages, boardsIsLoading, boardsIsRefreshing,
-    } = this.props;
-    if (boardsNextPage <= boardsTotalPages && !boardsIsLoading && !boardsIsRefreshing) {
-      getBoardsNextPage(boardsNextPage);
-    }
   }
 
   onEditPress() {
@@ -239,13 +159,6 @@ class Profile extends Component {
 
   onSettingsPress() {
     this.props.navigation.navigate(Pages.PROFILE_SETTINGS);
-  }
-
-  showBoardDetails(item) {
-    this.props.navigation.push(Pages.BOARDS_PAGE, {
-      [Parameters.BOARD]: item,
-      [Parameters.IS_SELF]: this.isSelfProfile(),
-    });
   }
 
   isSelfProfile() {
@@ -269,12 +182,6 @@ const mapStateToProps = (state, ownProps) => {
     followingStatus: selectProfileFollowStatus(state, username),
     userInfoIsFirstFetch: selectUserInfoIsFirstFetch(state, username),
     selfUsername: selectUsername(state),
-    boards: selectUserBoards(state, username),
-    boardsNextPage: selectUserBoardsNextPage(state, username),
-    boardsTotalPages: selectUserBoardsTotalPages(state, username),
-    boardsIsFirstFetch: selectUserBoardsIsFirstFetch(state, username),
-    boardsIsRefreshing: selectUserBoardsIsRefreshing(state, username),
-    boardsIsLoading: selectUserBoardsIsLoading(state, username),
   };
 };
 
@@ -282,8 +189,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const username = ownProps.navigation.getParam(Parameters.USERNAME);
   return {
     updateUser: () => dispatch(updateUser(username)),
-    refreshBoards: () => dispatch(refreshUserBoards(username)),
-    getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext, username)),
   };
 };
 

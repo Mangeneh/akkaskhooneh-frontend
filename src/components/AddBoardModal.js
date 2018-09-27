@@ -3,27 +3,31 @@ import {
 } from 'native-base';
 import React, { Component } from 'react';
 import {
-  ActivityIndicator, FlatList, StyleSheet, TouchableOpacity, View,
+  FlatList, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { getUserBoardsNextPage } from '../actions';
 import { Colors, Constants, Strings } from '../config';
 import { strings } from '../i18n';
 import {
-  selectUserBoards,
-  selectUserBoardsIsLoading,
-  selectUserBoardsNextPage,
-  selectUserBoardsTotalPages,
-} from '../reducers/BoardsReducer';
+  generateSelfBoardsSelectors,
+  loadMoreSelfBoardsThunk,
+  refreshSelfBoardsThunk,
+} from '../common';
+import Loading from './Loading';
+
+// TODO: Clear Field After Adding New Board
 
 class AddBoardModal extends Component {
+  componentWillMount() {
+    this.refresh();
+  }
+
   render() {
     return (
       <View style={styles.modalContent}>
         {this.renderHeader()}
         {this.renderInput()}
         {this.renderBoardList()}
-        {this.renderSpinner()}
       </View>
     );
   }
@@ -45,9 +49,7 @@ class AddBoardModal extends Component {
   }
 
   renderInput() {
-    const {
-      onNameChange, newBoardName, onAddPress,
-    } = this.props;
+    const { onNameChange, newBoardName, onAddPress } = this.props;
     return (
       <Item style={styles.inputItem}>
         <Input
@@ -58,8 +60,8 @@ class AddBoardModal extends Component {
         />
         <TouchableOpacity>
           <Icon
-            name="plus"
-            type="Entypo"
+            name="bookmark-plus-outline"
+            type="MaterialCommunityIcons"
             style={styles.icon}
             onPress={onAddPress}
           />
@@ -69,15 +71,17 @@ class AddBoardModal extends Component {
   }
 
   renderBoardList() {
-    const { boards } = this.props;
-    return (
-      <FlatList
-        onEndReached={() => this.updateBoards()}
-        style={styles.boardList}
-        keyExtractor={item => item.id.toString()}
-        data={boards}
-        renderItem={({ item }) => this.renderBoard(item)}
-      />
+    const { boards, isFirstFetch } = this.props;
+    return (isFirstFetch ? <Loading />
+      : (
+        <FlatList
+          onEndReached={() => this.loadMore()}
+          style={styles.boardList}
+          keyExtractor={item => item.id.toString()}
+          data={boards}
+          renderItem={({ item }) => this.renderBoard(item)}
+        />
+      )
     );
   }
 
@@ -85,10 +89,7 @@ class AddBoardModal extends Component {
     const { onBoardNamePressed } = this.props;
     return (
       <Item>
-        <TouchableOpacity onPress={() => {
-          onBoardNamePressed(item.id);
-        }}
-        >
+        <TouchableOpacity onPress={() => onBoardNamePressed(item.id)}>
           <Text style={styles.boardName}>
             {item.name}
           </Text>
@@ -97,19 +98,19 @@ class AddBoardModal extends Component {
     );
   }
 
-  renderSpinner() {
-    const { boardsIsLoading } = this.props;
-    return (
-      (boardsIsLoading) ? (<ActivityIndicator size="large" />) : <View />
-    );
+  refresh() {
+    const { isLoading, isRefreshing, refresh } = this.props;
+    if (!isRefreshing && !isLoading) {
+      refresh();
+    }
   }
 
-  updateBoards() {
+  loadMore() {
     const {
-      boardsNextPage, boardsTotalPages, boardsIsLoading, getBoardsNextPage,
+      nextPage, totalPages, isLoading, loadMore,
     } = this.props;
-    if (boardsNextPage <= boardsTotalPages && !boardsIsLoading) {
-      getBoardsNextPage(boardsNextPage);
+    if (nextPage <= totalPages && !isLoading) {
+      loadMore(nextPage);
     }
   }
 }
@@ -148,15 +149,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  boards: selectUserBoards(state),
-  boardsNextPage: selectUserBoardsNextPage(state),
-  boardsTotalPages: selectUserBoardsTotalPages(state),
-  boardsIsLoading: selectUserBoardsIsLoading(state),
-});
+const mapStateToProps = (state) => {
+  const {
+    selectData, selectNextPage, selectIsLoading,
+    selectTotalPages, selectIsRefreshing, selectIsFirstFetch,
+  } = generateSelfBoardsSelectors(state);
+  return {
+    boards: selectData(),
+    nextPage: selectNextPage(),
+    totalPages: selectTotalPages(),
+    isFirstFetch: selectIsFirstFetch(),
+    isRefreshing: selectIsRefreshing(),
+    isLoading: selectIsLoading(),
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
-  getBoardsNextPage: boardsNext => dispatch(getUserBoardsNextPage(boardsNext)),
+  refresh: () => dispatch(refreshSelfBoardsThunk),
+  loadMore: nextPage => dispatch(loadMoreSelfBoardsThunk(nextPage)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBoardModal);

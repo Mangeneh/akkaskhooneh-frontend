@@ -22,9 +22,7 @@ class PostsPhotoList extends Component {
   }
 
   render() {
-    const {
-      photos, isRefreshing, isFirstFetch, nextPage,
-    } = this.props;
+    const { photos, isRefreshing, isFirstFetch } = this.props;
     return (
       (!isFirstFetch
         ? (
