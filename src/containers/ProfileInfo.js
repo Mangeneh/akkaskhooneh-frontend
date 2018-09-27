@@ -15,7 +15,7 @@ import {
   selectNumOfFollowers,
   selectNumOfFollowings,
   selectProfilePicture,
-  selectUserInfoIsFirstFetch,
+  selectUserInfoIsFirstFetch, selectUsername,
 } from '../reducers/UsersReducer';
 
 class ProfileInfo extends Component {
@@ -77,10 +77,10 @@ class ProfileInfo extends Component {
   }
 
   onSocialPress(tabNumber) {
-    const { username, navigation } = this.props;
+    const { username, navigation, selfUsername } = this.props;
     navigation.push(Pages.CONTACT_LIST, {
-      [Parameters.USERNAME]: username,
-      tab: tabNumber,
+      [Parameters.USERNAME]: username || selfUsername,
+      [Parameters.TAB]: tabNumber,
     });
   }
 }
@@ -108,6 +108,7 @@ const mapStateToProps = (state, ownProps) => {
   const { username } = ownProps;
   return {
     userInfoIsFirstFetch: selectUserInfoIsFirstFetch(state, username),
+    selfUsername: selectUsername(state),
     bio: selectBio(state, username),
     profilePicture: selectProfilePicture(state, username),
     fullName: selectFullName(state, username),

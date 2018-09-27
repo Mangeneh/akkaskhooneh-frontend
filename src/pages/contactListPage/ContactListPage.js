@@ -4,13 +4,6 @@ import {
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
-import {
-  getFollowers,
-  getFollowings,
-  refreshFollowers,
-  refreshFollowings,
-  startNewSearch,
-} from '../../actions/UsersActions';
 import { ContactItem, CustomStatusBar } from '../../components';
 import Loading from '../../components/Loading';
 import {
@@ -18,19 +11,10 @@ import {
 } from '../../config';
 import { strings } from '../../i18n';
 import {
-  selectFollowers,
-  selectFollowersIsFirstFetch,
-  selectFollowersIsLoading,
-  selectFollowersIsRefreshing,
-  selectFollowersNextPage,
-  selectFollowersTotalPages,
-  selectFollowings,
-  selectFollowingsIsFirstFetch,
-  selectFollowingsIsLoading,
-  selectFollowingsIsRefreshing,
-  selectFollowingsNextPage,
-  selectFollowingsTotalPages,
-} from '../../reducers/UsersReducer';
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+} from '../../reducers/paginator';
+import { createFollowersURL, createFollowingsURL } from '../../config/URLCreators';
 
 class ContactList extends Component {
   state = {
@@ -42,7 +26,8 @@ class ContactList extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.tabs.goToPage.bind(this.tabs, this.props.navigation.getParam('tab')));
+    const { navigation } = this.props;
+    setTimeout(this.tabs.goToPage.bind(this.tabs, navigation.getParam(Parameters.TAB)));
   }
 
   render() {
@@ -162,7 +147,7 @@ class ContactList extends Component {
           onRefresh={() => refreshFollowings(searchText)}
           refreshing={followingsIsRefreshing}
           onEndReached={() => {
-            this.updateFollowings(searchText);
+            this.loadMoreFollowings(searchText);
           }}
           style={{
             width: '100%',
@@ -171,47 +156,14 @@ class ContactList extends Component {
           }}
           keyExtractor={(item, index) => index.toString()}
           data={followings}
-          renderItem={({ item, index }) => this.renderFollowingItem(item, index)}
+          renderItem={({ item }) => this.renderFollowingItem(item)}
         />
       ) : <Loading />
     );
   }
 
-  renderFollowingItem(item, index) {
+  renderFollowingItem(item) {
     return <ContactItem user={item} />;
-  }
-
-  updateFollowings(text) {
-    const {
-      followingsNextPage, followingsTotalPages, followingsIsLoading, getFollowingsNextPage, followingsIsRefreshing,
-    } = this.props;
-    if (followingsNextPage <= followingsTotalPages && !followingsIsLoading
-      && !followingsIsRefreshing) {
-      getFollowingsNextPage(text, followingsNextPage)
-        .then((response) => {
-        })
-        .catch((error) => {
-        });
-    }
-  }
-
-  refreshFollowings(text) {
-    const {
-      followingsIsLoading, followingsIsRefreshing,
-    } = this.props;
-    if (!followingsIsLoading && !followingsIsRefreshing) {
-      this.props.refreshFollowings(text)
-        .then((response) => {
-        })
-        .catch((error) => {
-          Toast.show({
-            text: strings(Strings.SEARCH_FAIL),
-            textStyle: { textAlign: 'center' },
-            position: 'bottom',
-            type: 'danger',
-          });
-        });
-    }
   }
 
   renderFollowers() {
@@ -225,7 +177,7 @@ class ContactList extends Component {
           onRefresh={() => refreshFollowers(searchText)}
           refreshing={followersIsRefreshing}
           onEndReached={() => {
-            this.updateFollowers(searchText);
+            this.loadMoreFollowers(searchText);
           }}
           style={{
             width: '100%',
@@ -233,23 +185,23 @@ class ContactList extends Component {
           }}
           keyExtractor={(item, index) => index.toString()}
           data={followers}
-          renderItem={({ item, index }) => this.renderFollowerItem(item, index)}
+          renderItem={({ item }) => this.renderFollowerItem(item)}
         />
       ) : <Loading />
     );
   }
 
-  renderFollowerItem(item, index) {
+  renderFollowerItem(item) {
     return <ContactItem user={item} />;
   }
 
-  updateFollowers(text) {
+  loadMoreFollowers(text) {
     const {
-      followersNextPage, followersTotalPages, followersIsLoading, getFollowersNextPage, followersIsRefreshing,
+      followersNextPage, followersTotalPages, followersIsLoading, loadMoreFollowers, followersIsRefreshing,
     } = this.props;
     if (followersNextPage <= followersTotalPages && !followersIsLoading
       && !followersIsRefreshing) {
-      getFollowersNextPage(text, followersNextPage)
+      loadMoreFollowers(text, followersNextPage)
         .then((response) => {
         })
         .catch((error) => {
@@ -263,21 +215,16 @@ class ContactList extends Component {
     }
   }
 
-  refreshFollowers(text) {
+  loadMoreFollowings(text) {
     const {
-      followersIsLoading, followersIsRefreshing, refreshFollowers,
+      followingsNextPage, followingsTotalPages, followingsIsLoading, loadMoreFollowings, followingsIsRefreshing,
     } = this.props;
-    if (!followersIsLoading && !followersIsRefreshing) {
-      refreshFollowers(text)
+    if (followingsNextPage <= followingsTotalPages && !followingsIsLoading
+      && !followingsIsRefreshing) {
+      loadMoreFollowings(text, followingsNextPage)
         .then((response) => {
         })
         .catch((error) => {
-          Toast.show({
-            text: strings(Strings.SEARCH_FAIL),
-            textStyle: { textAlign: 'center' },
-            position: 'bottom',
-            type: 'danger',
-          });
         });
     }
   }
@@ -292,30 +239,33 @@ class ContactList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  const followingsSelectors = generatePaginatorSelectors(state, 'user_followings_', username);
+  const followersSelectors = generatePaginatorSelectors(state, 'user_followers_', username);
   return {
-    followings: selectFollowings(state, username),
-    followingsNextPage: selectFollowingsNextPage(state, username),
-    followingsTotalPages: selectFollowingsTotalPages(state, username),
-    followingsIsFirstFetch: selectFollowingsIsFirstFetch(state, username),
-    followingsIsRefreshing: selectFollowingsIsRefreshing(state, username),
-    followingsIsLoading: selectFollowingsIsLoading(state, username),
-    followers: selectFollowers(state, username),
-    followersNextPage: selectFollowersNextPage(state, username),
-    followersTotalPages: selectFollowersTotalPages(state, username),
-    followersIsFirstFetch: selectFollowersIsFirstFetch(state, username),
-    followersIsRefreshing: selectFollowersIsRefreshing(state, username),
-    followersIsLoading: selectFollowersIsLoading(state, username),
+    followings: followingsSelectors.selectData(),
+    followingsNextPage: followingsSelectors.selectNextPage(),
+    followingsTotalPages: followingsSelectors.selectTotalPages(),
+    followingsIsFirstFetch: followingsSelectors.selectIsFirstFetch(),
+    followingsIsRefreshing: followingsSelectors.selectIsRefreshing(),
+    followingsIsLoading: followingsSelectors.selectIsLoading(),
+    followers: followersSelectors.selectData(),
+    followersNextPage: followersSelectors.selectTotalPages(),
+    followersTotalPages: followersSelectors.selectTotalPages(),
+    followersIsFirstFetch: followersSelectors.selectIsFirstFetch(),
+    followersIsRefreshing: followersSelectors.selectIsRefreshing(),
+    followersIsLoading: followersSelectors.selectIsLoading(),
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const username = ownProps.navigation.getParam(Parameters.USERNAME);
+  const followingsActionCreators = generatePaginatorActionCreators('user_followings_', username);
+  const followersActionCreators = generatePaginatorActionCreators('user_followers_', username);
   return {
-    refreshFollowings: text => dispatch(refreshFollowings(text, username)),
-    getFollowingsNextPage: (text, followingsNext) => dispatch(getFollowings(text, followingsNext, username)),
-    refreshFollowers: text => dispatch(refreshFollowers(text, username)),
-    getFollowersNextPage: (text, followersNext) => dispatch(getFollowers(text, followersNext, username)),
-    startNewSearch: () => dispatch(startNewSearch()),
+    refreshFollowings: searchText => dispatch(followingsActionCreators.refresh(createFollowingsURL(username, searchText))),
+    loadMoreFollowings: (searchText, nextPage) => dispatch(followingsActionCreators.refresh(createFollowingsURL(username, searchText, nextPage))),
+    refreshFollowers: searchText => dispatch(followersActionCreators.refresh(createFollowersURL(username, searchText))),
+    loadMoreFollowers: (searchText, nextPage) => dispatch(followersActionCreators.refresh(createFollowersURL(username, searchText, nextPage))),
   };
 };
 
