@@ -19,13 +19,13 @@ export default (state = INITIAL_STATE, action) => {
   const {
     GET_POST_INFO,
     GET_POST_INFO_SUCCESS,
-    //
+    GET_POST_INFO_FAIL,
     COMMENT,
     COMMENT_SUCCESS,
     COMMENT_FAIL,
-    //
     LIKE_OR_DISLIKE,
-    //
+    LIKE_OR_DISLIKE_SUCCESS,
+    LIKE_OR_DISLIKE_FAIL,
     INJECT_NEW_POSTS,
   } = PostsActions;
   switch (action.type) {
@@ -35,7 +35,6 @@ export default (state = INITIAL_STATE, action) => {
         ...injectNewPosts(action.payload, state),
       };
     }
-    //
     case GET_POST_INFO: {
       const postField = createPostBadge(action.payload.postID);
       return {
@@ -59,7 +58,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    //
     case COMMENT: {
       const postField = createPostBadge(action.payload.postID);
       return {
@@ -96,7 +94,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    //
     case LIKE_OR_DISLIKE: {
       const postField = createPostBadge(action.payload.postID);
       const chosenPostInfo = state[postField].postInfo;
@@ -114,7 +111,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    //
     case UsersActions.SIGN_OUT:
       return INITIAL_STATE;
     default:
@@ -179,7 +175,7 @@ const injectNewPosts = (newPosts, state) => {
 
 export const selectPosts = state => state.posts;
 
-const createPostBadge = postID => `post${postID}`;
+const createPostBadge = postID => `post_${postID}`;
 
 const checkPostProperty = (state, postID) => _.has(selectPosts(state), createPostBadge(postID));
 const getPostProperty = (state, postID) => {

@@ -24,7 +24,7 @@ import {
 } from './pages';
 import ContactList from './pages/contactListPage/ContactListPage';
 import Profile from './pages/profile/Profile';
-import { selectAccessToken } from './reducers/UsersReducer';
+import { selectAccessToken } from './reducers/users';
 
 const AuthStack = createStackNavigator({
   Login,

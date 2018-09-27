@@ -13,7 +13,7 @@ import {
   generatePaginatorActionCreators,
   generatePaginatorSelectors,
 } from '../../reducers/paginator';
-import { selectUsername } from '../../reducers/UsersReducer';
+import { selectUsername } from '../../reducers/users';
 import { createUserPhotosURL } from '../../config/URLCreators';
 
 class AddPostToBoard extends Component {

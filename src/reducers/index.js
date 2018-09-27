@@ -9,7 +9,7 @@ import SearchPageReducer from '../pages/search/reducer';
 import SearchUserOrTagReducer from '../pages/searchUserOrTag/reducer';
 import SignUpPageReducer from '../pages/signUp/reducer';
 import SignUpCompletePageReducer from '../pages/signUpComplete/reducer';
-import UsersReducer from './UsersReducer';
+import users from './users';
 import GetNewPasswordReducer from '../pages/getNewPassword/reducer';
 import SendTokenReducer from '../pages/tokenPage/reducer';
 import posts from './posts';
@@ -17,7 +17,7 @@ import pagination from './pagination';
 
 export default combineReducers({
   loginPage: LoginPageReducer,
-  users: UsersReducer,
+  users,
   posts,
   pagination,
   signUpPage: SignUpPageReducer,

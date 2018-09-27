@@ -8,11 +8,11 @@ import { BoardsPageHeader, CustomStatusBar } from '../../components';
 import {
   Colors, Pages, Parameters, Strings,
 } from '../../config';
-import { showFailiureToast, showSuccessToast } from '../../helpers';
+import { showFailureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
 import { PhotoList } from '../../containers';
 import { createBoardPhotosURL } from '../../config/URLCreators';
-import { selectUsername } from '../../reducers/UsersReducer';
+import { selectUsername } from '../../reducers/users';
 
 // TODO: Refresh After Actions
 
@@ -97,7 +97,7 @@ class BoardsPage extends Component {
         navigation.goBack();
       })
       .catch((error) => {
-        showFailiureToast(strings(Strings.DELETE_BOARD_FAIL));
+        showFailureToast(strings(Strings.DELETE_BOARD_FAIL));
       });
   }
 

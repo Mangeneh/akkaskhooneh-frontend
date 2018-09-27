@@ -6,7 +6,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { Actions as GetNewPassword } from './pages/getNewPassword/actions';
-import { selectAccessToken, selectRefreshToken } from './reducers/UsersReducer';
+import { selectAccessToken, selectRefreshToken } from './reducers/users';
 import { accessTokenUpdated } from './actions/UsersActions';
 import { Actions as ForgotPasswordActions } from './pages/forgotPassword/actions';
 import { Actions as SignUpActions } from './pages/signUp/actions';

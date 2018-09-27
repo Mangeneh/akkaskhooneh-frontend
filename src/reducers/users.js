@@ -21,8 +21,15 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   const {
-    UPDATE_ACCESS_TOKEN_SUCCESS, UPDATE_USER_INFO_SUCCESS, SET_ACCESS_TOKEN, SET_REFRESH_TOKEN,
-    SIGN_OUT, UPDATE_USER_INFO, FOLLOW_REQUEST, UN_FOLLOW_REQUEST, DELETE_FOLLOW_REQUEST,
+    UPDATE_ACCESS_TOKEN_SUCCESS,
+    UPDATE_USER_INFO_SUCCESS,
+    SET_ACCESS_TOKEN,
+    SET_REFRESH_TOKEN,
+    UPDATE_USER_INFO,
+    FOLLOW_REQUEST,
+    UN_FOLLOW_REQUEST,
+    DELETE_FOLLOW_REQUEST,
+    SIGN_OUT,
   } = UsersActions;
   switch (action.type) {
     case UPDATE_USER_INFO: {
@@ -74,7 +81,6 @@ export default (state = INITIAL_STATE, action) => {
           refreshToken: action.payload,
         },
       };
-    //
     case FOLLOW_REQUEST: {
       const { username } = action.payload;
       const userField = createUserBadge(username);
@@ -119,7 +125,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    //
     case SIGN_OUT:
       return INITIAL_STATE;
     default:

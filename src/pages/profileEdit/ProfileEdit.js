@@ -25,7 +25,7 @@ import {
   selectProfilePicture,
   selectSelfEmail,
   selectUsername,
-} from '../../reducers/UsersReducer';
+} from '../../reducers/users';
 import {
   changeProfilePic, changeStatus, editProfile, normalize,
 } from './actions';

@@ -9,7 +9,7 @@ export function showSuccessToast(message) {
   });
 }
 
-export function showFailiureToast(message) {
+export function showFailureToast(message) {
   Toast.show({
     text: message,
     textStyle: { textAlign: 'center' },
