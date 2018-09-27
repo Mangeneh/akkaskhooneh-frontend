@@ -89,8 +89,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const { username } = ownProps;
-  const pagintorActionCreators = generatePaginatorActionCreators('user_boards_', username);
-  const { refresh, loadMore } = pagintorActionCreators;
+  const paginatorActionCreators = generatePaginatorActionCreators('user_boards_', username);
+  const { refresh, loadMore } = paginatorActionCreators;
   return {
     refresh: () => dispatch(refresh(createUserBoardsURL(username))),
     loadMore: nextPage => dispatch(loadMore(createUserBoardsURL(username, nextPage))),

@@ -1,14 +1,12 @@
 import {
-  Button, Icon, Item, Text, Textarea, Toast,
+  Button, Icon, Item, Textarea, Toast,
 } from 'native-base';
 import React, { Component } from 'react';
 import {
-  ActivityIndicator, FlatList, SafeAreaView, View,
+  ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import {
-  getCommentsNextPage, getPostInfo, refreshComments, sendComment,
-} from '../../actions';
+import { getPostInfo, sendComment } from '../../actions';
 import { CustomStatusBar, PostHeader } from '../../components';
 import CommentComponent from '../../components/CommentComponent';
 import Post from '../../components/Post';
@@ -17,17 +15,17 @@ import {
 } from '../../config';
 import { strings } from '../../i18n';
 import {
-  selectComments,
-  selectCommentsIsFirstFetch,
-  selectCommentsIsLoading,
-  selectCommentsIsRefreshing,
-  selectCommentsNextPage,
-  selectCommentsTotalPages,
   selectIsSendingComment,
   selectPostInfo,
   selectPostInfoIsFirstFetch,
   selectPostInfoIsLoading,
 } from '../../reducers/posts';
+import {
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+} from '../../reducers/paginator';
+import { createPostCommentsURL } from '../../config/URLCreators';
+import Loading from '../../components/Loading';
 
 class PostInfo extends Component {
   state = {
@@ -40,7 +38,6 @@ class PostInfo extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
     return (
       <SafeAreaView
         style={{
@@ -48,32 +45,13 @@ class PostInfo extends Component {
           backgroundColor: 'white',
         }}
       >
-        <PostHeader onBackPress={() => navigation.goBack()} />
+        <PostHeader />
         <CustomStatusBar />
         <View style={{ flex: 1 }}>
-          {this.renderCommentsList()}
+          {this.renderPostAndComments()}
           {this.renderInputBox()}
         </View>
       </SafeAreaView>
-    );
-  }
-
-  showEmpty() {
-    return (
-      <View style={{
-        alignSelf: 'center',
-        justifyContent: 'center',
-        flex: 1,
-      }}
-      >
-        <Text style={{
-          color: Colors.ICON,
-          fontSize: Constants.TEXT_NORMAL_SIZE,
-        }}
-        >
-          {strings(Strings.NO_COMMENTS_YET)}
-        </Text>
-      </View>
     );
   }
 
@@ -126,33 +104,33 @@ class PostInfo extends Component {
   }
 
   renderPost() {
-    const { postInfoIsFirstFetch, navigation } = this.props;
-    const postID = this.props.navigation.getParam(Parameters.POST_ID);
+    const { isFirstFetch, navigation } = this.props;
+    const postID = navigation.getParam(Parameters.POST_ID);
     return (
       <View>
-        {!postInfoIsFirstFetch
+        {!isFirstFetch
           ? (
             <Post
               margin={0}
               postID={postID}
               home={false}
             />
-          ) : null}
+          ) : <Loading />}
       </View>
     );
   }
 
-  renderCommentsList() {
-    const { commentsIsRefreshing, comments } = this.props;
+  renderPostAndComments() {
+    const { isRefreshing, comments } = this.props;
     return (
       <FlatList
         onRefresh={() => {
           this.getPostInfo();
           this.refreshComments();
         }}
-        refreshing={commentsIsRefreshing}
+        refreshing={isRefreshing}
         onEndReached={() => {
-          this.updateComments();
+          this.loadMoreComments();
         }}
         ListHeaderComponent={this.renderPost()}
         style={{
@@ -160,40 +138,13 @@ class PostInfo extends Component {
         }}
         keyExtractor={(item, index) => index.toString()}
         data={comments}
-        renderItem={({ item, index }) => this.renderComment(item, index)}
+        renderItem={({ item }) => this.renderComment(item)}
       />
     );
   }
 
-  renderComment(item, index) {
+  renderComment(item) {
     return <CommentComponent comment={item} />;
-  }
-
-  getPostInfo() {
-    const { postInfoIsLoading, getPostInfo } = this.props;
-    if (!postInfoIsLoading) {
-      getPostInfo();
-    }
-  }
-
-  refreshComments() {
-    const { commentsIsRefreshing, commentsIsLoading, refreshComments } = this.props;
-    if (!commentsIsRefreshing && !commentsIsLoading) {
-      refreshComments();
-    }
-  }
-
-  updateComments() {
-    const {
-      commentsNextPage, commentsTotalPages, commentsIsLoading, getCommentsNextPage,
-    } = this.props;
-    if (commentsNextPage <= commentsTotalPages && !commentsIsLoading) {
-      getCommentsNextPage(commentsNextPage)
-        .then((response) => {
-        })
-        .catch((error) => {
-        });
-    }
   }
 
   renderSendIcon() {
@@ -211,14 +162,37 @@ class PostInfo extends Component {
     );
   }
 
+  getPostInfo() {
+    const { isLoading, getPostInfo } = this.props;
+    if (!isLoading) {
+      getPostInfo();
+    }
+  }
+
+  refreshComments() {
+    const { isRefreshing, isLoading, refreshComments } = this.props;
+    if (!isRefreshing && !isLoading) {
+      refreshComments();
+    }
+  }
+
+  loadMoreComments() {
+    const {
+      nextPage, totalPages, isLoading, loadMore,
+    } = this.props;
+    if (nextPage <= totalPages && !isLoading) {
+      loadMore(nextPage);
+    }
+  }
+
   sendComment() {
-    const { commentOnPost, refreshComments } = this.props;
+    const { commentOnPost } = this.props;
     if (this.state.commentText !== '') {
       commentOnPost(this.state.commentText)
         .then((response) => {
           this.setState({ commentText: '' });
           setTimeout(() => {
-            refreshComments();
+            this.refreshComments();
           }, 1000);
         })
         .catch((error) => {
@@ -234,28 +208,37 @@ class PostInfo extends Component {
   }
 }
 
+const styles = StyleSheet.create({});
+
 const mapStateToProps = (state, ownProps) => {
   const postID = ownProps.navigation.getParam(Parameters.POST_ID);
+  const paginatorSelectors = generatePaginatorSelectors(state, 'post_comments_', postID);
+  const {
+    selectData, selectNextPage, selectTotalPages,
+    selectIsFirstFetch, selectIsRefreshing, selectIsLoading,
+  } = paginatorSelectors;
   return {
     postInfo: selectPostInfo(state, postID),
     postInfoIsFirstFetch: selectPostInfoIsFirstFetch(state, postID),
     postInfoIsLoading: selectPostInfoIsLoading(state, postID),
-    comments: selectComments(state, postID),
-    commentsNextPage: selectCommentsNextPage(state, postID),
-    commentsTotalPages: selectCommentsTotalPages(state, postID),
-    commentsIsFirstFetch: selectCommentsIsFirstFetch(state, postID),
-    commentsIsRefreshing: selectCommentsIsRefreshing(state, postID),
-    commentsIsLoading: selectCommentsIsLoading(state, postID),
     isSendingComment: selectIsSendingComment(state, postID),
+    comments: selectData(),
+    nextPage: selectNextPage(),
+    totalPages: selectTotalPages(),
+    isFirstFetch: selectIsFirstFetch(),
+    isRefreshing: selectIsRefreshing(),
+    isLoading: selectIsLoading(),
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const postID = ownProps.navigation.getParam(Parameters.POST_ID);
+  const paginatorActionCreators = generatePaginatorActionCreators('post_comments_', postID);
+  const { refresh, loadMore } = paginatorActionCreators;
   return {
+    refreshComments: () => dispatch(refresh(createPostCommentsURL(postID))),
+    loadMoreComments: nextPage => dispatch(loadMore(createPostCommentsURL(postID, nextPage))),
     getPostInfo: () => dispatch(getPostInfo(postID)),
-    refreshComments: () => dispatch(refreshComments(postID)),
-    getCommentsNextPage: commentsNext => dispatch(getCommentsNextPage(postID, commentsNext)),
     commentOnPost: comment => dispatch(sendComment(postID, comment)),
   };
 };

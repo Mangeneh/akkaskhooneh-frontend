@@ -14,6 +14,8 @@ import { PhotoList } from '../../containers';
 import { createBoardPhotosURL } from '../../config/URLCreators';
 import { selectUsername } from '../../reducers/UsersReducer';
 
+// TODO: Refresh After Actions
+
 class BoardsPage extends Component {
   render() {
     const { navigation } = this.props;

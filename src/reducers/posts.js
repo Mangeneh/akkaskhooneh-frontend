@@ -246,7 +246,7 @@ const injectNewPosts = (newPosts, state) => {
         postInfoIsFirstFetch: false,
       },
     };
-  });
+  },{});
 };
 
 export const selectPosts = state => state.posts;
