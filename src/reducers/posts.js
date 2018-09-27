@@ -11,22 +11,12 @@ const INITIAL_OPEN_POST_STATE = {
   postInfo: {},
   postInfoIsFirstFetch: true,
   postInfoIsLoading: false,
-  comments: [],
-  commentsNextPage: 1,
-  commentsTotalPages: 1,
-  commentsIsFirstFetch: true,
-  commentsIsRefreshing: false,
-  commentsIsLoading: false,
-  isSendingComment: false,
 };
 
 const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
   const {
-    GET_OPEN_POST_COMMENTS_NEXT_PAGE,
-    GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS,
-    //
     GET_POST_INFO,
     GET_POST_INFO_SUCCESS,
     //
@@ -35,10 +25,6 @@ export default (state = INITIAL_STATE, action) => {
     COMMENT_FAIL,
     //
     LIKE_OR_DISLIKE,
-    //
-    REFRESH_OPEN_POST_COMMENTS,
-    REFRESH_OPEN_POST_COMMENTS_SUCCESS,
-    REFRESH_OPEN_POST_COMMENTS_FAIL,
     //
     INJECT_NEW_POSTS,
   } = PostsActions;
@@ -107,64 +93,6 @@ export default (state = INITIAL_STATE, action) => {
         [postField]: {
           ...state[postField],
           isSendingComment: false,
-        },
-      };
-    }
-    //
-    case REFRESH_OPEN_POST_COMMENTS: {
-      const postField = createPostBadge(action.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          commentsIsRefreshing: true,
-        },
-      };
-    }
-    case REFRESH_OPEN_POST_COMMENTS_SUCCESS: {
-      const postField = createPostBadge(action.meta.previousAction.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          comments: action.payload.data.results,
-          commentsNextPage: 2,
-          commentsTotalPages: action.payload.data.total_pages,
-          commentsIsFirstFetch: false,
-          commentsIsRefreshing: false,
-        },
-      };
-    }
-    case REFRESH_OPEN_POST_COMMENTS_FAIL: {
-      const postField = createPostBadge(action.meta.previousAction.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          commentsIsRefreshing: false,
-        },
-      };
-    }
-    case GET_OPEN_POST_COMMENTS_NEXT_PAGE: {
-      const postField = createPostBadge(action.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          commentsIsLoading: true,
-        },
-      };
-    }
-    case GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: {
-      const postField = createPostBadge(action.meta.previousAction.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          comments: state[postField].comments.concat(action.payload.data.results),
-          commentsNextPage: state[postField].commentsNextPage + 1,
-          commentsTotalPages: action.payload.data.total_pages,
-          commentsIsLoading: false,
         },
       };
     }
@@ -246,7 +174,7 @@ const injectNewPosts = (newPosts, state) => {
         postInfoIsFirstFetch: false,
       },
     };
-  },{});
+  }, {});
 };
 
 export const selectPosts = state => state.posts;
@@ -264,10 +192,4 @@ const getPostProperty = (state, postID) => {
 export const selectPostInfo = (state, postID) => getPostProperty(state, postID).postInfo;
 export const selectPostInfoIsFirstFetch = (state, postID) => getPostProperty(state, postID).postInfoIsFirstFetch;
 export const selectPostInfoIsLoading = (state, postID) => getPostProperty(state, postID).postInfoIsLoading;
-export const selectComments = (state, postID) => getPostProperty(state, postID).comments;
-export const selectCommentsNextPage = (state, postID) => getPostProperty(state, postID).commentsNextPage;
-export const selectCommentsTotalPages = (state, postID) => getPostProperty(state, postID).commentsTotalPages;
-export const selectCommentsIsLoading = (state, postID) => getPostProperty(state, postID).commentsIsLoading;
-export const selectCommentsIsRefreshing = (state, postID) => getPostProperty(state, postID).commentsIsRefreshing;
-export const selectCommentsIsFirstFetch = (state, postID) => getPostProperty(state, postID).commentsIsFirstFetch;
 export const selectIsSendingComment = (state, postID) => getPostProperty(state, postID).isSendingComment;

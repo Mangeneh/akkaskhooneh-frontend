@@ -14,37 +14,7 @@ export const PostsActions = {
   COMMENT: 'COMMENT',
   COMMENT_SUCCESS: 'COMMENT_SUCCESS',
   COMMENT_FAIL: 'COMMENT_FAIL',
-  //
-  REFRESH_OPEN_POST_COMMENTS: 'REFRESH_OPEN_POST_COMMENTS',
-  REFRESH_OPEN_POST_COMMENTS_SUCCESS: 'REFRESH_OPEN_POST_COMMENTS_SUCCESS',
-  REFRESH_OPEN_POST_COMMENTS_FAIL: 'REFRESH_OPEN_POST_COMMENTS_FAIL',
-  //
-  GET_OPEN_POST_COMMENTS_NEXT_PAGE: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE',
-  GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_SUCCESS',
-  GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL: 'GET_OPEN_POST_COMMENTS_NEXT_PAGE_FAIL',
 };
-
-export const refreshComments = postID => ({
-  type: PostsActions.REFRESH_OPEN_POST_COMMENTS,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_COMMENTS_LIST}${postID}/?page=1`,
-    },
-    postID,
-  },
-});
-
-export const getCommentsNextPage = (postID, commentsNext) => ({
-  type: PostsActions.GET_OPEN_POST_COMMENTS_NEXT_PAGE,
-  payload: {
-    request: {
-      method: RequestMethods.GET,
-      url: `${Server.GET_COMMENTS_LIST}${postID}/?page=${commentsNext}`,
-    },
-    postID,
-  },
-});
 
 export const getPostInfo = postID => ({
   type: PostsActions.GET_POST_INFO,

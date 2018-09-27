@@ -15,7 +15,7 @@ import NavigationService from '../../NavigationService';
 import {
   generatePaginatorActionCreators,
   generatePaginatorSelectors,
-  PagintorActions,
+  PaginatorActions,
 } from '../../reducers/paginator';
 import { createHomePostsURL } from '../../config/URLCreators';
 

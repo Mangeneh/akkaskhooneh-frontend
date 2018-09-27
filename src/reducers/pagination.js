@@ -1,11 +1,11 @@
 import produce from 'immer';
-import { PagintorActions } from './paginator';
+import { PaginatorActions } from './paginator';
 import { extractPreviousAction } from '../helpers';
 import { UsersActions } from '../actions';
 
 const pagination = produce((draft, action) => {
   switch (action.type) {
-    case PagintorActions.REFRESH: {
+    case PaginatorActions.REFRESH: {
       const { field, initialState } = action.payload;
       draft[field] = {
         ...initialState,
@@ -14,7 +14,7 @@ const pagination = produce((draft, action) => {
       };
       return;
     }
-    case PagintorActions.REFRESH_SUCCESS: {
+    case PaginatorActions.REFRESH_SUCCESS: {
       const previousAction = extractPreviousAction(action);
       const { field } = previousAction.payload;
       draft[field] = {
@@ -27,7 +27,7 @@ const pagination = produce((draft, action) => {
       };
       return;
     }
-    case PagintorActions.LOAD_MORE: {
+    case PaginatorActions.LOAD_MORE: {
       const { field } = action.payload;
       draft[field] = {
         ...draft[field],
@@ -35,7 +35,7 @@ const pagination = produce((draft, action) => {
       };
       return;
     }
-    case PagintorActions.LOAD_MORE_SUCCESS: {
+    case PaginatorActions.LOAD_MORE_SUCCESS: {
       const previousAction = extractPreviousAction(action);
       const { field } = previousAction.payload;
       draft[field] = {

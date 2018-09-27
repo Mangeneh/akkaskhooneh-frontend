@@ -126,8 +126,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const { name, id, createURL } = ownProps;
-  const pagintorActionCreators = generatePaginatorActionCreators(name, id);
-  const { refresh, loadMore } = pagintorActionCreators;
+  const paginatorActionCreators = generatePaginatorActionCreators(name, id);
+  const { refresh, loadMore } = paginatorActionCreators;
   return {
     refresh: () => dispatch(refresh(createURL(id))),
     loadMore: nextPage => dispatch(loadMore(createURL(id, nextPage))),

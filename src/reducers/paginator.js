@@ -1,6 +1,6 @@
 import { RequestMethods } from '../config';
 
-export const PagintorActions = {
+export const PaginatorActions = {
   REFRESH: 'REFRESH',
   REFRESH_SUCCESS: 'REFRESH_SUCCESS',
   REFRESH_FAIL: 'REFRESH_FAIL',
@@ -21,9 +21,8 @@ const initialState = {
 export const generatePaginatorActionCreators = (name, id, onRefreshSuccess, onLoadMoreSuccess) => {
   const field = createField(name, id);
   const refresh = url => (dispatch) => {
-    const onSuccess = data => onRefreshSuccess(dispatch, data);
     dispatch({
-      type: PagintorActions.REFRESH,
+      type: PaginatorActions.REFRESH,
       payload: {
         request: {
           method: RequestMethods.GET,
@@ -32,15 +31,17 @@ export const generatePaginatorActionCreators = (name, id, onRefreshSuccess, onLo
         field,
         initialState,
       },
-    }).then((response) => {
-      const data = response.payload.data.results;
-      onSuccess(data);
-    });
+    })
+      .then((response) => {
+        if (onRefreshSuccess !== undefined) {
+          const data = response.payload.data.results;
+          onRefreshSuccess(dispatch, data);
+        }
+      });
   };
   const loadMore = url => (dispatch) => {
-    const onSuccess = data => onLoadMoreSuccess(dispatch, data);
     dispatch({
-      type: PagintorActions.LOAD_MORE,
+      type: PaginatorActions.LOAD_MORE,
       payload: {
         request: {
           method: RequestMethods.GET,
@@ -48,10 +49,13 @@ export const generatePaginatorActionCreators = (name, id, onRefreshSuccess, onLo
         },
         field,
       },
-    }).then((response) => {
-      const data = response.payload.data.results;
-      onSuccess(data);
-    });
+    })
+      .then((response) => {
+        if (onLoadMoreSuccess !== undefined) {
+          const data = response.payload.data.results;
+          onLoadMoreSuccess(dispatch, data);
+        }
+      });
   };
   return {
     refresh,
