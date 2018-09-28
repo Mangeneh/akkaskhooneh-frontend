@@ -7,7 +7,7 @@ import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { accessTokenSet, refreshTokenSet, updateUser } from '../../actions/UsersActions';
+import { updateUser } from '../../actions/UsersActions';
 import { BackHeader, CustomLongTextBox, FullStatusBar } from '../../components';
 import BioInstruction from '../../components/BioInstruction';
 import UsernameInstruction from '../../components/UsernameInstruction';
@@ -157,12 +157,7 @@ class SignUpComplete extends Component {
   }
 
   onSuccess(response) {
-    const { access, refresh } = response.payload.data;
-    const {
-      setAccessToken, setRefreshToken, updateUser, navigation,
-    } = this.props;
-    setAccessToken(access);
-    setRefreshToken(refresh);
+    const { updateUser, navigation } = this.props;
     updateUser();
     navigation.navigate(Pages.MAIN);
   }
@@ -274,8 +269,6 @@ const mapDispatchToProps = dispatch => ({
   changeImage: image => dispatch(imageChanged(image)),
   changeFullName: fullname => dispatch(fullNameChanged(fullname)),
   signUpUser: (email, password, username, fullname, bio) => dispatch(signUpUser(email, password, username, fullname, bio)),
-  setRefreshToken: refreshToken => dispatch(refreshTokenSet(refreshToken)),
-  setAccessToken: accessToken => dispatch(accessTokenSet(accessToken)),
   updateUser: () => dispatch(updateUser()),
   reset: () => dispatch(reset()),
 });

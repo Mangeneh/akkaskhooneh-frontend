@@ -3,8 +3,6 @@ import { RequestMethods, Server } from '../config';
 export const UsersActions = {
   UPDATE_ACCESS_TOKEN: 'UPDATE_ACCESS_TOKEN',
   UPDATE_ACCESS_TOKEN_SUCCESS: 'UPDATE_ACCESS_TOKEN_SUCCESS',
-  SET_REFRESH_TOKEN: 'SET_REFRESH_TOKEN',
-  SET_ACCESS_TOKEN: 'SET_ACCESS_TOKEN',
   UPDATE_USER_INFO: 'UPDATE_USER_INFO',
   UPDATE_USER_INFO_SUCCESS: 'UPDATE_USER_INFO_SUCCESS',
   UPDATE_USER_INFO_FAIL: 'UPDATE_USER_INFO_FAIL',
@@ -21,16 +19,6 @@ export const UsersActions = {
 };
 
 export const reset = () => ({ type: UsersActions.SIGN_OUT });
-
-export const refreshTokenSet = refreshToken => ({
-  type: UsersActions.SET_REFRESH_TOKEN,
-  payload: refreshToken,
-});
-
-export const accessTokenSet = accessToken => ({
-  type: UsersActions.SET_ACCESS_TOKEN,
-  payload: accessToken,
-});
 
 export const accessTokenUpdated = refreshToken => ({
   type: UsersActions.UPDATE_ACCESS_TOKEN,
