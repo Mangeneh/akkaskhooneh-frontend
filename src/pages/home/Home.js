@@ -15,8 +15,7 @@ import NavigationService from '../../NavigationService';
 import {
   generatePaginatorActionCreators,
   generatePaginatorSelectors,
-  PaginatorActions,
-} from '../../reducers/paginator';
+} from '../../reducers/paginator.ts';
 import { createHomePostsURL } from '../../config/URLCreators';
 
 class Home extends Component {
@@ -88,7 +87,7 @@ class Home extends Component {
           width: '100%',
           marginTop: 8,
         }}
-        keyExtractor={(item, index) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
         data={posts}
         renderItem={({ item }) => this.renderPost(item)}
       />
@@ -129,19 +128,19 @@ const mapStateToProps = (state) => {
     selectIsFirstFetch, selectIsRefreshing, selectIsLoading,
   } = paginatorSelectors;
   return {
-    posts: selectData(state),
-    nextPage: selectNextPage(state),
-    totalPages: selectTotalPages(state),
-    isFirstFetch: selectIsFirstFetch(state),
-    isRefreshing: selectIsRefreshing(state),
-    isLoading: selectIsLoading(state),
+    posts: selectData(),
+    nextPage: selectNextPage(),
+    totalPages: selectTotalPages(),
+    isFirstFetch: selectIsFirstFetch(),
+    isRefreshing: selectIsRefreshing(),
+    isLoading: selectIsLoading(),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   const onRefreshSuccess = (dispatch, data) => dispatch(injectNewPosts(data));
-  const pagintorActionCreators = generatePaginatorActionCreators('home_posts', '', onRefreshSuccess, onRefreshSuccess);
-  const { refresh, loadMore } = pagintorActionCreators;
+  const paginatorActionCreators = generatePaginatorActionCreators('home_posts', '', onRefreshSuccess, onRefreshSuccess);
+  const { refresh, loadMore } = paginatorActionCreators;
   return {
     refresh: () => dispatch(refresh(createHomePostsURL())),
     loadMore: nextPage => dispatch(loadMore(createHomePostsURL(nextPage))),

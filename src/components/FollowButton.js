@@ -8,7 +8,7 @@ import {
 } from '../config';
 import { extractFollowMode } from '../helpers';
 import { strings } from '../i18n';
-import { selectProfileFollowStatus } from '../reducers/users';
+import { selectProfileFollowStatus } from '../reducers/users.ts';
 
 class FollowButton extends Component {
   render() {

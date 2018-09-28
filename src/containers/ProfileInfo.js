@@ -17,7 +17,7 @@ import {
   selectProfilePicture,
   selectUserInfoIsFirstFetch,
   selectUsername,
-} from '../reducers/users';
+} from '../reducers/users.ts';
 
 class ProfileInfo extends Component {
   render() {

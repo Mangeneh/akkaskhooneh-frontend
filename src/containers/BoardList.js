@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { generatePaginatorActionCreators, generatePaginatorSelectors } from '../reducers/paginator';
+import { generatePaginatorActionCreators, generatePaginatorSelectors } from '../reducers/paginator.ts';
 import { Pages, Parameters } from '../config';
 import Loading from '../components/Loading';
 import { createUserBoardsURL } from '../config/URLCreators';

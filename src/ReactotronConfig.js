@@ -6,4 +6,4 @@ const reactotron = Reactotron
   .use(reactotronRedux()) //  <- here i am!
   .connect();
 
-export default reactotron
+export default reactotron;

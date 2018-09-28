@@ -18,7 +18,7 @@ import {
   selectProfileIsPrivate,
   selectUserInfoIsFirstFetch,
   selectUsername,
-} from '../../reducers/users';
+} from '../../reducers/users.ts';
 import { createUserPhotosURL } from '../../config/URLCreators';
 import BoardList from '../../containers/BoardList';
 

@@ -19,11 +19,11 @@ import {
   selectPostInfo,
   selectPostInfoIsFirstFetch,
   selectPostInfoIsLoading,
-} from '../../reducers/posts';
+} from '../../reducers/posts.ts';
 import {
   generatePaginatorActionCreators,
   generatePaginatorSelectors,
-} from '../../reducers/paginator';
+} from '../../reducers/paginator.ts';
 import { createPostCommentsURL } from '../../config/URLCreators';
 import Loading from '../../components/Loading';
 

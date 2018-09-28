@@ -6,7 +6,6 @@ import {
   SafeAreaView, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { globalReset } from '../../actions';
 import { reset } from '../../actions/UsersActions';
 import { BackHeader, CustomStatusBar } from '../../components';
 import {
@@ -85,7 +84,6 @@ class ProfileSettings extends Component {
   }
 
   onSignOutPress() {
-    this.props.globalReset();
     this.props.navigation.navigate(Pages.AUTH_STACK);
     this.props.reset();
   }
@@ -107,7 +105,6 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
   reset: () => dispatch(reset()),
-  globalReset: () => dispatch(globalReset()),
 });
 
 export default connect(null, mapDispatchToProps)(ProfileSettings);

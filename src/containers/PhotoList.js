@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import { withNavigation } from 'react-navigation';
-import { generatePaginatorActionCreators, generatePaginatorSelectors } from '../reducers/paginator';
+import { generatePaginatorActionCreators, generatePaginatorSelectors } from '../reducers/paginator.ts';
 import {
   Colors, Graphics, Pages, Parameters,
 } from '../config';

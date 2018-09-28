@@ -1,9 +1,11 @@
 import produce from 'immer';
-import { PaginatorActions } from './paginator';
-import { extractPreviousAction } from '../helpers';
+import { AnyAction } from 'redux';
 import { UsersActions } from '../actions';
+import { extractPreviousAction } from '../helpers';
+import { IPaginatorSuccessAction } from '../types/pagination';
+import { PaginatorActions } from './paginator';
 
-const pagination = produce((draft, action) => {
+const pagination = produce((draft: any, action: AnyAction) => {
   switch (action.type) {
     case PaginatorActions.REFRESH: {
       const { field, initialState } = action.payload;
@@ -15,13 +17,13 @@ const pagination = produce((draft, action) => {
       return;
     }
     case PaginatorActions.REFRESH_SUCCESS: {
-      const previousAction = extractPreviousAction(action);
-      const { field } = previousAction.payload;
+      const currentAction = action as IPaginatorSuccessAction;
+      const field = currentAction.meta.previousAction.payload.field;
       draft[field] = {
         ...draft[field],
-        data: action.payload.data.results,
+        data: currentAction.payload.data.results,
         nextPage: 2,
-        totalPages: action.payload.data.total_pages,
+        totalPages: currentAction.payload.data.total_pages,
         isFirstFetch: false,
         isRefreshing: false,
       };
@@ -36,13 +38,13 @@ const pagination = produce((draft, action) => {
       return;
     }
     case PaginatorActions.LOAD_MORE_SUCCESS: {
-      const previousAction = extractPreviousAction(action);
-      const { field } = previousAction.payload;
+      const currentAction = action as IPaginatorSuccessAction;
+      const field = currentAction.meta.previousAction.payload.field;
       draft[field] = {
         ...draft[field],
-        data: draft[field].data.concat(action.payload.data.results),
+        data: draft[field].data.concat(currentAction.payload.data.results),
         nextPage: draft[field].nextPage + 1,
-        totalPages: action.payload.data.total_pages,
+        totalPages: currentAction.payload.data.total_pages,
         isLoading: false,
       };
       return;

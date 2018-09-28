@@ -12,7 +12,7 @@ import { showFailureToast, showSuccessToast } from '../../helpers';
 import { strings } from '../../i18n';
 import { PhotoList } from '../../containers';
 import { createBoardPhotosURL } from '../../config/URLCreators';
-import { selectUsername } from '../../reducers/users';
+import { selectUsername } from '../../reducers/users.ts';
 
 // TODO: Refresh After Actions
 

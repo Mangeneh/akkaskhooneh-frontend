@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Colors, Strings } from '../config';
 import { strings } from '../i18n';
-import { selectUsername } from '../reducers/users';
+import { selectUsername } from '../reducers/users.ts';
 import BackHeader from './BackHeader';
 import CustomStatusBar from './CustomStatusBar';
 

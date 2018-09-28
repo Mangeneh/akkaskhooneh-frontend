@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { AnyAction } from 'redux';
 import { UsersActions } from '../actions/UsersActions';
 import { FollowStatus } from '../config';
 
@@ -19,7 +20,7 @@ const INITIAL_STATE = {
   me: INITIAL_SELF_USER_STATE,
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action: AnyAction) => {
   const {
     UPDATE_ACCESS_TOKEN_SUCCESS,
     UPDATE_USER_INFO_SUCCESS,

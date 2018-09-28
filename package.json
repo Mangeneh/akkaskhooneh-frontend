@@ -40,6 +40,10 @@
     "rn-sliding-up-panel": "latest"
   },
   "devDependencies": {
+    "@types/react": "^16.4.14",
+    "@types/react-native": "^0.57.0",
+    "@types/react-redux": "^6.0.9",
+    "@types/lodash": "^4.14.116",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
     "babel-jest": "23.4.2",
@@ -51,13 +55,35 @@
     "eslint-plugin-react-native": "^3.2.1",
     "jest": "23.5.0",
     "metro-react-native-babel-preset": "^0.45.0",
+    "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.4.1",
     "reactotron-react-native": "^2.1.0",
     "reactotron-redux": "^2.1.0",
-    "schedule": "0.4.0"
+    "schedule": "0.4.0",
+    "ts-jest": "^23.10.2",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.1.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
   },
   "rnpm": {
     "assets": [

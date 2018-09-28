@@ -12,8 +12,8 @@ import { strings } from '../../i18n';
 import {
   generatePaginatorActionCreators,
   generatePaginatorSelectors,
-} from '../../reducers/paginator';
-import { selectUsername } from '../../reducers/users';
+} from '../../reducers/paginator.ts';
+import { selectUsername } from '../../reducers/users.ts';
 import { createUserPhotosURL } from '../../config/URLCreators';
 
 class AddPostToBoard extends Component {

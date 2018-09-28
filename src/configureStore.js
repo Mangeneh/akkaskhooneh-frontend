@@ -6,14 +6,14 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { Actions as GetNewPassword } from './pages/getNewPassword/actions';
-import { selectAccessToken, selectRefreshToken } from './reducers/users';
+import { selectAccessToken, selectRefreshToken } from './reducers/users.ts';
 import { accessTokenUpdated } from './actions/UsersActions';
 import { Actions as ForgotPasswordActions } from './pages/forgotPassword/actions';
 import { Actions as SignUpActions } from './pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './pages/signUpComplete/actions';
 import { Actions as SendTokenActions } from './pages/tokenPage/actions';
 import rootReducer from './reducers';
-import Reactotron from '../ReactotronConfig';
+import Reactotron from './ReactotronConfig';
 
 export default () => {
   const client = axios.create({

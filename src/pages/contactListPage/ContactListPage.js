@@ -13,7 +13,7 @@ import { strings } from '../../i18n';
 import {
   generatePaginatorActionCreators,
   generatePaginatorSelectors,
-} from '../../reducers/paginator';
+} from '../../reducers/paginator.ts';
 import { createFollowersURL, createFollowingsURL } from '../../config/URLCreators';
 
 class ContactList extends Component {

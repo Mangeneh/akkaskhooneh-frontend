@@ -1,5 +1,5 @@
-import { generatePaginatorActionCreators, generatePaginatorSelectors } from './reducers/paginator';
-import { selectUsername } from './reducers/users';
+import { generatePaginatorActionCreators, generatePaginatorSelectors } from './reducers/paginator.ts';
+import { selectUsername } from './reducers/users.ts';
 import { createUserBoardsURL, createUserPhotosURL } from './config/URLCreators';
 
 export const generateSelfPhotosSelectors = (state) => {
