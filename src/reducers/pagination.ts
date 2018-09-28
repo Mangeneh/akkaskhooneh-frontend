@@ -2,10 +2,14 @@ import produce from 'immer';
 import { AnyAction } from 'redux';
 import { UsersActions } from '../actions';
 import { extractPreviousAction } from '../helpers';
-import { IPaginatorSuccessAction } from '../types/pagination';
+import { IPagination, IPaginatorFailAction, IPaginatorSuccessAction } from '../types/pagination';
 import { PaginatorActions } from './paginator';
 
-const pagination = produce((draft: any, action: AnyAction) => {
+export interface IPaginationState {
+  [field: string]: IPagination;
+}
+
+const pagination = produce<IPaginationState>((draft: IPaginationState, action: AnyAction) => {
   switch (action.type) {
     case PaginatorActions.REFRESH: {
       const { field, initialState } = action.payload;
@@ -25,6 +29,15 @@ const pagination = produce((draft: any, action: AnyAction) => {
         nextPage: 2,
         totalPages: currentAction.payload.data.total_pages,
         isFirstFetch: false,
+        isRefreshing: false,
+      };
+      return;
+    }
+    case PaginatorActions.REFRESH_FAIL: {
+      const currentAction = action as IPaginatorFailAction;
+      const field = currentAction.meta.previousAction.payload.field;
+      draft[field] = {
+        ...draft[field],
         isRefreshing: false,
       };
       return;
@@ -49,8 +62,15 @@ const pagination = produce((draft: any, action: AnyAction) => {
       };
       return;
     }
-    case UsersActions.SIGN_OUT:
-      draft = {};
+    case PaginatorActions.LOAD_MORE_FAIL: {
+      const currentAction = action as IPaginatorFailAction;
+      const field = currentAction.meta.previousAction.payload.field;
+      draft[field] = {
+        ...draft[field],
+        isLoading: false,
+      };
+      return;
+    }
   }
 }, {});
 

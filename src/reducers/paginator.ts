@@ -68,7 +68,7 @@ export const generatePaginatorActionCreators =
     };
   };
 
-export const generatePaginatorSelectors = (state: any, name: string, id: string) => {
+export const generatePaginatorSelectors = (state: IState, name: string, id: string) => {
   const field = createField(name, id);
   const selectData = (): any[] => selectField(state, field).data;
   const selectNextPage = (): number => selectField(state, field).nextPage;

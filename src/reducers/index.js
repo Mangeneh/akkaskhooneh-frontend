@@ -15,7 +15,7 @@ import pagination from './pagination.ts';
 import posts from './posts.ts';
 import users from './users.ts';
 
-export default combineReducers({
+const appReducer = combineReducers({
   loginPage: LoginPageReducer,
   users,
   posts,
@@ -32,3 +32,10 @@ export default combineReducers({
   getNewPass: GetNewPasswordReducer,
   sendToken: SendTokenReducer,
 });
+
+export default(state, action) => {
+  if (action.type === 'SIGN_OUT') {
+    state = undefined;
+  }
+  return appReducer(state, action);
+};

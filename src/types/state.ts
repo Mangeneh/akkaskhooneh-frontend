@@ -1,11 +1,11 @@
+import { IPaginationState } from '../reducers/pagination';
+import { IUsersState } from '../reducers/users';
 import { IPost } from './api';
-import { IPagination } from './pagination';
 
 export interface IState {
-  pagination: {
-    [field: string]: IPagination;
-  };
+  users: IUsersState;
   posts: {
     [field: string]: IPost;
   };
+  pagination: IPaginationState;
 }

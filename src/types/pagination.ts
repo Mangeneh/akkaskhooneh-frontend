@@ -29,6 +29,12 @@ export interface IPaginatorSuccessPayload {
   };
 }
 
+export interface IPaginatorFailAction extends AnyAction {
+  meta: {
+    previousAction: IPaginatorRequestAction,
+  };
+}
+
 export interface IPagination {
   data: any[];
   nextPage: number;

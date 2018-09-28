@@ -111,8 +111,6 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     }
-    case UsersActions.SIGN_OUT:
-      return INITIAL_STATE;
     default:
       return state;
   }

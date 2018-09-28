@@ -1,11 +1,29 @@
+import produce from 'immer';
 import _ from 'lodash';
 import { AnyAction } from 'redux';
 import { UsersActions } from '../actions/UsersActions';
 import { FollowStatus } from '../config';
+import { Actions as LoginActions } from '../pages/login/actions';
+import { IUser } from '../types/api';
+import { IState } from '../types/state';
+
+export interface IUsersState {
+  me: {
+    userInfo: IUser,
+    isFirstFetch: boolean,
+    accessToken: string,
+    refreshToken: string,
+    lastRefreshTime: number,
+  };
+  [username: string]: {
+    userInfo: IUser,
+    isFirstFetch: boolean,
+  };
+}
 
 const INITIAL_SELF_USER_STATE = {
   userInfo: {},
-  userInfoIsFirstFetch: true,
+  isFirstFetch: true,
   accessToken: '',
   refreshToken: '',
   lastRefreshTime: 0,
@@ -13,19 +31,17 @@ const INITIAL_SELF_USER_STATE = {
 
 const INITIAL_OTHER_USER_STATE = {
   userInfo: {},
-  userInfoIsFirstFetch: true,
+  isFirstFetch: true,
 };
 
 const INITIAL_STATE = {
   me: INITIAL_SELF_USER_STATE,
 };
 
-export default (state = INITIAL_STATE, action: AnyAction) => {
+const users = produce<IUsersState>((draft: IUsersState, action: AnyAction) => {
   const {
     UPDATE_ACCESS_TOKEN_SUCCESS,
     UPDATE_USER_INFO_SUCCESS,
-    SET_ACCESS_TOKEN,
-    SET_REFRESH_TOKEN,
     UPDATE_USER_INFO,
     FOLLOW_REQUEST,
     UN_FOLLOW_REQUEST,
@@ -37,110 +53,65 @@ export default (state = INITIAL_STATE, action: AnyAction) => {
       const { username } = action.payload;
       const userField = createUserBadge(username);
       const newPart = username ? INITIAL_OTHER_USER_STATE : INITIAL_SELF_USER_STATE;
-      return {
-        ...state,
-        [userField]: {
-          ...newPart,
-          ...state[userField],
-        },
+      draft[userField] = {
+        ...newPart,
+        ...draft[userField],
       };
+      return;
     }
     case UPDATE_USER_INFO_SUCCESS: {
       const userField = createUserBadge(action.meta.previousAction.payload.username);
-      return {
-        ...state,
-        [userField]: {
-          ...state[userField],
-          userInfo: action.payload.data,
-          userInfoIsFirstFetch: false,
-        },
+      draft[userField] = {
+        ...draft[userField],
+        userInfo: action.payload.data,
+        isFirstFetch: false,
       };
+      return;
     }
-    case UPDATE_ACCESS_TOKEN_SUCCESS:
-      return {
-        ...state,
-        me: {
-          ...state.me,
-          accessToken: action.payload.data.access,
-          lastRefreshTime: Date.now(),
-        },
-      };
-    case SET_ACCESS_TOKEN:
-      return {
-        ...state,
-        me: {
-          ...state.me,
-          accessToken: action.payload,
-          lastRefreshTime: Date.now(),
-        },
-      };
-    case SET_REFRESH_TOKEN:
-      return {
-        ...state,
-        me: {
-          ...state.me,
-          refreshToken: action.payload,
-        },
-      };
+    case UPDATE_ACCESS_TOKEN_SUCCESS: {
+      draft.me.accessToken = action.payload.data.access;
+      draft.me.lastRefreshTime = Date.now();
+      return;
+    }
+    case LoginActions.LOGIN_SUCCESS: {
+      draft.me.accessToken = action.payload.data.access;
+      draft.me.refreshToken = action.payload.data.refresh;
+      draft.me.lastRefreshTime = Date.now();
+      return;
+    }
     case FOLLOW_REQUEST: {
       const { username } = action.payload;
       const userField = createUserBadge(username);
-      return {
-        ...state,
-        [userField]: {
-          ...state[userField],
-          userInfo: {
-            ...state[userField].userInfo,
-            followers: state[userField].userInfo.followers + (state[userField].userInfo.is_private ? 0 : 1),
-            following_status: state[userField].userInfo.is_private ? FollowStatus.REQUESTED : FollowStatus.FOLLOWED,
-          },
-        },
-      };
+      draft[userField].userInfo.followers =
+        draft[userField].userInfo.followers + (draft[userField].userInfo.is_private ? 0 : 1);
+      draft[userField].userInfo.following_status =
+        draft[userField].userInfo.is_private ? FollowStatus.REQUESTED : FollowStatus.FOLLOWED;
+      return;
     }
     case UN_FOLLOW_REQUEST: {
       const { username } = action.payload;
       const userField = createUserBadge(username);
-      return {
-        ...state,
-        [userField]: {
-          ...state[userField],
-          userInfo: {
-            ...state[userField].userInfo,
-            followers: state[userField].userInfo.followers - 1,
-            following_status: FollowStatus.NOT_FOLLOWED,
-          },
-        },
-      };
+      draft[userField].userInfo.followers = draft[userField].userInfo.followers - 1;
+      draft[userField].userInfo.following_status = FollowStatus.NOT_FOLLOWED;
+      return;
     }
     case DELETE_FOLLOW_REQUEST: {
       const { username } = action.payload;
       const userField = createUserBadge(username);
-      return {
-        ...state,
-        [userField]: {
-          ...state[userField],
-          userInfo: {
-            ...state[userField].userInfo,
-            following_status: FollowStatus.NOT_FOLLOWED,
-          },
-        },
-      };
+      draft[userField].userInfo.following_status = FollowStatus.NOT_FOLLOWED;
+      return;
     }
-    case SIGN_OUT:
-      return INITIAL_STATE;
-    default:
-      return state;
   }
-};
+}, INITIAL_STATE);
 
-export const selectUsers = state => state.users;
+export const selectUsers = (state: IState) => state.users;
 
-const selectSelf = state => selectUsers(state).me;
+const selectSelf = (state: IState) => selectUsers(state).me;
 
-const createUserBadge = username => username || 'me';
+const createUserBadge = (username: string) => username || 'me';
 
-const checkUserProperty = (state, username) => _.has(selectUsers(state), createUserBadge(username));
-const getUserProperty = (state, username) => {
+const checkUserProperty = (state: IState, username) => _.has(selectUsers(state), createUserBadge(username));
+const getUserProperty = (state: IState, username) => {
   if (checkUserProperty(state, username)) {
     return selectUsers(state)[createUserBadge(username, state)];
   }
@@ -161,3 +132,5 @@ export const selectSelfEmail = state => selectSelf(state).userInfo.email;
 export const selectAccessToken = state => selectSelf(state).accessToken;
 export const selectRefreshToken = state => selectSelf(state).refreshToken;
 export const selectLastRefreshTime = state => selectSelf(state).lastRefreshTime;
+
+export default users;
