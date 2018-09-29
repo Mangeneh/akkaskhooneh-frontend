@@ -1,4 +1,4 @@
-export * from './PageModes';
+export * from './PageModes.ts';
 export * from './Constants';
 export * from './Colors';
 export * from './Fonts';

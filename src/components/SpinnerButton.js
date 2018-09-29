@@ -3,16 +3,18 @@ import {
 } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { chooseStyle } from '../styles';
+import { PageModes } from '../config/PageModes.ts';
 
 export default class SpinnerButton extends Component {
   render() {
-    const { disabled, onPress, style } = this.props;
+    const { onPress, mode } = this.props;
     return (
       <Button
         onPress={onPress}
         block
-        style={style}
-        disabled={disabled}
+        style={chooseStyle(mode)}
+        disabled={mode === PageModes.DISABLED || mode === PageModes.LOADING}
       >
         {this.renderButtonContent()}
       </Button>
@@ -20,8 +22,8 @@ export default class SpinnerButton extends Component {
   }
 
   renderButtonContent() {
-    const { text, icon, loading } = this.props;
-    if (loading) {
+    const { text, icon, mode } = this.props;
+    if (mode === PageModes.LOADING) {
       return <Spinner color="white" />;
     }
     return (

@@ -14,20 +14,6 @@ export const Actions = {
   LOGIN_RESET: 'LOGIN_RESET',
 };
 
-export const emailChanged = email => ({
-  type: Actions.EMAIL_CHANGED,
-  payload: email,
-});
-
-export const passwordChanged = password => ({
-  type: Actions.PASSWORD_CHANGED,
-  payload: password,
-});
-
-export const reset = () => ({ type: Actions.LOGIN_RESET });
-export const resetEmail = () => ({ type: Actions.EMAIL_RESET });
-export const resetPassword = () => ({ type: Actions.PASSWORD_RESET });
-
 export const loginUser = (email, password) => ({
   type: Actions.LOGIN,
   payload: {

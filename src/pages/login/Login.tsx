@@ -3,15 +3,14 @@ import { Text, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions/UsersActions';
-import { CustomStatusBar, EmailTextBox, PasswordTextBox } from '../../components';
-import {
-  Colors, Fonts, Pages, Strings,
-} from '../../config';
-import LoginButton from '../../containers/LoginButton';
+import { updateUser } from '../../actions';
+import { CustomStatusBar, EmailTextBox, PasswordTextBox, SpinnerButton } from '../../components';
+import { Colors, Fonts, Pages, Strings } from '../../config';
+import { PageModes } from '../../config/PageModes';
+import { checkEmail, checkPasgtsword } from '../../helpers/Validators';
 import { strings } from '../../i18n';
-import NavigationService from '../../NavigationService';
 import {
   emailChanged,
   loginUser,
@@ -20,29 +19,54 @@ import {
   resetEmail,
   resetPassword,
 } from './actions';
-import {
-  selectEmail, selectError, selectMode, selectPassword,
-} from './reducer';
+import { selectEmail, selectError, selectMode, selectPassword } from './reducer';
 
-class Login extends Component {
-  componentDidMount() {
+export interface IProps {
+  navigation: NavigationScreenProp;
+  loginUser: any;
+}
+
+interface IState {
+  email: string;
+  password: string;
+  mode: PageModes;
+  error: boolean;
+}
+
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+  mode: PageModes.DISABLED,
+  error: false,
+};
+
+class Login extends Component<IProps, IState> {
+  private interval: any;
+  private animation: any;
+
+  constructor (props) {
+    super(props);
+    this.state = INITIAL_STATE;
+    this.onLoginPress = this.onLoginPress.bind(this);
+  }
+
+  public componentDidMount () {
     this.animation.play();
     this.interval = setInterval(() => {
       this.animation.play();
     }, 5000);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount () {
     clearInterval(this.interval);
   }
 
-  render() {
-    const {
-      error, email, password, changeEmail, changePassword, resetEmail, resetPassword,
-    } = this.props;
+  public render () {
+    const { navigation } = this.props;
+    const { error, email, password, mode } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <CustomStatusBar />
+        <CustomStatusBar/>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ flexGrow: 1 }}
@@ -67,8 +91,8 @@ class Login extends Component {
                 <EmailTextBox
                   error={error}
                   value={email}
-                  onChangeEmail={email => changeEmail(email)}
-                  reset={() => resetEmail()}
+                  onChangeEmail={(email: string) => this.onChangeEmail(email)}
+                  reset={this.resetEmail}
                 />
               </View>
               <View style={{
@@ -81,18 +105,19 @@ class Login extends Component {
                   error={error}
                   value={password}
                   placeholder={strings(Strings.PASSWORD)}
-                  onChangePassword={password => changePassword(password)}
-                  reset={() => resetPassword()}
+                  onChangePassword={(password: string) => this.onChangePassword(password)}
+                  reset={this.resetPassword}
                 />
               </View>
-              <LoginButton
-                onPress={() => this.onLoginPress()}
+              <SpinnerButton
+                onPress={this.onLoginPress}
+                mode={mode}
                 text={strings(Strings.LOGIN)}
                 icon="login"
               />
               <TouchableOpacity
                 style={{ marginTop: 24 }}
-                onPress={() => NavigationService.navigate(Pages.FORGOT_PASSWORD)}
+                onPress={() => navigation.navigate(Pages.FORGOT_PASSWORD)}
               >
                 <Text style={styles.text}>{strings(Strings.FORGOT_PASSWORD)}</Text>
               </TouchableOpacity>
@@ -104,7 +129,7 @@ class Login extends Component {
     );
   }
 
-  renderLogoSection() {
+  private renderLogoSection () {
     return (
       <View style={{
         flex: 1,
@@ -118,7 +143,7 @@ class Login extends Component {
     );
   }
 
-  renderAnimation() {
+  private renderAnimation () {
     return (
       <LottieView
         ref={(animation) => {
@@ -131,7 +156,7 @@ class Login extends Component {
     );
   }
 
-  renderOtherLoginSection() {
+  private renderOtherLoginSection () {
     return (
       <View style={{
         flex: 1,
@@ -145,8 +170,10 @@ class Login extends Component {
     );
   }
 
-  onLoginPress() {
-    const { email, password, loginUser } = this.props;
+  private onLoginPress () {
+    this.setState({ mode: PageModes.LOADING });
+    const { loginUser } = this.props;
+    const { email, password } = this.state;
     loginUser(email, password)
       .then((response) => {
         this.onSuccess(response);
@@ -156,14 +183,13 @@ class Login extends Component {
       });
   }
 
-  onSuccess(response) {
-    const { updateUser, navigation, reset } = this.props;
+  private onSuccess (response) {
+    const { updateUser, navigation } = this.props;
     updateUser();
     navigation.navigate(Pages.MAIN);
-    reset();
   }
 
-  onFail(error) {
+  private onFail (error) {
     Toast.show({
       text: strings(Strings.WRONG_CREDENTIALS),
       textStyle: { textAlign: 'center' },
@@ -172,10 +198,32 @@ class Login extends Component {
     });
   }
 
-  onSignUpPress() {
-    const { navigation, reset } = this.props;
+  private onSignUpPress () {
+    const { navigation } = this.props;
     navigation.navigate('SignUp');
-    reset();
+  }
+
+  private onChangeEmail (email: string) {
+    this.setState(prevState => ({ email, mode: this.validate(email, prevState.password) }));
+  }
+
+  private onChangePassword (password: string) {
+    this.setState(prevState => ({ password, mode: this.validate(prevState.email, password) }));
+  }
+
+  private resetEmail () {
+    this.setState({ email: '', error: false, mode: PageModes.DISABLED });
+  }
+
+  private resetPassword () {
+    this.setState({ password: '', error: false, mode: PageModes.DISABLED });
+  }
+
+  private validate (email: string, password: string) {
+    if (checkPassword(password) && checkEmail(email)) {
+      return PageModes.NORMAL;
+    }
+    return PageModes.DISABLED;
   }
 }
 
@@ -188,21 +236,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  email: selectEmail(state),
-  password: selectPassword(state),
-  mode: selectMode(state),
-  error: selectError(state),
-});
-
 const mapDispatchToProps = dispatch => ({
-  changeEmail: email => dispatch(emailChanged(email)),
-  changePassword: password => dispatch(passwordChanged(password)),
   loginUser: (email, password) => dispatch(loginUser(email, password)),
   updateUser: () => dispatch(updateUser()),
-  resetEmail: () => dispatch(resetEmail()),
-  resetPassword: () => dispatch(resetPassword()),
-  reset: () => dispatch(reset()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

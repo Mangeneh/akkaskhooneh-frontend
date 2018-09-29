@@ -1,5 +1,5 @@
-import { UsersActions } from '../../actions';
-import { PageModes } from '../../config';
+import { UsersActions } from '../../actions/UsersActions';
+import { PageModes } from '../../config/PageModes';
 import { checkEmail, checkPassword } from '../../helpers/Validators';
 import { Actions } from './actions';
 

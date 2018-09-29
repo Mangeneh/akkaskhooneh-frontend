@@ -1,5 +1,4 @@
 import ChangePassButton from './ChangePassButton';
-import LoginButton from './LoginButton';
 import SaveChangesButton from './SaveChangesButton';
 import ProfileInfo from './ProfileInfo';
 import SendPostButton from './SendPostButton';
@@ -14,7 +13,6 @@ import BoardList from './BoardList';
 export {
   SignUpCompleteButton,
   ChangePassButton,
-  LoginButton,
   SaveChangesButton,
   ProfileInfo,
   SendPostButton,

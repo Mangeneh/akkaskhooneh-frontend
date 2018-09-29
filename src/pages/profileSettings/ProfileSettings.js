@@ -6,7 +6,7 @@ import {
   SafeAreaView, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { reset } from '../../actions/UsersActions';
+import { reset } from '../../actions/UsersActions.ts';
 import { BackHeader, CustomStatusBar } from '../../components';
 import {
   Colors, Constants, Pages, Strings,

@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { Actions as GetNewPassword } from './pages/getNewPassword/actions';
 import { selectAccessToken, selectRefreshToken } from './reducers/users.ts';
-import { accessTokenUpdated } from './actions/UsersActions';
+import { accessTokenUpdated } from './actions/UsersActions.ts';
 import { Actions as ForgotPasswordActions } from './pages/forgotPassword/actions';
 import { Actions as SignUpActions } from './pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './pages/signUpComplete/actions';
