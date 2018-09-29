@@ -5214,7 +5214,7 @@ react-navigation-stack@0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-0.2.3.tgz#9d1e2524aa1d178302c938948b8ece49d713f12b"
 
-react-navigation-tabs@0.6.0, react-navigation-tabs@latest:
+react-navigation-tabs@0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-0.6.0.tgz#2f526194f4360e56c2702e736887449acc2080dc"
   dependencies:

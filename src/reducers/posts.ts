@@ -1,189 +1,106 @@
+import produce from 'immer';
 import _ from 'lodash';
-import { PostsActions, UsersActions } from '../actions';
-import {
-  extractCommentsCount,
-  extractIsLiked,
-  extractLikesCount,
-  extractPostID,
-} from '../helpers';
+import { AnyAction } from 'redux';
+import { PostsActions } from '../actions';
+import { IPostDetails } from '../types/api';
+import { IState } from '../types/state';
 
-const INITIAL_OPEN_POST_STATE = {
-  postInfo: {},
-  postInfoIsFirstFetch: true,
-  postInfoIsLoading: false,
+export interface IPost {
+  postDetails: IPostDetails;
+  isFirstFetch: boolean;
+  isLoading: boolean;
+  isSendingComment: boolean;
+}
+
+export interface IPostsState {
+  [field: string]: IPost;
+}
+
+const INITIAL_POST_STATE = {
+  postDetails: {},
+  isFirstFetch: true,
+  isLoading: false,
+  isSendingComment: false,
 };
 
 const INITIAL_STATE = {};
 
-export default (state = INITIAL_STATE, action) => {
-  const {
-    GET_POST_INFO,
-    GET_POST_INFO_SUCCESS,
-    GET_POST_INFO_FAIL,
-    COMMENT,
-    COMMENT_SUCCESS,
-    COMMENT_FAIL,
-    LIKE_OR_DISLIKE,
-    LIKE_OR_DISLIKE_SUCCESS,
-    LIKE_OR_DISLIKE_FAIL,
-    INJECT_NEW_POSTS,
-  } = PostsActions;
+const posts = produce<IPostsState>((draft: IPostsState, action: AnyAction) => {
   switch (action.type) {
-    case INJECT_NEW_POSTS: {
-      return {
-        ...state,
-        ...injectNewPosts(action.payload, state),
-      };
+    case PostsActions.INJECT_NEW_POSTS: {
+      action.payload.forEach((postDetails: IPostDetails) => {
+        const postField = createPostBadge(postDetails.id);
+        draft[postField] = {
+          ...INITIAL_POST_STATE,
+          ...draft[postField],
+          postDetails,
+          isFirstFetch: false,
+        };
+      });
+      return;
     }
-    case GET_POST_INFO: {
+    case PostsActions.GET_POST_DETAILS: {
       const postField = createPostBadge(action.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...INITIAL_OPEN_POST_STATE,
-          ...state[postField],
-          postInfoIsLoading: true,
-        },
+      draft[postField] = {
+        ...INITIAL_POST_STATE,
+        ...draft[postField],
+        isLoading: true,
       };
+      return;
     }
-    case GET_POST_INFO_SUCCESS: {
+    case PostsActions.GET_POST_DETAILS_SUCCESS: {
       const postField = createPostBadge(action.meta.previousAction.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          postInfo: action.payload.data,
-          postInfoIsFirstFetch: false,
-          postInfoIsLoading: false,
-        },
-      };
+      draft[postField].postDetails = action.payload.data;
+      draft[postField].isFirstFetch = false;
+      draft[postField].isLoading = false;
+      return;
     }
-    case COMMENT: {
+    case PostsActions.COMMENT: {
       const postField = createPostBadge(action.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          isSendingComment: true,
-        },
-      };
+      draft[postField].isSendingComment = true;
+      return;
     }
-    case COMMENT_SUCCESS: {
+    case PostsActions.COMMENT_SUCCESS: {
       const postField = createPostBadge(action.meta.previousAction.payload.postID);
-      const chosenPostInfo = state[postField].postInfo;
-      const newPostInfo = {
-        ...chosenPostInfo,
-        comments_count: extractCommentsCount(state[postField].postInfo) + 1,
-      };
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          postInfo: newPostInfo,
-          isSendingComment: false,
-        },
-      };
+      draft[postField].postDetails.comments_count += 1;
+      draft[postField].isSendingComment = false;
+      return;
     }
-    case COMMENT_FAIL: {
+    case PostsActions.COMMENT_FAIL: {
       const postField = createPostBadge(action.meta.previousAction.payload.postID);
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          isSendingComment: false,
-        },
-      };
+      draft[postField].isSendingComment = false;
+      return;
     }
-    case LIKE_OR_DISLIKE: {
+    case PostsActions.LIKE_OR_DISLIKE: {
       const postField = createPostBadge(action.payload.postID);
-      const chosenPostInfo = state[postField].postInfo;
-      const newLikes = extractLikesCount(chosenPostInfo) + (extractIsLiked(chosenPostInfo) ? -1 : 1);
-      const newPostInfo = {
-        ...chosenPostInfo,
-        likes_count: newLikes,
-        is_liked: !chosenPostInfo.is_liked,
-      };
-      return {
-        ...state,
-        [postField]: {
-          ...state[postField],
-          postInfo: newPostInfo,
-        },
-      };
+      draft[postField].postDetails.likes_count += draft[postField].postDetails.is_liked ? -1 : 1;
+      draft[postField].postDetails.is_liked = !draft[postField].postDetails.is_liked;
+      return;
     }
-    default:
-      return state;
   }
-};
+}, INITIAL_STATE);
 
-const injectNewPosts = (newPosts, state) => {
-  if (newPosts.length === 0) {
-    return {};
-  }
-  if (newPosts.length === 1) {
-    const postField = createPostBadge(extractPostID(newPosts[0]));
-    return {
-      [postField]: {
-        ...INITIAL_OPEN_POST_STATE,
-        ...state[postField],
-        postInfo: {
-          ...newPosts[0],
-        },
-        postInfoIsFirstFetch: false,
-      },
-    };
-  }
-  return newPosts.reduce((accumulator, currentValue, currentIndex) => {
-    if (currentIndex === 1) {
-      const firstPostField = createPostBadge(extractPostID(accumulator));
-      const secondPostField = createPostBadge(extractPostID(currentValue));
-      return {
-        [firstPostField]: {
-          ...INITIAL_OPEN_POST_STATE,
-          ...state[firstPostField],
-          postInfo: {
-            ...accumulator,
-          },
-          postInfoIsFirstFetch: false,
-        },
-        [secondPostField]: {
-          ...INITIAL_OPEN_POST_STATE,
-          ...state[secondPostField],
-          postInfo: {
-            ...currentValue,
-          },
-          postInfoIsFirstFetch: false,
-        },
-      };
-    }
-    const postField = createPostBadge(extractPostID(currentValue));
-    return {
-      ...accumulator,
-      [postField]: {
-        ...INITIAL_OPEN_POST_STATE,
-        ...state[postField],
-        postInfo: {
-          ...currentValue,
-        },
-        postInfoIsFirstFetch: false,
-      },
-    };
-  }, {});
-};
+export const selectPosts = (state: IState) => state.posts;
 
-export const selectPosts = state => state.posts;
+const createPostBadge = (postID: number) => `post_${postID}`;
 
-const createPostBadge = postID => `post_${postID}`;
+const checkPostProperty = (state: IState, postID: number) =>
+  _.has(selectPosts(state), createPostBadge(postID));
 
-const checkPostProperty = (state, postID) => _.has(selectPosts(state), createPostBadge(postID));
-const getPostProperty = (state, postID) => {
+const getPostProperty = (state: IState, postID: number) => {
   const postProperty = createPostBadge(postID);
   if (checkPostProperty(state, postID)) {
     return selectPosts(state)[postProperty];
   }
-  return INITIAL_OPEN_POST_STATE;
+  return INITIAL_POST_STATE;
 };
-export const selectPostInfo = (state, postID) => getPostProperty(state, postID).postInfo;
-export const selectPostInfoIsFirstFetch = (state, postID) => getPostProperty(state, postID).postInfoIsFirstFetch;
-export const selectPostInfoIsLoading = (state, postID) => getPostProperty(state, postID).postInfoIsLoading;
-export const selectIsSendingComment = (state, postID) => getPostProperty(state, postID).isSendingComment;
+export const selectPostInfo = (state: IState, postID: number) =>
+  getPostProperty(state, postID).postDetails;
+export const selectPostInfoIsFirstFetch = (state: IState, postID: number) =>
+  getPostProperty(state, postID).isFirstFetch;
+export const selectPostInfoIsLoading = (state: IState, postID: number) =>
+  getPostProperty(state, postID).isLoading;
+export const selectIsSendingComment = (state: IState, postID: number) =>
+  getPostProperty(state, postID).isSendingComment;
+
+export default posts;

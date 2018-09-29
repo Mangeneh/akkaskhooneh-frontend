@@ -1,7 +1,5 @@
 import produce from 'immer';
 import { AnyAction } from 'redux';
-import { UsersActions } from '../actions';
-import { extractPreviousAction } from '../helpers';
 import { IPagination, IPaginatorFailAction, IPaginatorSuccessAction } from '../types/pagination';
 import { PaginatorActions } from './paginator';
 

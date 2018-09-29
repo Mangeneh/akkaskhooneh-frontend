@@ -1,7 +1,7 @@
 import produce from 'immer';
 import _ from 'lodash';
 import { AnyAction } from 'redux';
-import { UsersActions } from '../actions/UsersActions';
+import { UsersActions } from '../actions';
 import { FollowStatus } from '../config';
 import { Actions as LoginActions } from '../pages/login/actions';
 import { Actions as SignUpActions } from '../pages/signUpComplete/actions';
@@ -16,6 +16,7 @@ export interface IUsersState {
     refreshToken: string,
     lastRefreshTime: number,
   };
+
   [username: string]: {
     userInfo: IUser,
     isFirstFetch: boolean,

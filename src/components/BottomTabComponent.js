@@ -2,7 +2,7 @@ import LottieView from 'lottie-react-native';
 import React, { Component } from 'react';
 import { PermissionsAndroid, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { MaterialTopTabBar } from 'react-navigation-tabs';
+import { MaterialTopTabBar } from 'react-navigation/node_modules/react-navigation-tabs';
 import { connect } from 'react-redux';
 import { Colors } from '../config';
 import { Pages } from '../config/Pages';
