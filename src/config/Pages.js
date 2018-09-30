@@ -1,7 +1,7 @@
 export const Pages = {
   LOGIN: 'Login',
   SIGN_UP: 'SignUp',
-  SIGN_UP_COMPLETE: 'SIGN_UP_COMPLETE',
+  SIGN_UP_COMPLETE: 'SignUpComplete',
   SELF_PROFILE: 'Profile',
   OTHERS_PROFILE: 'OthersProfile',
   PROFILE_EDIT: 'ProfileEdit',

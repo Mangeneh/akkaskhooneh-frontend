@@ -8,7 +8,6 @@ import PasswordInstruction from '../../components/PasswordInstruction';
 import { Colors, Strings } from '../../config';
 import ChangePassButton from '../../containers/ChangePassButton';
 import { strings } from '../../i18n';
-import { selectRepeatedPassword } from '../signUp/reducer';
 import {
   changePassword,
   newPasswordChanged,
@@ -17,7 +16,7 @@ import {
   reset,
 } from './actions';
 import {
-  selectError, selectMode, selectNewPassword, selectPreviousPassword,
+  selectError, selectMode, selectNewPassword, selectPreviousPassword, selectRepeatedPassword,
 } from './reducer';
 
 class ChangePass extends Component {

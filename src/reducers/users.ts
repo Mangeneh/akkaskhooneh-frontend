@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { AnyAction } from 'redux';
 import { UsersActions } from '../actions';
 import { FollowStatus } from '../config';
-import { Actions as LoginActions } from '../pages/login/actions';
 import { Actions as SignUpActions } from '../pages/signUpComplete/actions';
 import { IUser } from '../types/api';
 import { IState } from '../types/state';
@@ -48,6 +47,7 @@ const users = produce<IUsersState>((draft: IUsersState, action: AnyAction) => {
     FOLLOW_REQUEST,
     UN_FOLLOW_REQUEST,
     DELETE_FOLLOW_REQUEST,
+    LOGIN_SUCCESS,
   } = UsersActions;
   switch (action.type) {
     case UPDATE_USER_INFO: {
@@ -75,7 +75,7 @@ const users = produce<IUsersState>((draft: IUsersState, action: AnyAction) => {
       return;
     }
     case SignUpActions.SIGN_UP_SUCCESS:
-    case LoginActions.LOGIN_SUCCESS: {
+    case LOGIN_SUCCESS: {
       draft.me.accessToken = action.payload.data.access;
       draft.me.refreshToken = action.payload.data.refresh;
       draft.me.lastRefreshTime = Date.now();

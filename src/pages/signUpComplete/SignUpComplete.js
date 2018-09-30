@@ -7,7 +7,7 @@ import { Avatar } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions/UsersActions.ts';
+import { updateUserInfo } from '../../actions/UsersActions.ts';
 import { BackHeader, CustomLongTextBox, FullStatusBar } from '../../components';
 import BioInstruction from '../../components/BioInstruction';
 import UsernameInstruction from '../../components/UsernameInstruction';
@@ -269,7 +269,7 @@ const mapDispatchToProps = dispatch => ({
   changeImage: image => dispatch(imageChanged(image)),
   changeFullName: fullname => dispatch(fullNameChanged(fullname)),
   signUpUser: (email, password, username, fullname, bio) => dispatch(signUpUser(email, password, username, fullname, bio)),
-  updateUser: () => dispatch(updateUser()),
+  updateUser: () => dispatch(updateUserInfo()),
   reset: () => dispatch(reset()),
 });
 

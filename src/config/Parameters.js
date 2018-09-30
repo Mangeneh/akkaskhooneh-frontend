@@ -1,5 +1,7 @@
 export const Parameters = {
   USERNAME: 'USERNAME',
+  EMAIL: 'EMAIL',
+  PASSWORD: 'PASSWORD',
   POST_ID: 'POST_ID',
   BOARD_ID: 'BOARD_ID',
   BOARD: 'BOARD',

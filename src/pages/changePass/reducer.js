@@ -75,6 +75,7 @@ function validate(previousPassword, newPassword, repeatedPassword) {
 export const selectChangePassPage = state => state.changePassPage;
 
 export const selectPreviousPassword = state => selectChangePassPage(state).previousPassword;
+export const selectRepeatedPassword = state => selectChangePassPage(state).repeatedPassword;
 export const selectNewPassword = state => selectChangePassPage(state).newPassword;
 export const selectMode = state => selectChangePassPage(state).mode;
 export const selectError = state => selectMode(state) === PageModes.ERROR;

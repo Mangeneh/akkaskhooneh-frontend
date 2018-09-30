@@ -7,9 +7,8 @@ import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { Actions as GetNewPassword } from './pages/getNewPassword/actions';
 import { selectAccessToken, selectRefreshToken } from './reducers/users.ts';
-import { accessTokenUpdated } from './actions/UsersActions.ts';
+import { accessTokenUpdated, UsersActions } from './actions/UsersActions.ts';
 import { Actions as ForgotPasswordActions } from './pages/forgotPassword/actions';
-import { Actions as SignUpActions } from './pages/signUp/actions';
 import { Actions as SignUpCompleteActions } from './pages/signUpComplete/actions';
 import { Actions as SendTokenActions } from './pages/tokenPage/actions';
 import rootReducer from './reducers';
@@ -42,7 +41,7 @@ export default () => {
               success({ getState, dispatch, getSourceAction }, request) {
                 const { type } = request.reduxSourceAction;
                 if (type === SignUpCompleteActions.SIGN_UP
-                  || type === SignUpActions.VALIDATE_EMAIL
+                  || type === UsersActions.VALIDATE_EMAIL
                   || type === ForgotPasswordActions.FORGOT_PASSWORD
                   || type === SendTokenActions.SEND_TOKEN
                   || type === GetNewPassword.CHANGE_PASSWORD) {

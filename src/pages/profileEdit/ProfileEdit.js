@@ -9,7 +9,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Switch } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions/UsersActions.ts';
+import { updateUserInfo } from '../../actions/UsersActions.ts';
 import { BackHeader, CustomLongTextBox, CustomStatusBar } from '../../components';
 import BioInstruction from '../../components/BioInstruction';
 import {
@@ -362,7 +362,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   normalize: () => dispatch(normalize()),
-  updateUser: () => dispatch(updateUser()),
+  updateUser: () => dispatch(updateUserInfo()),
   editProfile: (fullName, bio) => dispatch(editProfile(fullName, bio)),
   changeProfilePic: formData => dispatch(changeProfilePic(formData)),
   sendChangeStatus: () => dispatch(changeStatus()),

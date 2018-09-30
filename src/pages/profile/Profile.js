@@ -3,7 +3,7 @@ import { Container, Tab, Tabs } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions';
+import { updateUserInfo } from '../../actions';
 import { ProfileHeader } from '../../components';
 import FollowButton from '../../components/FollowButton';
 import Loading from '../../components/Loading';
@@ -188,7 +188,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const username = ownProps.navigation.getParam(Parameters.USERNAME);
   return {
-    updateUser: () => dispatch(updateUser(username)),
+    updateUser: () => dispatch(updateUserInfo(username)),
   };
 };
 

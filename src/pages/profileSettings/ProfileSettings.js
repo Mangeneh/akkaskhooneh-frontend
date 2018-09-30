@@ -6,7 +6,7 @@ import {
   SafeAreaView, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { reset } from '../../actions/UsersActions.ts';
+import { signOut } from '../../actions/UsersActions.ts';
 import { BackHeader, CustomStatusBar } from '../../components';
 import {
   Colors, Constants, Pages, Strings,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  reset: () => dispatch(reset()),
+  reset: () => dispatch(signOut()),
 });
 
 export default connect(null, mapDispatchToProps)(ProfileSettings);
