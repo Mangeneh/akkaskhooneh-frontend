@@ -1,4 +1,4 @@
-import { ActionSheet, Icon, Input, Item, } from 'native-base';
+import { ActionSheet, Icon, Input, Item } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
@@ -6,15 +6,17 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
-import { signUpUser } from '../../actions';
-import { updateUserInfo } from '../../actions/UsersActions.ts';
-import { BackHeader, CustomLongTextBox, FullStatusBar, SpinnerButton } from '../../components';
-import BioInstruction from '../../components/BioInstruction';
-import UsernameInstruction from '../../components/UsernameInstruction';
-import { Addresses, Colors, Constants, Pages, Parameters, Strings, } from '../../config';
-import { PageModes } from '../../config/PageModes';
-import { checkUsername, extractImageSource } from '../../helpers';
-import { showFailureToast } from '../../helpers/Toasts';
+import { signUpUser, updateUserInfo } from '../../actions';
+import {
+  BackHeader,
+  BioInstruction,
+  CustomLongTextBox,
+  FullStatusBar,
+  SpinnerButton,
+  UsernameInstruction,
+} from '../../components';
+import { Addresses, Colors, Constants, PageModes, Pages, Parameters, Strings } from '../../config';
+import { checkUsername, extractImageSource, showFailureToast } from '../../helpers';
 import { strings } from '../../i18n';
 
 export interface IProps {
@@ -159,17 +161,17 @@ class SignUpComplete extends Component<IProps, IState> {
       }];
     const CANCEL_INDEX = 2;
     ActionSheet.show({
-        options: BUTTONS,
-        cancelButtonIndex: CANCEL_INDEX,
-      },
-      (buttonIndex) => {
-        if (buttonIndex === 0) {
+      options: BUTTONS,
+      cancelButtonIndex: CANCEL_INDEX,
+    },
+                     (buttonIndex) => {
+                       if (buttonIndex === 0) {
           this.onOpenCameraPress();
         }
-        if (buttonIndex === 1) {
+                       if (buttonIndex === 1) {
           this.onChooseFromGalleryPress();
         }
-      });
+                     });
   }
 
   private onChooseFromGalleryPress () {
@@ -220,7 +222,6 @@ class SignUpComplete extends Component<IProps, IState> {
     }
     return PageModes.DISABLED;
   }
-
 
   private onSaveChangesPress () {
     this.setState({ mode: PageModes.LOADING });
