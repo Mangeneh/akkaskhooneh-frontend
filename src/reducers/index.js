@@ -7,7 +7,6 @@ import NotificationReducer from '../pages/notification/reducer';
 import ProfileEditPageReducer from '../pages/profileEdit/reducer';
 import SearchPageReducer from '../pages/search/reducer';
 import SearchUserOrTagReducer from '../pages/searchUserOrTag/reducer';
-import SignUpCompletePageReducer from '../pages/signUpComplete/reducer';
 import SendTokenReducer from '../pages/tokenPage/reducer';
 import pagination from './pagination.ts';
 import posts from './posts.ts';
@@ -17,7 +16,6 @@ const appReducer = combineReducers({
   users,
   posts,
   pagination,
-  signUpCompletePage: SignUpCompletePageReducer,
   profileEditPage: ProfileEditPageReducer,
   changePassPage: ChangePassPageReducer,
   addPostInfoPage: AddPostInfoReducer,

@@ -167,6 +167,39 @@ class SignUp extends Component<IProps, IState> {
     );
   }
 
+  private onReturnToLoginPress () {
+    const { navigation } = this.props;
+    navigation.navigate(Pages.LOGIN);
+  }
+
+  private onChangeEmail (email: string) {
+    this.setState(prevState => ({
+      email,
+      mode: this.validate(email, prevState.password, prevState.repeatedPassword),
+    }));
+  }
+
+  private onChangePassword (password: string) {
+    this.setState(prevState => ({
+      password,
+      mode: this.validate(prevState.email, password, prevState.repeatedPassword),
+    }));
+  }
+
+  private onChangeRepeatedPassword (repeatedPassword: string) {
+    this.setState(prevState => ({
+      repeatedPassword,
+      mode: this.validate(prevState.email, prevState.password, repeatedPassword),
+    }));
+  }
+
+  private validate (email: string, password: string, repeatedPassword: string) {
+    if (checkPassword(password) && checkEmail(email) && password === repeatedPassword) {
+      return PageModes.NORMAL;
+    }
+    return PageModes.DISABLED;
+  }
+
   private onSignUpPress () {
     this.setState({ mode: PageModes.LOADING });
     const { email } = this.state;
@@ -198,41 +231,8 @@ class SignUp extends Component<IProps, IState> {
     });
   }
 
-  private onReturnToLoginPress () {
-    const { navigation } = this.props;
-    navigation.navigate(Pages.LOGIN);
-  }
-
-  private onChangeEmail (email: string) {
-    this.setState(prevState => ({
-      email,
-      mode: this.validate(email, prevState.password, prevState.repeatedPassword),
-    }));
-  }
-
-  private onChangePassword (password: string) {
-    this.setState(prevState => ({
-      password,
-      mode: this.validate(prevState.email, password, prevState.repeatedPassword),
-    }));
-  }
-
-  private onChangeRepeatedPassword (repeatedPassword: string) {
-    this.setState(prevState => ({
-      repeatedPassword,
-      mode: this.validate(prevState.email, prevState.password, repeatedPassword),
-    }));
-  }
-
   private resetEmail () {
     this.setState({ email: '', error: false, mode: PageModes.DISABLED });
-  }
-
-  private validate (email: string, password: string, repeatedPassword: string) {
-    if (checkPassword(password) && checkEmail(email) && password === repeatedPassword) {
-      return PageModes.NORMAL;
-    }
-    return PageModes.DISABLED;
   }
 }
 

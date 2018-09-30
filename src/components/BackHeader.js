@@ -3,10 +3,11 @@ import {
 } from 'native-base';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { Colors, Graphics } from '../config';
 import CustomStatusBar from './CustomStatusBar';
 
-export default props => (
+const BackHeader = ({ title, navigation }) => (
   <View>
     <Header androidStatusBarColor={Colors.BASE} style={{ backgroundColor: Colors.BASE }}>
       <CustomStatusBar />
@@ -15,7 +16,7 @@ export default props => (
         marginLeft: 8,
       }}
       >
-        <TouchableOpacity onPress={() => props.onBackPress()} hitSlop={Graphics.HIT_SLOP}>
+        <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={Graphics.HIT_SLOP}>
           <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }} />
         </TouchableOpacity>
       </Left>
@@ -25,7 +26,7 @@ export default props => (
           color: 'white',
         }}
         >
-          {props.title}
+          {title}
         </Title>
       </Body>
       <Right style={{
@@ -38,3 +39,5 @@ export default props => (
     </Header>
   </View>
 );
+
+export default withNavigation(BackHeader);

@@ -11,6 +11,8 @@ export enum UsersActions {
   UPDATE_USER_INFO_SUCCESS = 'UPDATE_USER_INFO_SUCCESS',
   UPDATE_USER_INFO_FAIL = 'UPDATE_USER_INFO_FAIL',
   VALIDATE_EMAIL = 'VALIDATE_EMAIL',
+  SIGN_UP = 'SIGN_UP',
+  SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS',
   FOLLOW_REQUEST = 'FOLLOW_REQUEST',
   FOLLOW_REQUEST_SUCCESS = 'FOLLOW_REQUEST_SUCCESS',
   FOLLOW_REQUEST_FAIL = 'FOLLOW_REQUEST_FAIL',
@@ -45,6 +47,23 @@ export const validateEmail = (email: string) => ({
       url: Server.CHECK_EMAIL,
       data: {
         email,
+      },
+    },
+  },
+});
+
+export const signUpUser = (email: string, password: string, username: string, fullName: string, bio: string) => ({
+  type: UsersActions.SIGN_UP,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.SIGN_UP_USER,
+      data: {
+        email,
+        password,
+        username,
+        fullname: fullName,
+        bio,
       },
     },
   },

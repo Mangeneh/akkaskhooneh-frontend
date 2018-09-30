@@ -132,7 +132,7 @@ class Login extends Component<IProps, IState> {
       }}
       >
         {this.renderAnimation()}
-        <Text style={styles.text}>{strings('app_name')}</Text>
+        <Text style={styles.text}>{strings(Strings.APP_NAME)}</Text>
       </View>
     );
   }
@@ -164,6 +164,29 @@ class Login extends Component<IProps, IState> {
     );
   }
 
+  private onChangeEmail (email: string) {
+    this.setState(prevState => ({ email, mode: this.validate(email, prevState.password) }));
+  }
+
+  private onChangePassword (password: string) {
+    this.setState(prevState => ({ password, mode: this.validate(prevState.email, password) }));
+  }
+
+  private validate (email: string, password: string) {
+    if (checkPassword(password) && checkEmail(email)) {
+      return PageModes.NORMAL;
+    }
+    return PageModes.DISABLED;
+  }
+
+  private resetEmail () {
+    this.setState({ email: '', error: false, mode: PageModes.DISABLED });
+  }
+
+  private resetPassword () {
+    this.setState({ password: '', error: false, mode: PageModes.DISABLED });
+  }
+
   private onLoginPress () {
     this.setState({ mode: PageModes.LOADING });
     const { loginUser, navigation } = this.props;
@@ -190,29 +213,6 @@ class Login extends Component<IProps, IState> {
   private onSignUpPress () {
     const { navigation } = this.props;
     navigation.navigate('SignUp');
-  }
-
-  private onChangeEmail (email: string) {
-    this.setState(prevState => ({ email, mode: this.validate(email, prevState.password) }));
-  }
-
-  private onChangePassword (password: string) {
-    this.setState(prevState => ({ password, mode: this.validate(prevState.email, password) }));
-  }
-
-  private resetEmail () {
-    this.setState({ email: '', error: false, mode: PageModes.DISABLED });
-  }
-
-  private resetPassword () {
-    this.setState({ password: '', error: false, mode: PageModes.DISABLED });
-  }
-
-  private validate (email: string, password: string) {
-    if (checkPassword(password) && checkEmail(email)) {
-      return PageModes.NORMAL;
-    }
-    return PageModes.DISABLED;
   }
 }
 

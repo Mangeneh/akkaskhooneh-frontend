@@ -9,6 +9,7 @@
     "ordered-imports": true,
     "import-name": false,
     "object-literal-sort-keys": false,
-    "object-shorthand-properties-first": false
+    "object-shorthand-properties-first": false,
+    "jsx-boolean-value": false
   }
 }
