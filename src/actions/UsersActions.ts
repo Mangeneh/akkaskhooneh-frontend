@@ -52,22 +52,23 @@ export const validateEmail = (email: string) => ({
   },
 });
 
-export const signUpUser = (email: string, password: string, username: string, fullName: string, bio: string) => ({
-  type: UsersActions.SIGN_UP,
-  payload: {
-    request: {
-      method: RequestMethods.POST,
-      url: Server.SIGN_UP_USER,
-      data: {
-        email,
-        password,
-        username,
-        fullname: fullName,
-        bio,
+export const signUpUser =
+  (email: string, password: string, username: string, fullName: string, bio: string) => ({
+    type: UsersActions.SIGN_UP,
+    payload: {
+      request: {
+        method: RequestMethods.POST,
+        url: Server.SIGN_UP_USER,
+        data: {
+          email,
+          password,
+          username,
+          fullname: fullName,
+          bio,
+        },
       },
     },
-  },
-});
+  });
 
 export const signOut = () => ({ type: UsersActions.SIGN_OUT });
 

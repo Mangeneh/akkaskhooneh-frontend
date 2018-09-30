@@ -7,7 +7,6 @@ import NotificationReducer from '../pages/notification/reducer';
 import ProfileEditPageReducer from '../pages/profileEdit/reducer';
 import SearchPageReducer from '../pages/search/reducer';
 import SearchUserOrTagReducer from '../pages/searchUserOrTag/reducer';
-import SendTokenReducer from '../pages/tokenPage/reducer';
 import pagination from './pagination.ts';
 import posts from './posts.ts';
 import users from './users.ts';
@@ -24,7 +23,6 @@ const appReducer = combineReducers({
   notification: NotificationReducer,
   forgotPass: ForgotPasswordReducer,
   getNewPass: GetNewPasswordReducer,
-  sendToken: SendTokenReducer,
 });
 
 export default(state, action) => {

@@ -1,25 +1,28 @@
-import {
-  Icon, Input, Text, Toast,
-} from 'native-base';
+import { Icon, Input, Text } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { BackHeader, CustomStatusBar } from '../../components';
+import { BackHeader, CustomStatusBar, SpinnerButton } from '../../components';
 import {
-  Colors, Constants, Pages, Strings,
+  Colors, Constants, PageModes, Pages, Strings,
 } from '../../config';
-import { SendTokenButton } from '../../containers';
 import { strings } from '../../i18n';
-import { codeChanged, sendToken } from './actions';
+import { sendToken } from './actions';
+import { showFailureToast } from '../../helpers/Toasts';
+
+const INITIAL_STATE = {
+  code: '',
+};
 
 class TokenPage extends Component {
-  state = {
-    code: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = INITIAL_STATE;
+    this.onSendPress = this.onSendPress.bind(this);
+  }
 
   render() {
-    const { validateCode } = this.props;
     const { code } = this.state;
     return (
       <View style={{
@@ -27,7 +30,7 @@ class TokenPage extends Component {
         backgroundColor: Colors.BASE,
       }}
       >
-        <BackHeader onBackPress={() => this.onBackPress()} />
+        <BackHeader />
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ flexGrow: 1 }}
@@ -77,10 +80,7 @@ class TokenPage extends Component {
                   }}
                   maxLength={6}
                   value={code}
-                  onChangeText={(code) => {
-                    this.setState({ code });
-                    validateCode(code);
-                  }}
+                  onChangeText={code => this.setState({ code })}
                 />
               </View>
             </View>
@@ -91,9 +91,11 @@ class TokenPage extends Component {
               flex: 1,
             }}
             >
-              <SendTokenButton
+              <SpinnerButton
                 text={strings(Strings.SEND)}
-                onPress={() => this.onSendPress()}
+                onPress={this.onSendPress}
+                mode={mode}
+                icon="login"
               />
             </View>
           </View>
@@ -103,30 +105,32 @@ class TokenPage extends Component {
   }
 
   onSendPress() {
-    this.props.sendCurrentToken(this.state.code)
+    const { sendCurrentToken, navigation } = this.props;
+    sendCurrentToken(this.state.code)
       .then((result) => {
-        this.props.navigation.navigate(Pages.GET_NEW_PASSWORD, {
+        navigation.navigate(Pages.GET_NEW_PASSWORD, {
           token: this.state.code,
         });
       })
       .catch((error) => {
-        Toast.show({
-          text: strings(Strings.INVALID_TOKEN),
-          textStyle: { textAlign: 'center' },
-          position: 'bottom',
-          type: 'danger',
-        });
+        showFailureToast(strings(Strings.INVALID_TOKEN));
       });
   }
 
   onBackPress() {
     this.props.navigation.goBack();
   }
+
+  validate(code) {
+    if (code.length === 6) {
+      return PageModes.NORMAL;
+    }
+    return PageModes.DISABLED;
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
   sendCurrentToken: token => dispatch(sendToken(token)),
-  validateCode: code => dispatch(codeChanged(code)),
 });
 
 export default connect(null, mapDispatchToProps)(TokenPage);
