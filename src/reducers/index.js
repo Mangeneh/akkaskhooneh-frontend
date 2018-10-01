@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import AddPostInfoReducer from '../pages/addPostInfo/reducer';
 import ChangePassPageReducer from '../pages/changePass/reducer';
-import GetNewPasswordReducer from '../pages/getNewPassword/reducer';
 import NotificationReducer from '../pages/notification/reducer';
 import ProfileEditPageReducer from '../pages/profileEdit/reducer';
 import SearchPageReducer from '../pages/search/reducer';
@@ -20,7 +19,6 @@ const appReducer = combineReducers({
   searchPage: SearchPageReducer,
   search: SearchUserOrTagReducer,
   notification: NotificationReducer,
-  getNewPass: GetNewPasswordReducer,
 });
 
 export default(state, action) => {

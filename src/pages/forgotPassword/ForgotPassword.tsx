@@ -133,7 +133,6 @@ class ForgotPassword extends Component<IProps, IState> {
   private onFail (error) {
     this.setState({ error: true, mode: PageModes.ERROR });
     showFailureToast(error.error.response.status === 404 ? strings(Strings.NON_EXISTING_EMAIL) : strings(Strings.TOKEN_TIME));
-    this.props.navigation.navigate('TokenPage');
   }
 
   private validate (email: string) {
