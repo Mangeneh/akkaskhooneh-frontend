@@ -2,35 +2,63 @@ import { Icon, Toast } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
-import { BackHeader, CustomStatusBar, PasswordTextBox } from '../../components';
-import PasswordInstruction from '../../components/PasswordInstruction';
-import { Colors, Strings } from '../../config';
-import ChangePassButton from '../../containers/ChangePassButton';
+import {
+  BackHeader,
+  CustomStatusBar,
+  PasswordInstruction,
+  PasswordTextBox,
+  SpinnerButton,
+} from '../../components';
+import { Colors, PageModes, Strings } from '../../config';
+import { checkPassword } from '../../helpers';
+import { showFailureToast } from '../../helpers/Toasts';
 import { strings } from '../../i18n';
-import {
-  changePassword,
-  newPasswordChanged,
-  previousPasswordChanged,
-  repeatedPasswordChanged,
-  reset,
-} from './actions';
-import {
-  selectError, selectMode, selectNewPassword, selectPreviousPassword, selectRepeatedPassword,
-} from './reducer';
+import { changePassword } from './actions';
 
-class ChangePass extends Component {
-  render() {
+export interface IProps {
+  navigation: NavigationScreenProp;
+  changePassword: any;
+}
+
+interface IState {
+  email: string;
+  previousPassword: string;
+  newPassword: string;
+  repeatedPassword: string;
+  mode: PageModes;
+  error: boolean;
+}
+
+const INITIAL_STATE = {
+  email: '',
+  previousPassword: '',
+  newPassword: '',
+  repeatedPassword: '',
+  mode: PageModes.DISABLED,
+  error: false,
+};
+
+class ChangePass extends Component<IProps, IState> {
+
+  constructor (props) {
+    super(props);
+    this.state = INITIAL_STATE;
+    this.onSaveChangesPressed = this.onSaveChangesPressed.bind(this);
+  }
+
+  public render () {
     const {
-      error, previousPassword, newPassword, repeatedPassword,
-    } = this.props;
+      error, previousPassword, newPassword, repeatedPassword, mode,
+    } = this.state;
     return (
       <View style={{
         flex: 1,
         backgroundColor: Colors.BASE,
       }}
       >
-        <BackHeader onBackPress={() => this.onBackPress()} title={strings(Strings.CHANGE_PASS)} />
+        <BackHeader title={strings(Strings.CHANGE_PASS)}/>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ flexGrow: 1 }}
@@ -42,14 +70,14 @@ class ChangePass extends Component {
             marginTop: 0,
           }}
           >
-            <CustomStatusBar />
+            <CustomStatusBar/>
             <View style={{
               flex: 1,
               justifyContent: 'center',
               alignSelf: 'center',
             }}
             >
-              <Icon name="key" style={{ color: 'white' }} />
+              <Icon name="key" style={{ color: 'white' }}/>
             </View>
             <View style={{
               flex: 1,
@@ -83,7 +111,7 @@ class ChangePass extends Component {
                   onChangePassword={newPassword => this.onNewPasswordChange(newPassword)}
                   reset={() => this.props.reset()}
                 />
-                <PasswordInstruction />
+                <PasswordInstruction/>
               </View>
               <View style={{
                 marginTop: 16,
@@ -108,10 +136,11 @@ class ChangePass extends Component {
               flex: 1,
             }}
             >
-              <ChangePassButton
+              <SpinnerButton
                 text={strings(Strings.SAVE_NEW_PASSWORD)}
+                onPress={this.onSaveChangesPressed()}
+                mode={mode}
                 icon="check"
-                onPress={() => this.onSaveChangesPressed()}
               />
             </View>
           </View>
@@ -120,13 +149,10 @@ class ChangePass extends Component {
     );
   }
 
-  onBackPress() {
-    this.props.navigation.goBack();
-  }
-
-  onSaveChangesPressed() {
-    const { previousPassword, newPassword } = this.props;
-    this.props.changePassword(previousPassword, newPassword)
+  private onSaveChangesPressed () {
+    const { previousPassword, newPassword } = this.state;
+    const { changePassword } = this.props;
+    changePassword(previousPassword, newPassword)
       .then((result) => {
         this.onSuccess();
       })
@@ -135,7 +161,7 @@ class ChangePass extends Component {
       });
   }
 
-  onSuccess() {
+  private onSuccess () {
     Toast.show({
       text: strings(Strings.CHANGE_PASS_SUCCESS),
       textStyle: { textAlign: 'center' },
@@ -144,47 +170,47 @@ class ChangePass extends Component {
       duration: 500,
       onClose: () => {
         this.props.navigation.goBack();
-        this.props.reset();
       },
     });
   }
 
-  onFail() {
-    Toast.show({
-      text: strings(Strings.CHANGE_PASS_FAIL),
-      textStyle: { textAlign: 'center' },
-      position: 'bottom',
-      type: 'danger',
-    });
+  private onFail () {
+    showFailureToast(strings(Strings.CHANGE_PASS_FAIL));
   }
 
-  onPreviousPasswordChange(previousPassword) {
-    this.props.changePreviousPassword(previousPassword);
+  private onPreviousPasswordChange (previousPassword: string) {
+    this.setState(prevState => ({
+      previousPassword,
+      mode: this.validate(previousPassword, prevState.newPassword, prevState.repeatedPassword),
+    }));
   }
 
-  onNewPasswordChange(newPassword) {
-    this.props.changeNewPassword(newPassword);
+  private onNewPasswordChange (newPassword: string) {
+    this.setState(prevState => ({
+      newPassword,
+      mode: this.validate(prevState.previousPassword, newPassword, prevState.repeatedPassword),
+    }));
   }
 
-  onRepeatedPasswordChange(repeatedPassword) {
-    this.props.changeRepeatedPassword(repeatedPassword);
+  private onRepeatedPasswordChange (repeatedPassword: string) {
+    this.setState(prevState => ({
+      repeatedPassword,
+      mode: this.validate(prevState.previousPassword, prevState.newPassword, repeatedPassword),
+    }));
+  }
+
+  private validate (previousPassword: string, newPassword: string, repeatedPassword: string) {
+    if (checkPassword(newPassword) && checkPassword(previousPassword)
+      && newPassword === repeatedPassword) {
+      return PageModes.NORMAL;
+    }
+    return PageModes.DISABLED;
   }
 }
 
-const mapStateToProps = state => ({
-  mode: selectMode(state),
-  previousPassword: selectPreviousPassword(state),
-  newPassword: selectNewPassword(state),
-  repeatedPassword: selectRepeatedPassword(state),
-  error: selectError(state),
-});
-
 const mapDispatchToProps = dispatch => ({
-  changePreviousPassword: previousPassword => dispatch(previousPasswordChanged(previousPassword)),
-  changeNewPassword: newPassword => dispatch(newPasswordChanged(newPassword)),
-  changeRepeatedPassword: repeatedPassword => dispatch(repeatedPasswordChanged(repeatedPassword)),
-  changePassword: (previousPassword, newPassword) => dispatch(changePassword(previousPassword, newPassword)),
-  reset: () => dispatch(reset()),
+  changePassword: (previousPassword: string, newPassword: string) =>
+    dispatch(changePassword(previousPassword, newPassword)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePass);
+export default connect(null, mapDispatchToProps)(ChangePass);
