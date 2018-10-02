@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SpinnerButton from '../components/SpinnerButton';
+import SpinnerButton from '../components/SpinnerButton.tsx';
 import { PageModes } from '../config';
 import { chooseStyle } from '../styles/ButtonStyle';
 

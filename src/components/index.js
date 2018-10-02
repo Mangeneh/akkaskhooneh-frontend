@@ -17,7 +17,7 @@ import PostHeader from './PostHeader';
 import PostsPhotoList from './PostsPhotoList';
 import ProfileHeader from './ProfileHeader';
 import ProfilePageImageItem from './ProfilePageImageItem';
-import SpinnerButton from './SpinnerButton';
+import SpinnerButton from './SpinnerButton.tsx';
 import TagItem from './TagItem';
 import Tags from './Tags';
 

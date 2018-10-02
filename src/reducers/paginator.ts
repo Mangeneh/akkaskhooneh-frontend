@@ -27,7 +27,7 @@ export const generatePaginatorActionCreators =
   (name: string, id: string, onRefreshSuccess: IOnSuccess, onLoadMoreSuccess: IOnSuccess) => {
     const field = createField(name, id);
     const refresh = (url: string) => (dispatch: IDispatch) => {
-      dispatch({
+      return dispatch({
         type: PaginatorActions.REFRESH,
         payload: {
           request: {
@@ -45,7 +45,7 @@ export const generatePaginatorActionCreators =
       });
     };
     const loadMore = (url: string) => (dispatch: IDispatch) => {
-      dispatch({
+      return dispatch({
         type: PaginatorActions.LOAD_MORE,
         payload: {
           request: {
