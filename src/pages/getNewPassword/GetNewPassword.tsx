@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
+import { getNewPassword } from '../../actions';
 import {
   BackHeader,
   CustomStatusBar,
@@ -15,8 +16,6 @@ import { Colors, PageModes, Pages, Parameters, Strings } from '../../config';
 import { checkPassword } from '../../helpers';
 import { showFailureToast } from '../../helpers/Toasts';
 import { strings } from '../../i18n';
-import { getNewPassword, passwordChanged } from './actions';
-import { selectError, selectMode } from './reducer';
 
 export interface IProps {
   navigation: NavigationScreenProp;

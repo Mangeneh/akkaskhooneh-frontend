@@ -4,13 +4,12 @@ import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
+import { sendEmail } from '../../actions';
 import { BackHeader, CustomStatusBar, EmailTextBox, SpinnerButton } from '../../components';
 import { Colors, Constants, PageModes, Pages, Strings } from '../../config';
 import { checkEmail } from '../../helpers';
 import { showFailureToast } from '../../helpers/Toasts';
 import { strings } from '../../i18n';
-import { emailChanged, sendEmail } from './actions';
-import { selectError, selectMode } from './reducer';
 
 export interface IProps {
   navigation: NavigationScreenProp;

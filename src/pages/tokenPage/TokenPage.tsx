@@ -4,11 +4,11 @@ import { StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
+import { sendToken } from '../../actions';
 import { BackHeader, CustomStatusBar, SpinnerButton } from '../../components';
 import { Colors, Constants, PageModes, Pages, Parameters, Strings } from '../../config';
 import { showFailureToast } from '../../helpers/Toasts';
 import { strings } from '../../i18n';
-import { sendToken } from './actions';
 
 export interface IProps {
   navigation: NavigationScreenProp;

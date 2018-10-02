@@ -5,11 +5,8 @@ import { persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
-import { Actions as GetNewPassword } from './pages/getNewPassword/actions';
 import { selectAccessToken, selectRefreshToken } from './reducers/users.ts';
 import { accessTokenUpdated, UsersActions } from './actions/UsersActions.ts';
-import { Actions as ForgotPasswordActions } from './pages/forgotPassword/actions';
-import { Actions as SendTokenActions } from './pages/tokenPage/actions';
 import rootReducer from './reducers';
 import Reactotron from './ReactotronConfig';
 
@@ -41,9 +38,9 @@ export default () => {
                 const { type } = request.reduxSourceAction;
                 if (type === UsersActions.SIGN_UP
                   || type === UsersActions.VALIDATE_EMAIL
-                  || type === ForgotPasswordActions.FORGOT_PASSWORD
-                  || type === SendTokenActions.SEND_TOKEN
-                  || type === GetNewPassword.CHANGE_PASSWORD) {
+                  || type === UsersActions.SEND_EMAIL
+                  || type === UsersActions.SEND_TOKEN
+                  || type === UsersActions.GET_NEW_PASSWORD) {
                   return request;
                 }
                 request.headers.authorization = `Bearer ${selectAccessToken(getState())}`;

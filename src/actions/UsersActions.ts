@@ -5,6 +5,9 @@ export enum UsersActions {
   LOGIN = 'LOGIN',
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
   LOGIN_FAIL = 'LOGIN_FAIL',
+  SEND_TOKEN = 'SEND_TOKEN',
+  SEND_EMAIL = 'SEND_EMAIL',
+  GET_NEW_PASSWORD = 'GET_NEW_PASSWORD',
   UPDATE_ACCESS_TOKEN = 'UPDATE_ACCESS_TOKEN',
   UPDATE_ACCESS_TOKEN_SUCCESS = 'UPDATE_ACCESS_TOKEN_SUCCESS',
   UPDATE_USER_INFO = 'UPDATE_USER_INFO',
@@ -13,6 +16,7 @@ export enum UsersActions {
   VALIDATE_EMAIL = 'VALIDATE_EMAIL',
   SIGN_UP = 'SIGN_UP',
   SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS',
+  CHANGE_PASS = 'CHANGE_PASS',
   FOLLOW_REQUEST = 'FOLLOW_REQUEST',
   FOLLOW_REQUEST_SUCCESS = 'FOLLOW_REQUEST_SUCCESS',
   FOLLOW_REQUEST_FAIL = 'FOLLOW_REQUEST_FAIL',
@@ -33,6 +37,46 @@ export const loginUser = (email: string, password: string) => ({
       url: Server.LOGIN_USER,
       data: {
         email: email.toLowerCase(),
+        password,
+      },
+    },
+  },
+});
+
+export const sendEmail = (email: string) => ({
+  type: UsersActions.SEND_EMAIL,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.FORGOT_PASSWORD,
+      data: {
+        email: email.toLowerCase(),
+      },
+    },
+  },
+});
+
+export const sendToken = (token: string) => ({
+  type: UsersActions.SEND_TOKEN,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.SEND_TOKEN,
+      data: {
+        token,
+      },
+    },
+  },
+});
+
+export const getNewPassword = (token: string, password: string) => ({
+  type: UsersActions.GET_NEW_PASSWORD,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.GET_NEW_PASS,
+      data: {
+        token,
         password,
       },
     },
@@ -98,6 +142,20 @@ export const updateUserInfo = (username: string | undefined = undefined) => {
     },
   };
 };
+
+export const changePassword = (oldPassword: string, newPassword: string) => ({
+  type: UsersActions.CHANGE_PASS,
+  payload: {
+    request: {
+      method: RequestMethods.PUT,
+      url: Server.CHANGE_PASSWORD,
+      data: {
+        old_password: oldPassword,
+        new_password: newPassword,
+      },
+    },
+  },
+});
 
 export const followRequest = (username: string) => ({
   type: UsersActions.FOLLOW_REQUEST,

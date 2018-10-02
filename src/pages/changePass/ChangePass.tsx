@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
+import { changePassword } from '../../actions';
 import {
   BackHeader,
   CustomStatusBar,
@@ -15,7 +16,6 @@ import { Colors, PageModes, Strings } from '../../config';
 import { checkPassword } from '../../helpers';
 import { showFailureToast } from '../../helpers/Toasts';
 import { strings } from '../../i18n';
-import { changePassword } from './actions';
 
 export interface IProps {
   navigation: NavigationScreenProp;
@@ -46,6 +46,7 @@ class ChangePass extends Component<IProps, IState> {
     super(props);
     this.state = INITIAL_STATE;
     this.onSaveChangesPressed = this.onSaveChangesPressed.bind(this);
+    this.resetPreviousPassword = this.resetPreviousPassword.bind(this);
   }
 
   public render () {
@@ -95,7 +96,7 @@ class ChangePass extends Component<IProps, IState> {
                   placeholder={strings(Strings.CURRENT_PASSWORD)}
                   value={previousPassword}
                   onChangePassword={previousPassword => this.onPreviousPasswordChange(previousPassword)}
-                  reset={() => this.props.reset()}
+                  reset={this.resetPreviousPassword}
                 />
               </View>
               <View style={{
@@ -105,11 +106,9 @@ class ChangePass extends Component<IProps, IState> {
               }}
               >
                 <PasswordTextBox
-                  error={error}
                   placeholder={strings(Strings.NEW_PASSWORD)}
                   value={newPassword}
                   onChangePassword={newPassword => this.onNewPasswordChange(newPassword)}
-                  reset={() => this.props.reset()}
                 />
                 <PasswordInstruction/>
               </View>
@@ -120,11 +119,9 @@ class ChangePass extends Component<IProps, IState> {
               }}
               >
                 <PasswordTextBox
-                  error={error}
                   placeholder={strings(Strings.REPEAT_NEW_PASSWORD)}
                   value={repeatedPassword}
                   onChangePassword={repeatedPassword => this.onRepeatedPasswordChange(repeatedPassword)}
-                  reset={() => this.props.reset()}
                 />
               </View>
             </View>
@@ -138,7 +135,7 @@ class ChangePass extends Component<IProps, IState> {
             >
               <SpinnerButton
                 text={strings(Strings.SAVE_NEW_PASSWORD)}
-                onPress={this.onSaveChangesPressed()}
+                onPress={this.onSaveChangesPressed}
                 mode={mode}
                 icon="check"
               />
@@ -150,6 +147,7 @@ class ChangePass extends Component<IProps, IState> {
   }
 
   private onSaveChangesPressed () {
+    this.setState({ mode: PageModes.LOADING });
     const { previousPassword, newPassword } = this.state;
     const { changePassword } = this.props;
     changePassword(previousPassword, newPassword)
@@ -162,6 +160,7 @@ class ChangePass extends Component<IProps, IState> {
   }
 
   private onSuccess () {
+    this.setState({ mode: PageModes.SUCCESS });
     Toast.show({
       text: strings(Strings.CHANGE_PASS_SUCCESS),
       textStyle: { textAlign: 'center' },
@@ -175,6 +174,7 @@ class ChangePass extends Component<IProps, IState> {
   }
 
   private onFail () {
+    this.setState({ mode: PageModes.ERROR, error: true});
     showFailureToast(strings(Strings.CHANGE_PASS_FAIL));
   }
 
@@ -182,6 +182,7 @@ class ChangePass extends Component<IProps, IState> {
     this.setState(prevState => ({
       previousPassword,
       mode: this.validate(previousPassword, prevState.newPassword, prevState.repeatedPassword),
+      error: false,
     }));
   }
 
@@ -205,6 +206,10 @@ class ChangePass extends Component<IProps, IState> {
       return PageModes.NORMAL;
     }
     return PageModes.DISABLED;
+  }
+
+  private resetPreviousPassword () {
+    this.setState({ previousPassword: '', mode: PageModes.DISABLED, error: false });
   }
 }
 
