@@ -1,41 +1,52 @@
-import {
-  Icon, Input, Item, Text,
-} from 'native-base';
+import { Icon, Input, Item, Text, } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
 import {
-  BackHeader, CustomLongTextBox, CustomStatusBar, Tags,
+  BackHeader,
+  CustomLongTextBox,
+  CustomStatusBar,
+  SpinnerButton,
+  Tags,
 } from '../../components';
-import {
-  Colors, Constants, Graphics, Pages, Strings,
-} from '../../config';
-import SendPostButton from '../../containers/SendPostButton';
+import { Colors, Constants, Graphics, PageModes, Pages, Parameters, Strings, } from '../../config';
 import { strings } from '../../i18n';
-import { normalize, sendPost } from './actions';
-import { selectMode } from './reducer';
+import { sendPost } from './actions';
 
-class AddPostInfo extends Component {
-  state = {
-    tags: [],
-    caption: '',
-  };
+export interface IProps {
+  navigation: NavigationScreenProp;
+  sendPost: any;
+}
 
-  componentWillMount() {
-    const { normalize } = this.props;
-    normalize();
+interface IState {
+  tags: string[];
+  caption: string;
+  mode: PageModes;
+}
+
+class AddPostInfo extends Component<IProps, IState> {
+  constructor (props) {
+    super(props);
+    this.state = {
+      tags: [],
+      caption: '',
+      mode: PageModes.NORMAL,
+    };
+    this.sendPost = this.sendPost.bind(this);
   }
 
-  render() {
+  public render () {
+    const { mode } = this.state;
     return (
       <View style={{
         flex: 1,
         backgroundColor: 'white',
       }}
       >
-        <BackHeader onBackPress={() => this.onBackPress()} title={strings(Strings.SEND_POST)} />
+        <BackHeader title={strings(Strings.SEND_POST)}/>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ flexGrow: 1 }}
@@ -48,7 +59,7 @@ class AddPostInfo extends Component {
             marginTop: 0,
           }}
           >
-            <CustomStatusBar />
+            <CustomStatusBar/>
             <View style={{
               flex: 5,
               backgroundColor: 'white',
@@ -99,14 +110,11 @@ class AddPostInfo extends Component {
               alignSelf: 'center',
             }}
             >
-              <SendPostButton
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                }}
-                icon="send"
+              <SpinnerButton
+                onPress={this.sendPost}
+                mode={mode}
                 text={strings(Strings.SEND_POST)}
-                onPress={() => this.SendPost()}
+                icon="send"
               />
             </View>
           </View>
@@ -115,10 +123,10 @@ class AddPostInfo extends Component {
     );
   }
 
-  renderImageWithCaption() {
+  private renderImageWithCaption () {
     const { navigation } = this.props;
     const { caption } = this.state;
-    const imageSource = navigation.getParam('imageSource');
+    const imageSource = navigation.getParam(Parameters.IMAGE_SOURCE);
     return (
       <View style={styles.photo}>
         <View style={{ flex: 3 }}>
@@ -153,24 +161,26 @@ class AddPostInfo extends Component {
     );
   }
 
-  onBackPress() {
-    this.props.navigation.goBack();
+  private onChangeTags (tags: string[]) {
+    this.setState({ tags });
   }
 
-  onChangeTags = (tags) => {
-    this.setState({ tags });
-  };
-
-  onChangeCaption(caption) {
+  private onChangeCaption (caption: string) {
     this.setState({ caption });
   }
 
-  SendPost() {
-    const imageSource = this.props.navigation.getParam('imageSource');
+  private sendPost () {
+    this.setState({ mode: PageModes.LOADING });
+    const imageSource = this.props.navigation.getParam(Parameters.IMAGE_SOURCE);
     const { caption, tags } = this.state;
-    this.props.sendPost(imageSource, caption, tags)
+    const { sendPost, navigation } = this.props;
+    sendPost(imageSource, caption, tags)
       .then((response) => {
-        this.props.navigation.navigate(Pages.MAIN);
+        this.setState({ mode: PageModes.SUCCESS });
+        navigation.navigate(Pages.MAIN);
+      })
+      .catch((error) => {
+        this.setState({ mode: PageModes.ERROR });
       });
   }
 }
@@ -186,13 +196,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  mode: selectMode(state),
-});
-
 const mapDispatchToProps = dispatch => ({
-  sendPost: (imageSource, caption, tags) => dispatch(sendPost(imageSource, caption, tags)),
-  normalize: () => dispatch(normalize()),
+  sendPost: (imageSource: string, caption: string, tags: string[]) =>
+    dispatch(sendPost(imageSource, caption, tags)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPostInfo);
+export default connect(null, mapDispatchToProps)(AddPostInfo);

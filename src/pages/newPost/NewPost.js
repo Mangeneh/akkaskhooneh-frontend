@@ -10,7 +10,7 @@ import ImageResizer from 'react-native-image-resizer';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import { BackHeader, CameraRollPicker, CustomStatusBar } from '../../components';
 import {
-  Colors, Constants, Pages, Strings,
+  Colors, Constants, Pages, Parameters, Strings,
 } from '../../config';
 import { extractImageSource } from '../../helpers';
 import { strings } from '../../i18n';
@@ -181,7 +181,7 @@ export default class NewPost extends Component {
     const { imageSource } = this.state;
     ImageResizer.createResizedImage(imageSource, Constants.UPLOAD_POST_PICTURE_SIZE, Constants.UPLOAD_POST_PICTURE_SIZE, 'JPEG', 90)
       .then((response) => {
-        this.props.navigation.navigate(Pages.ADD_POST_INFO, { imageSource: response.uri });
+        this.props.navigation.navigate(Pages.ADD_POST_INFO, { [Parameters.IMAGE_SOURCE]: response.uri });
       })
       .catch((err) => {
         Toast.show({

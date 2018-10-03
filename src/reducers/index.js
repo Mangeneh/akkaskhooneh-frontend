@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
-import AddPostInfoReducer from '../pages/addPostInfo/reducer';
 import NotificationReducer from '../pages/notification/reducer';
-import ProfileEditPageReducer from '../pages/profileEdit/reducer';
 import SearchPageReducer from '../pages/search/reducer';
 import SearchUserOrTagReducer from '../pages/searchUserOrTag/reducer';
 import pagination from './pagination.ts';
@@ -12,8 +10,6 @@ const appReducer = combineReducers({
   users,
   posts,
   pagination,
-  profileEditPage: ProfileEditPageReducer,
-  addPostInfoPage: AddPostInfoReducer,
   searchPage: SearchPageReducer,
   search: SearchUserOrTagReducer,
   notification: NotificationReducer,

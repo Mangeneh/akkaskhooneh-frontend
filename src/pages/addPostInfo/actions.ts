@@ -5,14 +5,9 @@ export const Actions = {
   SEND_POST: 'SEND_POST',
   SEND_POST_SUCCESS: 'SEND_POST_SUCCESS',
   SEND_POST_FAIL: 'SEND_POST_FAIL',
-  NORMALIZE: 'ADD_POST_INFO_NORMALIZE',
 };
 
-export const normalize = () => ({
-  type: Actions.NORMALIZE,
-});
-
-export const sendPost = (imageSource, caption, tags) => {
+export const sendPost = (imageSource: string, caption: string, tags: string) => {
   const formData = new FormData({});
   formData.append('picture', {
     uri: imageSource,

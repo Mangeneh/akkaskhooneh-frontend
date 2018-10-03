@@ -24,7 +24,7 @@ export type IOnSuccess = ((dispatch: IDispatch, data: any[]) => any) | undefined
 type IDispatch = (action: IPaginatorRequestAction) => Promise<IPaginatorSuccessAction>;
 
 export const generatePaginatorActionCreators =
-  (name: string, id: string, onRefreshSuccess: IOnSuccess, onLoadMoreSuccess: IOnSuccess) => {
+  (name: string, id: string, onRefreshSuccess: IOnSuccess = undefined, onLoadMoreSuccess: IOnSuccess = undefined) => {
     const field = createField(name, id);
     const refresh = (url: string) => (dispatch: IDispatch) => {
       return dispatch({

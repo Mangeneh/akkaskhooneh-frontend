@@ -26,7 +26,7 @@ export interface IProps {
 
 interface IState {
   mode: PageModes;
-  image: string;
+  image: string | null;
   bio: string;
   username: string;
   fullName: string;
@@ -161,17 +161,17 @@ class SignUpComplete extends Component<IProps, IState> {
       }];
     const CANCEL_INDEX = 2;
     ActionSheet.show({
-      options: BUTTONS,
-      cancelButtonIndex: CANCEL_INDEX,
-    },
-                     (buttonIndex) => {
-                       if (buttonIndex === 0) {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+      },
+      (buttonIndex) => {
+        if (buttonIndex === 0) {
           this.onOpenCameraPress();
         }
-                       if (buttonIndex === 1) {
+        if (buttonIndex === 1) {
           this.onChooseFromGalleryPress();
         }
-                     });
+      });
   }
 
   private onChooseFromGalleryPress () {

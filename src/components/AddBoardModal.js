@@ -12,7 +12,7 @@ import {
   generateSelfBoardsSelectors,
   loadMoreSelfBoardsThunk,
   refreshSelfBoardsThunk,
-} from '../common';
+} from '../common.ts';
 import Loading from './Loading';
 
 // TODO: Clear Field After Adding New Board

@@ -26,6 +26,9 @@ export enum UsersActions {
   DELETE_FOLLOW_REQUEST = 'DELETE_FOLLOW_REQUEST',
   DELETE_FOLLOW_REQUEST_SUCCESS = 'DELETE_FOLLOW_REQUEST_SUCCESS',
   DELETE_FOLLOW_REQUEST_FAIL = 'DELETE_FOLLOW_REQUEST_FAIL',
+  EDIT_PROFILE = 'EDIT_PROFILE',
+  CHANGE_PRIVATE_STATUS = 'CHANGE_PRIVATE_STATUS',
+  CHANGE_PROFILE_PIC = 'CHANGE_PROFILE_PIC',
   SIGN_OUT = 'SIGN_OUT',
 }
 
@@ -196,5 +199,40 @@ export const deleteFollowRequest = (username: string) => ({
       },
     },
     username,
+  },
+});
+
+export const editProfile = (fullName: string, bio: string) => ({
+  type: UsersActions.EDIT_PROFILE,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.EDIT_PROFILE,
+      data: {
+        fullname: fullName,
+        bio,
+      },
+    },
+  },
+});
+
+export const changeStatus = () => ({
+  type: UsersActions.CHANGE_PRIVATE_STATUS,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.CHANGE_PRIVATE_STATUS,
+    },
+  },
+});
+
+export const changeProfilePic = formData => ({
+  type: UsersActions.CHANGE_PROFILE_PIC,
+  payload: {
+    request: {
+      method: RequestMethods.POST,
+      url: Server.CHANGE_PROFILE_PIC,
+      data: formData,
+    },
   },
 });

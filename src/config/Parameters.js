@@ -3,6 +3,7 @@ export const Parameters = {
   EMAIL: 'EMAIL',
   PASSWORD: 'PASSWORD',
   TOKEN: 'TOKEN',
+  IMAGE_SOURCE: 'IMAGE_SOURCE',
   POST_ID: 'POST_ID',
   BOARD_ID: 'BOARD_ID',
   BOARD: 'BOARD',

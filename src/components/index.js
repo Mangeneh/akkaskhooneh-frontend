@@ -20,6 +20,8 @@ import ProfilePageImageItem from './ProfilePageImageItem';
 import SpinnerButton from './SpinnerButton.tsx';
 import TagItem from './TagItem';
 import Tags from './Tags';
+import UsernameInstruction from './UsernameInstruction';
+import BioInstruction from './BioInstruction';
 
 export {
   EmailTextBox,
@@ -44,4 +46,6 @@ export {
   TagItem,
   NotificationComponent,
   Loading,
+  UsernameInstruction,
+  BioInstruction,
 };
