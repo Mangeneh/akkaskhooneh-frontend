@@ -1,5 +1,5 @@
 import {
-  Header, Icon, Input, Item, Tab, Tabs, Toast,
+  Header, Icon, Input, Item, Tab, Tabs,
 } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
@@ -10,22 +10,11 @@ import {
 } from '../../config';
 import { strings } from '../../i18n';
 import {
-  getSearchTags,
-  getSearchUsers,
-  refreshSearchTags,
-  refreshSearchUsers,
-  startNewSearch,
-} from './actions';
-import {
-  selectSearchTags,
-  selectSearchTagsIsLoading,
-  selectSearchTagsNextPage,
-  selectSearchTagsTotalPages,
-  selectSearchUsers,
-  selectSearchUsersIsLoading,
-  selectSearchUsersNextPage,
-  selectSearchUsersTotalPages,
-} from './reducer';
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+} from '../../reducers/paginator';
+import { createSearchTagsURL, createSearchUsersURL } from '../../config/URLCreators';
+import { showFailureToast } from '../../helpers/Toasts';
 
 class SearchUserOrTag extends Component {
   state = {
@@ -146,13 +135,13 @@ class SearchUserOrTag extends Component {
 
   renderUsers() {
     const { searchText } = this.state;
-    const { refreshSearchUsers, searchUsersIsLoading, searchUsers } = this.props;
+    const { refreshUsers, usersIsLoading, users } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshSearchUsers(searchText)}
-        refreshing={searchUsersIsLoading}
+        onRefresh={() => refreshUsers(searchText)}
+        refreshing={usersIsLoading}
         onEndReached={() => {
-          this.updateUsers(searchText);
+          this.loadMoreUsers(searchText);
         }}
         style={{
           width: '100%',
@@ -160,47 +149,47 @@ class SearchUserOrTag extends Component {
           marginTop: 8,
         }}
         keyExtractor={(item, index) => index.toString()}
-        data={searchUsers}
-        renderItem={({ item, index }) => this.renderUser(item, index)}
+        data={users}
+        renderItem={({ item }) => this.renderUser(item)}
       />
     );
   }
 
-  renderUser(item, index) {
+  renderUser(item) {
     return <ContactItem user={item} />;
   }
 
   renderTags() {
     const { searchText } = this.state;
-    const { refreshSearchTags, searchTagsIsLoading, searchTags } = this.props;
+    const { refreshTags, tagsIsLoading, tags } = this.props;
     return (
       <FlatList
-        onRefresh={() => refreshSearchTags(searchText)}
-        refreshing={searchTagsIsLoading}
+        onRefresh={() => refreshTags(searchText)}
+        refreshing={tagsIsLoading}
         onEndReached={() => {
-          this.updateTags(searchText);
+          this.loadMoreTags(searchText);
         }}
         style={{
           width: '100%',
           marginTop: 8,
         }}
         keyExtractor={(item, index) => index.toString()}
-        data={searchTags}
-        renderItem={({ item, index }) => this.renderTag(item, index)}
+        data={tags}
+        renderItem={({ item }) => this.renderTag(item)}
       />
     );
   }
 
-  renderTag(item, index) {
+  renderTag(item) {
     return <TagItem tag={item} />;
   }
 
-  updateUsers(text) {
+  loadMoreUsers(text) {
     const {
-      searchUsersNextPage, searchUsersTotalPages, searchUsersIsLoading, getSearchUsersNextPage,
+      usersNextPage, usersTotalPages, usersIsLoading, loadMoreUsers,
     } = this.props;
-    if (searchUsersNextPage <= searchUsersTotalPages && !searchUsersIsLoading) {
-      getSearchUsersNextPage(text, searchUsersNextPage)
+    if (usersNextPage <= usersTotalPages && !usersIsLoading) {
+      loadMoreUsers(text, usersNextPage)
         .then((response) => {
         })
         .catch((error) => {
@@ -208,12 +197,12 @@ class SearchUserOrTag extends Component {
     }
   }
 
-  updateTags(text) {
+  loadMoreTags(text) {
     const {
-      searchTagsNextPage, searchTagsTotalPages, searchTagsIsLoading, getSearchTagsNextPage,
+      tagsNextPage, tagsTotalPages, tagsIsLoading, loadMoreTags,
     } = this.props;
-    if (searchTagsNextPage <= searchTagsTotalPages && !searchTagsIsLoading) {
-      getSearchTagsNextPage(text, searchTagsNextPage)
+    if (tagsNextPage <= tagsTotalPages && !tagsIsLoading) {
+      loadMoreTags(text, tagsNextPage)
         .then((response) => {
         })
         .catch((error) => {
@@ -222,40 +211,46 @@ class SearchUserOrTag extends Component {
   }
 
   search(searchText) {
-    const { refreshSearchUsers, refreshSearchTags } = this.props;
+    const { refreshUsers, refreshTags } = this.props;
     this.setState({ searchText });
-    refreshSearchUsers(searchText);
-    refreshSearchTags(searchText)
+    refreshUsers(searchText);
+    refreshTags(searchText)
       .then((response) => {
       })
       .catch((error) => {
-        Toast.show({
-          text: strings(Strings.SEARCH_FAIL),
-          textStyle: { textAlign: 'center' },
-          position: 'bottom',
-          type: 'danger',
-        });
+        showFailureToast(strings(Strings.SEARCH_FAIL));
       });
   }
 }
 
-const mapStateToProps = state => ({
-  searchUsers: selectSearchUsers(state),
-  searchUsersNextPage: selectSearchUsersNextPage(state),
-  searchUsersTotalPages: selectSearchUsersTotalPages(state),
-  searchUsersIsLoading: selectSearchUsersIsLoading(state),
-  searchTags: selectSearchTags(state),
-  searchTagsNextPage: selectSearchTagsNextPage(state),
-  searchTagsTotalPages: selectSearchTagsTotalPages(state),
-  searchTagsIsLoading: selectSearchTagsIsLoading(state),
-});
+const mapStateToProps = (state) => {
+  const userSelectors = generatePaginatorSelectors(state, 'search_users', '');
+  const tagSelectors = generatePaginatorSelectors(state, 'search_tags', '');
+  return {
+    users: userSelectors.selectData(),
+    usersNextPage: userSelectors.selectNextPage(),
+    usersTotalPages: userSelectors.selectTotalPages(),
+    usersIsFirstFetch: userSelectors.selectIsFirstFetch(),
+    usersIsRefreshing: userSelectors.selectIsRefreshing(),
+    usersIsLoading: userSelectors.selectIsLoading(),
+    tags: tagSelectors.selectData(),
+    tagsNextPage: tagSelectors.selectNextPage(),
+    tagsTotalPages: tagSelectors.selectTotalPages(),
+    tagsIsFirstFetch: tagSelectors.selectIsFirstFetch(),
+    tagsIsRefreshing: tagSelectors.selectIsRefreshing(),
+    tagsIsLoading: tagSelectors.selectIsLoading(),
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  refreshSearchUsers: text => dispatch(refreshSearchUsers(text)),
-  getSearchUsersNextPage: (text, usersNext) => dispatch(getSearchUsers(text, usersNext)),
-  refreshSearchTags: text => dispatch(refreshSearchTags(text)),
-  getSearchTagsNextPage: (text, tagsNext) => dispatch(getSearchTags(text, tagsNext)),
-  startNewSearch: () => dispatch(startNewSearch()),
-});
+const mapDispatchToProps = (dispatch) => {
+  const usersActionCreators = generatePaginatorActionCreators('search_users', '');
+  const tagsActionCreators = generatePaginatorActionCreators('search_tags', '');
+  return {
+    refreshUsers: searchText => dispatch(usersActionCreators.refresh(createSearchUsersURL(searchText))),
+    loadMoreUsers: (searchText, nextPage) => dispatch(usersActionCreators.loadMore(createSearchUsersURL(searchText, nextPage))),
+    refreshTags: searchText => dispatch(tagsActionCreators.refresh(createSearchTagsURL(searchText))),
+    loadMoreTags: (searchText, nextPage) => dispatch(tagsActionCreators.loadMore(createSearchTagsURL(searchText, nextPage))),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchUserOrTag);

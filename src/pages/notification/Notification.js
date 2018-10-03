@@ -1,7 +1,5 @@
 import LottieView from 'lottie-react-native';
-import {
-  Body, Header, Icon, Left, Right, Title,
-} from 'native-base';
+import { Body, Header, Icon, Left, Right, Title, } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -9,35 +7,32 @@ import { CustomStatusBar, NotificationComponent } from '../../components';
 import Loading from '../../components/Loading';
 import { Colors, Strings } from '../../config';
 import { strings } from '../../i18n';
-import { getNotifications, refreshNotifications, respondToFollowRequest } from './actions';
+import { respondToFollowRequest } from './actions';
 import {
-  selectNotifications,
-  selectNotificationsIsFirstFetch,
-  selectNotificationsIsLoading,
-  selectNotificationsIsRefreshing,
-  selectNotificationsNextPage,
-  selectNotificationsTotalPages,
-} from './reducer';
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+} from '../../reducers/paginator';
+import { createNotificationsURL } from '../../config/URLCreators';
 
 class Notification extends Component {
   componentWillMount() {
-    this.refreshNotifications();
+    this.refresh();
   }
 
   render() {
-    const { notifications, notificationsIsFirstFetch } = this.props;
+    const { notifications, isFirstFetch } = this.props;
     return (
       <View style={{ flex: 1 }}>
-        <CustomStatusBar />
+        <CustomStatusBar/>
         {this.renderHeader()}
-        {!notificationsIsFirstFetch ? (
+        {!isFirstFetch ? (
           <View style={{
             flex: 1,
           }}
           >
             {notifications.length === 0 ? this.showEmpty() : this.renderNotifications()}
           </View>
-        ) : <Loading />}
+        ) : <Loading/>}
       </View>
     );
   }
@@ -62,44 +57,44 @@ class Notification extends Component {
         androidStatusBarColor={Colors.BASE}
         style={{ backgroundColor: Colors.BASE }}
       >
-        <CustomStatusBar />
+        <CustomStatusBar/>
         <Left style={{
           flex: 1,
           marginLeft: 16,
         }}
         >
           <TouchableOpacity onPress={() => {
-            this.props.refreshNotifications();
+            this.props.refresh();
           }}
           >
-            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: 'white' }} />
+            <Icon name="refresh" type="MaterialCommunityIcons" style={{ color: 'white' }}/>
           </TouchableOpacity>
         </Left>
         <Body style={{ flex: 1 }}>
-          <Title style={{
-            alignSelf: 'center',
-            color: 'white',
-          }}
-          >
-            {strings(Strings.NOTIFICATIONS)}
-          </Title>
+        <Title style={{
+          alignSelf: 'center',
+          color: 'white',
+        }}
+        >
+          {strings(Strings.NOTIFICATIONS)}
+        </Title>
         </Body>
         <Right style={{
           flex: 1,
         }}
         >
-          <View />
+          <View/>
         </Right>
       </Header>
     );
   }
 
   renderNotifications() {
-    const { notificationsIsLoading, notifications } = this.props;
+    const { isLoading, notifications } = this.props;
     return (
       <FlatList
-        onRefresh={() => this.refreshNotifications()}
-        refreshing={notificationsIsLoading}
+        onRefresh={() => this.refresh()}
+        refreshing={isLoading}
         onEndReached={() => {
           this.updateNotifications();
         }}
@@ -125,21 +120,19 @@ class Notification extends Component {
   }
 
   sendRespondForFollowRequest(isAccept, username) {
-    const { respondToFollowRequest, refreshNotifications } = this.props;
+    const { respondToFollowRequest, refresh } = this.props;
     respondToFollowRequest(isAccept, username)
       .then((response) => {
-        refreshNotifications();
+        refresh();
       })
       .catch((error) => {
       });
   }
 
-  refreshNotifications() {
-    const {
-      notificationsIsLoading, notificationsIsRefreshing, refreshNotifications,
-    } = this.props;
-    if (!notificationsIsLoading && !notificationsIsRefreshing) {
-      refreshNotifications()
+  refresh() {
+    const { isLoading, isRefreshing, refresh } = this.props;
+    if (!isLoading && !isRefreshing) {
+      refresh()
         .then((response) => {
         })
         .catch((error) => {
@@ -149,11 +142,11 @@ class Notification extends Component {
 
   updateNotifications() {
     const {
-      notificationsNextPage, notificationsTotalPages, notificationsIsLoading, getNotificationsNextPage, notificationsIsRefreshing,
+      nextPage, totalPages, isLoading, loadMore, isRefreshing,
     } = this.props;
-    if (notificationsNextPage <= notificationsTotalPages && !notificationsIsLoading
-      && !notificationsIsRefreshing) {
-      getNotificationsNextPage(notificationsNextPage)
+    if (nextPage <= totalPages && !isLoading
+      && !isRefreshing) {
+      loadMore(nextPage)
         .then((response) => {
         })
         .catch((error) => {
@@ -162,19 +155,30 @@ class Notification extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  notifications: selectNotifications(state),
-  notificationsNextPage: selectNotificationsNextPage(state),
-  notificationsTotalPages: selectNotificationsTotalPages(state),
-  notificationsIsFirstFetch: selectNotificationsIsFirstFetch(state),
-  notificationsIsRefreshing: selectNotificationsIsRefreshing(state),
-  notificationsIsLoading: selectNotificationsIsLoading(state),
-});
+const mapStateToProps = (state) => {
+  const paginatorSelectors = generatePaginatorSelectors(state, 'notifications', '');
+  const {
+    selectData, selectNextPage, selectTotalPages,
+    selectIsFirstFetch, selectIsRefreshing, selectIsLoading,
+  } = paginatorSelectors;
+  return {
+    notifications: selectData(),
+    nextPage: selectNextPage(),
+    totalPages: selectTotalPages(),
+    isFirstFetch: selectIsFirstFetch(),
+    isRefreshing: selectIsRefreshing(),
+    isLoading: selectIsLoading(),
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  refreshNotifications: () => dispatch(refreshNotifications()),
-  getNotificationsNextPage: notificationsNext => dispatch(getNotifications(notificationsNext)),
-  respondToFollowRequest: (isAccept, username) => dispatch(respondToFollowRequest(isAccept, username)),
-});
+const mapDispatchToProps = (dispatch) => {
+  const paginatorActionCreators = generatePaginatorActionCreators('notifications', '');
+  const { refresh, loadMore } = paginatorActionCreators;
+  return {
+    refresh: () => dispatch(refresh(createNotificationsURL())),
+    loadMore: nextPage => dispatch(loadMore(createNotificationsURL(nextPage))),
+    respondToFollowRequest: (isAccept, username) => dispatch(respondToFollowRequest(isAccept, username)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

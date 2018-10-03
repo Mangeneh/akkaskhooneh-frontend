@@ -7,7 +7,7 @@ export const Actions = {
   SEND_POST_FAIL: 'SEND_POST_FAIL',
 };
 
-export const sendPost = (imageSource: string, caption: string, tags: string) => {
+export const sendPost = (imageSource: string, caption: string, tags: string[]) => {
   const formData = new FormData({});
   formData.append('picture', {
     uri: imageSource,

@@ -15,8 +15,8 @@ export const Server = {
   CHANGE_PRIVATE_STATUS: '/auth/change/status/',
   // Social - Posts
   GET_BOARDS_NEXT_PAGE: '/social/boards/',
-  GET_HOME_POSTS_NEXT_PAGE: '/social/feed/?page=',
-  GET_USER_PHOTOS_NEXT_PAGE: '/social/pictures/', // /social/pictures/${username}/?page=${nextPage}
+  GET_HOME_POSTS: '/social/feed/',
+  GET_USER_PHOTOS: '/social/pictures/', // /social/pictures/${username}/?page=${nextPage}
   // Social - Boards
   CREATE_BOARD: '/social/create-new-board/',
   ADD_POST_TO_BOARD: '/social/addnewposttoboard/',
@@ -35,12 +35,12 @@ export const Server = {
   FOLLOW_ACCEPT: '/social/accept/',
   FOLLOW_REQUEST_RESPONSE: '/social/request/accept/',
   // Tags
-  GET_SEARCH_TOP_TAGS: '/social/tophashtag/?page=',
+  GET_TOP_TAGS: '/social/tophashtag/',
   GET_TAGS_PHOTOS_NEXT_PAGE: '/social/tag/',
   // Search
   GET_SEARCH_USERS_RESULTS: '/social/search/user/',
   GET_SEARCH_TAGS_RESULTS: '/social/search/tags/',
   GET_SEARCH_FOLLOWERS_RESULTS: '/social/search/followers/',
   GET_SEARCH_FOLLOWINGS_RESULTS: '/social/search/following/',
-  GET_NOTIFICATIONS: '/social/notification/?page=',
+  GET_NOTIFICATIONS: '/social/notification/',
 };
