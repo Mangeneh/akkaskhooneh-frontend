@@ -9,7 +9,7 @@ export default () => (
     note
     style={styles.instruction}
   >
-    {strings(Strings.USERNAME_INSTRUCTION)}
+    {strings(Strings.BIO_INSTRUCTION)}
   </Text>
 );
 
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     color: 'white',
-    fontSize: Fonts.INSTRUCTIONS_FONT_SIZE,
-    marginBottom: 8,
+    fontSize: Fonts.INSTRUCTION_FONT_SIZE,
     marginTop: 4,
+    marginBottom: 8,
   },
 });

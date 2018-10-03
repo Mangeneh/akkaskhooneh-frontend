@@ -6,7 +6,7 @@ import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { ContactItem, CustomStatusBar, TagItem } from '../../components';
 import {
-  Colors, Constants, Graphics, Strings,
+  Colors, Constants, Graphics, hitSlop, Strings,
 } from '../../config';
 import { strings } from '../../i18n';
 import {
@@ -45,11 +45,11 @@ class SearchUserOrTag extends Component {
             <Tab
               heading={strings(Strings.TAGS)}
               activeTextStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               textStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               tabStyle={{ backgroundColor: 'white' }}
@@ -67,11 +67,11 @@ class SearchUserOrTag extends Component {
             <Tab
               heading={strings(Strings.USERS)}
               activeTextStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               textStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               activeTabStyle={{ backgroundColor: 'white' }}
@@ -103,7 +103,7 @@ class SearchUserOrTag extends Component {
         <CustomStatusBar />
         <TouchableOpacity
           onPress={() => this.props.navigation.goBack()}
-          hitSlop={Graphics.HIT_SLOP}
+          hitSlop={hitSlop}
           style={{
             justifyContent: 'center',
           }}

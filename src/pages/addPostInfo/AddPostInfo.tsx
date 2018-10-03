@@ -80,7 +80,7 @@ class AddPostInfo extends Component<IProps, IState> {
                 <Icon
                   type="EvilIcons"
                   name="location"
-                  style={{ color: Colors.TEXT }}
+                  style={{ color: Colors.DARK_TEXT }}
                 />
                 <Input
                   type="location"

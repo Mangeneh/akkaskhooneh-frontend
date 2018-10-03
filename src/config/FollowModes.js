@@ -1,5 +1,0 @@
-export const FollowModes = {
-  NOT_FOLLOWED: 'NOT_FOLLOWED',
-  FOLLOWED: 'FOLLOWED',
-  REQUESTED: 'REQUESTED',
-};

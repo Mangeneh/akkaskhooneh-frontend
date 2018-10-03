@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     marginRight: 16,
-    color: Colors.TEXT,
+    color: Colors.DARK_TEXT,
   },
   exit: {
     fontSize: Constants.TEXT_NORMAL_SIZE,
-    color: Colors.TEXT,
+    color: Colors.DARK_TEXT,
     textAlign: 'center',
     marginBottom: 20,
   },

@@ -1,0 +1,5 @@
+export enum FollowModes {
+  NOT_FOLLOWED = 'NOT_FOLLOWED',
+  FOLLOWED = 'FOLLOWED',
+  REQUESTED = 'REQUESTED',
+}

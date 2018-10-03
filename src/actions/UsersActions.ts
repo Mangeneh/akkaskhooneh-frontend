@@ -51,7 +51,7 @@ export const sendEmail = (email: string) => ({
   payload: {
     request: {
       method: RequestMethods.POST,
-      url: Server.FORGOT_PASSWORD,
+      url: Server.SEND_EMAIL,
       data: {
         email: email.toLowerCase(),
       },
@@ -133,7 +133,7 @@ export const accessTokenUpdated = (refreshToken: string) => ({
 });
 
 export const updateUserInfo = (username: string | undefined = undefined) => {
-  const url = username ? `${Server.UPDATE_USER}${username}/` : Server.UPDATE_USER;
+  const url = username ? `${Server.UPDATE_USER_INFO}${username}/` : Server.UPDATE_USER_INFO;
   return {
     type: UsersActions.UPDATE_USER_INFO,
     payload: {

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { ContactItem, CustomStatusBar } from '../../components';
 import Loading from '../../components/Loading';
 import {
-  Colors, Constants, Graphics, Parameters, Strings,
+  Colors, Constants, Graphics, hitSlop, Parameters, Strings,
 } from '../../config';
 import { strings } from '../../i18n';
 import {
@@ -46,11 +46,11 @@ class ContactList extends Component {
             <Tab
               heading={strings(Strings.FOLLOWERS)}
               activeTextStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               textStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               tabStyle={{ backgroundColor: 'white' }}
@@ -69,11 +69,11 @@ class ContactList extends Component {
             <Tab
               heading={strings(Strings.FOLLOWINGS)}
               activeTextStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               textStyle={{
-                color: Colors.TEXT,
+                color: Colors.DARK_TEXT,
                 fontSize: 12,
               }}
               activeTabStyle={{ backgroundColor: 'white' }}
@@ -106,7 +106,7 @@ class ContactList extends Component {
         <CustomStatusBar />
         <TouchableOpacity
           onPress={() => this.props.navigation.goBack()}
-          hitSlop={Graphics.HIT_SLOP}
+          hitSlop={hitSlop}
           style={{
             justifyContent: 'center',
           }}

@@ -101,11 +101,11 @@ class Profile extends Component {
         <Tab
           heading={strings(Strings.INTERESTS)}
           activeTextStyle={{
-            color: Colors.TEXT,
+            color: Colors.DARK_TEXT,
             fontSize: 12,
           }}
           textStyle={{
-            color: Colors.TEXT,
+            color: Colors.DARK_TEXT,
             fontSize: 12,
           }}
           tabStyle={{ backgroundColor: 'white' }}
@@ -116,11 +116,11 @@ class Profile extends Component {
         <Tab
           heading={strings(Strings.PHOTOS)}
           activeTextStyle={{
-            color: Colors.TEXT,
+            color: Colors.DARK_TEXT,
             fontSize: 12,
           }}
           textStyle={{
-            color: Colors.TEXT,
+            color: Colors.DARK_TEXT,
             fontSize: 12,
           }}
           activeTabStyle={{ backgroundColor: 'white' }}

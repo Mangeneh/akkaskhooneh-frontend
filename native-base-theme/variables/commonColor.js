@@ -119,7 +119,7 @@ export default {
   datePickerBg: 'transparent',
 
   // Font
-  DefaultFontSize: 16,
+  DefaultFontSize: 12,
   fontFamily: Fonts.NORMAL_FONT,
   fontSizeBase: 15,
   get fontSizeH1() {

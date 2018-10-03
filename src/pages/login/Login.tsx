@@ -111,9 +111,9 @@ class Login extends Component<IProps, IState> {
               />
               <TouchableOpacity
                 style={{ marginTop: 24 }}
-                onPress={() => navigation.navigate(Pages.FORGOT_PASSWORD)}
+                onPress={() => navigation.navigate(Pages.SEND_EMAIL)}
               >
-                <Text style={styles.text}>{strings(Strings.FORGOT_PASSWORD)}</Text>
+                <Text style={styles.text}>{strings(Strings.SEND_EMAIL)}</Text>
               </TouchableOpacity>
             </View>
             {this.renderOtherLoginSection()}

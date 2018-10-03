@@ -22,7 +22,7 @@ export default StyleSheet.create({
     flex: 1,
     height: 32,
     fontSize: Graphics.TEXT_NORMAL_SIZE,
-    color: Colors.TEXT,
+    color: Colors.DARK_TEXT,
   },
   tag: {
     justifyContent: 'center',

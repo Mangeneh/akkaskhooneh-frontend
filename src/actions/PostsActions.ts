@@ -20,7 +20,7 @@ export const getPostInfo = (postID: number) => ({
   payload: {
     request: {
       method: RequestMethods.GET,
-      url: `${Server.GET_POST_INFO}${postID}/`,
+      url: `${Server.GET_POST_DETAILS}${postID}/`,
     },
     postID,
   },

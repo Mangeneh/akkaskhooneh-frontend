@@ -1,0 +1,9 @@
+export enum Fonts {
+  NORMAL_FONT = 'IRANSansWeb',
+  BOLD_FONT = 'IRANSansWeb_Bold',
+  MEDIUM_FONT = 'IRANSansWeb_Medium',
+  NORMAL_FONT_SIZE = 12,
+  SUB_NORMAL_FONT_SIZE = 10,
+  SUB_SUB_NORMAL_FONT_SIZE = 8,
+  INSTRUCTION_FONT_SIZE = 10,
+}
