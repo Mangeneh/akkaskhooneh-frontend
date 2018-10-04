@@ -6,6 +6,7 @@
     "tslint-config-airbnb"
   ],
   "rules": {
+    "align": false,
     "interface-name": false,
     "ordered-imports": true,
     "import-name": false,

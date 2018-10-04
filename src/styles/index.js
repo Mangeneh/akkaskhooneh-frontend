@@ -1,2 +1,2 @@
-export * from './ButtonStyle';
-export * from './TextBoxStyle';
+export * from './ButtonStyle.ts';
+export * from './TextBoxStyle.ts';

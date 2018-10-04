@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Graphics } from '../config';
 
-export const TextBoxStyle = StyleSheet.create({
+export default StyleSheet.create({
   item: {
     backgroundColor: 'white',
     borderRadius: Graphics.BOX_RADIUS,
@@ -9,7 +9,7 @@ export const TextBoxStyle = StyleSheet.create({
   },
   input: {
     textAlign: 'center',
-    fontSize: Graphics.BOX_FONT_SIZE,
+    fontSize: Graphics.TEXT_BOX_FONT_SIZE,
   },
   icon: { color: Colors.ICON },
 });

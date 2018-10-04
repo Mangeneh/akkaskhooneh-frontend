@@ -2,7 +2,7 @@ import moment from 'moment';
 import { Strings } from '../config';
 import { strings } from '../i18n';
 
-export const calculateTimeDifference = (then) => {
+export const calculateTimeDifference = (then: string) => {
   const now = new Date();
   const ms = moment(now).utc()
     .diff(moment(then).utc());

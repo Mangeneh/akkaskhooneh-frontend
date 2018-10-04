@@ -1,5 +1,5 @@
 import { NavigationScreenProp } from 'react-navigation';
 
 export interface WithNavigation {
-  navigation: NavigationScreenProp;
+  navigation: NavigationScreenProp<any, any>;
 }

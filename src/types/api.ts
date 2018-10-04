@@ -1,3 +1,5 @@
+import { FollowStatus } from '../config';
+
 export interface PostDetails {
   owner_username: string;
   id: number;
@@ -11,7 +13,7 @@ export interface PostDetails {
   profile_picture: string;
 }
 
-export interface IComment {
+export interface Comment {
   id: number;
   comment: string;
   profile_picture: string;
@@ -19,25 +21,25 @@ export interface IComment {
   time: string;
 }
 
-export interface IBoard {
+export interface Board {
   name: string;
   id: number;
   count: number;
   last_pics: string[];
 }
 
-export interface IPhoto {
+export interface Photo {
   id: number;
   post_picture: string;
 }
 
-export interface ITag {
+export interface Tag {
   picture: string;
   tag_name: string;
   tag_id: number;
 }
 
-export interface IUser {
+export interface UserInfo {
   username: string;
   fullname: string;
   bio: string;
@@ -45,6 +47,6 @@ export interface IUser {
   followers: number;
   email: string | undefined;
   profile_picture: string;
-  following_status: number;
+  following_status: FollowStatus;
   is_private: boolean;
 }

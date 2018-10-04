@@ -13,11 +13,11 @@ import {
   generatePaginatorActionCreators,
   generatePaginatorSelectors,
 } from '../../reducers/paginator';
-import { ITag } from '../../types/api';
+import { Tag } from '../../types/api';
 
 export interface IProps {
   navigation: NavigationScreenProp;
-  topTags: ITag[];
+  topTags: Tag[];
   nextPage: number;
   totalPages: number;
   isFirstFetch: boolean;
@@ -28,7 +28,7 @@ export interface IProps {
 }
 
 interface IState {
-  topTags: ITag[];
+  topTags: Tag[];
 }
 
 class Search extends Component<IProps, IState> {

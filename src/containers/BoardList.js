@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { generatePaginatorActionCreators, generatePaginatorSelectors } from '../reducers/paginator.ts';
+import {
+  generatePaginatorActionCreators,
+  generatePaginatorSelectors,
+} from '../reducers/paginator.ts';
 import { Pages, Parameters } from '../config';
-import Loading from '../components/Loading';
+import { BoardPreview, Loading } from '../components';
 import { createUserBoardsURL } from '../config/URLCreators';
-import Board from '../components/Board';
 
 // TODO: Add Empty Mode
 
@@ -39,7 +41,7 @@ class BoardList extends Component {
 
   renderBoard(item) {
     return (
-      <Board board={item} onAllPress={() => this.onAllPress(item)} />
+      <BoardPreview board={item} onAllPress={() => this.onAllPress(item)} />
     );
   }
 

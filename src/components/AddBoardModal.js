@@ -15,7 +15,7 @@ import {
 } from '../common.ts';
 import Loading from './Loading';
 
-// TODO: Clear Field After Adding New Board
+// TODO: Clear Field After Adding New BoardPreview
 
 class AddBoardModal extends Component {
   componentWillMount() {

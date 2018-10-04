@@ -24,7 +24,7 @@ import {
   extractPostID,
   extractPostPictureURI,
   extractProfilePictureUri,
-  PlatformSpecificResizeMode,
+  choosePlatformSpecificResizeMode,
 } from '../helpers';
 import { strings } from '../i18n';
 import {
@@ -171,7 +171,7 @@ class Post extends Component {
                 height: WIDTH - 2 * margin,
                 flex: 1,
               }}
-              resizeMode={PlatformSpecificResizeMode()}
+              resizeMode={choosePlatformSpecificResizeMode()}
             />
           </CardItem>
         </TouchableOpacity>

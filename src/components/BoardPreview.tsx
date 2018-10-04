@@ -4,15 +4,14 @@ import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Fonts, Strings } from '../config';
 import { strings } from '../i18n';
-import { IBoard } from '../types/api';
-import { WithNavigation } from '../types/common';
+import { Board, WithNavigation } from '../types';
 
 export interface Props extends WithNavigation {
-  board: IBoard;
+  board: Board;
   onAllPress: () => void;
 }
 
-export default class Board extends Component<Props> {
+export default class BoardPreview extends Component<Props> {
   public render () {
     return (
       <View style={styles.board}>

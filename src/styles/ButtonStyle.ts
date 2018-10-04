@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Colors, PageModes } from '../config';
 
-export const ButtonStyle = StyleSheet.create({
+export const buttonStyle = StyleSheet.create({
   normalStyle: {
     alignSelf: 'center',
     marginRight: 32,
@@ -54,20 +54,20 @@ export const ButtonStyle = StyleSheet.create({
   },
 });
 
-export function chooseStyle(mode) {
+export const chooseStyle = (mode: PageModes) => {
   const {
     LOADING, ERROR, DISABLED, SUCCESS,
   } = PageModes;
   switch (mode) {
     case LOADING:
-      return ButtonStyle.loadingStyle;
+      return buttonStyle.loadingStyle;
     case ERROR:
-      return ButtonStyle.errorStyle;
+      return buttonStyle.errorStyle;
     case DISABLED:
-      return ButtonStyle.disabledStyle;
+      return buttonStyle.disabledStyle;
     case SUCCESS:
-      return ButtonStyle.successStyle;
+      return buttonStyle.successStyle;
     default:
-      return ButtonStyle.normalStyle;
+      return buttonStyle.normalStyle;
   }
-}
+};

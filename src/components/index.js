@@ -1,6 +1,6 @@
 import AddPostToBoardHeader from './AddPostToBoardHeader';
 import BackHeader from './BackHeader';
-import Board from './Board';
+import BoardPreview from './BoardPreview';
 import BoardsPageHeader from './BoardsPageHeader';
 import CameraRollPicker from './CameraRollPicker/CameraRollPicker';
 import ContactItem from './ContactItem';
@@ -33,7 +33,7 @@ export {
   FullStatusBar,
   CustomStatusBar,
   Tags,
-  Board,
+  BoardPreview,
   HomeHeader,
   BoardsPageHeader,
   PasswordInstruction,

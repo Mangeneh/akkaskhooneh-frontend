@@ -3,11 +3,11 @@ import _ from 'lodash';
 import { AnyAction } from 'redux';
 import { UsersActions } from '../actions';
 import { FollowStatus } from '../config';
-import { IUser, State } from '../types';
+import { State, UserInfo } from '../types';
 
 export interface UsersState {
   me: {
-    userInfo: IUser,
+    userInfo: UserInfo,
     isFirstFetch: boolean,
     accessToken: string,
     refreshToken: string,
@@ -15,13 +15,29 @@ export interface UsersState {
   };
 
   [username: string]: {
-    userInfo: IUser,
+    userInfo: UserInfo,
     isFirstFetch: boolean,
   };
 }
 
+const INITIAL_USER_INFO_STATE = {
+  username: '',
+  fullname: '',
+  bio: '',
+  following: 0,
+  followers: 0,
+  profile_picture: '',
+  following_status: FollowStatus.NOT_FOLLOWED,
+  is_private: false,
+};
+
+const INITIAL_SELF_USER_INFO_STATE = {
+  ...INITIAL_USER_INFO_STATE,
+  email: '',
+};
+
 const INITIAL_SELF_USER_STATE = {
-  userInfo: {},
+  userInfo: INITIAL_SELF_USER_INFO_STATE,
   isFirstFetch: true,
   accessToken: '',
   refreshToken: '',
@@ -29,7 +45,7 @@ const INITIAL_SELF_USER_STATE = {
 };
 
 const INITIAL_OTHER_USER_STATE = {
-  userInfo: {},
+  userInfo: INITIAL_USER_INFO_STATE,
   isFirstFetch: true,
 };
 
@@ -46,7 +62,7 @@ const users = produce<UsersState>((draft: UsersState, action: AnyAction) => {
     UN_FOLLOW_REQUEST,
     DELETE_FOLLOW_REQUEST,
     LOGIN_SUCCESS,
-    SIGN_UP_SUCCESS
+    SIGN_UP_SUCCESS,
   } = UsersActions;
   switch (action.type) {
     case UPDATE_USER_INFO: {
@@ -111,27 +127,45 @@ const selectSelf = (state: State) => selectUsers(state).me;
 
 const createUserBadge = (username: string) => username || 'me';
 
-const checkUserProperty = (state: State, username) => _.has(selectUsers(state), createUserBadge(username));
-const getUserProperty = (state: State, username) => {
+const checkUserProperty = (state: State, username = 'me') => _.has(selectUsers(state), username);
+const getUserProperty = (state: State, username = 'me') => {
   if (checkUserProperty(state, username)) {
-    return selectUsers(state)[createUserBadge(username, state)];
+    return selectUsers(state)[username];
   }
   return INITIAL_OTHER_USER_STATE;
 };
-export const selectUserInfoIsFirstFetch = (state, username) => getUserProperty(state, username).userInfoIsFirstFetch;
-export const selectUsername = (state, username) => getUserProperty(state, username).userInfo.username;
-export const selectBio = (state, username) => getUserProperty(state, username).userInfo.bio;
-export const selectFullName = (state, username) => getUserProperty(state, username).userInfo.fullname;
-export const selectNumOfFollowers = (state, username) => getUserProperty(state, username).userInfo.followers;
-export const selectNumOfFollowings = (state, username) => getUserProperty(state, username).userInfo.following;
-export const selectProfilePicture = (state, username) => getUserProperty(state, username).userInfo.profile_picture;
-export const selectProfileIsPrivate = (state, username) => getUserProperty(state, username).userInfo.is_private;
-export const selectProfileFollowStatus = (state, username) => getUserProperty(state, username).userInfo.following_status;
 
-export const selectSelfEmail = state => selectSelf(state).userInfo.email;
+export const selectIsFirstFetch = (state: State, username = 'me') =>
+  getUserProperty(state, username).isFirstFetch;
 
-export const selectAccessToken = state => selectSelf(state).accessToken;
-export const selectRefreshToken = state => selectSelf(state).refreshToken;
-export const selectLastRefreshTime = state => selectSelf(state).lastRefreshTime;
+export const selectUsername = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.username;
+
+export const selectBio = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.bio;
+
+export const selectFullName = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.fullname;
+
+export const selectNumOfFollowers = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.followers;
+
+export const selectNumOfFollowings = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.following;
+
+export const selectProfilePicture = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.profile_picture;
+
+export const selectProfileIsPrivate = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.is_private;
+
+export const selectProfileFollowStatus = (state: State, username = 'me') =>
+  getUserProperty(state, username).userInfo.following_status;
+
+export const selectSelfEmail = (state: State) => selectSelf(state).userInfo.email;
+
+export const selectAccessToken = (state: State) => selectSelf(state).accessToken;
+export const selectRefreshToken = (state: State) => selectSelf(state).refreshToken;
+export const selectLastRefreshTime = (state: State) => selectSelf(state).lastRefreshTime;
 
 export default users;

@@ -16,7 +16,7 @@ import { strings } from '../../i18n';
 import {
   selectProfileFollowStatus,
   selectProfileIsPrivate,
-  selectUserInfoIsFirstFetch,
+  selectIsFirstFetch,
   selectUsername,
 } from '../../reducers/users.ts';
 import { createUserPhotosURL } from '../../config/URLCreators';
@@ -180,7 +180,7 @@ const mapStateToProps = (state, ownProps) => {
       || (username ? selectUsername(state) === username : true),
     isPrivate: selectProfileIsPrivate(state, username),
     followingStatus: selectProfileFollowStatus(state, username),
-    userInfoIsFirstFetch: selectUserInfoIsFirstFetch(state, username),
+    userInfoIsFirstFetch: selectIsFirstFetch(state, username),
     selfUsername: selectUsername(state),
   };
 };

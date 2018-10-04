@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Fonts, Pages, Parameters } from '../config';
-import { IUser } from '../types/api';
+import { UserInfo } from '../types/api';
 import { WithNavigation } from '../types/common';
 
 interface Props extends WithNavigation {
-  user: IUser;
+  user: UserInfo;
 }
 
 class ContactItem extends Component<Props> {

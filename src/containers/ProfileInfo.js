@@ -15,16 +15,16 @@ import {
   selectNumOfFollowers,
   selectNumOfFollowings,
   selectProfilePicture,
-  selectUserInfoIsFirstFetch,
+  selectIsFirstFetch,
   selectUsername,
 } from '../reducers/users.ts';
 
 class ProfileInfo extends Component {
   render() {
     const {
-      bio, fullName, followers, followings, userInfoIsFirstFetch,
+      bio, fullName, followers, followings, isFirstFetch,
     } = this.props;
-    return (!userInfoIsFirstFetch ? (
+    return (!isFirstFetch ? (
       <View style={{
         height: 80,
         flexDirection: 'row',
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   const { username } = ownProps;
   return {
-    userInfoIsFirstFetch: selectUserInfoIsFirstFetch(state, username),
+    isFirstFetch: selectIsFirstFetch(state, username),
     selfUsername: selectUsername(state),
     bio: selectBio(state, username),
     profilePicture: selectProfilePicture(state, username),
