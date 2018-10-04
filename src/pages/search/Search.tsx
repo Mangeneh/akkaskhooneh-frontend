@@ -82,7 +82,7 @@ class Search extends Component<IProps, IState> {
           }}
         >
           <Input
-            placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
+            placeholder={strings(Strings.SEARCH_USER_OR_TAG)}
             onTouchStart={() => navigation.navigate(Pages.SEARCH_USER_OR_TAG)}
             style={{
               textAlign: 'right',

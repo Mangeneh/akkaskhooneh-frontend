@@ -8,9 +8,10 @@ import CustomStatusBar from './CustomStatusBar';
 
 export interface Props extends WithNavigation {
   title: string;
+  onBackPress: () => void;
 }
 
-export default withNavigation(({ title, navigation }: Props) => (
+export default withNavigation(({ title, navigation, onBackPress = navigation.goBack }: Props) => (
   <View>
     <Header androidStatusBarColor={Colors.BASE} style={{ backgroundColor: Colors.BASE }}>
       <CustomStatusBar/>
@@ -19,7 +20,7 @@ export default withNavigation(({ title, navigation }: Props) => (
         marginLeft: 8,
       }}
       >
-        <TouchableOpacity onPress={navigation.goBack} hitSlop={hitSlop}>
+        <TouchableOpacity onPress={() => onBackPress()} hitSlop={hitSlop}>
           <Icon name="arrow-left" type="MaterialCommunityIcons" style={{ color: 'white' }}/>
         </TouchableOpacity>
       </Left>

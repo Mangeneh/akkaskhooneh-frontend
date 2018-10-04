@@ -1,34 +1,41 @@
 import LottieView from 'lottie-react-native';
+import AnimatedLottieView from 'lottie-react-native';
 import React, { Component } from 'react';
-import { PermissionsAndroid, TouchableOpacity, View } from 'react-native';
+import { PermissionsAndroid, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 import { MaterialTopTabBar } from 'react-navigation/node_modules/react-navigation-tabs';
 import { connect } from 'react-redux';
-import { Colors } from '../config';
-import { Pages } from '../config/Pages';
-import NavigationService from '../NavigationService';
+import { Colors, Pages } from '../config';
+import { WithNavigation } from '../types/common';
 import CustomStatusBar from './CustomStatusBar';
 
-class BottomTabComponent extends Component {
-  componentWillReceiveProps(nextProps) {
+interface Props extends WithNavigation {
+  isLoading: boolean;
+}
+
+class BottomTabComponent extends Component<Props> {
+  private animation: AnimatedLottieView;
+
+  constructor (props: Readonly<Props>) {
+    super(props);
+    this.onNewPostPress = this.onNewPostPress.bind(this);
+  }
+
+  public componentWillReceiveProps (nextProps: Readonly<Props>) {
     if (nextProps.isLoading) {
       this.animation.play();
     }
   }
 
-  render() {
+  public render () {
     return (
       <View>
-        <CustomStatusBar />
+        <CustomStatusBar/>
         <TouchableOpacity
           activeOpacity={0.8}
-          style={{
-            position: 'absolute',
-            zIndex: 10,
-            alignSelf: 'center',
-            bottom: 20,
-          }}
-          onPress={() => this.onNewPostPress()}
+          style={styles.plusButton}
+          onPress={this.onNewPostPress}
         >
           <Icon
             name="plus"
@@ -47,13 +54,11 @@ class BottomTabComponent extends Component {
     );
   }
 
-  renderLoadingBar() {
+  public renderLoadingBar () {
     const { isLoading } = this.props;
     return (
       <LottieView
-        ref={(animation) => {
-          this.animation = animation;
-        }}
+        ref={(animation: AnimatedLottieView) => this.animation = animation}
         source={require('../assets/animations/progress_bar')}
         loop={isLoading}
         style={{
@@ -67,17 +72,26 @@ class BottomTabComponent extends Component {
     );
   }
 
-  async onNewPostPress() {
+  private async onNewPostPress () {
     await this.authorizeGalleryCamera();
-    NavigationService.navigate(Pages.NEW_POST);
+    this.props.navigation.navigate(Pages.NEW_POST);
   }
 
-  async authorizeGalleryCamera() {
+  private async authorizeGalleryCamera () {
     await PermissionsAndroid.requestMultiple([
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
       PermissionsAndroid.PERMISSIONS.CAMERA]);
   }
 }
+
+const styles = StyleSheet.create({
+  plusButton: {
+    position: 'absolute',
+    zIndex: 10,
+    alignSelf: 'center',
+    bottom: 20,
+  },
+});
 
 // TODO: Complete This
 
@@ -85,4 +99,4 @@ const mapStateToProps = state => ({
   isLoading: false,
 });
 
-export default connect(mapStateToProps, null)(BottomTabComponent);
+export default connect(mapStateToProps, null)(withNavigation(BottomTabComponent));

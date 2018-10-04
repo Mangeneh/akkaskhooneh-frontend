@@ -6,7 +6,7 @@ import { FlatList, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { ContactItem, CustomStatusBar, TagItem } from '../../components';
 import {
-  Colors, Constants, Graphics, hitSlop, Strings,
+  Colors, Constants, hitSlop, Strings,
 } from '../../config';
 import { strings } from '../../i18n';
 import {
@@ -119,7 +119,7 @@ class SearchUserOrTag extends Component {
         >
           <Input
             autoFocus
-            placeholder={strings(Strings.SEARCH_USER_OR_PIC)}
+            placeholder={strings(Strings.SEARCH_USER_OR_TAG)}
             style={{
               textAlign: 'right',
               fontSize: Constants.ITEM_FONT_SIZE,

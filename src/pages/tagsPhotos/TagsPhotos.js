@@ -11,7 +11,7 @@ const TagsPhotos = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <CustomStatusBar />
-      <BackHeader title={tagName} onBackPress={() => navigation.goBack()} />
+      <BackHeader title={tagName} />
       <PhotoList
         name="tag_photos_"
         id={tagID}

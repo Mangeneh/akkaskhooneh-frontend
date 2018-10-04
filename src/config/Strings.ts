@@ -63,7 +63,7 @@ export enum Strings {
   SHOW_POST_INFO = 'show_post_info',
   COMMENT = 'comment',
   YOUR_PHOTOS = 'your-photos',
-  SEARCH_USER_OR_PIC = 'search_user_or_pic',
+  SEARCH_USER_OR_TAG = 'search_user_or_tag',
   LIKE_NOTIFICATION = 'like_notification',
   COMMENT_NOTIFICATION = 'comment_notification',
   FOLLOW_NOTIFICATION = 'follow_notification',
