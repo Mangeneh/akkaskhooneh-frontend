@@ -3,10 +3,9 @@ import _ from 'lodash';
 import { AnyAction } from 'redux';
 import { UsersActions } from '../actions';
 import { FollowStatus } from '../config';
-import { IUser } from '../types/api';
-import { IState } from '../types/state';
+import { IUser, State } from '../types';
 
-export interface IUsersState {
+export interface UsersState {
   me: {
     userInfo: IUser,
     isFirstFetch: boolean,
@@ -14,6 +13,7 @@ export interface IUsersState {
     refreshToken: string,
     lastRefreshTime: number,
   };
+
   [username: string]: {
     userInfo: IUser,
     isFirstFetch: boolean,
@@ -37,7 +37,7 @@ const INITIAL_STATE = {
   me: INITIAL_SELF_USER_STATE,
 };
 
-const users = produce<IUsersState>((draft: IUsersState, action: AnyAction) => {
+const users = produce<UsersState>((draft: UsersState, action: AnyAction) => {
   const {
     UPDATE_ACCESS_TOKEN_SUCCESS,
     UPDATE_USER_INFO_SUCCESS,
@@ -105,14 +105,14 @@ const users = produce<IUsersState>((draft: IUsersState, action: AnyAction) => {
   }
 }, INITIAL_STATE);
 
-export const selectUsers = (state: IState) => state.users;
+export const selectUsers = (state: State) => state.users;
 
-const selectSelf = (state: IState) => selectUsers(state).me;
+const selectSelf = (state: State) => selectUsers(state).me;
 
 const createUserBadge = (username: string) => username || 'me';
 
-const checkUserProperty = (state: IState, username) => _.has(selectUsers(state), createUserBadge(username));
-const getUserProperty = (state: IState, username) => {
+const checkUserProperty = (state: State, username) => _.has(selectUsers(state), createUserBadge(username));
+const getUserProperty = (state: State, username) => {
   if (checkUserProperty(state, username)) {
     return selectUsers(state)[createUserBadge(username, state)];
   }

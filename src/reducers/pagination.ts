@@ -1,13 +1,13 @@
 import produce from 'immer';
 import { AnyAction } from 'redux';
-import { IPagination, IPaginatorFailAction, IPaginatorSuccessAction } from '../types/pagination';
+import { Pagination, PaginatorFailAction, PaginatorSuccessAction } from '../types';
 import { PaginatorActions } from './paginator';
 
-export interface IPaginationState {
-  [field: string]: IPagination;
+export interface PaginationState {
+  [field: string]: Pagination;
 }
 
-const pagination = produce<IPaginationState>((draft: IPaginationState, action: AnyAction) => {
+const pagination = produce<PaginationState>((draft: PaginationState, action: AnyAction) => {
   switch (action.type) {
     case PaginatorActions.REFRESH: {
       const { field, initialState } = action.payload;
@@ -19,7 +19,7 @@ const pagination = produce<IPaginationState>((draft: IPaginationState, action: A
       return;
     }
     case PaginatorActions.REFRESH_SUCCESS: {
-      const currentAction = action as IPaginatorSuccessAction;
+      const currentAction = action as PaginatorSuccessAction;
       const field = currentAction.meta.previousAction.payload.field;
       draft[field] = {
         ...draft[field],
@@ -32,7 +32,7 @@ const pagination = produce<IPaginationState>((draft: IPaginationState, action: A
       return;
     }
     case PaginatorActions.REFRESH_FAIL: {
-      const currentAction = action as IPaginatorFailAction;
+      const currentAction = action as PaginatorFailAction;
       const field = currentAction.meta.previousAction.payload.field;
       draft[field] = {
         ...draft[field],
@@ -49,7 +49,7 @@ const pagination = produce<IPaginationState>((draft: IPaginationState, action: A
       return;
     }
     case PaginatorActions.LOAD_MORE_SUCCESS: {
-      const currentAction = action as IPaginatorSuccessAction;
+      const currentAction = action as PaginatorSuccessAction;
       const field = currentAction.meta.previousAction.payload.field;
       draft[field] = {
         ...draft[field],
@@ -61,7 +61,7 @@ const pagination = produce<IPaginationState>((draft: IPaginationState, action: A
       return;
     }
     case PaginatorActions.LOAD_MORE_FAIL: {
-      const currentAction = action as IPaginatorFailAction;
+      const currentAction = action as PaginatorFailAction;
       const field = currentAction.meta.previousAction.payload.field;
       draft[field] = {
         ...draft[field],

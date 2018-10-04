@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware } from 'redux';
 import axiosMiddleware from 'redux-axios-middleware';
 import { persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
-import { selectAccessToken, selectRefreshToken } from './reducers/users.ts';
-import { accessTokenUpdated, UsersActions } from './actions/UsersActions.ts';
-import rootReducer from './reducers';
+import { accessTokenUpdated, UsersActions } from './actions';
 import Reactotron from './ReactotronConfig';
+import rootReducer from './reducers';
+import { selectAccessToken, selectRefreshToken } from './reducers/users';
 
 export default () => {
   const client = axios.create({
@@ -34,7 +34,7 @@ export default () => {
         interceptors: {
           request: [
             {
-              success({ getState, dispatch, getSourceAction }, request) {
+              success ({ getState, dispatch, getSourceAction }, request) {
                 const { type } = request.reduxSourceAction;
                 if (type === UsersActions.SIGN_UP
                   || type === UsersActions.VALIDATE_EMAIL
@@ -50,14 +50,13 @@ export default () => {
           ],
           response: [
             {
-              success({ getState, dispatch, getSourceAction }, response) {
+              success ({ getState, dispatch, getSourceAction }, response) {
                 return response;
               },
-              error({ getState, dispatch, getSourceAction }, error) {
+              error ({ getState, dispatch, getSourceAction }, error) {
                 if (error.response.status === 401) {
                   return dispatch(accessTokenUpdated(selectRefreshToken(getState())))
                     .then(() => {
-                      // eslint-disable-next-line no-param-reassign
                       error.config.headers.authorization = `Bearer ${selectAccessToken(getState())}`;
                       return axios(error.config);
                     });

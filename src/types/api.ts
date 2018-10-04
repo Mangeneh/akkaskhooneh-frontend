@@ -1,4 +1,4 @@
-export interface IPostDetails {
+export interface PostDetails {
   owner_username: string;
   id: number;
   tags_list: string[];

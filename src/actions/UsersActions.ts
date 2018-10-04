@@ -1,5 +1,4 @@
-import { Server } from '../config';
-import { RequestMethods } from '../utils/RequestMethods';
+import { RequestMethods, Server } from '../config';
 
 export enum UsersActions {
   LOGIN = 'LOGIN',
@@ -226,7 +225,7 @@ export const changeStatus = () => ({
   },
 });
 
-export const changeProfilePic = formData => ({
+export const changeProfilePic = (formData: FormData) => ({
   type: UsersActions.CHANGE_PROFILE_PIC,
   payload: {
     request: {

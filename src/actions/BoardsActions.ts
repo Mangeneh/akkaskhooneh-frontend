@@ -1,5 +1,4 @@
-import { Server } from '../config';
-import { RequestMethods } from '../utils/RequestMethods';
+import { RequestMethods, Server } from '../config';
 
 export enum BoardsActions {
   ADD_POST_TO_BOARD = 'ADD_POST_TO_BOARD',

@@ -2,18 +2,17 @@ import produce from 'immer';
 import _ from 'lodash';
 import { AnyAction } from 'redux';
 import { PostsActions } from '../actions';
-import { IPostDetails } from '../types/api';
-import { IState } from '../types/state';
+import { PostDetails, State } from '../types';
 
-export interface IPost {
-  postDetails: IPostDetails;
+export interface Post {
+  postDetails: PostDetails;
   isFirstFetch: boolean;
   isLoading: boolean;
   isSendingComment: boolean;
 }
 
-export interface IPostsState {
-  [field: string]: IPost;
+export interface PostsState {
+  [field: string]: Post;
 }
 
 const INITIAL_POST_STATE = {
@@ -25,10 +24,10 @@ const INITIAL_POST_STATE = {
 
 const INITIAL_STATE = {};
 
-const posts = produce<IPostsState>((draft: IPostsState, action: AnyAction) => {
+const posts = produce<PostsState>((draft: PostsState, action: AnyAction) => {
   switch (action.type) {
     case PostsActions.INJECT_NEW_POSTS: {
-      action.payload.forEach((postDetails: IPostDetails) => {
+      action.payload.forEach((postDetails: PostDetails) => {
         const postField = createPostBadge(postDetails.id);
         draft[postField] = {
           ...INITIAL_POST_STATE,
@@ -80,27 +79,27 @@ const posts = produce<IPostsState>((draft: IPostsState, action: AnyAction) => {
   }
 }, INITIAL_STATE);
 
-export const selectPosts = (state: IState) => state.posts;
+export const selectPosts = (state: State) => state.posts;
 
 const createPostBadge = (postID: number) => `post_${postID}`;
 
-const checkPostProperty = (state: IState, postID: number) =>
+const checkPostProperty = (state: State, postID: number) =>
   _.has(selectPosts(state), createPostBadge(postID));
 
-const getPostProperty = (state: IState, postID: number) => {
+const getPostProperty = (state: State, postID: number) => {
   const postProperty = createPostBadge(postID);
   if (checkPostProperty(state, postID)) {
     return selectPosts(state)[postProperty];
   }
   return INITIAL_POST_STATE;
 };
-export const selectPostInfo = (state: IState, postID: number) =>
+export const selectPostInfo = (state: State, postID: number) =>
   getPostProperty(state, postID).postDetails;
-export const selectPostInfoIsFirstFetch = (state: IState, postID: number) =>
+export const selectPostInfoIsFirstFetch = (state: State, postID: number) =>
   getPostProperty(state, postID).isFirstFetch;
-export const selectPostInfoIsLoading = (state: IState, postID: number) =>
+export const selectPostInfoIsLoading = (state: State, postID: number) =>
   getPostProperty(state, postID).isLoading;
-export const selectIsSendingComment = (state: IState, postID: number) =>
+export const selectIsSendingComment = (state: State, postID: number) =>
   getPostProperty(state, postID).isSendingComment;
 
 export default posts;

@@ -1,9 +1,9 @@
-import { IPaginationState } from '../reducers/pagination';
-import { IPostsState } from '../reducers/posts';
-import { IUsersState } from '../reducers/users';
+import { PaginationState } from '../reducers/pagination';
+import { PostsState } from '../reducers/posts';
+import { UsersState } from '../reducers/users';
 
-export interface IState {
-  users: IUsersState;
-  posts: IPostsState;
-  pagination: IPaginationState;
+export interface State {
+  users: UsersState;
+  posts: PostsState;
+  pagination: PaginationState;
 }

@@ -1,8 +1,8 @@
 import { AnyAction } from 'redux';
+import { RequestMethods } from '../config';
 import { PaginatorActions } from '../reducers/paginator';
-import { RequestMethods } from '../utils/RequestMethods';
 
-export interface IPaginatorRequestAction extends AnyAction {
+export interface PaginatorRequestAction extends AnyAction {
   type: PaginatorActions.REFRESH | PaginatorActions.LOAD_MORE;
   payload: {
     request: {
@@ -14,14 +14,14 @@ export interface IPaginatorRequestAction extends AnyAction {
   };
 }
 
-export interface IPaginatorSuccessAction extends AnyAction {
-  payload: IPaginatorSuccessPayload;
+export interface PaginatorSuccessAction extends AnyAction {
+  payload: PaginatorSuccessPayload;
   meta: {
-    previousAction: IPaginatorRequestAction,
+    previousAction: PaginatorRequestAction,
   };
 }
 
-export interface IPaginatorSuccessPayload {
+export interface PaginatorSuccessPayload {
   data: {
     count: number,
     results: any[],
@@ -29,13 +29,13 @@ export interface IPaginatorSuccessPayload {
   };
 }
 
-export interface IPaginatorFailAction extends AnyAction {
+export interface PaginatorFailAction extends AnyAction {
   meta: {
-    previousAction: IPaginatorRequestAction,
+    previousAction: PaginatorRequestAction,
   };
 }
 
-export interface IPagination {
+export interface Pagination {
   data: any[];
   nextPage: number;
   totalPages: number;

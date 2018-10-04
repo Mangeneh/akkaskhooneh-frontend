@@ -1,6 +1,5 @@
-import { Server } from '../config';
-import { IPostDetails } from '../types/api';
-import { RequestMethods } from '../utils/RequestMethods';
+import { RequestMethods, Server } from '../config';
+import { PostDetails } from '../types/api';
 
 export enum PostsActions {
   INJECT_NEW_POSTS = 'INJECT_NEW_POSTS',
@@ -55,7 +54,7 @@ export const sendComment = (postID: number, commentText: string) => ({
   },
 });
 
-export const injectNewPosts = (newPosts: IPostDetails[]) => ({
+export const injectNewPosts = (newPosts: PostDetails[]) => ({
   type: PostsActions.INJECT_NEW_POSTS,
   payload: newPosts,
 });

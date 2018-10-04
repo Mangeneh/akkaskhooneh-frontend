@@ -1,24 +1,24 @@
 import { createUserBoardsURL, createUserPhotosURL } from './config/URLCreators';
 import { generatePaginatorActionCreators, generatePaginatorSelectors } from './reducers/paginator';
 import { selectUsername } from './reducers/users';
-import { IState } from './types/state';
+import { State } from './types/state';
 
-export const generateSelfPhotosSelectors = (state: IState) => {
+export const generateSelfPhotosSelectors = (state: State) => {
   const selfUsername = selectUsername(state);
   return generatePaginatorSelectors(state, 'user_photos_', selfUsername);
 };
 
-export const generateSelfBoardsSelectors = (state: IState) => {
+export const generateSelfBoardsSelectors = (state: State) => {
   const selfUsername = selectUsername(state);
   return generatePaginatorSelectors(state, 'user_boards_', selfUsername);
 };
 
-export const generateSelfPhotosActions = (state: IState) => {
+export const generateSelfPhotosActions = (state: State) => {
   const selfUsername = selectUsername(state);
   return generatePaginatorActionCreators('user_photos_', selfUsername);
 };
 
-export const generateSelfBoardsActions = (state: IState) => {
+export const generateSelfBoardsActions = (state: State) => {
   const selfUsername = selectUsername(state);
   return generatePaginatorActionCreators('user_boards_', selfUsername);
 };

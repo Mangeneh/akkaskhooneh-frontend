@@ -1,6 +1,5 @@
-import { IPaginatorRequestAction, IPaginatorSuccessAction } from '../types/pagination';
-import { IState } from '../types/state';
-import { RequestMethods } from '../utils/RequestMethods';
+import { RequestMethods } from '../config';
+import { State, PaginatorRequestAction, PaginatorSuccessAction } from '../types';
 
 export enum PaginatorActions {
   REFRESH = 'REFRESH',
@@ -21,7 +20,7 @@ const initialState = {
 };
 
 export type IOnSuccess = ((dispatch: IDispatch, data: any[]) => any) | undefined;
-type IDispatch = (action: IPaginatorRequestAction) => Promise<IPaginatorSuccessAction>;
+type IDispatch = (action: PaginatorRequestAction) => Promise<PaginatorSuccessAction>;
 
 export const generatePaginatorActionCreators =
   (name: string, id: string, onRefreshSuccess: IOnSuccess = undefined, onLoadMoreSuccess: IOnSuccess = undefined) => {
@@ -68,7 +67,7 @@ export const generatePaginatorActionCreators =
     };
   };
 
-export const generatePaginatorSelectors = (state: IState, name: string, id: string) => {
+export const generatePaginatorSelectors = (state: State, name: string, id: string) => {
   const field = createField(name, id);
   const selectData = (): any[] => selectField(state, field).data;
   const selectNextPage = (): number => selectField(state, field).nextPage;
@@ -87,8 +86,8 @@ export const generatePaginatorSelectors = (state: IState, name: string, id: stri
 };
 
 const createField = (name: string, id: string) => `${name}${id}`;
-const selectPagination = (state: IState) => state.pagination;
-const selectField = (state: IState, field: string) => {
+const selectPagination = (state: State) => state.pagination;
+const selectField = (state: State, field: string) => {
   const stateField = selectPagination(state)[field];
   if (stateField === undefined) {
     return initialState;
