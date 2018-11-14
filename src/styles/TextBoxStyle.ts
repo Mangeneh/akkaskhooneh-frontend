@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Graphics } from '../config';
 
-export default StyleSheet.create({
+export const textBoxStyle = StyleSheet.create({
   item: {
     backgroundColor: 'white',
     borderRadius: Graphics.BOX_RADIUS,

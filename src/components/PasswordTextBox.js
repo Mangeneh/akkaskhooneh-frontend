@@ -1,21 +1,21 @@
 import { Icon, Input, Item } from 'native-base';
 import React from 'react';
-import { TextBoxStyle } from '../styles';
+import { textBoxStyle } from '../styles';
 
 export default ({
   error, onChangePassword, value, reset, placeholder,
 }) => (
   <Item
-    style={TextBoxStyle.item}
+    style={textBoxStyle.item}
     rounded
     error={error}
   >
-    <Icon name="key" style={TextBoxStyle.icon} />
+    <Icon name="key" style={textBoxStyle.icon} />
     <Input
       placeholder={placeholder}
       secureTextEntry
       value={value}
-      style={TextBoxStyle.input}
+      style={textBoxStyle.input}
       onChangeText={onChangePassword}
     />
     <Icon name={error ? 'close-circle' : null} onPress={reset} />

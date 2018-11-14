@@ -1,20 +1,21 @@
+import { ActionCreator } from 'redux';
 import { RequestMethods, Server } from '../config';
-import { PostDetails } from '../types/api';
+import { PostAction, PostDetails } from '../types';
 
 export enum PostsActions {
   INJECT_NEW_POSTS = 'INJECT_NEW_POSTS',
   GET_POST_DETAILS = 'GET_POST_DETAILS',
   GET_POST_DETAILS_SUCCESS = 'GET_POST_DETAILS_SUCCESS',
-  GET_POST_DETAILS_FAIL = 'GET_POST_DETAILS_Fail',
+  // GET_POST_DETAILS_FAIL = 'GET_POST_DETAILS_Fail',
   LIKE_OR_DISLIKE = 'LIKE_OR_DISLIKE',
-  LIKE_OR_DISLIKE_SUCCESS = 'LIKE_OR_DISLIKE_SUCCESS',
-  LIKE_OR_DISLIKE_FAIL = 'LIKE_OR_DISLIKE_FAIL',
+  // LIKE_OR_DISLIKE_SUCCESS = 'LIKE_OR_DISLIKE_SUCCESS',
+  // LIKE_OR_DISLIKE_FAIL = 'LIKE_OR_DISLIKE_FAIL',
   COMMENT = 'COMMENT',
   COMMENT_SUCCESS = 'COMMENT_SUCCESS',
   COMMENT_FAIL = 'COMMENT_FAIL',
 }
 
-export const getPostInfo = (postID: number) => ({
+export const getPostInfo: ActionCreator<PostAction> = (postID: number) => ({
   type: PostsActions.GET_POST_DETAILS,
   payload: {
     request: {
@@ -25,7 +26,7 @@ export const getPostInfo = (postID: number) => ({
   },
 });
 
-export const sendLikeOrDislike = (postID: number) => ({
+export const sendLikeOrDislike: ActionCreator<PostAction> = (postID: number) => ({
   type: PostsActions.LIKE_OR_DISLIKE,
   payload: {
     request: {
@@ -39,7 +40,7 @@ export const sendLikeOrDislike = (postID: number) => ({
   },
 });
 
-export const sendComment = (postID: number, commentText: string) => ({
+export const sendComment: ActionCreator<PostAction> = (postID: number, commentText: string) => ({
   type: PostsActions.COMMENT,
   payload: {
     request: {
@@ -54,6 +55,7 @@ export const sendComment = (postID: number, commentText: string) => ({
   },
 });
 
+// TODO: This must be removed someday!
 export const injectNewPosts = (newPosts: PostDetails[]) => ({
   type: PostsActions.INJECT_NEW_POSTS,
   payload: newPosts,

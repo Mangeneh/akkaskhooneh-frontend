@@ -1,4 +1,6 @@
-import { FollowStatus } from '../config';
+import { AnyAction } from 'redux';
+import { BoardsActions, PostsActions, UsersActions } from '../actions';
+import { FollowStatus, RequestMethods } from '../config';
 
 export interface PostDetails {
   owner_username: string;
@@ -49,4 +51,41 @@ export interface UserInfo {
   profile_picture: string;
   following_status: FollowStatus;
   is_private: boolean;
+}
+
+export interface UserAction extends AnyAction {
+  type: UsersActions;
+  payload: {
+    request: {
+      method: RequestMethods,
+      url: string,
+      data?: any,
+    },
+    username?: string,
+  };
+}
+
+export interface PostAction extends AnyAction {
+  type: PostsActions;
+  payload: {
+    request: {
+      method: RequestMethods,
+      url: string,
+      data?: any,
+    },
+    postID: number,
+  };
+}
+
+export interface BoardAction extends AnyAction {
+  type: BoardsActions;
+  payload: {
+    request: {
+      method: RequestMethods,
+      url: string,
+      data: any,
+    },
+    postID?: number,
+    boardID?: number,
+  };
 }

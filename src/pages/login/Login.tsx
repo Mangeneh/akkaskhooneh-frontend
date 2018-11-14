@@ -7,8 +7,7 @@ import { NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
 import { loginUser, updateUserInfo } from '../../actions';
 import { CustomStatusBar, EmailTextBox, PasswordTextBox, SpinnerButton } from '../../components';
-import { Colors, Fonts, Pages, Strings } from '../../config';
-import { PageModes } from '../../config/PageModes';
+import { Colors, Fonts, PageModes, Pages, Strings } from '../../config';
 import { checkEmail, checkPassword } from '../../helpers/Validators';
 import { strings } from '../../i18n';
 
@@ -111,9 +110,9 @@ class Login extends Component<IProps, IState> {
               />
               <TouchableOpacity
                 style={{ marginTop: 24 }}
-                onPress={() => navigation.navigate(Pages.SEND_EMAIL)}
+                onPress={() => navigation.navigate(Pages.FORGOT_PASSWORD)}
               >
-                <Text style={styles.text}>{strings(Strings.SEND_EMAIL)}</Text>
+                <Text style={styles.text}>{strings(Strings.FORGOT_PASSWORD)}</Text>
               </TouchableOpacity>
             </View>
             {this.renderOtherLoginSection()}
@@ -158,7 +157,7 @@ class Login extends Component<IProps, IState> {
       }}
       >
         <TouchableOpacity style={{ alignSelf: 'center' }} onPress={this.onSignUpPress}>
-          <Text style={styles.text}>{strings('sign_up')}</Text>
+          <Text style={styles.text}>{strings(Strings.SIGN_UP)}</Text>
         </TouchableOpacity>
       </View>
     );

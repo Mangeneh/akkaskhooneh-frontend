@@ -1,5 +1,6 @@
+import { ThunkDispatch } from 'redux-thunk';
 import { RequestMethods } from '../config';
-import { State, PaginatorRequestAction, PaginatorSuccessAction } from '../types';
+import { PaginatorRequestAction, PaginatorSuccessAction, State } from '../types';
 
 export enum PaginatorActions {
   REFRESH = 'REFRESH',
@@ -23,7 +24,8 @@ export type IOnSuccess = ((dispatch: IDispatch, data: any[]) => any) | undefined
 type IDispatch = (action: PaginatorRequestAction) => Promise<PaginatorSuccessAction>;
 
 export const generatePaginatorActionCreators =
-  (name: string, id: string, onRefreshSuccess: IOnSuccess = undefined, onLoadMoreSuccess: IOnSuccess = undefined) => {
+  (name: string, id: string, onRefreshSuccess: IOnSuccess = undefined,
+   onLoadMoreSuccess: IOnSuccess = undefined) => {
     const field = createField(name, id);
     const refresh = (url: string) => (dispatch: IDispatch) => {
       return dispatch({

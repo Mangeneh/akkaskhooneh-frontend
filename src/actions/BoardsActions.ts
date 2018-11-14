@@ -1,18 +1,20 @@
+import { ActionCreator } from 'redux';
 import { RequestMethods, Server } from '../config';
+import { BoardAction } from '../types';
 
 export enum BoardsActions {
   ADD_POST_TO_BOARD = 'ADD_POST_TO_BOARD',
-  ADD_POST_TO_BOARD_SUCCESS = 'ADD_POST_TO_BOARD_SUCCESS',
-  ADD_POST_TO_BOARD_FAIL = 'ADD_POST_TO_BOARD_FAIL',
+  // ADD_POST_TO_BOARD_SUCCESS = 'ADD_POST_TO_BOARD_SUCCESS',
+  // ADD_POST_TO_BOARD_FAIL = 'ADD_POST_TO_BOARD_FAIL',
   CREATE_BOARD = 'CREATE_BOARD',
-  CREATE_BOARD_SUCCESS = 'CREATE_BOARD_SUCCESS',
-  CREATE_BOARD_FAIL = 'CREATE_BOARD_FAIL',
+  // CREATE_BOARD_SUCCESS = 'CREATE_BOARD_SUCCESS',
+  // CREATE_BOARD_FAIL = 'CREATE_BOARD_FAIL',
   DELETE_BOARD = 'DELETE_BOARD',
-  DELETE_BOARD_SUCCESS = 'DELETE_BOARD_SUCCESS',
-  DELETE_BOARD_FAIL = 'DELETE_BOARD_FAIL',
+  // DELETE_BOARD_SUCCESS = 'DELETE_BOARD_SUCCESS',
+  // DELETE_BOARD_FAIL = 'DELETE_BOARD_FAIL',
 }
 
-export const addPostToBoard = (postID: number, boardID: string) => ({
+export const addPostToBoard: ActionCreator<BoardAction> = (postID: number, boardID: string) => ({
   type: BoardsActions.ADD_POST_TO_BOARD,
   payload: {
     request: {
@@ -28,7 +30,7 @@ export const addPostToBoard = (postID: number, boardID: string) => ({
   },
 });
 
-export const createBoard = (boardName: string) => ({
+export const createBoard: ActionCreator<BoardAction> = (boardName: string) => ({
   type: BoardsActions.CREATE_BOARD,
   payload: {
     request: {
@@ -41,7 +43,7 @@ export const createBoard = (boardName: string) => ({
   },
 });
 
-export const deleteBoard = (boardID: number) => ({
+export const deleteBoard: ActionCreator<BoardAction> = (boardID: number) => ({
   type: BoardsActions.DELETE_BOARD,
   payload: {
     request: {
